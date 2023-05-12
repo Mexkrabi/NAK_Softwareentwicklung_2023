@@ -12,7 +12,7 @@ public class Main
     //Main Funktion
     public static void main(String[] args) {
         
-        
+        System.out.println("Hello World!");
         /*
          * Grober Ablauf
          * -------------
