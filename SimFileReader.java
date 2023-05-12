@@ -8,15 +8,15 @@ public class SimFileReader {
         try (BufferedReader br = new BufferedReader(new FileReader(simFilePath))) {
             String line;
             while ((line = br.readLine()) != null) {
-            // Hier kannst du die Zeilen der SIM-Datei auf Werte prüfen und in Variablen speichern
-            // Beispiel: Wenn die Zeile mit "name=" beginnt, speichere den Namen in der Variable "name"
-            if (line.startsWith("name=")) {
-                String name = line.substring(5);
-                System.out.println("Name: " + name);
+                // Hier kannst du die Zeilen der SIM-Datei auf Werte prüfen und in Variablen speichern
+                // Beispiel: Wenn die Zeile mit "name=" beginnt, speichere den Namen in der Variable "name"
+                if (line.startsWith("name=")) {
+                    String name = line.substring(5);
+                    System.out.println("Name: " + name);
+                }
             }
-        }
-    } catch (IOException e) {
+        } catch (IOException e) {
         e.printStackTrace();
-    }
+        }
     }
 }
