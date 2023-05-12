@@ -18,7 +18,7 @@ public class Main
          * -------------
          * 
          * 1) Start des Spiels
-         *   ->Einlesen .sim Datei
+         *   -> Einlesen .sim Datei
          *   -> Startwerte einlesen
          *   -> Anzahl Runden festlegen
          *   
@@ -31,15 +31,16 @@ public class Main
          * 3) Berechnung
          *   -> Größen der Sektoren wirken aufeinander in festgelegter Reihenfolge
          *   -> prüfen, ob im Wertebereich (Abbruchsbedingung)
-         *   -> Simuilationserfolg ermitteln(pro Runde)
+         *   -> Simuilationserfolg ermitteln (pro Runde)
          *   
          *   [wiedehole 2 & 3 so oft wie es Runden gibt]
          *   
          * 4) Ende
          *   -> speichern der Zwischenwerte/Simulationserfolge in .res Datei
          *   -> Graph einblenden
-         *   -> (Highscore anzeigen)
+         *   -> (evtl. Highscore anzeigen)
          *   -> Neues Spiel starten (reset aller Werte, Möglichkeit einlesen neuer Datei)
+         *
          */
     }
 }
