@@ -9,7 +9,9 @@ public class Main
 {
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
 
-    //Main Funktion
+    /**
+     * Main Funktion
+     */
     public static void main(String[] args) {
         
         System.out.println("Hello World!");
@@ -18,6 +20,8 @@ public class Main
         
         new SimFileReader();
         new GUI();
+        new Logik();
+        new Sektor();
         
         //TESTING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         

@@ -17,7 +17,7 @@ public class SimFileReader
     {
         simDateiAuswahl();
     }
-    
+    //REFERENZ
     public static void main(String[] args) 
     {
         String currentPath = System.getProperty("user.dir");
@@ -45,6 +45,9 @@ public class SimFileReader
         }
     }
     
+    /**
+     * Methode erlaubt die Wahl der .sim Datei per Konsoleneingabe
+     */
     public void simDateiAuswahl()
     {
         String dieserOrdner = System.getProperty("user.dir"); //aktueller Dateipfad
