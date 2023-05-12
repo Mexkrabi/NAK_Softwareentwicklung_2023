@@ -9,17 +9,17 @@ import java.awt.*;
 public class GUI extends JFrame {
     // Instanzvariablen 
     public String spielstand;
+    private Label lblGruß;
+    private Button btStart;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung;
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
-
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
 
     /**
      * Konstruktor für Objekte der Klasse GUI
      */
     public GUI() {
-        
-    
+
     }
     
     /**
@@ -40,6 +40,37 @@ public class GUI extends JFrame {
         }
     }
 
+    /**
+     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
+     * 
+     * @param  y	(Beschreibung des Parameters)
+     * @return		(Beschreibung des Rückgabewertes)
+     */
+    public void startBildschirm()
+    {
+        // tragen Sie hier den Code ein
+        setTitle("Start-End Frame");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setLayout(new GridLayout(3, 1, 30, 30));
+        
+        // Willkommens-Label erstellen und hinzufügen
+        JLabel welcomeLabel = new JLabel("Willkommen!");
+        getContentPane().add(welcomeLabel);
+        
+        // Start-Button erstellen und hinzufügen
+        JButton startButton = new JButton("Start");
+        getContentPane().add(startButton);
+        
+        // Ende-Button erstellen und hinzufügen
+        JButton endButton = new JButton("Ende");
+        getContentPane().add(endButton);
+        
+        //  Größe des Frames festlegen
+        setSize(300, 300);
+        setLocationRelativeTo(null);
+        setVisible(true);
+    }
+    
     /**
      * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
      * 
@@ -71,7 +102,7 @@ public class GUI extends JFrame {
         lblBildungStand = new JLabel("BEISPIEL");
         btBildungHoch = new JButton("+");
         btBildungRunter = new JButton("-");
-
+        
         add(lblWirtschaftsleistung);
         add(lblWirtschaftsleistungStand);
         add(btWirtschaftHoch);
