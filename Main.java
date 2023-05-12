@@ -13,6 +13,14 @@ public class Main
     public static void main(String[] args) {
         
         System.out.println("Hello World!");
+        
+        //TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        
+        new SimFileReader();
+        new GUI();
+        
+        //TESTING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        
         /*
          * Grober Ablauf
          * -------------
@@ -42,5 +50,7 @@ public class Main
          *   -> Neues Spiel starten (reset aller Werte, Möglichkeit einlesen neuer Datei)
          *
          */
+        
+        
     }
 }

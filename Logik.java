@@ -1,9 +1,10 @@
 
 /**
- * Write a description of class Logik here.
+ * Hier wird die Spiellogik, die Berechnung der Einflussgrößen und die 
+ * Abbruchsbedingungen überprüft und kontrolliert.
  *
  * @author (your name)
- * @version (a version number or a date)
+ * @version (0.1)
  */
 public class Logik
 {
