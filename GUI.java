@@ -8,16 +8,46 @@ import java.awt.*;
  */
 public class GUI extends JFrame {
     // Instanzvariablen 
+    public String spielstand;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung;
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
-    
-    private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
 
+    private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
 
     /**
      * Konstruktor für Objekte der Klasse GUI
      */
     public GUI() {
+        
+    
+    }
+    
+    /**
+     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
+     * 
+     * @param  y	(Beschreibung des Parameters)
+     * @return		(Beschreibung des Rückgabewertes)
+     */
+    public void spielstandänderung()
+    {
+        switch (spielstand) {
+            case "Start":
+                System.out.println("Kassierer");
+                break;
+            case "Wertezuweisen":
+                wertezuweisung();
+
+        }
+    }
+
+    /**
+     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
+     * 
+     * @param  y	(Beschreibung des Parameters)
+     * @return		(Beschreibung des Rückgabewertes)
+     */
+    public void wertezuweisung()
+    {
         setTitle("Werte zuweisen");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         setLayout(new GridLayout(4, 4, 10, 10));
@@ -61,7 +91,7 @@ public class GUI extends JFrame {
         add(lblBildungStand);
         add(btBildungHoch);
         add(btBildungRunter);
-         
+
         pack();//Passt das Fenster auf die notwendige Größe an 
         setLocationRelativeTo(null);
         setVisible(true);
