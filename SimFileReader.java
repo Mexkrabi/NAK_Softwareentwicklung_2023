@@ -4,7 +4,7 @@ import java.io.IOException;
 
 public class SimFileReader {
     public static void main(String[] args) {
-        String simFilePath = "path/to/sim/file.sim";
+        String simFilePath = "D:/Dokumente/UNI/DV und Skalliiiii/Software - Hausarbeit/beispielland.sim";
         try (BufferedReader br = new BufferedReader(new FileReader(simFilePath))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -14,9 +14,10 @@ public class SimFileReader {
                     String name = line.substring(5);
                     System.out.println("Name: " + name);
                 }
+                System.out.println(line.substring(0));
             }
         } catch (IOException e) {
-        e.printStackTrace();
+            e.printStackTrace();
         }
     }
 }
