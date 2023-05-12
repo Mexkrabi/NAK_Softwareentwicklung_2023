@@ -1,0 +1,10 @@
+#BlueJ class context
+comment0.target=Main
+comment0.text=\r\n\ Beschreiben\ Sie\ hier\ die\ Klasse\ Main.\r\n\ \r\n\ @author\ Sven\ Vazquez\ de\ Lara\ Kallas\ \r\n\ @version\ 0.1\ -\ 12.05.2023\r\n
+comment1.params=
+comment1.target=Main()
+comment1.text=\r\n\ Konstruktor\ f\u00FCr\ Objekte\ der\ Klasse\ Main\r\n
+comment2.params=y
+comment2.target=int\ beispielMethode(int)
+comment2.text=\r\n\ Ein\ Beispiel\ einer\ Methode\ -\ ersetzen\ Sie\ diesen\ Kommentar\ mit\ Ihrem\ eigenen\r\n\ \r\n\ @param\ \ y\ \ \ \ ein\ Beispielparameter\ f\u00FCr\ eine\ Methode\r\n\ @return\ \ \ \ \ \ \ \ die\ Summe\ aus\ x\ und\ y\r\n
+numComments=3
