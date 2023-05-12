@@ -9,8 +9,8 @@ import java.awt.*;
 public class GUI extends JFrame {
     // Instanzvariablen 
     public String spielstand;
-    private Label lblGruß;
-    private Button btStart;
+    private JLabel lblwilkommen;
+    private JButton btStart, btEnde;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung;
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
@@ -53,17 +53,15 @@ public class GUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridLayout(3, 1, 30, 30));
         
-        // Willkommens-Label erstellen und hinzufügen
-        JLabel welcomeLabel = new JLabel("Willkommen!");
-        getContentPane().add(welcomeLabel);
+        // Label & Button erstellen und hinzufügen
+        lblwilkommen = new JLabel("Willkommen!");
+        btStart = new JButton("Start");
+        btEnde = new JButton("Ende");
         
-        // Start-Button erstellen und hinzufügen
-        JButton startButton = new JButton("Start");
-        getContentPane().add(startButton);
-        
-        // Ende-Button erstellen und hinzufügen
-        JButton endButton = new JButton("Ende");
-        getContentPane().add(endButton);
+        //Hinzufügen der Button und des Label
+        add(lblwilkommen);
+        add(btStart);
+        add(btEnde);
         
         //  Größe des Frames festlegen
         setSize(300, 300);
