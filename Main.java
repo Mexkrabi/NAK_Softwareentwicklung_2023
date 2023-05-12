@@ -2,8 +2,8 @@
 /**
  * Beschreiben Sie hier die Klasse Main.
  * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
+ * @author Sven Vazquez de Lara Kallas, Malte Fischer, Livia Kadenbach 
+ * @version 0.1
  */
 public class Main
 {
