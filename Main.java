@@ -21,8 +21,6 @@ public class Main
      */
     public static void main(String[] args) {
         
-        //Sneaky Kommentar hehehehehehe
-        
         //#  Grober Ablauf
         //#  -------------
         /* 0) Menü
