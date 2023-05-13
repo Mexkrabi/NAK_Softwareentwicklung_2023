@@ -1,3 +1,4 @@
+import java.io.*;
 
 /**
  * Hier wird die Spiellogik, die Berechnung der Einflussgrößen und die 
@@ -8,27 +9,35 @@
  */
 public class Logik
 {
-    // instance variables - replace the example below with your own
-    private int x;
-
+    public String pfadStartwerte; //Speichert Dateipfad der .sim
+    public DateiLeser d; //Dateileser - benötigt zum auslesen der Anfangswerte
+    
     /**
-     * Constructor for objects of class Logik
+     * Konstruktor der Klasse Logik
      */
-    public Logik()
+    public Logik(DateiLeser d)
     {
-        // initialise instance variables
-        x = 0;
+        this.d = d; //Dateileser abspeichern in dieser Klasse
+        pfadStartwerte = d.simDateiAuswahl(); //Liest und speichert den Dateipfad der .sim Datei
+        auslesen(); //TEST
     }
 
     /**
-     * An example of a method - replace this comment with your own
-     *
-     * @param  y  a sample parameter for a method
-     * @return    the sum of x and y
+     * Auslesen der Anfangswerte
+     * in einer Methode
+     * mit z.B. String string = "Lebensqualität";
+     * dann mit string.length() Zeichenlänge ermitteln
+     * daraufhin Wert einlesen und einfügen
      */
-    public int sampleMethod(int y)
+    public void auslesen(/*evtl. Variable*/)
     {
-        // put your code here
-        return x + y;
+        String s = "Bevölkerungsgröße = ";
+        System.out.println(s.length());
+        
+        d.auslesen(pfadStartwerte, s);
+        //////////////////////////////////////////////////////////////
+
+
     }
+
 }

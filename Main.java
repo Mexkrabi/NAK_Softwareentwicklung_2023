@@ -17,10 +17,9 @@ public class Main
         System.out.println("Hello World!");
         
         //TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        
-        new SimFileReader();
+
         new GUI();
-        new Logik();
+        new Logik(new DateiLeser());
         new Sektor();
         
         //TESTING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
