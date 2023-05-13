@@ -122,6 +122,7 @@ public class GUI extends JFrame implements ActionListener {
         
         //Fügt Werte in die ComboBox
         cbDateien.addItem("Auswahl");
+        cbDateien.addItem("beispielland");
         cbDateien.addItem("Hier die Dateinamen einfügen");
 
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
@@ -159,21 +160,24 @@ public class GUI extends JFrame implements ActionListener {
 
         startwerte = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
-        startwerte.setLayout(new GridLayout(1, 13, 10, 10));
+        startwerte.setLayout(new GridLayout(13, 1, 10, 10));
         
         JLabel lblAusgangslage = new JLabel("***** Ausgangslage *****");
         JLabel lblBevölkerungsgröße = new JLabel("Bevölkerungsgröße = " + Main.logik.startwerteHash.get("Bevölkerungsgröße"));
         JLabel lblBevölkerungswachstum = new JLabel("Bevölkerungswachstum = " + Main.logik.startwerteHash.get("Bevölkerungswachstum"));
         JLabel lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung = " + Main.logik.startwerteHash.get("Wirtschaftsleistung"));
         JLabel lblModernisierungsgrad = new JLabel("Modernisierungsgrad = " + Main.logik.startwerteHash.get("Modernisierungsgrad"));
-        JLabel lblPolitischeStabilität = new JLabel("PolitischeStabilität = " + Main.logik.startwerteHash.get("PolitischeStabilität"));
+        JLabel lblPolitischeStabilität = new JLabel("Politische Stabilität = " + Main.logik.startwerteHash.get("Politische Stabilität"));
         JLabel lblUmweltverschmutzung = new JLabel("Umweltverschmutzung = " + Main.logik.startwerteHash.get("Umweltverschmutzung"));
         JLabel lblLebensqualität = new JLabel("Lebensqualität = " + Main.logik.startwerteHash.get("Lebensqualität"));
         JLabel lblBildung = new JLabel("Bildung = " + Main.logik.startwerteHash.get("Bildung"));
-        JLabel lblStaatsvermögen = new JLabel("Staatsvermögen = " + Main.logik.startwerteHash.get("Bevölkerungswachstum"));
+        JLabel lblStaatsvermögen = new JLabel("Staatsvermögen = " + Main.logik.startwerteHash.get("Staatsvermögen"));
         JLabel lblLeer = new JLabel("");
         JLabel lblSimulationsablauf = new JLabel("***** Simulationsablauf *****");
-        JLabel lblRundenzahl = new JLabel("Rundenzahl = ");
+        JLabel lblRundenzahl = new JLabel("Rundenzahl = " + Main.logik.rundenzahl);
+        
+        fenster.add(startwerte);
+        
         
         startwerte.add(lblAusgangslage);
         startwerte.add(lblBevölkerungsgröße);
@@ -322,7 +326,8 @@ public class GUI extends JFrame implements ActionListener {
 
             strAuswahl = (String) cbDateien.getSelectedItem();
             System.out.println(strAuswahl);
-            setSpielstand("WERTZUWEISEN");
+            //setSpielstand("WERTZUWEISEN");
+            auswahlDatei.setVisible(false);
         }
     }
 }

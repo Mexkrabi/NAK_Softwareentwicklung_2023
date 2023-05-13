@@ -99,7 +99,8 @@ public class Main
             logik.startwerteHash.put("Bevölkerungsgröße", alsInteger(str));
             // Wiederholen für alle Anfangswerte ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             /* hier in kompakter Form: vvvvvv           *///#Prüfen, ob Umlaute gehen oder nicht
-            logik.startwerteHash.put("Bevölkerungswachstum", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungswachstum")));  
+            logik.startwerteHash.put("Bevölkerungswachstum", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungswachstum"))); 
+            logik.startwerteHash.put("Lebensqualität", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Lebensqualit�t")));
             logik.startwerteHash.put("Wirtschaftsleistung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Wirtschaftsleistung")));
             logik.startwerteHash.put("Modernisierungsgrad", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Modernisierungsgrad")));
             logik.startwerteHash.put("Politische Stabilität", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Politische Stabilit�t")));
@@ -114,7 +115,10 @@ public class Main
         //Sektor bevölkerungsgröße = new Sektor();
         
         //etc...
-        
+        gui.setSpielstand("STARTWERTE");
+        gui.spielstandänderung();
+        //warten, bis Spielstand geändert wird
+        //warteSolangeNoch("STARTWERTE");
         //spielstart();
         
         //#TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
