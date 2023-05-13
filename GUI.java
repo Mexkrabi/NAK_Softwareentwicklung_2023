@@ -86,7 +86,7 @@ public class GUI extends JFrame implements ActionListener {
         fenster.setSize(300,300);
         
         // Zentriert das JFrame auf dem Bildschirm
-        setLocationRelativeTo(null);
+        fenster.setLocationRelativeTo(null);
         
         //setzt die Sichtbarkeit auf true
         fenster.setVisible(true);
@@ -98,7 +98,7 @@ public class GUI extends JFrame implements ActionListener {
      * gespielt werden soll und legt somit die auszulesende Datei fest
      * 
      * 
-     * @param  y	(Beschreibung des Parameters)
+     * @param  y    (Beschreibung des Parameters)
      */
     public void dateiAuswal()
     {
@@ -146,8 +146,8 @@ public class GUI extends JFrame implements ActionListener {
      * Die Methode zeigt dem Spieler die Startwerte seiner Simulation
      * 
      * 
-     * @param  y	(Beschreibung des Parameters)
-     * @return		(Beschreibung des Rückgabewertes)
+     * @param  y    (Beschreibung des Parameters)
+     * @return        (Beschreibung des Rückgabewertes)
      */
     public void startwerte()
     {
@@ -157,6 +157,8 @@ public class GUI extends JFrame implements ActionListener {
         startwerte = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         startwerte.setLayout(new GridLayout(1, 13, 10, 10));
+        
+        JLabel lblausgangslage = new JLabel();
 
     }
 
