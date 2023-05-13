@@ -56,6 +56,10 @@ public class Main
         GUI gui = new GUI();
         gui.setSpielstand("Start");
         gui.spielstandänderung();
+        while(gui.getSpielstand() == "Auslesen")
+        {
+            //warte
+        }
 
         //Warten auf Start-Knopfdruck
         //# SCHRITT 1 ------------------------------
