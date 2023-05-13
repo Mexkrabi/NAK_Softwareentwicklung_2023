@@ -1,14 +1,17 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+
 /**
  * Beschreiben Sie hier die Klasse GUI.
  * 
- * @author (Ihr Name) 
- * @version (eine Versionsnummer oder ein Datum)
+ * @author (Malte Fischer) 
+ * @version (01)
  */
 public class GUI extends JFrame {
     // Instanzvariablen 
-    public String spielstand;
+    private JFrame fenster;
+    private String spielstand;
     private JLabel lblwilkommen;
     private JButton btStart, btEnde;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung;
@@ -21,18 +24,18 @@ public class GUI extends JFrame {
     public GUI() {
 
     }
-    
+
     /**
      * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
      * 
-     * @param  y	(Beschreibung des Parameters)
-     * @return		(Beschreibung des Rückgabewertes)
+     * @param  y    (Beschreibung des Parameters)
+     * @return        (Beschreibung des Rückgabewertes)
      */
     public void spielstandänderung()
     {
         switch (spielstand) {
             case "Start":
-                System.out.println("Kassierer");
+                startBildschirm();
                 break;
             case "Wertezuweisen":
                 wertezuweisung();
@@ -43,8 +46,8 @@ public class GUI extends JFrame {
     /**
      * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
      * 
-     * @param  y	(Beschreibung des Parameters)
-     * @return		(Beschreibung des Rückgabewertes)
+     * @param  y    (Beschreibung des Parameters)
+     * @return        (Beschreibung des Rückgabewertes)
      */
     public void startBildschirm()
     {
@@ -52,7 +55,8 @@ public class GUI extends JFrame {
         setTitle("Start-End Frame");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setLayout(new GridLayout(3, 1, 30, 30));
-        
+        hinzufügen();
+
         // Label & Button erstellen und hinzufügen
         lblwilkommen = new JLabel("Willkommen!");
         btStart = new JButton("Start");
@@ -62,28 +66,31 @@ public class GUI extends JFrame {
         add(lblwilkommen);
         add(btStart);
         add(btEnde);
-        
+
         //  Größe des Frames festlegen
         setSize(300, 300);
         setLocationRelativeTo(null);
         setVisible(true);
     }
-    
+
     /**
      * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
      * 
-     * @param  y	(Beschreibung des Parameters)
-     * @return		(Beschreibung des Rückgabewertes)
+     * @param  y    (Beschreibung des Parameters)
+     * @return        (Beschreibung des Rückgabewertes)
      */
     public void wertezuweisung()
     {
-        setTitle("Werte zuweisen");
+        fenster = new JFrame("Werte zuweisen");
+        
+        JPanel panel = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
-        setLayout(new GridLayout(4, 4, 10, 10));
+        panel.setLayout(new GridLayout(4, 4, 10, 10));
 
         lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung: ");
         lblWirtschaftsleistungStand = new JLabel("BEISPIEL");
         btWirtschaftHoch = new JButton("+");
+        
         btWirtschaftRunter = new JButton("-");
 
         lblModernisierungsgrad = new JLabel("Modernisierungsgrad: ");
@@ -101,29 +108,44 @@ public class GUI extends JFrame {
         btBildungHoch = new JButton("+");
         btBildungRunter = new JButton("-");
         
-        add(lblWirtschaftsleistung);
-        add(lblWirtschaftsleistungStand);
-        add(btWirtschaftHoch);
-        add(btWirtschaftRunter);
+        fenster.add(panel);
+        
+        panel.add(lblWirtschaftsleistung);
+        panel.add(lblWirtschaftsleistungStand);
+        panel.add(btWirtschaftHoch);
+        panel.add(btWirtschaftRunter);
 
-        add(lblModernisierungsgrad);
-        add(lblModernisierungsgradStand);
-        add(btModernHoch);
-        add(btModernRunter);
+        panel.add(lblModernisierungsgrad);
+        panel.add(lblModernisierungsgradStand);
+        panel.add(btModernHoch);
+        panel.add(btModernRunter);
 
-        add(lblLebensqualität);
-        add(lblLebensqualitätStand);
-        add(btLebenHoch);
-        add(btLebenRunter);
+        panel.add(lblLebensqualität);
+        panel.add(lblLebensqualitätStand);
+        panel.add(btLebenHoch);
+        panel.add(btLebenRunter);
 
-        add(lblBildung);
-        add(lblBildungStand);
-        add(btBildungHoch);
-        add(btBildungRunter);
+        panel.add(lblBildung);
+        panel.add(lblBildungStand);
+        panel.add(btBildungHoch);
+        panel.add(btBildungRunter);
 
-        pack();//Passt das Fenster auf die notwendige Größe an 
-        setLocationRelativeTo(null);
-        setVisible(true);
+        fenster.setVisible(true);
+        panel.setVisible(true);
+        fenster.pack();//Passt das Fenster auf die notwendige Größe an 
+        fenster.setLocationRelativeTo(null);
+    }
+
+    /**
+     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
+     * 
+     * @param  y	(Beschreibung des Parameters)
+     * @return		(Beschreibung des Rückgabewertes)
+     */
+    public void hinzufügen()
+    {
+        // tragen Sie hier den Code ein
+
     }
 
 }
