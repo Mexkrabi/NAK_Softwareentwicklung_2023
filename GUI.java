@@ -19,7 +19,7 @@ public class GUI extends JFrame implements ActionListener {
     public String strSpielstand, strAuswahl;
     private String spielstand; //# <-- ersetzen in der Main
     private JLabel lblwilkommen;
-    private JButton btStart, btEnde, btAuswahlBestätigen;
+    private JButton btStart, btEnde, btAuswahlBestätigen, btweiter;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung;
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
@@ -162,7 +162,7 @@ public class GUI extends JFrame implements ActionListener {
 
         startwerte = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
-        startwerte.setLayout(new GridLayout(13, 1, 10, 10));
+        startwerte.setLayout(new GridLayout(14, 1, 10, 10));
         
         JLabel lblAusgangslage = new JLabel("***** Ausgangslage *****");
         JLabel lblBevölkerungsgröße = new JLabel("Bevölkerungsgröße = " + Main.logik.startwerteHash.get("Bevölkerungsgröße"));
@@ -178,8 +178,11 @@ public class GUI extends JFrame implements ActionListener {
         JLabel lblSimulationsablauf = new JLabel("***** Simulationsablauf *****");
         JLabel lblRundenzahl = new JLabel("Rundenzahl = " + Main.logik.rundenzahl);
         
+        
+        btweiter = new JButton ("Weiter");
         fenster.add(startwerte);
         
+        btweiter.addActionListener(this);
         
         startwerte.add(lblAusgangslage);
         startwerte.add(lblBevölkerungsgröße);
@@ -194,7 +197,7 @@ public class GUI extends JFrame implements ActionListener {
         startwerte.add(lblLeer);
         startwerte.add(lblSimulationsablauf);
         startwerte.add(lblRundenzahl);
-        
+        startwerte.add(btweiter);
         
         fenster.setVisible(true);
         startwerte.setVisible(true);
@@ -217,7 +220,7 @@ public class GUI extends JFrame implements ActionListener {
         wertezuweisen.setLayout(new GridLayout(4, 4, 10, 10));
 
         lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung: ");
-        lblWirtschaftsleistungStand = new JLabel("BEISPIEL");
+        lblWirtschaftsleistungStand = new JLabel( Main.logik.startwerteHash.get("Wirtschaftsleistung").toString());
         btWirtschaftHoch = new JButton("+");
         btWirtschaftRunter = new JButton("-");
 
@@ -225,7 +228,7 @@ public class GUI extends JFrame implements ActionListener {
         btWirtschaftRunter.addActionListener(this);
 
         lblModernisierungsgrad = new JLabel("Modernisierungsgrad: ");
-        lblModernisierungsgradStand = new JLabel("BEISPIEL");
+        lblModernisierungsgradStand = new JLabel(Main.logik.startwerteHash.get("Modernisierungsgrad").toString());
         btModernHoch = new JButton("+");
         btModernRunter = new JButton("-");
 
@@ -233,7 +236,7 @@ public class GUI extends JFrame implements ActionListener {
         btModernRunter.addActionListener(this);
 
         lblLebensqualität = new JLabel("Lebensqualität: ");
-        lblLebensqualitätStand = new JLabel("BEISPIEL");
+        lblLebensqualitätStand = new JLabel(Main.logik.startwerteHash.get("Lebensqualität").toString());
         btLebenHoch = new JButton("+");
         btLebenRunter = new JButton("-");
 
@@ -241,7 +244,7 @@ public class GUI extends JFrame implements ActionListener {
         btLebenRunter.addActionListener(this);
 
         lblBildung = new JLabel("Bildung: ");
-        lblBildungStand = new JLabel("BEISPIEL");
+        lblBildungStand = new JLabel(Main.logik.startwerteHash.get("Bildung").toString());
         btBildungHoch = new JButton("+");
         btBildungRunter = new JButton("-");
 
@@ -330,6 +333,11 @@ public class GUI extends JFrame implements ActionListener {
             setSpielstand("BREAK");
             spielstandänderung();
             auswahlDatei.setVisible(false);
-        }
+        } else if (e.getSource() == btweiter) {
+            setSpielstand("WERTZUWEISEN");
+            spielstandänderung();
+            System.out.println("Weiter geklickt");
+            startwerte.setVisible(false);
+        } 
     }
 }
