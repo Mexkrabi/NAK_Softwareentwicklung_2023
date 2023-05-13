@@ -237,6 +237,7 @@ public class GUI extends JFrame implements ActionListener {
 
             strAuswahl = (String) cbDateien.getSelectedItem();
             System.out.println(strAuswahl);
+            setSpielstand("Wertezuweisen");
         }
     }
 }
