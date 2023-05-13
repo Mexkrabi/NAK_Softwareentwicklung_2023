@@ -166,6 +166,7 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == btEnde) {
             // Aktion für Button 2
             System.out.println("Ende wurde geklickt.");
+            System.exit(0);
         }
     }
 }

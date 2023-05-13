@@ -59,25 +59,31 @@ public class DateiLeser
         }
     }
     
-    public String auslesen(String pfad, String kriterium) 
+    /**
+     * Methode erlaubt gezieltes Einlesen einer gegebenen Datei, mit beliebigem Suchkriterium.
+     * Der unmittelbare Wert nach dem Suchwort wird dann ausgelesen und zurückgegeben.
+     * 
+     * @param pfad Pfad der Datei angeben
+     * @param suchwort Suchwort aus der Datei eingeben. Der unmittelbare Wert danach wird dann ausgelesen und zurückgegeben.
+     * @return Alle Zeichen in der Zeile nach dem gegebenen Suchwort wird wiedergegeben.
+     */
+    public String auslesen(String pfad, String suchwort) 
     {
-                try (BufferedReader br = new BufferedReader(new FileReader(pfad))) 
+        try (BufferedReader br = new BufferedReader(new FileReader(pfad))) 
         {
             String line;
             while ((line = br.readLine()) != null) 
             {
                 String ausgelesenerWert;
-                // Hier kannst du die Zeilen der SIM-Datei auf Werte prüfen und in Variablen speichern
-                // Beispiel: Wenn die Zeile mit "name=" beginnt, speichere den Namen in der Variable "name"
                 // BEISPIELCODE vvvvvvvvvvvvvvvvvvvvvvvvvvvv
-                if (line.startsWith(kriterium)) 
+                if (line.startsWith(suchwort)) 
                 {
                     System.out.println("Eingabezeile: " + line.substring(0));
-                    ausgelesenerWert = line.substring(kriterium.length());
+                    ausgelesenerWert = line.substring(suchwort.length());
                     System.out.println("Ausgelesener Wert: " + ausgelesenerWert);
                     return ausgelesenerWert;
                 }
-                //BEISPIELCODE ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                // BEISPIELCODE ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             }
         } catch (IOException e) 
         {

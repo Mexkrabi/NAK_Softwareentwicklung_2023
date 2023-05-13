@@ -61,6 +61,10 @@ public class Main
         
     }
     
+    /*
+     * Sinnvolle Methoden, die unser Leben erleichtern.
+     */
+    
     /**
      * Vereinfachte Methode zum Einlesen von Konsoleneingaben. Funktioniert mit Javas "Scanner" Klasse
      * und wartet, bis ein beliebiger Wert eingetippt wurde.
