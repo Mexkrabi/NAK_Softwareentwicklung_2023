@@ -21,6 +21,8 @@ public class Main
      */
     public static void main(String[] args) {
         
+        //Sneaky Kommentar hehehehehehe
+        
         //#  Grober Ablauf
         //#  -------------
         /* 0) Menü
@@ -124,6 +126,7 @@ public class Main
         //#TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         System.out.println("###############Testing###############");
         
+        System.out.println("Gebe Hashmap aus:");
         for (String i : logik.startwerteHash.keySet()) {
           System.out.println("key: " + i + " value: " + logik.startwerteHash.get(i));
         }
