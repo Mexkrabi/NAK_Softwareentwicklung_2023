@@ -1,4 +1,5 @@
 import java.io.*;
+import java.util.Scanner;
 
 /**
  * Hier wird die Spiellogik, die Berechnung der Einflussgrößen und die 
@@ -31,13 +32,15 @@ public class Logik
      */
     public void auslesen(/*evtl. Variable*/)
     {
-        String s = "Bevölkerungsgröße = ";
-        System.out.println(s.length());
+        System.out.println("Suchwort zum auslesen eingeben: (z.B. Lebensqualität");
+
+        String suchwort = Main.konsoleneingabe() + " = ";     //Erklärung "konsoleneingabe()" siehe Main-Klasse (Vereinfachter Input)
         
-        d.auslesen(pfadStartwerte, s);
+        System.out.println("Länge von '" + suchwort + "' ist: " + suchwort.length());
+        
+        d.auslesen(pfadStartwerte, suchwort);
         //////////////////////////////////////////////////////////////
 
 
     }
-
 }
