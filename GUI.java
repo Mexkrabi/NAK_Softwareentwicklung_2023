@@ -217,7 +217,7 @@ public class GUI extends JFrame implements ActionListener {
 
         wertezuweisen = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
-        wertezuweisen.setLayout(new GridLayout(4, 4, 10, 10));
+        wertezuweisen.setLayout(new GridLayout(5, 4, 10, 10));
 
         lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung: ");
         lblWirtschaftsleistungStand = new JLabel( Main.logik.startwerteHash.get("Wirtschaftsleistung").toString());
@@ -251,9 +251,10 @@ public class GUI extends JFrame implements ActionListener {
         btBildungHoch.addActionListener(this);
         btBildungRunter.addActionListener(this);
 
-        JLabel lblVerbleibendeRunden = new JLabel("" + Main.logik.rundenzahl); //System gedribbelt
-        JLabel lblVerbleibendesStaatskapital = new JLabel(Main.logik.startwerteHash.get("Staatsvermögen").toString());
-        
+        JLabel lblVerbleibendeRunden = new JLabel("Verbleibende Runden: " + Main.logik.rundenzahl); //System gedribbelt
+        lblVerbleibendeRunden.setBounds(5, 1, 1, 2);
+        JLabel lblVerbleibendesStaatskapital = new JLabel("Verbleibendes mögliche Investitionen: " + Main.logik.startwerteHash.get("Staatsvermögen").toString());
+        lblVerbleibendesStaatskapital.setBounds(5, 3, 1, 2);
         fenster.add(wertezuweisen);
 
         wertezuweisen.add(lblWirtschaftsleistung);
