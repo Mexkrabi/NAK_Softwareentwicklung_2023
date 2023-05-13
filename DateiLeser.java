@@ -63,19 +63,25 @@ public class DateiLeser
      * Methode erlaubt gezieltes Einlesen einer gegebenen Datei, mit beliebigem Suchkriterium.
      * Der unmittelbare Wert nach dem Suchwort wird dann ausgelesen und zurückgegeben.
      * 
+     * Die Methode fügt dem Suchwort automatisch ein " = " hinzu.
+     * Ist dies nicht gewünscht, sollte die Methode nochmal angepasst werden.
+     * 
      * @param pfad Pfad der Datei angeben
      * @param suchwort Suchwort aus der Datei eingeben. Der unmittelbare Wert danach wird dann ausgelesen und zurückgegeben.
      * @return Alle Zeichen in der Zeile nach dem gegebenen Suchwort wird wiedergegeben.
      */
     public String auslesen(String pfad, String suchwort) 
     {
+        System.out.println("Suchwort, welches zum auslesen eingegeben wurde: " + suchwort);
+        suchwort = suchwort + " = "; //Erweitert mit " = "
+        System.out.println("Länge von '" + suchwort + "' ist: " + suchwort.length()); //suchwort.lenght() gibt String-Länge
         try (BufferedReader br = new BufferedReader(new FileReader(pfad))) 
         {
             String line;
             while ((line = br.readLine()) != null) 
             {
                 String ausgelesenerWert;
-                // BEISPIELCODE vvvvvvvvvvvvvvvvvvvvvvvvvvvv
+                // Suche nach dem Suchwort vvvvvvvvvvvvvvvvvvvvvvvvvvvv
                 if (line.startsWith(suchwort)) 
                 {
                     System.out.println("Eingabezeile: " + line.substring(0));
@@ -83,7 +89,7 @@ public class DateiLeser
                     System.out.println("Ausgelesener Wert: " + ausgelesenerWert);
                     return ausgelesenerWert;
                 }
-                // BEISPIELCODE ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+                // Suche nach dem Suchwort ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             }
         } catch (IOException e) 
         {

@@ -10,37 +10,45 @@ import java.util.Scanner;
  */
 public class Logik
 {
-    public String pfadStartwerte; //Speichert Dateipfad der .sim
-    public DateiLeser d; //Dateileser - benötigt zum auslesen der Anfangswerte
     
     /**
      * Konstruktor der Klasse Logik
      */
     public Logik(DateiLeser d)
     {
-        this.d = d; //Dateileser abspeichern in dieser Klasse
-        pfadStartwerte = d.simDateiAuswahl(); //Liest und speichert den Dateipfad der .sim Datei
-        auslesen(); //TEST
+        
     }
 
     /**
-     * Auslesen der Anfangswerte
-     * in einer Methode
+     * Auslesen der Anfangswerte in einer Methode
      * mit z.B. String string = "Lebensqualität";
      * dann mit string.length() Zeichenlänge ermitteln
      * daraufhin Wert einlesen und einfügen
+     * 
+     * Eingabe durch Konsolenaufruf
      */
-    public void auslesen(/*evtl. Variable*/)
+    public void auslesen(/*hier OHNE Variable - MIT Variable siehe UNTEN*/)
     {
-        System.out.println("Suchwort zum auslesen eingeben: (z.B. Lebensqualität");
-
+        System.out.println("Suchwort zum auslesen eingeben: (z.B. Lebensqualität)");
         String suchwort = Main.konsoleneingabe() + " = ";     //Erklärung "konsoleneingabe()" siehe Main-Klasse (Vereinfachter Input)
-        
-        System.out.println("Länge von '" + suchwort + "' ist: " + suchwort.length());
-        
-        d.auslesen(pfadStartwerte, suchwort);
-        //////////////////////////////////////////////////////////////
-
-
+        System.out.println("Länge von '" + suchwort + "' ist: " + suchwort.length()); //suchwort.lenght() gibt String-Länge
+        //d.auslesen(Main.pfadStartwerte, suchwort);
+    }
+    /**
+     * Auslesen der Anfangswerte in einer Methode
+     * mit z.B. String string = "Lebensqualität";
+     * dann mit string.length() Zeichenlänge ermitteln
+     * daraufhin Wert einlesen und einfügen
+     * 
+     * Eingabe durch mitgegebenem String
+     * 
+     * @param suchwort Suchwort zum auslesen eingeben (z.B. Lebensqualität)
+     */
+    public void auslesen(String suchwort)
+    {
+        System.out.println("Suchwort, welches zum auslesen eingegeben wurde: " + suchwort);
+        suchwort = suchwort + " = "; //Erweitert mit " = "
+        System.out.println("Länge von '" + suchwort + "' ist: " + suchwort.length()); //suchwort.lenght() gibt String-Länge
+        //d.auslesen(Main.pfadStartwerte, suchwort);
     }
 }
