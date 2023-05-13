@@ -56,9 +56,16 @@ public class Main
         GUI gui = new GUI();
         gui.setSpielstand("Start");
         gui.spielstandänderung();
+        //warten, bis Spielstand geändert wird
         while(gui.getSpielstand() == "Start")
         {
-            //warte
+            try {
+                // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
+                //# evtl. Überprüfen!
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
         }
 
         //Warten auf Start-Knopfdruck
