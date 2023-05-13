@@ -18,7 +18,6 @@ public class Logik
      */
     public Logik()
     {
-        this.rundenzahl = -1;
         hashErzeuger();
     }
     

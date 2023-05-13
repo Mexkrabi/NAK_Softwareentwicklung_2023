@@ -251,9 +251,8 @@ public class GUI extends JFrame implements ActionListener {
         btBildungHoch.addActionListener(this);
         btBildungRunter.addActionListener(this);
 
-        
-        //JLabel lblVerbleibendeRunden = new JLabel(Main.logik.startwerteHash.get("Rundenzahl").toString());
-        //JLabel lblVerbleibendesStaatskapital = new JLabel(Main.logik.startwerteHash.get("Staatsvermögen").toString());
+        JLabel lblVerbleibendeRunden = new JLabel("" + Main.logik.rundenzahl); //System gedribbelt
+        JLabel lblVerbleibendesStaatskapital = new JLabel(Main.logik.startwerteHash.get("Staatsvermögen").toString());
         
         fenster.add(wertezuweisen);
 
@@ -277,8 +276,8 @@ public class GUI extends JFrame implements ActionListener {
         wertezuweisen.add(btBildungHoch);
         wertezuweisen.add(btBildungRunter);
         
-        //wertezuweisen.add(lblVerbleibendeRunden);
-        //wertezuweisen.add(lblVerbleibendesStaatskapital);
+        wertezuweisen.add(lblVerbleibendeRunden);
+        wertezuweisen.add(lblVerbleibendesStaatskapital);
 
         fenster.setVisible(true);
         wertezuweisen.setVisible(true);

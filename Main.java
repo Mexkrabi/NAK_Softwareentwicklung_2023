@@ -31,12 +31,13 @@ public class Main
          *   -> Einlesen .sim Datei
          *   -> Startwerte einlesen
          *   -> Anzahl Runden festlegen
+         *   -> Anzeigen der Startwerte
          *   
          *   [wiedehole 2 & 3 so oft wie es Runden gibt]
          *   
          * 2) Spieler Input
-         *   -> Anzeigen der Startwerte
-         *   -> Investiere Staatsvermögen (erstmalig)
+         *   -> Anzeigen der aktuellen Werte
+         *   -> Investiere Staatsvermögen
          *   
          * 3) Berechnung
          *   -> Größen der Sektoren wirken aufeinander in festgelegter Reihenfolge
@@ -138,8 +139,10 @@ public class Main
 
     }
     
-    /*
+    /* 
+     * vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
      * Sinnvolle Methoden, die unser Leben erleichtern.
+     * vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
      */
     
     /**
@@ -161,7 +164,7 @@ public class Main
         }
         catch (NumberFormatException ex){
             ex.printStackTrace();
-            throw new Exception("! Umwandlung von '" + str + "' war nicht erfolgreich"); //Custom Fehlermeldung
+            throw new Exception("! Umwandlung von '" + str + "' war nicht erfolgreich"); //Custom Fehlermeldung auswerfen
         }
         
     }
