@@ -2,6 +2,7 @@ import java.util.Scanner;
 
 /**
  * Beschreiben Sie hier die Klasse Main.
+ * The brain of the operation.
  * 
  * @author Sven Vazquez de Lara Kallas, Malte Fischer, Livia Kadenbach 
  * @version 0.1
@@ -14,6 +15,7 @@ public class Main
     
     public static DateiLeser dateiLeser; //DateiLeser --> Zugriff von allen Klassen möglich
     public static GUI gui; //Globaler GUI-Handler
+    public static Logik logik; //Globaler Logik-Handler
     /**
      * Main Funktion
      */
@@ -86,7 +88,11 @@ public class Main
          */
         
         //STARTWERTE EINLESEN
-        dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungsgr��e");   //#Prüfen, ob Umlaute gehen oder nicht
+        logik = new Logik();
+        
+        String str = dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungsgr��e");   //#Prüfen, ob Umlaute gehen oder nicht
+        logik.startwerteHash.put("Bevölkerungsgröße",toInteger(str));
+        
         dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungswachstum");
         dateiLeser.auslesen(pfadStartwerte, "Wirtschaftsleistung");
         dateiLeser.auslesen(pfadStartwerte, "Modernisierungsgrad");
@@ -122,7 +128,32 @@ public class Main
      */
     
     /**
+     * Wandelt einen String zu einem Integer um
      * 
+     * @param str Der String, der zu einem Integer umgewandelt werden soll
+     */
+    public static Integer toInteger(String str) 
+    {
+        /////////////////////
+        //String to Integer//
+        /////////////////////
+        try{
+            System.out.println("Versuche String in Integer Umwandlung von: " + str);
+            int number = Integer.parseInt(str);
+            System.out.println("Output: " + number); // output
+            return number;
+        }
+        catch (NumberFormatException ex){
+            ex.printStackTrace();
+        }
+        System.out.println("! Umwandlung war nicht erfolgreich");
+        return null;
+    }
+    
+    /**
+     * while-Schleife, die solange wartet bis die Variable "spielstand" vom mitgegebenem Wert abweicht
+     * 
+     * @param woraufGewartetWird Wert, der den Code anhält, bis dieser sich ändert
      */
     public static void warteSolangeNoch(String woraufGewartetWird) 
     {

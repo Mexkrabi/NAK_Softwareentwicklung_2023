@@ -1,8 +1,5 @@
-import java.io.BufferedReader;
-import java.io.FileReader;
-import java.io.IOException;
-import java.io.File;
-import java.util.Scanner;
+import java.io.*;
+import java.util.*;
 
 /**
  * Diese Klasse enthält den Code für das Einlesen der externen .sim Dateien.

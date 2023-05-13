@@ -14,6 +14,7 @@ public class Sektor
     //private String wird_beeinflusst_von; //Sektor, der Einfluss auf diese Kenngröße hat
     //private String beeinflusst;
     private int wert; //Aktueller Wert
+    private String name; //Bezeichnung des Sektors
 
     //# Größen beim Start:
     /*
@@ -33,10 +34,10 @@ public class Sektor
     /**
      * Constructor for objects of class Sektor
      */
-    public Sektor()
+    public Sektor(String name)
     {
+        this.name = name;
         //TEST
-        
         this.wertebereich = new int[1];
         System.out.println("Neuer Sektor erzeugt");
     }
