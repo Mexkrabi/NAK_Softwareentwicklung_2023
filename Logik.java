@@ -10,7 +10,7 @@ import java.util.Scanner;
  */
 public class Logik
 {
-    
+    public Sektor[] alleSektoren; //hier werden alle Sektoren im Array gespeichert
     /**
      * Konstruktor der Klasse Logik
      */
