@@ -48,9 +48,10 @@ public class GUI extends JFrame implements ActionListener {
     private void startBildschirm()
     {
         // tragen Sie hier den Code ein
-        setTitle("Start-End Frame");
+        fenster = new JFrame("Start-End Frame");
+        JPanel panel = new JPanel();
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setLayout(new GridLayout(3, 1, 30, 30));
+        panel.setLayout(new GridLayout(3, 1, 30, 30));
         
 
         // Label & Button erstellen und hinzufügen
@@ -63,14 +64,18 @@ public class GUI extends JFrame implements ActionListener {
         btEnde.addActionListener(this);
         
         //Hinzufügen der Button und des Label
-        add(lblwilkommen);
-        add(btStart);
-        add(btEnde);
+        panel.add(lblwilkommen);
+        panel.add(btStart);
+        panel.add(btEnde);
 
+        fenster.add(panel);
+        
         //  Größe des Frames festlegen
-        setSize(300, 300);
+        panel.setSize(300, 300);
+        fenster.setSize(300,300);
         setLocationRelativeTo(null);
-        setVisible(true);
+        fenster.setVisible(true);
+        panel.setVisible(true);
     }
 
     /**
@@ -164,7 +169,7 @@ public class GUI extends JFrame implements ActionListener {
             // Aktion für Button 1
             System.out.println("Start wurde geklickt.");
             setSpielstand("Auslesen");
-            dispose();
+            fenster.dispose();
         } else if (e.getSource() == btEnde) {
             // Aktion für Button 2
             System.out.println("Ende wurde geklickt.");
