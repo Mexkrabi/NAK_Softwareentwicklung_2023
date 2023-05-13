@@ -15,8 +15,8 @@ public class GUI extends JFrame implements ActionListener {
     // Instanzvariablen 
     private JFrame fenster;
     private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte;
-    private JComboBox<String> cbDateien;
-    private String strSpielstand, strAuswahl;
+    public JComboBox<String> cbDateien;
+    public String strSpielstand, strAuswahl;
     private String spielstand; //# <-- ersetzen in der Main
     private JLabel lblwilkommen;
     private JButton btStart, btEnde, btAuswahlBestätigen;
@@ -39,6 +39,8 @@ public class GUI extends JFrame implements ActionListener {
                 break;
             case "AUSWAHL" :
                 dateiAuswal();
+                break;
+            case "PAUSE":
                 break;
             case "STARTWERTE" :
                 startwerte();
@@ -323,10 +325,10 @@ public class GUI extends JFrame implements ActionListener {
 
             System.out.println("Bildung um 1 Punkt runter");
         } else if (e.getSource() == btAuswahlBestätigen) {
-
             strAuswahl = (String) cbDateien.getSelectedItem();
             System.out.println(strAuswahl);
-            //setSpielstand("WERTZUWEISEN");
+            setSpielstand("BREAK");
+            spielstandänderung();
             auswahlDatei.setVisible(false);
         }
     }

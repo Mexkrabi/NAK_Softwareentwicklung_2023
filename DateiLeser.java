@@ -26,10 +26,12 @@ public class DateiLeser
         
         System.out.println("Wie heißt die Datei welche Sie auswählen wollen? (ohne Endung)");
         Scanner sc = new Scanner(System.in); //Konsoleneingabeleser
-        String input = "/" + sc.next() + ".sim"; //Eingabe abspeichern
-        
-        System.out.println("Pfad des aktuellen Projektordners: " + dieserOrdner + input); //zusammenfügen
-        String simFilePath = dieserOrdner + input;
+        //String input = "/" + sc.next() + ".sim"; //Eingabe abspeichern
+        Main.warteSolangeNoch("START");
+        Main.warteSolangeNoch("AUSWAHL");
+        Main.gui.strAuswahl = (String) Main.gui.cbDateien.getSelectedItem();
+        System.out.println("Pfad des aktuellen Projektordners: " + dieserOrdner + "/" + Main.gui.strAuswahl + ".sim"); //zusammenfügen
+        String simFilePath = dieserOrdner +  "/" + Main.gui.strAuswahl  + ".sim";
         
         allesAuslesen(simFilePath);
 
