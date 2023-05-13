@@ -1,6 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
+import java.awt.event.*;
+
 
 /**
  * Beschreiben Sie hier die Klasse GUI.
@@ -8,7 +9,7 @@ import java.awt.event.ActionEvent;
  * @author (Malte Fischer) 
  * @version (01)
  */
-public class GUI extends JFrame {
+public class GUI extends JFrame implements ActionListener {
     // Instanzvariablen 
     private JFrame fenster;
     private String spielstand;
@@ -18,12 +19,7 @@ public class GUI extends JFrame {
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
 
-    /**
-     * Konstruktor für Objekte der Klasse GUI
-     */
-    public GUI() {
 
-    }
 
     /**
      * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
@@ -62,6 +58,10 @@ public class GUI extends JFrame {
         btStart = new JButton("Start");
         btEnde = new JButton("Ende");
         
+        
+        btStart.addActionListener(this);
+        btEnde.addActionListener(this);
+        
         //Hinzufügen der Button und des Label
         add(lblwilkommen);
         add(btStart);
@@ -79,7 +79,7 @@ public class GUI extends JFrame {
      * @param  y    (Beschreibung des Parameters)
      * @return        (Beschreibung des Rückgabewertes)
      */
-    public void wertezuweisung()
+    private void wertezuweisung()
     {
         fenster = new JFrame("Werte zuweisen");
         
@@ -90,7 +90,7 @@ public class GUI extends JFrame {
         lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung: ");
         lblWirtschaftsleistungStand = new JLabel("BEISPIEL");
         btWirtschaftHoch = new JButton("+");
-        
+        //btWirtschaftHoch.addActionListener(fenster);
         btWirtschaftRunter = new JButton("-");
 
         lblModernisierungsgrad = new JLabel("Modernisierungsgrad: ");
@@ -142,7 +142,7 @@ public class GUI extends JFrame {
      * @param  y	(Beschreibung des Parameters)
      * @return		(Beschreibung des Rückgabewertes)
      */
-    public void hinzufügen()
+    private void hinzufügen()
     {
         // tragen Sie hier den Code ein
 
@@ -157,5 +157,15 @@ public class GUI extends JFrame {
     {
         this.spielstand = neuerSpielstand;
         //Prüfung hinzufügen
+    }
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        if (e.getSource() == btStart) {
+            // Aktion für Button 1
+            System.out.println("Start wurde geklickt.");
+        } else if (e.getSource() == btEnde) {
+            // Aktion für Button 2
+            System.out.println("Ende wurde geklickt.");
+        }
     }
 }
