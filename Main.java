@@ -71,6 +71,7 @@ public class Main
         //#EVENT: SPIELSTART
         dateiLeser = new DateiLeser();
         pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
+        
         //Datei wird eingelesen nach folgenden Daten:
         /*
          +++ Ausgangslage +++
@@ -87,24 +88,28 @@ public class Main
         Rundenzahl = 10�
          */
         
-        //STARTWERTE EINLESEN
-        logik = new Logik();
-        
-        String str = dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungsgr��e");   //#Prüfen, ob Umlaute gehen oder nicht
-        logik.startwerteHash.put("Bevölkerungsgröße",alsInteger(str));
-        
-        dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungswachstum");
-        dateiLeser.auslesen(pfadStartwerte, "Wirtschaftsleistung");
-        dateiLeser.auslesen(pfadStartwerte, "Modernisierungsgrad");
-        dateiLeser.auslesen(pfadStartwerte, "Politische Stabilit�t");
-        dateiLeser.auslesen(pfadStartwerte, "Umweltverschmutzung");
-        dateiLeser.auslesen(pfadStartwerte, "Bildung");
-        dateiLeser.auslesen(pfadStartwerte, "Staatsverm�gen");
-        
-        dateiLeser.auslesen(pfadStartwerte, "Rundenzahl");
-
-        //#danach in HashMap packen
-        
+        //#STARTWERTE EINLESEN
+        logik = new Logik(); //Logik-Handler generiert
+        try {
+            logik.rundenzahl = alsInteger(dateiLeser.auslesen(pfadStartwerte, "Rundenzahl")); //Rundenanzahl festgelegt
+            
+            //# in HashMap packen
+            // Wiederholen für alle Anfangswerte vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+            String str = dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungsgr��e");
+            logik.startwerteHash.put("Bevölkerungsgröße", alsInteger(str));
+            // Wiederholen für alle Anfangswerte ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+            /* hier in kompakter Form: vvvvvv           *///#Prüfen, ob Umlaute gehen oder nicht
+            logik.startwerteHash.put("Bevölkerungswachstum", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungswachstum")));  
+            logik.startwerteHash.put("Wirtschaftsleistung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Wirtschaftsleistung")));
+            logik.startwerteHash.put("Modernisierungsgrad", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Modernisierungsgrad")));
+            logik.startwerteHash.put("Politische Stabilität", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Politische Stabilit�t")));
+            logik.startwerteHash.put("Umweltverschmutzung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Umweltverschmutzung")));
+            logik.startwerteHash.put("Bildung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Bildung")));
+            logik.startwerteHash.put("Staatsvermögen", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Staatsverm�gen")));
+        } catch(Exception ex)
+        {
+            ex.printStackTrace(); 
+        }
         //Sektoren erzeugen /////////////////////////////
         //Sektor bevölkerungsgröße = new Sektor();
         
@@ -112,10 +117,15 @@ public class Main
         
         //spielstart();
         
-        //TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        //#TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        System.out.println("###############Testing###############");
         
+        for (String i : logik.startwerteHash.keySet()) {
+          System.out.println("key: " + i + " value: " + logik.startwerteHash.get(i));
+        }
         
-        //TESTING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        System.out.println("###############Testing###############");
+        //#TESTING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         
         //# SCHRITT 2 ------------------------------
         //# SCHRITT 3 ------------------------------
@@ -132,22 +142,23 @@ public class Main
      * 
      * @param str Der String, der zu einem Integer umgewandelt werden soll
      */
-    public static Integer alsInteger(String str) 
+    public static Integer alsInteger(String str) throws Exception 
     {
         /////////////////////
         //String to Integer//
         /////////////////////
         try{
             System.out.println("Versuche String in Integer Umwandlung von: " + str);
-            int number = Integer.parseInt(str);
+            String nurZahlen = str.replaceAll("\\D", ""); // Kürzen des Strings, um alle Nicht-Ziffern zu entfernen
+            int number = Integer.parseInt(nurZahlen);
             System.out.println("Output: " + number); // output
             return number;
         }
         catch (NumberFormatException ex){
             ex.printStackTrace();
+            throw new Exception("! Umwandlung von '" + str + "' war nicht erfolgreich"); //Custom Fehlermeldung
         }
-        System.out.println("! Umwandlung war nicht erfolgreich");
-        return null;
+        
     }
     
     /**

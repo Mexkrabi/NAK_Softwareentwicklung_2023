@@ -12,11 +12,13 @@ public class Logik
 {
     public Sektor[] alleSektoren; //hier werden alle Sektoren im Array gespeichert
     public HashMap<String, Integer> startwerteHash; //HashMap mit allen Anfangswerten aus der .sim Datei
+    public int rundenzahl; //Rundenzahl wird hier gespeichert
     /**
      * Konstruktor der Klasse Logik
      */
     public Logik()
     {
+        this.rundenzahl = -1;
         hashErzeuger();
     }
     
