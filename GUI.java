@@ -40,6 +40,9 @@ public class GUI extends JFrame implements ActionListener {
             case "AUSWAHL" :
                 dateiAuswal();
                 break;
+            case "STARTWERTE" :
+                startwerte();
+                break;
             case "WERTZUWEISEN":
                 wertezuweisung();
 
@@ -158,8 +161,39 @@ public class GUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         startwerte.setLayout(new GridLayout(1, 13, 10, 10));
         
-        JLabel lblausgangslage = new JLabel();
-
+        JLabel lblAusgangslage = new JLabel("***** Ausgangslage *****");
+        JLabel lblBevölkerungsgröße = new JLabel("Bevölkerungsgröße = " + Main.logik.startwerteHash.get("Bevölkerungsgröße"));
+        JLabel lblBevölkerungswachstum = new JLabel("Bevölkerungswachstum = " + Main.logik.startwerteHash.get("Bevölkerungswachstum"));
+        JLabel lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung = " + Main.logik.startwerteHash.get("Wirtschaftsleistung"));
+        JLabel lblModernisierungsgrad = new JLabel("Modernisierungsgrad = " + Main.logik.startwerteHash.get("Modernisierungsgrad"));
+        JLabel lblPolitischeStabilität = new JLabel("PolitischeStabilität = " + Main.logik.startwerteHash.get("PolitischeStabilität"));
+        JLabel lblUmweltverschmutzung = new JLabel("Umweltverschmutzung = " + Main.logik.startwerteHash.get("Umweltverschmutzung"));
+        JLabel lblLebensqualität = new JLabel("Lebensqualität = " + Main.logik.startwerteHash.get("Lebensqualität"));
+        JLabel lblBildung = new JLabel("Bildung = " + Main.logik.startwerteHash.get("Bildung"));
+        JLabel lblStaatsvermögen = new JLabel("Staatsvermögen = " + Main.logik.startwerteHash.get("Bevölkerungswachstum"));
+        JLabel lblLeer = new JLabel("");
+        JLabel lblSimulationsablauf = new JLabel("***** Simulationsablauf *****");
+        JLabel lblRundenzahl = new JLabel("Rundenzahl = ");
+        
+        startwerte.add(lblAusgangslage);
+        startwerte.add(lblBevölkerungsgröße);
+        startwerte.add(lblBevölkerungswachstum);
+        startwerte.add(lblWirtschaftsleistung);
+        startwerte.add(lblModernisierungsgrad);
+        startwerte.add(lblPolitischeStabilität);
+        startwerte.add(lblUmweltverschmutzung);
+        startwerte.add(lblLebensqualität);
+        startwerte.add(lblBildung);
+        startwerte.add(lblStaatsvermögen);
+        startwerte.add(lblLeer);
+        startwerte.add(lblSimulationsablauf);
+        startwerte.add(lblRundenzahl);
+        
+        
+        fenster.setVisible(true);
+        startwerte.setVisible(true);
+        fenster.pack();//Passt das Fenster auf die notwendige Größe an 
+        fenster.setLocationRelativeTo(null);
     }
 
     /**
