@@ -5,7 +5,7 @@ import java.util.Scanner;
  * Hier wird die Spiellogik, die Berechnung der Einflussgrößen und die 
  * Abbruchsbedingungen überprüft und kontrolliert.
  *
- * @author (your name)
+ * @author Sven Vazquez de Lara Kallas
  * @version (0.1)
  */
 public class Logik

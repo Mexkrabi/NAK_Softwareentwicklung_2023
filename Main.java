@@ -9,28 +9,17 @@ import java.util.Scanner;
 public class Main
 {
     // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
-
+    
     /**
      * Main Funktion
      */
     public static void main(String[] args) {
         
-        System.out.println("Hello World!");
-        
-        //TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-
-        GUI gui = new GUI();
-        gui.setSpielstand("Start");
-        gui.spielstandänderung();
-        
-        new Logik(new DateiLeser());
-        new Sektor();
-        
-        //TESTING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        
-        /*
-         * Grober Ablauf
-         * -------------
+        //#  Grober Ablauf
+        //#  -------------
+        /* 0) Menü
+         *   -> Start und Ende Knopf
+         *   -> Gibt Signal zum starten weiter
          * 
          * 1) Start des Spiels
          *   -> Einlesen .sim Datei
@@ -58,7 +47,52 @@ public class Main
          *
          */
         
+        //# Code startet
         
+        System.out.println("Code startet...");
+    
+        //# SCHRITT 0 ------------------------------
+        
+        GUI gui = new GUI();
+        gui.setSpielstand("Start");
+        gui.spielstandänderung();
+
+        //Warten auf Start-Knopfdruck
+        //# SCHRITT 1 ------------------------------
+        //#EVENT: SPIELSTART
+        
+        //Datei wird eingelesen nach folgenden Daten:
+        /*
+         +++ Ausgangslage +++
+        Bevölkerungsgröße = 32
+        Bevölkerungswachstum = 7
+        Wirtschaftsleistung = 20
+        Modernisierungsgrad = 5
+        Politische Stabilität = 6
+        Umweltverschmutzung = 16
+        Lebensqualität = 20
+        Bildung = 2
+        Staatsvermögen = 8
+        +++ Simulationsablauf +++
+        Rundenzahl = 10�
+         */
+        
+        //Sektoren erzeugen
+        Sektor bevölkerungsgröße = new Sektor();
+        //etc...
+        
+        //spielstart();
+        
+        //TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
+        new Logik(new DateiLeser());
+        new Sektor();
+        
+        //TESTING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+        
+        //# SCHRITT 2 ------------------------------
+        //# SCHRITT 3 ------------------------------
+        //# SCHRITT 4 ------------------------------
+
     }
     
     /*

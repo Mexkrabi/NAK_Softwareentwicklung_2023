@@ -8,7 +8,7 @@ import java.util.Scanner;
  * Diese Klasse enthält den Code für das Einlesen der externen .sim Dateien.
  * Die Dateien beinhalten Anfangswerte für das Spiel.
  * 
- * @author (your name)
+ * @author Sven Vazquez de Lara Kallas
  * @version (0.1)
  */
 public class DateiLeser 
