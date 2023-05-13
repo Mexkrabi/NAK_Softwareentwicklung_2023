@@ -25,9 +25,9 @@ public class DateiLeser
      */
     public String simDateiAuswahl()
     {
-        String dieserOrdner = System.getProperty("user.dir"); //aktueller Dateipfad
+        String dieserOrdner = System.getProperty("user.dir") + "/sim-Dateien"; //aktueller Dateipfad + Ordner mit sim-Dateien
         
-        System.out.println("Wie heißt die Datei welche Sie auswählen wollen?");
+        System.out.println("Wie heißt die Datei welche Sie auswählen wollen? (ohne Endung)");
         Scanner sc = new Scanner(System.in); //Konsoleneingabeleser
         String input = "/" + sc.next() + ".sim"; //Eingabe abspeichern
         
