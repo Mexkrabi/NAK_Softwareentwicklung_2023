@@ -60,10 +60,10 @@ public class Main
         //# SCHRITT 0 ------------------------------
         
         gui = new GUI();
-        gui.setSpielstand("Start");
+        gui.setSpielstand("START");
         gui.spielstandänderung();
         //warten, bis Spielstand geändert wird
-        warteSolangeNoch("Start");
+        warteSolangeNoch("START");
 
 
         //Warten auf Start-Knopfdruck
@@ -91,7 +91,7 @@ public class Main
         logik = new Logik();
         
         String str = dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungsgr��e");   //#Prüfen, ob Umlaute gehen oder nicht
-        logik.startwerteHash.put("Bevölkerungsgröße",toInteger(str));
+        logik.startwerteHash.put("Bevölkerungsgröße",alsInteger(str));
         
         dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungswachstum");
         dateiLeser.auslesen(pfadStartwerte, "Wirtschaftsleistung");
@@ -132,7 +132,7 @@ public class Main
      * 
      * @param str Der String, der zu einem Integer umgewandelt werden soll
      */
-    public static Integer toInteger(String str) 
+    public static Integer alsInteger(String str) 
     {
         /////////////////////
         //String to Integer//
