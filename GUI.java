@@ -9,9 +9,12 @@ import java.awt.event.*;
  * @version (0.1)
  */
 public class GUI extends JFrame implements ActionListener {
+    public GUI() {
+        fenster = new JFrame();
+    }
     // Instanzvariablen 
     private JFrame fenster;
-    private JPanel startBildschirm, wertezuweisen, auswahlDatei;
+    private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte;
     private JComboBox<String> cbDateien;
     private String strSpielstand, strAuswahl;
     private String spielstand; //# <-- ersetzen in der Main
@@ -20,95 +23,141 @@ public class GUI extends JFrame implements ActionListener {
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung;
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
-    
+
     /**
-     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
+     * Die Methode spielstandänderunglegt organisiert anhand einer Variablen den aktuellen Spielstand 
      * 
      * @param  y    (Beschreibung des Parameters)
      */
     public void spielstandänderung()
     {
+        // wenn diese Methode aufgerufen wird und der Wert zu einem der Case passt,
+        // dann wird der zugehöhrige Code ausgeführt
         switch (strSpielstand) {
-            case "Start":
+            case "START":
                 startBildschirm();
                 break;
-            case "Auswahl" :
+            case "AUSWAHL" :
                 dateiAuswal();
-            case "Wertezuweisen":
+                break;
+            case "WERTZUWEISEN":
                 wertezuweisung();
 
         }
     }
 
     /**
-     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
+     * Die Methode erstellt den Startbildschirm und gibt die Wahl zwischen Starten und Beenden 
+     * des Programmes
      * 
      * @param  y    (Beschreibung des Parameters)
-     * @return        (Beschreibung des Rückgabewertes)
+     * 
      */
     private void startBildschirm()
     {
-        // tragen Sie hier den Code ein
-        fenster = new JFrame("Start-End Frame");
+        // Erstellt ein neues Fenster mit dem Titel "Start-End Frame" 
+        // und ein neues JPanel "startBildschirm"
+        fenster.setTitle("Start-End Frame");
         startBildschirm = new JPanel();
+        // Das Programm wird geschlossen wenn das "X" geklickt wird
         setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
         startBildschirm.setLayout(new GridLayout(3, 1, 30, 30));
 
-        // Label & Button erstellen und hinzufügen
+        // Label & Button erstellen 
         lblwilkommen = new JLabel("Willkommen!");
         btStart = new JButton("Start");
         btEnde = new JButton("Ende");
-
+        
+        //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btStart.addActionListener(this);
         btEnde.addActionListener(this);
 
-        //Hinzufügen der Button und des Label
+        //Fügt das JLabel und die beiden JButtons zum JPanel hinzu
         startBildschirm.add(lblwilkommen);
         startBildschirm.add(btStart);
         startBildschirm.add(btEnde);
-
+        
+        //Fügt das JPanel zum JFrame hinzu
         fenster.add(startBildschirm);
 
-        //  Größe des Frames festlegen
-        startBildschirm.setSize(300, 300);
+        //legt die Größe des Frames fest
+        //startBildschirm.setSize(300, 300);
         fenster.setSize(300,300);
+        
+        // Zentriert das JFrame auf dem Bildschirm
         setLocationRelativeTo(null);
+        
+        //setzt die Sichtbarkeit auf true
         fenster.setVisible(true);
         startBildschirm.setVisible(true);
     }
-    
+
     /**
-     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
+     * Die Methode erstellt eine Eingabemaske auf der ausgewählt werden kann welches Land 
+     * gespielt werden soll und legt somit die auszulesende Datei fest
+     * 
      * 
      * @param  y	(Beschreibung des Parameters)
-     * @return		(Beschreibung des Rückgabewertes)
      */
     public void dateiAuswal()
     {
         // tragen Sie hier den Code ein
-        fenster.setTitle("Werte zuweisen");
+        fenster.setTitle("zu Simulierendes Land auswählen");
         auswahlDatei = new JPanel();
-        setDefaultCloseOperation(EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird     
+        
+        // Das Programm wird geschlossen wenn das "X" geklickt wird
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        
+        //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
         auswahlDatei.setLayout(new GridLayout(3, 2, 40, 40));
+        
         
         JLabel lblAuswahl = new JLabel("Wählen Sie das zu Spielende Land aus");
         btAuswahlBestätigen = new JButton("Auswahl bestätigen");
         cbDateien = new JComboBox<String>();
-    
+        
+        //Fügt Werte in die ComboBox
         cbDateien.addItem("Auswahl");
         cbDateien.addItem("Hier die Dateinamen einfügen");
-        
+
+        //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btAuswahlBestätigen.addActionListener(this);
-        
+
+        //Fügt das JLabel und die beiden JButtons zum JPanel hinzu
         auswahlDatei.add(lblAuswahl);
         auswahlDatei.add(cbDateien); 
         auswahlDatei.add(btAuswahlBestätigen);
-        fenster.add(auswahlDatei);
         
+        //Fügt das JPanel zum JFrame hinzu
+        fenster.add(auswahlDatei);
+
+        //legt die Größe des Frames fest
+        fenster.setSize(300,300);
+        // Zentriert das JFrame auf dem Bildschirm
+        fenster.setLocationRelativeTo(null);
+        
+        //setzt die Sichtbarkeit auf true
         fenster.setVisible(true);
         auswahlDatei.setVisible(true);
-        fenster.setSize(300,300);;//Passt das Fenster auf die notwendige Größe an 
-        fenster.setLocationRelativeTo(null);
+    }
+
+    /**
+     * Die Methode zeigt dem Spieler die Startwerte seiner Simulation
+     * 
+     * 
+     * @param  y	(Beschreibung des Parameters)
+     * @return		(Beschreibung des Rückgabewertes)
+     */
+    public void startwerte()
+    {
+        // tragen Sie hier den Code ein
+        fenster.setTitle("Startwerte der Simulation");
+
+        startwerte = new JPanel();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
+        startwerte.setLayout(new GridLayout(1, 13, 10, 10));
+
     }
 
     /**
@@ -202,7 +251,7 @@ public class GUI extends JFrame implements ActionListener {
         if (e.getSource() == btStart) {
             // Aktion für Button 1
             System.out.println("Start wurde geklickt.");
-            setSpielstand("Auswahl");
+            setSpielstand("AUSWAHL");
             spielstandänderung();
             startBildschirm.setVisible(false);
         } else if (e.getSource() == btEnde) {
@@ -237,7 +286,7 @@ public class GUI extends JFrame implements ActionListener {
 
             strAuswahl = (String) cbDateien.getSelectedItem();
             System.out.println(strAuswahl);
-            setSpielstand("Wertezuweisen");
+            setSpielstand("WERTZUWEISEN");
         }
     }
 }
