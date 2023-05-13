@@ -9,7 +9,7 @@ import java.util.Scanner;
 public class Main
 {
     // static Variablen --> erlauben Zugriff von allen Klassen ohne ein Objekt zu erzeugen
-    public static SPIELSTAND spielstand; //Speichert den aktuellen Spielstand als Enumerator
+    public static String spielstand;
     public static String pfadStartwerte; //Speichert Dateipfad der .sim
     
     public static DateiLeser dateiLeser; //DateiLeser --> Zugriff von allen Klassen möglich

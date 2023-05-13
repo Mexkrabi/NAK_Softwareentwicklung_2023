@@ -5,8 +5,8 @@ import java.awt.event.*;
 /**
  * Beschreiben Sie hier die Klasse GUI.
  * 
- * @author (Malte Fischer) 
- * @version (01)
+ * @author Malte Fischer
+ * @version (0.1)
  */
 public class GUI extends JFrame implements ActionListener {
     // Instanzvariablen 
@@ -14,7 +14,7 @@ public class GUI extends JFrame implements ActionListener {
     private JPanel startBildschirm, wertezuweisen, auswahlDatei;
     private JComboBox<String> cbDateien;
     private String strSpielstand, strAuswahl;
-    private String spielstand; //# <-- durch ENUM ersetzen in der Main
+    private String spielstand; //# <-- ersetzen in der Main
     private JLabel lblwilkommen;
     private JButton btStart, btEnde, btAuswahlBestätigen;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung;
@@ -86,7 +86,6 @@ public class GUI extends JFrame implements ActionListener {
     public void dateiAuswal()
     {
         // tragen Sie hier den Code ein
-        fenster = new JFrame("Start-End Frame");
         fenster.setTitle("Werte zuweisen");
         auswahlDatei = new JPanel();
         setDefaultCloseOperation(EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird     
@@ -204,6 +203,7 @@ public class GUI extends JFrame implements ActionListener {
             // Aktion für Button 1
             System.out.println("Start wurde geklickt.");
             setSpielstand("Auswahl");
+            spielstandänderung();
             startBildschirm.setVisible(false);
         } else if (e.getSource() == btEnde) {
             // Aktion für Button 2
