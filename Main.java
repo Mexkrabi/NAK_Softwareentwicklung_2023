@@ -1,3 +1,4 @@
+import java.util.Scanner;
 
 /**
  * Beschreiben Sie hier die Klasse Main.
@@ -55,5 +56,17 @@ public class Main
          */
         
         
+    }
+    
+    /**
+     * Vereinfachte Methode zum Einlesen von Konsoleneingaben. Funktioniert mit Javas "Scanner" Klasse
+     * und wartet, bis ein beliebiger Wert eingetippt wurde.
+     * 
+     * @return Gibt Wert wieder, der in der Konsole eingegeben wurde.
+     */
+    public static String konsoleneingabe() 
+    {
+        Scanner sc = new Scanner(System.in); //Konsoleneingabeleser
+        return sc.next();
     }
 }
