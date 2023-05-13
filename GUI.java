@@ -11,15 +11,23 @@ import java.awt.event.*;
 public class GUI extends JFrame implements ActionListener {
     // Instanzvariablen 
     private JFrame fenster;
+<<<<<<< HEAD
     private JPanel startBildschirm, wertezuweisen, auswahlDatei;
     private JComboBox<String> cbDateien;
     private String strSpielstand, strAuswahl;
+=======
+    private String spielstand; //# <-- durch ENUM ersetzen in der Main
+>>>>>>> 259db77477dbe87b2985a981a7b337195eca9179
     private JLabel lblwilkommen;
     private JButton btStart, btEnde, btAuswahlBestätigen;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung;
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 259db77477dbe87b2985a981a7b337195eca9179
     /**
      * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
      * 
