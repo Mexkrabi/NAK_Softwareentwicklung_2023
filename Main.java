@@ -8,8 +8,12 @@ import java.util.Scanner;
  */
 public class Main
 {
-    // Instanzvariablen - ersetzen Sie das folgende Beispiel mit Ihren Variablen
+    // static Variablen --> erlauben Zugriff von allen Klassen ohne ein Objekt zu erzeugen
+    public static SPIELSTAND spielstand; //Speichert den aktuellen Spielstand als Enumerator
+    public static String pfadStartwerte; //Speichert Dateipfad der .sim
     
+    public static DateiLeser dateiLeser; //DateiLeser --> Zugriff von allen Klassen möglich
+    public static GUI gui; //Globaler GUI-Handler
     /**
      * Main Funktion
      */
@@ -53,25 +57,18 @@ public class Main
     
         //# SCHRITT 0 ------------------------------
         
-        GUI gui = new GUI();
+        gui = new GUI();
         gui.setSpielstand("Start");
         gui.spielstandänderung();
         //warten, bis Spielstand geändert wird
-        while(gui.getSpielstand() == "Start")
-        {
-            try {
-                // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
-                //# evtl. Überprüfen!
-                Thread.sleep(100);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+        warteSolangeNoch("Start");
+
 
         //Warten auf Start-Knopfdruck
         //# SCHRITT 1 ------------------------------
         //#EVENT: SPIELSTART
-        
+        dateiLeser = new DateiLeser();
+        pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
         //Datei wird eingelesen nach folgenden Daten:
         /*
          +++ Ausgangslage +++
@@ -88,15 +85,29 @@ public class Main
         Rundenzahl = 10�
          */
         
-        //Sektoren erzeugen
-        Sektor bevölkerungsgröße = new Sektor();
+        //STARTWERTE EINLESEN
+        dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungsgr��e");   //#Prüfen, ob Umlaute gehen oder nicht
+        dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungswachstum");
+        dateiLeser.auslesen(pfadStartwerte, "Wirtschaftsleistung");
+        dateiLeser.auslesen(pfadStartwerte, "Modernisierungsgrad");
+        dateiLeser.auslesen(pfadStartwerte, "Politische Stabilit�t");
+        dateiLeser.auslesen(pfadStartwerte, "Umweltverschmutzung");
+        dateiLeser.auslesen(pfadStartwerte, "Bildung");
+        dateiLeser.auslesen(pfadStartwerte, "Staatsverm�gen");
+        
+        dateiLeser.auslesen(pfadStartwerte, "Rundenzahl");
+
+        //#danach in HashMap packen
+        
+        //Sektoren erzeugen /////////////////////////////
+        //Sektor bevölkerungsgröße = new Sektor();
+        
         //etc...
         
         //spielstart();
         
         //TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        new Logik(new DateiLeser());
-        new Sektor();
+        
         
         //TESTING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
         
@@ -109,6 +120,23 @@ public class Main
     /*
      * Sinnvolle Methoden, die unser Leben erleichtern.
      */
+    
+    /**
+     * 
+     */
+    public static void warteSolangeNoch(String woraufGewartetWird) 
+    {
+        while(gui.getSpielstand() == woraufGewartetWird)
+        {
+            try {
+                // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
+                //# evtl. Überprüfen!
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
     
     /**
      * Vereinfachte Methode zum Einlesen von Konsoleneingaben. Funktioniert mit Javas "Scanner" Klasse

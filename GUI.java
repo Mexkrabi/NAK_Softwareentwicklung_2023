@@ -12,13 +12,12 @@ import java.awt.event.*;
 public class GUI extends JFrame implements ActionListener {
     // Instanzvariablen 
     private JFrame fenster;
-    private String spielstand;
+    private String spielstand; //# <-- durch ENUM ersetzen in der Main
     private JLabel lblwilkommen;
     private JButton btStart, btEnde;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung;
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
-
 
 
     /**
