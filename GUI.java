@@ -147,5 +147,15 @@ public class GUI extends JFrame {
         // tragen Sie hier den Code ein
 
     }
-
+    
+    //Getter & Setter
+    public String getSpielstand() 
+    {
+        return this.spielstand;
+    }
+    public void setSpielstand(String neuerSpielstand) 
+    {
+        this.spielstand = neuerSpielstand;
+        //Prüfung hinzufügen
+    }
 }

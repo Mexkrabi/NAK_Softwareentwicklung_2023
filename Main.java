@@ -19,7 +19,10 @@ public class Main
         
         //TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
 
-        new GUI();
+        GUI gui = new GUI();
+        gui.setSpielstand("Start");
+        gui.spielstandänderung();
+        
         new Logik(new DateiLeser());
         new Sektor();
         
