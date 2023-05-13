@@ -164,6 +164,7 @@ public class GUI extends JFrame implements ActionListener {
             // Aktion für Button 1
             System.out.println("Start wurde geklickt.");
             setSpielstand("Auslesen");
+            dispose();
         } else if (e.getSource() == btEnde) {
             // Aktion für Button 2
             System.out.println("Ende wurde geklickt.");
