@@ -22,7 +22,7 @@ public class DateiLeser
         
     }
     
-    /*
+    /**
      * überladener construktor für alternativen Pfad
      * 
      * @param alternativPfad 
@@ -112,7 +112,7 @@ public class DateiLeser
         }
         return "Wert konnte nicht gefunden werden.";
     }
-    /*
+    /**
      * 
      */
     public Set<String> dateienFinden() throws IOException {
