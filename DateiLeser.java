@@ -8,7 +8,8 @@ import java.nio.file.*;
  * Die Dateien beinhalten Anfangswerte für das Spiel.
  * 
  * @author Sven Vazquez de Lara Kallas
- * @version (0.1)
+ * @author Livia Kadenbach
+ * @version (0.2)
  */
 public class DateiLeser 
 {   
@@ -122,14 +123,16 @@ public class DateiLeser
     /**
      * 
      */
-    public Set<String> dateienFinden() throws IOException {
-        try (Stream<Path> stream = Files.list(Paths.get(dieserOrdner))) {
-        return stream
-          .filter(file -> !Files.isDirectory(file))
-          .map(Path::getFileName)
-          .map(Path::toString)
-          .collect(Collectors.toSet());
-    }
+    public Set<String> dateienFinden(){
+        Set<String> dateien = new HashSet<String>();
+        
+        for (File file : new File(dieserOrdner).listFiles()){
+            if (!file.isDirectory() && file.getName().endsWith(".sim")){ //prüft dass es kein ordner ist und der dateityp eine .sim Datei ist
+                dateien.add(file.getName().substring(0,file.getName().length()-4));//packt den Dateinamen ohne die Endung .sim in die Liste
+            }
+        }
+        
+        return dateien;
     }
     
     //Getter & Setter
