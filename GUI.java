@@ -340,7 +340,11 @@ public class GUI extends JFrame implements ActionListener {
             System.out.println("Modernisierung um 1 Punkt runter");
         } else if (e.getSource() == btWirtschaftHoch) {
             intWirtschaftsleistung = intWirtschaftsleistung + 1;
-            //#Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
+            //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
+            //# vvvvvvvvvv
+            Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);
+            System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
+            //# ^^^^^^^^^^
             intStaatsvermögen = intStaatsvermögen - 1;
             lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());lblWirtschaftsleistungStand.setText(intWirtschaftsleistung.toString());
             System.out.println("Wirtschaftleistung um 1 Punkt hoch");
