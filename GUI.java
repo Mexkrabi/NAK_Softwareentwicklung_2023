@@ -28,7 +28,6 @@ public class GUI extends JFrame implements ActionListener {
     /**
      * Die Methode spielstandänderunglegt organisiert anhand einer Variablen den aktuellen Spielstand 
      * 
-     * @param  y    (Beschreibung des Parameters)
      */
     public void spielstandänderung()
     {
@@ -59,7 +58,6 @@ public class GUI extends JFrame implements ActionListener {
      * Die Methode erstellt den Startbildschirm und gibt die Wahl zwischen Starten und Beenden 
      * des Programmes
      * 
-     * @param  y    (Beschreibung des Parameters)
      * 
      */
     private void startBildschirm()
@@ -107,7 +105,6 @@ public class GUI extends JFrame implements ActionListener {
      * gespielt werden soll und legt somit die auszulesende Datei fest
      * 
      * 
-     * @param  y    (Beschreibung des Parameters)
      */
     public void dateiAuswal()
     {
@@ -156,8 +153,6 @@ public class GUI extends JFrame implements ActionListener {
      * Die Methode zeigt dem Spieler die Startwerte seiner Simulation
      * 
      * 
-     * @param  y    (Beschreibung des Parameters)
-     * @return        (Beschreibung des Rückgabewertes)
      */
     public void startwerte()
     {
@@ -213,8 +208,6 @@ public class GUI extends JFrame implements ActionListener {
     /**
      * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
      * 
-     * @param  y    (Beschreibung des Parameters)
-     * @return        (Beschreibung des Rückgabewertes)
      */
     private void wertezuweisung()
     {
@@ -225,8 +218,8 @@ public class GUI extends JFrame implements ActionListener {
         wertezuweisen.setLayout(new GridLayout(5, 4, 10, 10));
 
         lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung: ");
-        
-        lblWirtschaftsleistungStand = new JLabel(Main.logik.startwerteHash.get("Wirtschaftsleistung").toString());
+        intWirtschaftsleistung = Main.logik.startwerteHash.get("Wirtschaftsleistung");
+        lblWirtschaftsleistungStand = new JLabel(intWirtschaftsleistung.toString());
         btWirtschaftHoch = new JButton("+");
         btWirtschaftRunter = new JButton("-");
 
@@ -328,10 +321,14 @@ public class GUI extends JFrame implements ActionListener {
 
             System.out.println("Modernisierung um 1 Punkt runter");
         } else if (e.getSource() == btWirtschaftHoch) {
-
+            intWirtschaftsleistung = intWirtschaftsleistung + 1;
+            //#Prüfe ob wert ok wenn nicht ERROR Methode in Logik aufrufen (switch case)
+            lblWirtschaftsleistungStand.setText(intWirtschaftsleistung.toString());
             System.out.println("Wirtschaftleistung um 1 Punkt hoch");
         } else if (e.getSource() == btWirtschaftRunter) {
-
+            intWirtschaftsleistung = intWirtschaftsleistung - 1;
+            //#Prüfe ob wert ok wenn nicht ERROR Methode in Logik aufrufen (switch case)
+            lblWirtschaftsleistungStand.setText(intWirtschaftsleistung.toString());
             System.out.println("Wirtschaftleistung um 1 Punkt runter");
         } else if (e.getSource() == btLebenHoch) {
 
@@ -346,7 +343,7 @@ public class GUI extends JFrame implements ActionListener {
 
             System.out.println("Bildung um 1 Punkt runter");
         } else if (e.getSource() == btAuswahlBestätigen) {
-            strAuswahl = (String) cbDateien.getSelectedItem();
+            strAuswahl = (String) cbDateien.getSelectedItem(); //Dateiname der ausgewählten Datei abspeichern
             System.out.println(strAuswahl);
             setSpielstand("BREAK");
             spielstandänderung();
