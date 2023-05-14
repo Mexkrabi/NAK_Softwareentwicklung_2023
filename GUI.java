@@ -124,9 +124,12 @@ public class GUI extends JFrame implements ActionListener {
         cbDateien = new JComboBox<String>();
         
         //Fügt Werte in die ComboBox
-        cbDateien.addItem("Auswahl");
+        for (String datei : Main.dateiLeser.dateienFinden()){
+            cbDateien.addItem(datei);
+        }
+        /*cbDateien.addItem("Auswahl");
         cbDateien.addItem("beispielland");
-        cbDateien.addItem("Hier die Dateinamen einfügen");
+        cbDateien.addItem("Hier die Dateinamen einfügen");*/
 
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btAuswahlBestätigen.addActionListener(this);
