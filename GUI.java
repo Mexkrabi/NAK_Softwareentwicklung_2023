@@ -19,7 +19,7 @@ public class GUI extends JFrame implements ActionListener {
     public String strSpielstand, strAuswahl;
     private String spielstand; //# <-- ersetzen in der Main
     private JLabel lblwilkommen;
-    private JButton btStart, btEnde, btAuswahlBestätigen, btweiter;
+    private JButton btStart, btEnde, btAuswahlBestätigen, btweiter, btPunktezuweisungBestätigen;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung;
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
@@ -47,6 +47,9 @@ public class GUI extends JFrame implements ActionListener {
                 break;
             case "WERTZUWEISEN":
                 wertezuweisung();
+                break;
+            case "BERECHNUNG" :
+                System.out.println("HUIIIIIIIIIIII");;
 
         }
     }
@@ -199,10 +202,11 @@ public class GUI extends JFrame implements ActionListener {
         startwerte.add(lblRundenzahl);
         startwerte.add(btweiter);
         
-        fenster.setVisible(true);
-        startwerte.setVisible(true);
+
         fenster.setSize(300,700);//Passt das Fenster auf die notwendige Größe an 
         fenster.setLocationRelativeTo(null);
+        fenster.setVisible(true);
+        startwerte.setVisible(true);
     }
 
     /**
@@ -248,13 +252,16 @@ public class GUI extends JFrame implements ActionListener {
         btBildungHoch = new JButton("+");
         btBildungRunter = new JButton("-");
 
+        btPunktezuweisungBestätigen = new JButton("Zuweisung Bestätigen");
+
+        btPunktezuweisungBestätigen.addActionListener(this);
         btBildungHoch.addActionListener(this);
         btBildungRunter.addActionListener(this);
 
         JLabel lblVerbleibendeRunden = new JLabel("Verbleibende Runden: " + Main.logik.rundenzahl); //System gedribbelt
-        lblVerbleibendeRunden.setBounds(5, 1, 1, 2);
+        
         JLabel lblVerbleibendesStaatskapital = new JLabel("Verbleibendes mögliche Investitionen: " + Main.logik.startwerteHash.get("Staatsvermögen").toString());
-        lblVerbleibendesStaatskapital.setBounds(5, 3, 1, 2);
+        btPunktezuweisungBestätigen.setBounds(5, 3, 1, 2);
         fenster.add(wertezuweisen);
 
         wertezuweisen.add(lblWirtschaftsleistung);
@@ -279,7 +286,8 @@ public class GUI extends JFrame implements ActionListener {
         
         wertezuweisen.add(lblVerbleibendeRunden);
         wertezuweisen.add(lblVerbleibendesStaatskapital);
-
+        wertezuweisen.add(btPunktezuweisungBestätigen);
+        
         fenster.setVisible(true);
         wertezuweisen.setVisible(true);
         fenster.pack();//Passt das Fenster auf die notwendige Größe an 
@@ -345,6 +353,11 @@ public class GUI extends JFrame implements ActionListener {
             spielstandänderung();
             System.out.println("Weiter geklickt");
             startwerte.setVisible(false);
-        } 
+        } else if (e.getSource() == btPunktezuweisungBestätigen) {
+            setSpielstand("BERECHNUNG");
+            spielstandänderung();
+            System.out.println("Weiter geklickt");
+            wertezuweisen.setVisible(false);
+        }
     }
 }
