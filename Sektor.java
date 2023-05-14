@@ -54,4 +54,15 @@ public class Sektor
         System.out.println("Wertebereich: " + min + " bis " + max);
         System.out.println("Startwert: " + startwert);
     }
+    
+    public boolean prüfeObImWertebereich(int eingabe)
+    {
+        if(eingabe <= max && eingabe >= min) {
+            return true;
+        } else {
+            return false;
+        }
+    }
 }
+
+
