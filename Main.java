@@ -32,6 +32,7 @@ public class Main
          *   -> Startwerte einlesen
          *   -> Anzahl Runden festlegen
          *   -> Anzeigen der Startwerte
+         *   -> Erzeuge Sektoren und weise Werte zu
          *   
          *   [wiedehole 2 & 3 so oft wie es Runden gibt]
          *   
@@ -113,8 +114,31 @@ public class Main
         {
             ex.printStackTrace(); 
         }
-        //Sektoren erzeugen /////////////////////////////
-        //Sektor bevölkerungsgröße = new Sektor();
+        
+        //#Sektoren erzeugen /////////////////////////////
+        /* To Do für jeden Sektor: (9x bzw. 11x)
+         * -> Name              String
+         * -> min               int
+         * -> max               int
+         * -> startwert         int
+         */
+        //Bevölkerungsgröße
+        int startwert1 = logik.startwerteHash.get("Bevölkerungsgröße"); //Startwert aus Hashmap ziehen
+        Sektor bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert1); //min max aus Angabe Tabelle (HA-Dokument)
+        /*
+             +++ Ausgangslage +++
+            Bevölkerungsgröße = 32
+            Bevölkerungswachstum = 7
+            Wirtschaftsleistung = 20
+            Modernisierungsgrad = 5
+            Politische Stabilität = 6
+            Umweltverschmutzung = 16
+            Lebensqualität = 20
+            Bildung = 2
+            Staatsvermögen = 8
+            +++ Simulationsablauf +++
+            Rundenzahl = 10�
+        */
         
         //etc...
         gui.setSpielstand("STARTWERTE");
@@ -126,7 +150,7 @@ public class Main
         //#TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         System.out.println("###############Testing###############");
         
-        System.out.println("Gebe Hashmap aus:");
+        System.out.println("Gebe Hashmap mit Startwerten aus:");
         for (String i : logik.startwerteHash.keySet()) {
           System.out.println("key: " + i + " value: " + logik.startwerteHash.get(i));
         }
@@ -145,6 +169,26 @@ public class Main
      * Sinnvolle Methoden, die unser Leben erleichtern.
      * vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
      */
+
+    /**
+     * Methode erzeugt einen int Array. Einfach den kleinsten und größten Wert eingeber.
+     * Der Rest wird immer +1 hinzugefügt.
+     * 
+     * @param start kleinster Wert des Arrays
+     * @param ende größter Wert des Arrays
+     */
+    public int[] erzeugeArray(int start, int ende) {
+        
+        int größe = ende - start;
+        int[] array = new int[größe]; // Erstelle das Array mit der angegebenen Größe
+        
+        for (int i = 0; i < größe; i++) {
+            array[i] = start + i; // Fülle das Array mit der Zahlenfolge von start bis end
+        }
+        
+        return array; // Gib das fertige Array zurück
+    }
+
     
     /**
      * Wandelt einen String zu einem Integer um

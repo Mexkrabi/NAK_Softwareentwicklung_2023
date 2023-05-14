@@ -9,12 +9,15 @@
  */
 public class Sektor
 {
+    
+    //# To Do: Getter und Setter für 'name', 'wertebereich' und 'wert' hinzufügen
     // instance variables - replace the example below with your own
-    private int[] wertebereich; //Akzeptierte Werte laut Aufgabenstellung
+    //private int[] wertebereich; //Akzeptierte Werte laut Aufgabenstellung
     //private String wird_beeinflusst_von; //Sektor, der Einfluss auf diese Kenngröße hat
     //private String beeinflusst;
-    private int wert; //Aktueller Wert
+    private int wert; //Aktueller Wert 
     private String name; //Bezeichnung des Sektors
+    private int min, max; //Minimum und Maximum definieren Wertebereich des Sektors
 
     //# Größen beim Start:
     /*
@@ -33,12 +36,22 @@ public class Sektor
     */
     /**
      * Constructor for objects of class Sektor
+     * 
+     * @param name Name des Sektors
+     * @param min Kleinster Wert des Sektors
+     * @param max Größter Wert des Sektors
+     * @param startwert Definiere den Startwert des Sektors 
      */
-    public Sektor(String name)
+    public Sektor(String name, int min, int max, int startwert /*,int[] wertebereich*/)
     {
         this.name = name;
-        //TEST
-        this.wertebereich = new int[1];
-        System.out.println("Neuer Sektor erzeugt");
+        this.min = min;
+        this.max = max;
+        this.wert = startwert;
+        //this.wertebereich = wertebereich; //Array mit allen möglichen Werten für den Sektor 
+        System.out.println("---");
+        System.out.println("Neuer Sektor '" + name + "' erzeugt");
+        System.out.println("Wertebereich: " + min + " bis " + max);
+        System.out.println("Startwert: " + startwert);
     }
 }
