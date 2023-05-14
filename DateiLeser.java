@@ -9,7 +9,7 @@ import java.nio.file.*;
  * 
  * @author Sven Vazquez de Lara Kallas
  * @author Livia Kadenbach
- * @version (0.1)
+ * @version (0.2)
  */
 public class DateiLeser 
 {   
