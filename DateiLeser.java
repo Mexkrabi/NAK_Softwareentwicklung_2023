@@ -1,18 +1,35 @@
 import java.io.*;
 import java.util.*;
+import java.util.stream.*;
+import java.nio.file.*;
 
 /**
  * Diese Klasse enthält den Code für das Einlesen der externen .sim Dateien.
  * Die Dateien beinhalten Anfangswerte für das Spiel.
  * 
  * @author Sven Vazquez de Lara Kallas
+ * @author Livia Kadenbach
  * @version (0.1)
  */
 public class DateiLeser 
-{    
-    public DateiLeser() 
+{   
+    private String ordnerPfad =  "";
+    
+    public DateiLeser() //throws IOException
     {
+        ordnerPfad = System.getProperty("user.dir") + "/sim-Dateien";
+        //System.out.println(String.join(",", dateienFinden()));
         
+    }
+    
+    /*
+     * überladener construktor für alternativen Pfad
+     * 
+     * @param alternativPfad 
+     */
+    public DateiLeser(String alternativPfad) 
+    {
+        ordnerPfad = alternativPfad;
     }
     
     /**
@@ -22,16 +39,15 @@ public class DateiLeser
      */
     public String simDateiAuswahl()
     {
-        String dieserOrdner = System.getProperty("user.dir") + "/sim-Dateien"; //aktueller Dateipfad + Ordner mit sim-Dateien
-        
         System.out.println("Wie heißt die Datei welche Sie auswählen wollen? (ohne Endung)");
         Scanner sc = new Scanner(System.in); //Konsoleneingabeleser
         //String input = "/" + sc.next() + ".sim"; //Eingabe abspeichern
         Main.warteSolangeNoch("START");
         Main.warteSolangeNoch("AUSWAHL");
+        
         Main.gui.strAuswahl = (String) Main.gui.cbDateien.getSelectedItem();
-        System.out.println("Pfad des aktuellen Projektordners: " + dieserOrdner + "/" + Main.gui.strAuswahl + ".sim"); //zusammenfügen
-        String simFilePath = dieserOrdner +  "/" + Main.gui.strAuswahl  + ".sim";
+        String simFilePath = ordnerPfad +  "/" + Main.gui.strAuswahl  + ".sim";
+        System.out.println("Pfad des aktuellen Projektordners: " + simFilePath); //zusammenfügen
         
         allesAuslesen(simFilePath);
 
@@ -95,6 +111,18 @@ public class DateiLeser
             e.printStackTrace();
         }
         return "Wert konnte nicht gefunden werden.";
+    }
+    /*
+     * 
+     */
+    public Set<String> dateienFinden() throws IOException {
+        try (Stream<Path> stream = Files.list(Paths.get(ordnerPfad))) {
+        return stream
+          .filter(file -> !Files.isDirectory(file))
+          .map(Path::getFileName)
+          .map(Path::toString)
+          .collect(Collectors.toSet());
+    }
     }
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
