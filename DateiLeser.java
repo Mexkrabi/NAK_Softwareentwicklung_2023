@@ -8,7 +8,6 @@ import java.nio.file.*;
  * Die Dateien beinhalten Anfangswerte für das Spiel.
  * 
  * @author Sven Vazquez de Lara Kallas
- * @author Livia Kadenbach
  * @version (0.1)
  */
 public class DateiLeser 
