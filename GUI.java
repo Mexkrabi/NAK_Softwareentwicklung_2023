@@ -342,19 +342,24 @@ public class GUI extends JFrame implements ActionListener {
             intWirtschaftsleistung = intWirtschaftsleistung + 1;
             //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
             //# vvvvvvvvvv
-            Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);
-            System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
-            //# ^^^^^^^^^^
-            intStaatsvermögen = intStaatsvermögen - 1;
-            lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());lblWirtschaftsleistungStand.setText(intWirtschaftsleistung.toString());
-            System.out.println("Wirtschaftleistung um 1 Punkt hoch");
+                if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung) == true){
+                
+                    System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
+                    //# ^^^^^^^^^^
+                    intStaatsvermögen = intStaatsvermögen - 1;
+                    lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());lblWirtschaftsleistungStand.setText(intWirtschaftsleistung.toString());
+                    System.out.println("Wirtschaftleistung um 1 Punkt hoch");
+                }else {
+                    System.out.println("Wert nicht im Wertebereich");
             
+                 }
         } else if (e.getSource() == btWirtschaftRunter) {
             //#Prüfen ob investiert werden darf
             intStaatsvermögen = intStaatsvermögen - 1;
             intWirtschaftsleistung = intWirtschaftsleistung - 1;
             //#Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
-
+            Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);//Prüfen ob Wert im Wertebereich 
+            
             lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
             lblWirtschaftsleistungStand.setText(intWirtschaftsleistung.toString());
             System.out.println("Wirtschaftleistung um 1 Punkt runter");
