@@ -112,6 +112,7 @@ public class DateiLeser
         }
         return "Wert konnte nicht gefunden werden.";
     }
+    
     /*
      * 
      */

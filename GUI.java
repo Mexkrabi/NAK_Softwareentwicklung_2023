@@ -17,6 +17,7 @@ public class GUI extends JFrame implements ActionListener {
     private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte;
     public JComboBox<String> cbDateien;
     public String strSpielstand, strAuswahl;
+    private Integer intWirtschaftsleistung, intModernisierungsgrad, intLebensqualität, intBildung, intStaatsvermögen, intVerbleibendeRunden;
     private String spielstand; //# <-- ersetzen in der Main
     private JLabel lblwilkommen;
     private JButton btStart, btEnde, btAuswahlBestätigen, btweiter, btPunktezuweisungBestätigen;
@@ -224,13 +225,15 @@ public class GUI extends JFrame implements ActionListener {
         wertezuweisen.setLayout(new GridLayout(5, 4, 10, 10));
 
         lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung: ");
-        lblWirtschaftsleistungStand = new JLabel( Main.logik.startwerteHash.get("Wirtschaftsleistung").toString());
+        
+        lblWirtschaftsleistungStand = new JLabel(Main.logik.startwerteHash.get("Wirtschaftsleistung").toString());
         btWirtschaftHoch = new JButton("+");
         btWirtschaftRunter = new JButton("-");
 
         btWirtschaftHoch.addActionListener(this);
         btWirtschaftRunter.addActionListener(this);
-
+        
+        
         lblModernisierungsgrad = new JLabel("Modernisierungsgrad: ");
         lblModernisierungsgradStand = new JLabel(Main.logik.startwerteHash.get("Modernisierungsgrad").toString());
         btModernHoch = new JButton("+");
