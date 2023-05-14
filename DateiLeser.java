@@ -13,11 +13,11 @@ import java.nio.file.*;
  */
 public class DateiLeser 
 {   
-    private String ordnerPfad =  "";
+    private String dieserOrdner =  ""; //Ordnerpfad mit .sim Dateien
     
-    public DateiLeser() //throws IOException
+    public DateiLeser()
     {
-        ordnerPfad = System.getProperty("user.dir") + "/sim-Dateien";
+        dieserOrdner = System.getProperty("user.dir") + "/sim-Dateien"; //aktueller Dateipfad + Ordner mit sim-Dateien
         //System.out.println(String.join(",", dateienFinden()));
         
     }
@@ -29,7 +29,7 @@ public class DateiLeser
      */
     public DateiLeser(String alternativPfad) 
     {
-        ordnerPfad = alternativPfad;
+        dieserOrdner = alternativPfad;
     }
     
     /**
@@ -39,15 +39,21 @@ public class DateiLeser
      */
     public String simDateiAuswahl()
     {
-        System.out.println("Wie heißt die Datei welche Sie auswählen wollen? (ohne Endung)");
-        Scanner sc = new Scanner(System.in); //Konsoleneingabeleser
-        //String input = "/" + sc.next() + ".sim"; //Eingabe abspeichern
-        Main.warteSolangeNoch("START");
-        Main.warteSolangeNoch("AUSWAHL");
+        //#String dieserOrdner = System.getProperty("user.dir") + "/sim-Dateien"; //aktueller Dateipfad + Ordner mit sim-Dateien
         
-        Main.gui.strAuswahl = (String) Main.gui.cbDateien.getSelectedItem();
-        String simFilePath = ordnerPfad +  "/" + Main.gui.strAuswahl  + ".sim";
-        System.out.println("Pfad des aktuellen Projektordners: " + simFilePath); //zusammenfügen
+        ////////Hier mit Konsoleneingabe://////////////
+        //System.out.println("Wie heißt die Datei welche Sie auswählen wollen? (ohne Endung)");
+        //Scanner sc = new Scanner(System.in); //Konsoleneingabeleser
+        //String input = "/" + sc.next() + ".sim"; //Eingabe abspeichern
+        //////////////////////////////////////////////
+
+        //#Main.warteSolangeNoch("AUSWAHL"); //warten, bis der Ordner gefunden wird 
+        
+        String dateiname = Main.gui.strAuswahl; //Dateiname der ausgewählten Datei abspeichern 
+        //#Main.gui.strAuswahl = (String) Main.gui.cbDateien.getSelectedItem(); 
+        
+        System.out.println("Pfad des aktuellen Projektordners: " + dieserOrdner + "/" + dateiname + ".sim"); //zusammenfügen
+        String simFilePath = dieserOrdner +  "/" + dateiname  + ".sim";
         
         allesAuslesen(simFilePath);
 
@@ -117,7 +123,7 @@ public class DateiLeser
      * 
      */
     public Set<String> dateienFinden() throws IOException {
-        try (Stream<Path> stream = Files.list(Paths.get(ordnerPfad))) {
+        try (Stream<Path> stream = Files.list(Paths.get(dieserOrdner))) {
         return stream
           .filter(file -> !Files.isDirectory(file))
           .map(Path::getFileName)
@@ -125,6 +131,13 @@ public class DateiLeser
           .collect(Collectors.toSet());
     }
     }
+    
+    //Getter & Setter
+    public String getOrdner() 
+    {
+        return this.dieserOrdner;
+    }
+    
 
     ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
     ////////////////////////////////////////////////        REFERENZ        ////////////////////////////////////////////////

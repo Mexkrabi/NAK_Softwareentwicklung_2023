@@ -71,6 +71,7 @@ public class Main
         //# SCHRITT 1 ------------------------------
         //#EVENT: SPIELSTART
         dateiLeser = new DateiLeser();
+        warteSolangeNoch("AUSWAHL"); //Warte, bis Auswahl der .sim Datei in der GUI getätigt
         pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
         
         //Datei wird eingelesen nach folgenden Daten:
