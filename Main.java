@@ -151,8 +151,10 @@ public class Main
         Sektor staatsvermögen = new Sektor("Staatsvermögen", 1, 32000, startwert9); //min max aus Angabe Tabelle (HA-Dokument)
 
         //Bevölkerungswachstumsfaktor
+        Sektor bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3, 0); //min max aus Angabe Tabelle (HA-Dokument)
         //Versorgungslage
-        
+        Sektor versorgungslage = new Sektor("Versorgungslage", -4, 1, 0); //min max aus Angabe Tabelle (HA-Dokument)
+
         /*
              +++ Ausgangslage +++
             Bevölkerungsgröße = 32
