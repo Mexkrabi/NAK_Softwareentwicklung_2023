@@ -435,6 +435,7 @@ public class GUI extends JFrame implements ActionListener {
                     System.out.println(intLeben);
                     System.out.println(intStaatsvermögen);
                  }
+                 
         } else if (e.getSource() == btLebenRunter) {
             intStaatsvermögen = intStaatsvermögen + 1;
             intLeben = intLeben - 1;
@@ -446,7 +447,8 @@ public class GUI extends JFrame implements ActionListener {
             System.out.println("Lebensqualität um 1 Punkt runter");
             System.out.println(intLeben);
             System.out.println(intStaatsvermögen);
-        } else if (e.getSource() == btBildungHoch) {
+        
+            } else if (e.getSource() == btBildungHoch) {
             //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
             //# vvvvvvvvvv
                 if (Main.bildung.prüfeObImWertebereich(intBildung + 1) == true && intStaatsvermögen - 1 >= 0) {
