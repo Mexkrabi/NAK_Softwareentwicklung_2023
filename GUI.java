@@ -354,18 +354,29 @@ public class GUI extends JFrame implements ActionListener {
                     System.out.println("Wirtschaftleistung um 1 Punkt hoch");
                 }else {
                     System.out.println("Wert nicht im Wertebereich");
-            
+                    intWirtschaftsleistung = intWirtschaftsleistung - 1;
                  }
         } else if (e.getSource() == btWirtschaftRunter) {
-            //#Prüfen ob investiert werden darf
-            intStaatsvermögen = intStaatsvermögen - 1;
-            intWirtschaftsleistung = intWirtschaftsleistung - 1;
-            //#Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
-            Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);//Prüfen ob Wert im Wertebereich 
             
-            lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
-            lblWirtschaftsleistungStand.setText(intWirtschaftsleistung.toString());
-            System.out.println("Wirtschaftleistung um 1 Punkt runter");
+            intWirtschaftsleistung = intWirtschaftsleistung - 1;
+            //#Prüfen ob investiert werden darf
+            //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
+            //# vvvvvvvvvv
+                if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung) == true){
+                
+                    System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
+            
+                    intStaatsvermögen = intStaatsvermögen - 1;
+                    
+                    //#Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
+                    Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);//Prüfen ob Wert im Wertebereich 
+            
+                    lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
+                    lblWirtschaftsleistungStand.setText(intWirtschaftsleistung.toString());
+                }else {
+                    System.out.println("Wert nicht im Wertebereich");
+                    intWirtschaftsleistung = intWirtschaftsleistung + 1;
+                 }
         } else if (e.getSource() == btLebenHoch) {
             intStaatsvermögen = intStaatsvermögen - 1;
             intLeben = intLeben + 1;
