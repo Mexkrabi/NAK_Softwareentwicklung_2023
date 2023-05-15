@@ -416,7 +416,6 @@ public class GUI extends JFrame implements ActionListener {
                     System.out.println("Wirtschaftleistung um 1 Punkt runter");
                 }else {
                     System.out.println("Wert nicht im Wertebereich");
-                    intWirtschaftsleistung = intWirtschaftsleistung + 1;
                  }
                 }
         } else if (e.getSource() == btLebenHoch) {
@@ -471,7 +470,7 @@ public class GUI extends JFrame implements ActionListener {
                     btBildungRunter.setVisible(false);
                 }
             lblVerbleibendesStaatskapital.setText("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
-            pbLeben.setValue(intLeben);
+            pbBildung.setValue(intBildung);
 
             System.out.println("Bildung um 1 Punkt runter");
         } else if (e.getSource() == btAuswahlBestätigen) {
