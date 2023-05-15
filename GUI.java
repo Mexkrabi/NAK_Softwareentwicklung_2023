@@ -317,6 +317,7 @@ public class GUI extends JFrame implements ActionListener {
 
     public void setSpielstand(String neuerSpielstand) 
     {
+        System.out.println("\n--- Spielstand wird von " + this.strSpielstand + " auf " + neuerSpielstand + " geändert ---\n");
         this.strSpielstand = neuerSpielstand;
         //Prüfung hinzufügen
     }
@@ -372,19 +373,17 @@ public class GUI extends JFrame implements ActionListener {
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
                 System.out.println("Wirtschaftleistung um 1 Punkt hoch");
-            }else { if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung + 1) == true && intStaatsvermögen - 1 >= 0) {
-                    intWirtschaftsleistung = intWirtschaftsleistung + 1;
-                    intStaatsvermögen = intStaatsvermögen - 1;
-                    System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
-                    //# ^^^^^^^^^^
-                    
-                    lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
-                    pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
-                    System.out.println("Wirtschaftleistung um 1 Punkt hoch");
+            }else if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung + 1) == true && intStaatsvermögen - 1 >= 0) {
+                intWirtschaftsleistung = intWirtschaftsleistung + 1;
+                intStaatsvermögen = intStaatsvermögen - 1;
+                System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
+                //# ^^^^^^^^^^
+                
+                lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
+                pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
+                System.out.println("Wirtschaftleistung um 1 Punkt hoch");
                 }else {
-                    System.out.println("Wert nicht im Wertebereich");
-                 }
-                 
+                System.out.println("Wert nicht im Wertebereich");
             }
         } else if (e.getSource() == btWirtschaftRunter) {
             //#Prüfen ob investiert werden darf
@@ -402,21 +401,20 @@ public class GUI extends JFrame implements ActionListener {
                     lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                     pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
                     System.out.println("Wirtschaftleistung um 1 Punkt runter");
-                }else {if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung -1) == true && intStaatsvermögen - 1 >= 0){
-                    intWirtschaftsleistung = intWirtschaftsleistung - 1;
-                    intStaatsvermögen = intStaatsvermögen - 1;
-                    
-                    System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
-                    
-                    //#Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
-                    Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);//Prüfen ob Wert im Wertebereich 
-            
-                    lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
-                    pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
-                    System.out.println("Wirtschaftleistung um 1 Punkt runter");
+                }else if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung -1) == true && intStaatsvermögen - 1 >= 0){
+                intWirtschaftsleistung = intWirtschaftsleistung - 1;
+                intStaatsvermögen = intStaatsvermögen - 1;
+                
+                System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
+                
+                //#Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
+                Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);//Prüfen ob Wert im Wertebereich 
+        
+                lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
+                pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
+                System.out.println("Wirtschaftleistung um 1 Punkt runter");
                 }else {
-                    System.out.println("Wert nicht im Wertebereich");
-                 }
+                System.out.println("Wert nicht im Wertebereich");
                 }
         } else if (e.getSource() == btLebenHoch) {
             //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
