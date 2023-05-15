@@ -17,6 +17,19 @@ public class Logik
     
     //Hashmaps mit Wertebeeinflussung
     private HashMap<Integer, Integer> mg_auf_uwv;
+    private HashMap<Integer, Integer> mg_auf_mg;
+    private HashMap<Integer, Integer> wl_auf_wl;
+    private HashMap<Integer, Integer> wl_auf_uwv;
+    private HashMap<Integer, Integer> uwv_auf_uwv;
+    private HashMap<Integer, Integer> uwv_auf_lq;
+    private HashMap<Integer, Integer> bl_auf_bl;
+    private HashMap<Integer, Integer> bl_auf_lq;
+    private HashMap<Integer, Integer> bg_auf_sv;
+    private HashMap<Integer, Integer> ps_auf_sv;
+    private HashMap<Integer, Integer> wl_auf_sv;
+    private HashMap<Integer, Integer> lq_auf_sv;
+    private HashMap<Integer, Integer> bg_auf_bwf;
+    private HashMap<Integer, Integer> wl_auf_vl;
     /**
      * Konstruktor der Klasse Logik
      */
@@ -64,9 +77,9 @@ public class Logik
         int[] spalteK = {0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 1, 1, 2, 1, 1, 0, 0, -1, -1, -1, -1, -1, -2, -2, -2, -1, -1, -1, 0, 0};
         int[] spalteL = {-15, -8, -6, -4, -3, -2, -1, 0, 1, 2, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         int[] spalteM = {-10, -8, -6, -3, -2, -1, -1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5};
-        String[] spalteN = {"-4 x BWF", "-4 x BWF", "-3 x BWF", "-3 x BWF", "-3 x BWF", "-2 x BWF", "-2 x BWF", "-2 x BWF", "-2 x BWF", "-1 x BWF", "-1 x BWF", "-1 x BWF", "-1 x BWF", "-1 x BWF", "0 x BWF", "1 x BWF", "1 x BWF", "1 x BWF", "1 x BWF", "1 x BWF", "2 x BWF", "2 x BWF", "2 x BWF", "2 x BWF", "2 x BWF", "3 x BWF", "3 x BWF", "3 x BWF", "3 x BWF", "3 x BWF"};
+        int[] spalteN = {-4, -4, -3, -3, -3, -2, -2, -2, -2, -1, -1, -1, -1, -1, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3};
         int[] SpalteO = {-5, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -2, -2, -2, -2, -2, -3, -3, -3, -3, -3, -3, -3, -3, -4, -4, -4, -4, -5, -5, -5, -6, -6, -7, -8, -10};
-        String[] SpalteP = {"0 x VL", "0 x VL", "0 x VL", "0 x VL", "0 x VL", "0 x VL", "0 x VL", "0 x VL", "0 x VL", "1 x VL", "1 x VL", "1 x VL", "1 x VL", "1 x VL", "1 x VL", "1 x VL", "2 x VL", "2 x VL", "2 x VL", "2 x VL", "2 x VL", "3 x VL", "3 x VL", "3 x VL", "3 x VL", "4 x VL", "4 x VL", "4 x VL", "4 x VL", "5 x VL", "5 x VL", "5 x VL", "5 x VL", "6 x VL", "6 x VL", "6 x VL", "6 x VL", "7 x VL", "7 x VL", "7 x VL", "7 x VL", "8 x VL", "8 x VL", "8 x VL", "8 x VL", "9 x VL", "9 x VL", "9 x VL", "9 x VL", "9 x VL"};
+        int[] spalteP = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 9};
         int[] spalteQ = {-5, -2, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
         int[] spalteR = {-4, -3, -2, -1, 0, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 8, 8, 9, 10, 11, 0, -2, -5};
         int[] spalteS = {-6, -4, -2, 0, 0, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5};
@@ -75,6 +88,8 @@ public class Logik
 
         
         mg_auf_uwv = erzeugeHashMapAusInputArray(1, new int[] {0, 0, -1, -1, -1, -1, -1, -2, -2, -2, -2, -2, -3, -3, -3, -3, -3, -4, -4, -4, -5, -5, -6, -6, -7, -7, -8, -8, -9, -10});
+        
+        
         /*
         mg_auf_uwv = new HashMap<>();
 
@@ -110,7 +125,7 @@ public class Logik
         mg_auf_uwv.put(30, -10);
         */
         
-       // Testausgabe der HashMap
+        // Testausgabe der HashMap
         for (int key = 1; key <= 30; key++) {
             System.out.println("Key: " + key + ", Wert: " + mg_auf_uwv.get(key));
         }
