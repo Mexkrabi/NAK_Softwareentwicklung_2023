@@ -24,12 +24,19 @@ public class Logik
     private HashMap<Integer, Integer> uwv_auf_lq;
     private HashMap<Integer, Integer> bl_auf_bl;
     private HashMap<Integer, Integer> bl_auf_lq;
+    private HashMap<Integer, Integer> bl_auf_bw;
     private HashMap<Integer, Integer> bg_auf_sv;
     private HashMap<Integer, Integer> ps_auf_sv;
     private HashMap<Integer, Integer> wl_auf_sv;
     private HashMap<Integer, Integer> lq_auf_sv;
     private HashMap<Integer, Integer> bg_auf_bwf;
     private HashMap<Integer, Integer> wl_auf_vl;
+    private HashMap<Integer, Integer> lq_auf_lq;
+    private HashMap<Integer, Integer> lq_auf_bw;
+    private HashMap<Integer, Integer> bg_auf_lq;
+    private HashMap<Integer, Integer> lq_auf_ps;
+    private HashMap<Integer, Integer> bw_auf_bg;
+    
     /**
      * Konstruktor der Klasse Logik
      */
@@ -60,11 +67,13 @@ public class Logik
             key++;
         }
         
+        System.out.println("HashMap erzeugt: " + hashmap);
         return hashmap;
     }
     
     public void einflussWerteErzeugen() 
     {
+        //Werte aus Excel-Tabelle als int[] Arrays gespeichert
         int[] spalteB = {0, 0, -1, -1, -1, -1, -1, -2, -2, -2, -2, -2, -3, -3, -3, -3, -3, -4, -4, -4, -5, -5, -6, -6, -7, -7, -8, -8, -9, -10};
         int[] spalteC = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -2, -2, -3, -4, -5, -6, -6, -6};
         int[] spalteD = {0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 0, -3, -6, -10};
@@ -78,7 +87,7 @@ public class Logik
         int[] spalteL = {-15, -8, -6, -4, -3, -2, -1, 0, 1, 2, 3, 2, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
         int[] spalteM = {-10, -8, -6, -3, -2, -1, -1, -1, -1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 3, 3, 3, 4, 4, 5, 5};
         int[] spalteN = {-4, -4, -3, -3, -3, -2, -2, -2, -2, -1, -1, -1, -1, -1, 0, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3};
-        int[] SpalteO = {-5, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -2, -2, -2, -2, -2, -3, -3, -3, -3, -3, -3, -3, -3, -4, -4, -4, -4, -5, -5, -5, -6, -6, -7, -8, -10};
+        int[] spalteO = {-5, -2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -2, -2, -2, -2, -2, -3, -3, -3, -3, -3, -3, -3, -3, -4, -4, -4, -4, -5, -5, -5, -6, -6, -7, -8, -10};
         int[] spalteP = {0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 3, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 6, 6, 6, 6, 7, 7, 7, 7, 8, 8, 8, 8, 9, 9, 9, 9, 9};
         int[] spalteQ = {-5, -2, -1, -1, -1, -1, -1, -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
         int[] spalteR = {-4, -3, -2, -1, 0, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 6, 6, 6, 7, 7, 8, 8, 9, 10, 11, 0, -2, -5};
@@ -86,48 +95,28 @@ public class Logik
         int[] spalteU = {1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3};
         int[] spalteV = {-4, -4, -4, -3, -3, -3, -2, -2, -2, -1, -1, -1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
+        //Erzeuge alle Einfluss-HashMaps
+        mg_auf_uwv = erzeugeHashMapAusInputArray(1, spalteB);
+        mg_auf_mg = erzeugeHashMapAusInputArray(1, spalteC);
+        wl_auf_wl = erzeugeHashMapAusInputArray(1, spalteD);
+        wl_auf_uwv = erzeugeHashMapAusInputArray(1, spalteE);
+        uwv_auf_uwv = erzeugeHashMapAusInputArray(1, spalteF);
+        uwv_auf_lq = erzeugeHashMapAusInputArray(1, spalteG);
+        bl_auf_bl = erzeugeHashMapAusInputArray(1, spalteH);
+        bl_auf_lq = erzeugeHashMapAusInputArray(1, spalteI);
+        bl_auf_bw = erzeugeHashMapAusInputArray(1, spalteJ);
+        lq_auf_lq = erzeugeHashMapAusInputArray(1, spalteK);
+        lq_auf_bw = erzeugeHashMapAusInputArray(1, spalteL);
+        lq_auf_ps = erzeugeHashMapAusInputArray(1, spalteM);
+        bw_auf_bg = erzeugeHashMapAusInputArray(1, spalteN);
+        bg_auf_lq = erzeugeHashMapAusInputArray(1, spalteO);
+        bg_auf_sv = erzeugeHashMapAusInputArray(1, spalteP);
+        ps_auf_sv = erzeugeHashMapAusInputArray(-10, spalteQ);
+        wl_auf_sv = erzeugeHashMapAusInputArray(1, spalteR);
+        lq_auf_sv = erzeugeHashMapAusInputArray(1, spalteS);
+        bg_auf_bwf = erzeugeHashMapAusInputArray(1, spalteU);
+        wl_auf_vl = erzeugeHashMapAusInputArray(1, spalteV);
         
-        mg_auf_uwv = erzeugeHashMapAusInputArray(1, new int[] {0, 0, -1, -1, -1, -1, -1, -2, -2, -2, -2, -2, -3, -3, -3, -3, -3, -4, -4, -4, -5, -5, -6, -6, -7, -7, -8, -8, -9, -10});
-        
-        
-        /*
-        mg_auf_uwv = new HashMap<>();
-
-        mg_auf_uwv.put(1, 0);
-        mg_auf_uwv.put(2, 0);
-        mg_auf_uwv.put(3, -1);
-        mg_auf_uwv.put(4, -1);
-        mg_auf_uwv.put(5, -1);
-        mg_auf_uwv.put(6, -1);
-        mg_auf_uwv.put(7, -1);
-        mg_auf_uwv.put(8, -2);
-        mg_auf_uwv.put(9, -2);
-        mg_auf_uwv.put(10, -2);
-        mg_auf_uwv.put(11, -2);
-        mg_auf_uwv.put(12, -2);
-        mg_auf_uwv.put(13, -3);
-        mg_auf_uwv.put(14, -3);
-        mg_auf_uwv.put(15, -3);
-        mg_auf_uwv.put(16, -3);
-        mg_auf_uwv.put(17, -3);
-        mg_auf_uwv.put(18, -4);
-        mg_auf_uwv.put(19, -4);
-        mg_auf_uwv.put(20, -4);
-        mg_auf_uwv.put(21, -5);
-        mg_auf_uwv.put(22, -5);
-        mg_auf_uwv.put(23, -6);
-        mg_auf_uwv.put(24, -6);
-        mg_auf_uwv.put(25, -7);
-        mg_auf_uwv.put(26, -7);
-        mg_auf_uwv.put(27, -8);
-        mg_auf_uwv.put(28, -8);
-        mg_auf_uwv.put(29, -9);
-        mg_auf_uwv.put(30, -10);
-        */
-        
-        // Testausgabe der HashMap
-        for (int key = 1; key <= 30; key++) {
-            System.out.println("Key: " + key + ", Wert: " + mg_auf_uwv.get(key));
-        }
+        System.out.println("Alle Einfluss-Hashmaps erfolgreich erzeugt.");
     }
 }
