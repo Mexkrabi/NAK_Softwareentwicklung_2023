@@ -30,6 +30,7 @@ public class Main
     public static Sektor staatsvermögen;
     public static Sektor bevölkerungswachstumsfaktor;
     public static Sektor versorgungslage;
+   
     
     /**
      * Main Funktion
@@ -75,6 +76,7 @@ public class Main
         System.out.println("Code startet...");
         dateiLeser = new DateiLeser();
     
+        
         //# SCHRITT 0 ------------------------------
         
         gui = new GUI();
