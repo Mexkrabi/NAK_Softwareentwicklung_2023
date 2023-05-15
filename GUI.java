@@ -16,7 +16,7 @@ public class GUI extends JFrame implements ActionListener {
     private JFrame fenster;
     private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte;
     public JComboBox<String> cbDateien;
-    private JProgressBar pbLeben;
+    private JProgressBar pbLeben, pbWirtschaftsleistung, pbModernisierungsgrad,pbBildung;
     public String strSpielstand, strAuswahl;
     private Integer intWirtschaftsleistung, intModernisierungsgrad, intLeben, intBildung, intStaatsvermögen, intVerbleibendeRunden;
     private String spielstand; //# <-- ersetzen in der Main
@@ -223,7 +223,9 @@ public class GUI extends JFrame implements ActionListener {
 
         lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung: ");
         intWirtschaftsleistung = Main.logik.startwerteHash.get("Wirtschaftsleistung");
-        lblWirtschaftsleistungStand = new JLabel(intWirtschaftsleistung.toString());
+        //lblWirtschaftsleistungStand = new JLabel(intWirtschaftsleistung.toString());
+        pbWirtschaftsleistung = new JProgressBar(Main.wirtschaftsleistung.getMin(),Main.wirtschaftsleistung.getMax());
+        pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
         btWirtschaftHoch = new JButton("+");
         btWirtschaftRunter = new JButton("-");
 
@@ -233,9 +235,10 @@ public class GUI extends JFrame implements ActionListener {
         
         lblModernisierungsgrad = new JLabel("Modernisierungsgrad: ");
         intModernisierungsgrad = Main.logik.startwerteHash.get("Modernisierungsgrad");
-        lblModernisierungsgradStand = new JLabel(intModernisierungsgrad.toString());
+        //lblModernisierungsgradStand = new JLabel(intModernisierungsgrad.toString()); Alte Version
+        pbModernisierungsgrad = new JProgressBar(Main.modernisierungsgrad.getMin(),Main.modernisierungsgrad.getMax());
+        pbModernisierungsgrad.setValue(intModernisierungsgrad);
         btModernHoch = new JButton("+");
-
         btModernRunter = new JButton("-");
 
         btModernHoch.addActionListener(this);
@@ -245,8 +248,8 @@ public class GUI extends JFrame implements ActionListener {
         intLeben = Main.logik.startwerteHash.get("Lebensqualität");
         //lblLebensqualitätStand = new JLabel(intLeben.toString());
         pbLeben = new JProgressBar(Main.lebensqualität.getMin(),Main.lebensqualität.getMax());
-        btLebenHoch = new JButton("+");
         pbLeben.setValue(intLeben);
+        btLebenHoch = new JButton("+");
         btLebenRunter = new JButton("-");
 
         btLebenHoch.addActionListener(this);
@@ -254,7 +257,9 @@ public class GUI extends JFrame implements ActionListener {
 
         lblBildung = new JLabel("Bildung: ");
         intBildung = Main.logik.startwerteHash.get("Bildung");
-        lblBildungStand = new JLabel(intBildung.toString());
+        //lblBildungStand = new JLabel(intBildung.toString());
+        pbBildung = new JProgressBar(Main.bildung.getMin(),Main.bildung.getMax());
+        pbBildung.setValue(intBildung);
         btBildungHoch = new JButton("+");
         btBildungRunter = new JButton("-");
 
@@ -271,12 +276,12 @@ public class GUI extends JFrame implements ActionListener {
         fenster.add(wertezuweisen);
 
         wertezuweisen.add(lblWirtschaftsleistung);
-        wertezuweisen.add(lblWirtschaftsleistungStand);
+        wertezuweisen.add(pbWirtschaftsleistung);
         wertezuweisen.add(btWirtschaftHoch);
         wertezuweisen.add(btWirtschaftRunter);
 
         wertezuweisen.add(lblModernisierungsgrad);
-        wertezuweisen.add(lblModernisierungsgradStand);
+        wertezuweisen.add(pbModernisierungsgrad);
         wertezuweisen.add(btModernHoch);
         wertezuweisen.add(btModernRunter);
 
@@ -286,7 +291,7 @@ public class GUI extends JFrame implements ActionListener {
         wertezuweisen.add(btLebenRunter);
 
         wertezuweisen.add(lblBildung);
-        wertezuweisen.add(lblBildungStand);
+        wertezuweisen.add(pbBildung);
         wertezuweisen.add(btBildungHoch);
         wertezuweisen.add(btBildungRunter);
         
@@ -329,23 +334,20 @@ public class GUI extends JFrame implements ActionListener {
             System.out.println("Ende wurde geklickt.");
             System.exit(0);
         } else if (e.getSource() == btModernHoch) {
-            intModernisierungsgrad = intModernisierungsgrad + 1;
-            intStaatsvermögen = intStaatsvermögen - 1;
             //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
             //# vvvvvvvvvv
-                if (Main.modernisierungsgrad.prüfeObImWertebereich(intModernisierungsgrad) == true && intStaatsvermögen >= 0) {
-                
+                if (Main.modernisierungsgrad.prüfeObImWertebereich(intModernisierungsgrad + 1) == true && intStaatsvermögen - 1 >= 0) {
+                    intModernisierungsgrad = intModernisierungsgrad + 1;
+                    intStaatsvermögen = intStaatsvermögen - 1;
                     System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
                     //# ^^^^^^^^^^
                     
                     lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
-                    lblModernisierungsgradStand.setText(intModernisierungsgrad.toString());
+                    pbModernisierungsgrad.setValue(intModernisierungsgrad);
                     System.out.println("Modernisierungsgrad um 1 Punkt hoch");
                     btModernRunter.setVisible(true);
                 }else {
                     System.out.println("Wert nicht im Wertebereich");
-                    intModernisierungsgrad = intModernisierungsgrad - 1;
-                    intStaatsvermögen = intStaatsvermögen - 1;
                  }
         } else if (e.getSource() == btModernRunter) {
            intStaatsvermögen = intStaatsvermögen + 1;
@@ -354,49 +356,69 @@ public class GUI extends JFrame implements ActionListener {
                     btModernRunter.setVisible(false);
                 }
             lblVerbleibendesStaatskapital.setText("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
-            lblModernisierungsgradStand.setText(intModernisierungsgrad.toString());
+            pbModernisierungsgrad.setValue(intModernisierungsgrad);
 
             System.out.println("Modernisierung um 1 Punkt runter");
         } else if (e.getSource() == btWirtschaftHoch) {
-            intWirtschaftsleistung = intWirtschaftsleistung + 1;
-            intStaatsvermögen = intStaatsvermögen - 1;
+        
             //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
             //# vvvvvvvvvv
-                if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung) == true && intStaatsvermögen >= 0) {
+            if(intWirtschaftsleistung < Main.logik.startwerteHash.get("Wirtschaftsleistung")){
+                intWirtschaftsleistung = intWirtschaftsleistung + 1;
+                intStaatsvermögen = intStaatsvermögen + 1;
+                System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
+                //# ^^^^^^^^^^
                 
+                lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
+                pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
+                System.out.println("Wirtschaftleistung um 1 Punkt hoch");
+            }else { if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung + 1) == true && intStaatsvermögen - 1 >= 0) {
+                    intWirtschaftsleistung = intWirtschaftsleistung + 1;
+                    intStaatsvermögen = intStaatsvermögen - 1;
                     System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
                     //# ^^^^^^^^^^
                     
                     lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
-                    lblWirtschaftsleistungStand.setText(intWirtschaftsleistung.toString());
+                    pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
                     System.out.println("Wirtschaftleistung um 1 Punkt hoch");
                 }else {
                     System.out.println("Wert nicht im Wertebereich");
-                    intWirtschaftsleistung = intWirtschaftsleistung - 1;
-                    intStaatsvermögen = intStaatsvermögen - 1;
                  }
+                 
+            }
         } else if (e.getSource() == btWirtschaftRunter) {
-            
-            intWirtschaftsleistung = intWirtschaftsleistung - 1;
             //#Prüfen ob investiert werden darf
             //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
             //# vvvvvvvvvv
-                if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung) == true){
-                
+            if(intWirtschaftsleistung > Main.logik.startwerteHash.get("Wirtschaftsleistung")){
+                intWirtschaftsleistung = intWirtschaftsleistung - 1;
+                    intStaatsvermögen = intStaatsvermögen + 1;
+                    
                     System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
-            
-                    intStaatsvermögen = intStaatsvermögen - 1;
                     
                     //#Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
                     Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);//Prüfen ob Wert im Wertebereich 
             
                     lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
-                    lblWirtschaftsleistungStand.setText(intWirtschaftsleistung.toString());
-                     System.out.println("Wirtschaftleistung um 1 Punkt runter");
+                    pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
+                    System.out.println("Wirtschaftleistung um 1 Punkt runter");
+                }else {if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung -1) == true && intStaatsvermögen - 1 >= 0){
+                    intWirtschaftsleistung = intWirtschaftsleistung - 1;
+                    intStaatsvermögen = intStaatsvermögen - 1;
+                    
+                    System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
+                    
+                    //#Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
+                    Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);//Prüfen ob Wert im Wertebereich 
+            
+                    lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
+                    pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
+                    System.out.println("Wirtschaftleistung um 1 Punkt runter");
                 }else {
                     System.out.println("Wert nicht im Wertebereich");
                     intWirtschaftsleistung = intWirtschaftsleistung + 1;
                  }
+                }
         } else if (e.getSource() == btLebenHoch) {
             //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
             //# vvvvvvvvvv
@@ -424,19 +446,18 @@ public class GUI extends JFrame implements ActionListener {
             pbLeben.setValue(intLeben);
             System.out.println("Lebensqualität um 1 Punkt runter");
             System.out.println(intLeben);
-                    System.out.println(intStaatsvermögen);
+            System.out.println(intStaatsvermögen);
         } else if (e.getSource() == btBildungHoch) {
-            intBildung = intBildung + 1;
-            intStaatsvermögen = intStaatsvermögen - 1;
             //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
             //# vvvvvvvvvv
-                if (Main.bildung.prüfeObImWertebereich(intBildung) == true && intStaatsvermögen >= 0) {
-                
+                if (Main.bildung.prüfeObImWertebereich(intBildung + 1) == true && intStaatsvermögen - 1 >= 0) {
+                    intBildung = intBildung + 1;
+                    intStaatsvermögen = intStaatsvermögen - 1;
                     System.out.println(Main.bildung.prüfeObImWertebereich(intBildung));
                     //# ^^^^^^^^^^
                     
                     lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
-                    lblBildungStand.setText(intBildung.toString());
+                    pbBildung.setValue(intBildung);
                     System.out.println("Bildung um 1 Punkt hoch");
                     btBildungRunter.setVisible(true);
                 }else {
@@ -450,7 +471,7 @@ public class GUI extends JFrame implements ActionListener {
                     btBildungRunter.setVisible(false);
                 }
             lblVerbleibendesStaatskapital.setText("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
-            lblBildungStand.setText(intBildung.toString());
+            pbLeben.setValue(intLeben);
 
             System.out.println("Bildung um 1 Punkt runter");
         } else if (e.getSource() == btAuswahlBestätigen) {
