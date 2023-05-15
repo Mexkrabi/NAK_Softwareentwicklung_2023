@@ -180,7 +180,7 @@ public class Logik
         }
     }
     public void gameOver(){
-    
+        
     }
     /**
      * Erzeugt eine HashMap aus dem Imput eines Arrays.
@@ -248,47 +248,6 @@ public class Logik
         bg_auf_bwf = erzeugeHashMapAusInputArray(1, spalteU);
         wl_auf_vl = erzeugeHashMapAusInputArray(1, spalteV);
         
-        mg_auf_uwv = erzeugeHashMapAusInputArray(1, new int[] {0, 0, -1, -1, -1, -1, -1, -2, -2, -2, -2, -2, -3, -3, -3, -3, -3, -4, -4, -4, -5, -5, -6, -6, -7, -7, -8, -8, -9, -10});
-        /*
-        mg_auf_uwv = new HashMap<>();
-
-        mg_auf_uwv.put(1, 0);
-        mg_auf_uwv.put(2, 0);
-        mg_auf_uwv.put(3, -1);
-        mg_auf_uwv.put(4, -1);
-        mg_auf_uwv.put(5, -1);
-        mg_auf_uwv.put(6, -1);
-        mg_auf_uwv.put(7, -1);
-        mg_auf_uwv.put(8, -2);
-        mg_auf_uwv.put(9, -2);
-        mg_auf_uwv.put(10, -2);
-        mg_auf_uwv.put(11, -2);
-        mg_auf_uwv.put(12, -2);
-        mg_auf_uwv.put(13, -3);
-        mg_auf_uwv.put(14, -3);
-        mg_auf_uwv.put(15, -3);
-        mg_auf_uwv.put(16, -3);
-        mg_auf_uwv.put(17, -3);
-        mg_auf_uwv.put(18, -4);
-        mg_auf_uwv.put(19, -4);
-        mg_auf_uwv.put(20, -4);
-        mg_auf_uwv.put(21, -5);
-        mg_auf_uwv.put(22, -5);
-        mg_auf_uwv.put(23, -6);
-        mg_auf_uwv.put(24, -6);
-        mg_auf_uwv.put(25, -7);
-        mg_auf_uwv.put(26, -7);
-        mg_auf_uwv.put(27, -8);
-        mg_auf_uwv.put(28, -8);
-        mg_auf_uwv.put(29, -9);
-        mg_auf_uwv.put(30, -10);
-        */
-        
-       // Testausgabe der HashMap
-        for (int key = 1; key <= 30; key++) {
-            System.out.println("Key: " + key + ", Wert: " + mg_auf_uwv.get(key));
-        }
-
         System.out.println("Alle Einfluss-Hashmaps erfolgreich erzeugt.");
 
     }
