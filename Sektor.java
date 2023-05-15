@@ -62,7 +62,7 @@ public class Sektor
             System.out.println(eingabe + " ist im Wertebereich");
             return true;
         } else {
-            System.out.println(eingabe + " ist nicht im Wertebereich");
+            System.out.println(eingabe + " ist NICHT im Wertebereich");
             return false;
         }
     }
