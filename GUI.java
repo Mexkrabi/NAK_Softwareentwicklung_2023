@@ -16,6 +16,7 @@ public class GUI extends JFrame implements ActionListener {
     private JFrame fenster;
     private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte;
     public JComboBox<String> cbDateien;
+    private JProgressBar pbLeben;
     public String strSpielstand, strAuswahl;
     private Integer intWirtschaftsleistung, intModernisierungsgrad, intLeben, intBildung, intStaatsvermögen, intVerbleibendeRunden;
     private String spielstand; //# <-- ersetzen in der Main
@@ -234,6 +235,7 @@ public class GUI extends JFrame implements ActionListener {
         intModernisierungsgrad = Main.logik.startwerteHash.get("Modernisierungsgrad");
         lblModernisierungsgradStand = new JLabel(intModernisierungsgrad.toString());
         btModernHoch = new JButton("+");
+
         btModernRunter = new JButton("-");
 
         btModernHoch.addActionListener(this);
@@ -241,8 +243,10 @@ public class GUI extends JFrame implements ActionListener {
 
         lblLebensqualität = new JLabel("Lebensqualität: ");
         intLeben = Main.logik.startwerteHash.get("Lebensqualität");
-        lblLebensqualitätStand = new JLabel(intLeben.toString());
+        //lblLebensqualitätStand = new JLabel(intLeben.toString());
+        pbLeben = new JProgressBar(Main.lebensqualität.getMin(),Main.lebensqualität.getMax());
         btLebenHoch = new JButton("+");
+        pbLeben.setValue(intLeben);
         btLebenRunter = new JButton("-");
 
         btLebenHoch.addActionListener(this);
@@ -277,7 +281,7 @@ public class GUI extends JFrame implements ActionListener {
         wertezuweisen.add(btModernRunter);
 
         wertezuweisen.add(lblLebensqualität);
-        wertezuweisen.add(lblLebensqualitätStand);
+        wertezuweisen.add(pbLeben);
         wertezuweisen.add(btLebenHoch);
         wertezuweisen.add(btLebenRunter);
 
@@ -394,22 +398,21 @@ public class GUI extends JFrame implements ActionListener {
                     intWirtschaftsleistung = intWirtschaftsleistung + 1;
                  }
         } else if (e.getSource() == btLebenHoch) {
-            intLeben = intLeben + 1;
-            intStaatsvermögen = intStaatsvermögen - 1;
             //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
             //# vvvvvvvvvv
-                if (Main.lebensqualität.prüfeObImWertebereich(intLeben) == true && intStaatsvermögen >= 0) {
-                
+                if (Main.lebensqualität.prüfeObImWertebereich(intLeben + 1) == true && intStaatsvermögen - 1 >= 0) {
+                    intLeben = intLeben + 1;
+                    intStaatsvermögen = intStaatsvermögen - 1;
                     System.out.println(Main.lebensqualität.prüfeObImWertebereich(intLeben));
                     //# ^^^^^^^^^^
                     
                     lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
-                    lblLebensqualitätStand.setText(intLeben.toString());
+                    pbLeben.setValue(intLeben);
                     System.out.println("Lebensqualität um 1 Punkt hoch");
                     btLebenRunter.setVisible(true);
                 }else {
-                    intWirtschaftsleistung = intWirtschaftsleistung - 1;
-                    intStaatsvermögen = intStaatsvermögen - 1;
+                    System.out.println(intLeben);
+                    System.out.println(intStaatsvermögen);
                  }
         } else if (e.getSource() == btLebenRunter) {
             intStaatsvermögen = intStaatsvermögen + 1;
@@ -418,8 +421,10 @@ public class GUI extends JFrame implements ActionListener {
                     btLebenRunter.setVisible(false);
                 }
             lblVerbleibendesStaatskapital.setText("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
-            lblLebensqualitätStand.setText(intLeben.toString());
+            pbLeben.setValue(intLeben);
             System.out.println("Lebensqualität um 1 Punkt runter");
+            System.out.println(intLeben);
+                    System.out.println(intStaatsvermögen);
         } else if (e.getSource() == btBildungHoch) {
             intBildung = intBildung + 1;
             intStaatsvermögen = intStaatsvermögen - 1;
