@@ -57,11 +57,51 @@ public class Sektor
     
     public boolean prüfeObImWertebereich(int eingabe)
     {
+        System.out.println("Prüfe ob " + eingabe + " im Wertebereich");
         if(eingabe <= max && eingabe >= min) {
+            System.out.println(eingabe + " ist im Wertebereich");
             return true;
         } else {
+            System.out.println(eingabe + " ist nicht im Wertebereich");
             return false;
         }
+    }
+    
+    //Getter & Setter
+    public String getName() 
+    {
+        return name;
+    }
+    public void setName(String name) 
+    {
+        this.name = name;
+    }
+
+    public int getMin() 
+    {
+        return min;
+    }
+    public void setMin(int min) 
+    {
+        this.min = min;
+    }
+
+    public int getMax() 
+    {
+        return max;
+    }
+    public void setMax(int max) 
+    {
+        this.max = max;
+    }
+
+    public int getWert() 
+    {
+        return wert;
+    }
+    public void setWert(int wert) 
+    {
+        this.wert = wert;
     }
 }
 
