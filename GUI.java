@@ -337,6 +337,7 @@ public class GUI extends JFrame implements ActionListener {
                     lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                     lblModernisierungsgradStand.setText(intModernisierungsgrad.toString());
                     System.out.println("Modernisierungsgrad um 1 Punkt hoch");
+                    btModernRunter.setVisible(true);
                 }else {
                     System.out.println("Wert nicht im Wertebereich");
                     intModernisierungsgrad = intModernisierungsgrad - 1;
@@ -405,6 +406,7 @@ public class GUI extends JFrame implements ActionListener {
                     lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                     lblLebensqualitätStand.setText(intLeben.toString());
                     System.out.println("Lebensqualität um 1 Punkt hoch");
+                    btLebenRunter.setVisible(true);
                 }else {
                     intWirtschaftsleistung = intWirtschaftsleistung - 1;
                     intStaatsvermögen = intStaatsvermögen - 1;
@@ -431,6 +433,7 @@ public class GUI extends JFrame implements ActionListener {
                     lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                     lblBildungStand.setText(intBildung.toString());
                     System.out.println("Bildung um 1 Punkt hoch");
+                    btBildungRunter.setVisible(true);
                 }else {
                     intBildung = intBildung - 1;
                     intStaatsvermögen = intStaatsvermögen - 1;
