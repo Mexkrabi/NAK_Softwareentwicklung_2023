@@ -16,7 +16,7 @@ public class GUI extends JFrame implements ActionListener {
     private JFrame fenster;
     private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte;
     public JComboBox<String> cbDateien;
-    private JProgressBar pbLeben, pbWirtschaftsleistung, pbModernisierungsgrad,pbBildung;
+    private JProgressBar pbLeben, pbWirtschaftsleistung, pbModernisierungsgrad, pbBildung, pbPolitStab, pbUmwelt, pbVersorgung, pbBevökerungswachstum, pbBevökerungsgröße, Bevölkerungswachstumsfaktor;
     public String strSpielstand, strAuswahl;
     private Integer intWirtschaftsleistung, intModernisierungsgrad, intLeben, intBildung, intStaatsvermögen, intVerbleibendeRunden;
     private String spielstand; //# <-- ersetzen in der Main
@@ -165,22 +165,45 @@ public class GUI extends JFrame implements ActionListener {
 
         startwerte = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
-        startwerte.setLayout(new GridLayout(14, 1, 10, 10));
+        startwerte.setLayout(new GridLayout(14, 2, 10, 10));
+        JLabel lblAusgangslage = new JLabel();
+        if(Main.logik.aktuelleRunde == Main.logik.rundenzahl) {
+                lblAusgangslage.setText("***** Ausgangslage *****");
+        } else {
+                lblAusgangslage.setText("***** Werte nach Runde " + Main.logik.aktuelleRunde + " *****");
+        }
         
-        JLabel lblAusgangslage = new JLabel("***** Ausgangslage *****");
-        JLabel lblBevölkerungsgröße = new JLabel("Bevölkerungsgröße = " + Main.logik.startwerteHash.get("Bevölkerungsgröße"));
-        JLabel lblBevölkerungswachstum = new JLabel("Bevölkerungswachstum = " + Main.logik.startwerteHash.get("Bevölkerungswachstum"));
-        JLabel lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung = " + Main.logik.startwerteHash.get("Wirtschaftsleistung"));
-        JLabel lblModernisierungsgrad = new JLabel("Modernisierungsgrad = " + Main.logik.startwerteHash.get("Modernisierungsgrad"));
-        JLabel lblPolitischeStabilität = new JLabel("Politische Stabilität = " + Main.logik.startwerteHash.get("Politische Stabilität"));
-        JLabel lblUmweltverschmutzung = new JLabel("Umweltverschmutzung = " + Main.logik.startwerteHash.get("Umweltverschmutzung"));
-        JLabel lblLebensqualität = new JLabel("Lebensqualität = " + Main.logik.startwerteHash.get("Lebensqualität"));
-        JLabel lblBildung = new JLabel("Bildung = " + Main.logik.startwerteHash.get("Bildung"));
-        JLabel lblStaatsvermögen = new JLabel("Staatsvermögen = " + Main.logik.startwerteHash.get("Staatsvermögen"));
+        JLabel lblBevölkerungsgröße = new JLabel("Bevölkerungsgröße = " + Main.bevölkerungsgröße.getWert());
+        JLabel lblBevölkerungswachstum = new JLabel("Bevölkerungswachstum = " + Main.bevölkerungswachstum.getWert());
+        JLabel lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung = " + Main.wirtschaftsleistung.getWert());
+        JLabel lblModernisierungsgrad = new JLabel("Modernisierungsgrad = " + Main.modernisierungsgrad.getWert());
+        JLabel lblPolitischeStabilität = new JLabel("Politische Stabilität = " + Main.politische_stabilität.getWert());
+        JLabel lblUmweltverschmutzung = new JLabel("Umweltverschmutzung = " + Main.umweltverschmutzung.getWert());
+        JLabel lblLebensqualität = new JLabel("Lebensqualität = " + Main.lebensqualität.getWert());
+        JLabel lblBildung = new JLabel("Bildung = " + Main.bildung.getWert());
+        JLabel lblStaatsvermögen = new JLabel("Staatsvermögen = " + Main.staatsvermögen.getWert());
         JLabel lblLeer = new JLabel("");
+        JLabel lblLeer2 = new JLabel("");
         JLabel lblSimulationsablauf = new JLabel("***** Simulationsablauf *****");
-        JLabel lblRundenzahl = new JLabel("Rundenzahl = " + Main.logik.rundenzahl);
+        JLabel lblRundenzahl = new JLabel("Rundenzahl = " + Main.logik.aktuelleRunde);
         
+        pbLeben = new JProgressBar(Main.lebensqualität.getMin(),Main.lebensqualität.getMax());
+        pbBevökerungsgröße = new JProgressBar(Main.bevölkerungsgröße.getMin(),Main.bevölkerungsgröße.getMax());
+        pbBevökerungswachstum = new JProgressBar(Main.bevölkerungswachstum.getMin(),Main.bevölkerungswachstum.getMax());
+        pbWirtschaftsleistung = new JProgressBar(Main.wirtschaftsleistung.getMin(),Main.wirtschaftsleistung.getMax());
+        pbModernisierungsgrad = new JProgressBar(Main.modernisierungsgrad.getMin(),Main.modernisierungsgrad.getMax());
+        pbPolitStab = new JProgressBar(Main.politische_stabilität.getMin(),Main.politische_stabilität.getMax());
+        pbUmwelt = new JProgressBar(Main.umweltverschmutzung.getMin(),Main.umweltverschmutzung.getMax());
+        pbBildung = new JProgressBar(Main.bildung.getMin(),Main.bildung.getMax());
+        
+        pbBevökerungsgröße.setValue(Main.bevölkerungsgröße.getWert());
+        pbBevökerungswachstum.setValue(Main.bevölkerungswachstum.getWert());
+        pbWirtschaftsleistung.setValue(Main.wirtschaftsleistung.getWert());
+        pbModernisierungsgrad.setValue(Main.modernisierungsgrad.getWert());
+        pbPolitStab.setValue(Main.politische_stabilität.getWert());
+        pbUmwelt.setValue(Main.umweltverschmutzung.getWert());
+        pbLeben.setValue(Main.lebensqualität.getWert());
+        pbBildung.setValue(Main.bildung.getWert());
         
         btweiter = new JButton ("Weiter");
         fenster.add(startwerte);
@@ -188,14 +211,24 @@ public class GUI extends JFrame implements ActionListener {
         btweiter.addActionListener(this);
         
         startwerte.add(lblAusgangslage);
+        startwerte.add(lblLeer2);
         startwerte.add(lblBevölkerungsgröße);
+        startwerte.add(pbBevökerungsgröße);
         startwerte.add(lblBevölkerungswachstum);
+        startwerte.add(pbBevökerungswachstum);
         startwerte.add(lblWirtschaftsleistung);
+        startwerte.add(pbWirtschaftsleistung);
+        
         startwerte.add(lblModernisierungsgrad);
+        startwerte.add(pbModernisierungsgrad);
         startwerte.add(lblPolitischeStabilität);
+        startwerte.add(pbPolitStab);
         startwerte.add(lblUmweltverschmutzung);
+        startwerte.add(pbUmwelt);
         startwerte.add(lblLebensqualität);
+        startwerte.add(pbLeben);
         startwerte.add(lblBildung);
+        startwerte.add(pbBildung);
         startwerte.add(lblStaatsvermögen);
         startwerte.add(lblLeer);
         startwerte.add(lblSimulationsablauf);
@@ -203,7 +236,7 @@ public class GUI extends JFrame implements ActionListener {
         startwerte.add(btweiter);
         
 
-        fenster.setSize(300,700);//Passt das Fenster auf die notwendige Größe an 
+        fenster.setSize(500,700);//Passt die Größe des Fensters an 
         fenster.setLocationRelativeTo(null);
         fenster.setVisible(true);
         startwerte.setVisible(true);
