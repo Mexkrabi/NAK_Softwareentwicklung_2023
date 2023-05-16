@@ -255,7 +255,7 @@ public class GUI extends JFrame implements ActionListener {
         wertezuweisen.setLayout(new GridLayout(5, 4, 10, 10));
 
         lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung: ");
-        intWirtschaftsleistung = Main.logik.startwerteHash.get("Wirtschaftsleistung");
+        intWirtschaftsleistung = Main.wirtschaftsleistung.getWert();
         //lblWirtschaftsleistungStand = new JLabel(intWirtschaftsleistung.toString());
         pbWirtschaftsleistung = new JProgressBar(Main.wirtschaftsleistung.getMin(),Main.wirtschaftsleistung.getMax());
         pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
@@ -267,7 +267,7 @@ public class GUI extends JFrame implements ActionListener {
         
         
         lblModernisierungsgrad = new JLabel("Modernisierungsgrad: ");
-        intModernisierungsgrad = Main.logik.startwerteHash.get("Modernisierungsgrad");
+        intModernisierungsgrad = Main.modernisierungsgrad.getWert();
         //lblModernisierungsgradStand = new JLabel(intModernisierungsgrad.toString()); Alte Version
         pbModernisierungsgrad = new JProgressBar(Main.modernisierungsgrad.getMin(),Main.modernisierungsgrad.getMax());
         pbModernisierungsgrad.setValue(intModernisierungsgrad);
@@ -278,7 +278,7 @@ public class GUI extends JFrame implements ActionListener {
         btModernRunter.addActionListener(this);
 
         lblLebensqualität = new JLabel("Lebensqualität: ");
-        intLeben = Main.logik.startwerteHash.get("Lebensqualität");
+        intLeben = Main.lebensqualität.getWert();
         //lblLebensqualitätStand = new JLabel(intLeben.toString());
         pbLeben = new JProgressBar(Main.lebensqualität.getMin(),Main.lebensqualität.getMax());
         pbLeben.setValue(intLeben);
@@ -289,7 +289,7 @@ public class GUI extends JFrame implements ActionListener {
         btLebenRunter.addActionListener(this);
 
         lblBildung = new JLabel("Bildung: ");
-        intBildung = Main.logik.startwerteHash.get("Bildung");
+        intBildung = Main.bildung.getWert();
         //lblBildungStand = new JLabel(intBildung.toString());
         pbBildung = new JProgressBar(Main.bildung.getMin(),Main.bildung.getMax());
         pbBildung.setValue(intBildung);
@@ -303,7 +303,7 @@ public class GUI extends JFrame implements ActionListener {
         btBildungRunter.addActionListener(this);
 
         JLabel lblVerbleibendeRunden = new JLabel("Verbleibende Runden: " + Main.logik.rundenzahl); //System gedribbelt
-        intStaatsvermögen = Main.logik.startwerteHash.get("Staatsvermögen");
+        intStaatsvermögen = Main.staatsvermögen.getWert();
         lblVerbleibendesStaatskapital = new JLabel("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
         btPunktezuweisungBestätigen.setBounds(5, 3, 1, 2);
         fenster.add(wertezuweisen);
