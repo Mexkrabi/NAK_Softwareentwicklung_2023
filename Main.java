@@ -5,7 +5,7 @@ import java.util.Scanner;
  * The brain of the operation.
  * 
  * @author Sven Vazquez de Lara Kallas, Malte Fischer, Livia Kadenbach 
- * @version 0.1
+ * @version 0.5
  */
 public class Main
 {
@@ -194,7 +194,8 @@ public class Main
             Rundenzahl = 10�
         */
         //#LOOP ÜBER DIE RUNDENANZAHL
-        while(logik.aktuelleRunde <= logik.rundenzahl) {
+        while (logik.aktuelleRunde <= logik.rundenzahl) {
+            
             //# SCHRITT 2 ------------------------------
             //# WERTE ANZEIGEN
             gui.setSpielstand("STARTWERTE");
@@ -218,8 +219,12 @@ public class Main
             gui.spielstandänderung();
             logik.aktuelleRunde++;
         }
+        
         //# SCHRITT 4 ------------------------------
-
+        
+        //Victory or Game Over
+        
+        //# Ende der main()
     }
     
     /* 
