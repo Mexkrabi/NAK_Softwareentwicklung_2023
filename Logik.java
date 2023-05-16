@@ -10,8 +10,7 @@ import java.util.*;
  */
 public class Logik
 {
-    public ArrayList<Sektor> alleSektoren; //hier werden alle Sektoren gespeichert
-    
+    //public ArrayList<Sektor> alleSektoren; //hier werden alle Sektoren gespeichert
     public HashMap<String, Integer> startwerteHash; //HashMap mit allen Anfangswerten aus der .sim Datei
     
     public int rundenzahl; //Rundenzahl wird hier gespeichert und als Referenz verwendet
@@ -63,8 +62,21 @@ public class Logik
     public void einflussRechner(HashMap<Integer, Integer> einflussHash, Sektor sektorVON, Sektor sektorNACH) 
     {
         System.out.println("Berechne Einfluss von " + sektorVON.getName() + " (" + sektorVON.getWert() + ") auf " 
-                            + sektorNACH.getName() + " (" + sektorNACH.getWert() + ") ...");
-        int delta = einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
+                                + sektorNACH.getName() + " (" + sektorNACH.getWert() + ") ...");
+        int delta;
+        //Sonderfälle mit Multiplikation
+        if(einflussHash == bw_auf_bg) {
+            //Sonderfall 1
+            System.out.println("Sonderfall erkannt: Verrechne mit BWF");
+            delta =  Main.bevölkerungswachstumsfaktor.getWert() * einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
+        } else if (einflussHash == bg_auf_sv) {
+            //Sonderfall 2
+            System.out.println("Sonderfall erkannt: Verrechne mit VL");
+            delta =  Main.versorgungslage.getWert() * einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
+        } else {
+            //Normalfall
+            delta = einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
+        }
         System.out.println("Änderungswert: " + delta);
         int neuerWert = delta + sektorNACH.getWert(); //berechnet neuen Wert
         if (sektorNACH.prüfeObImWertebereich(neuerWert)){
