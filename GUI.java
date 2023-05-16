@@ -366,13 +366,15 @@ public class GUI extends JFrame implements ActionListener {
     public void ladescreen()
     {
         // tragen Sie hier den Code ein
-        fenster.setTitle("Jahr wird Simuliert");
+        fenster.setTitle("+**** Jahr wird Simuliert *****");
 
         ladescreen = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         ladescreen.setLayout(new GridLayout(2, 1, 20, 20));
-        
-        JLabel lblLadescreen= new JLabel("Fortschritt Ihres Amtsjahres");
+        //Integer intJahr = (Main.Logik.rundenzahl- Main.Logik.aktuelleRunde + 1);
+        JLabel lblLadescreen= new JLabel("  Ihr " +  (Main.logik.aktuelleRunde + 1) + " Amtsjahr wird Simuliert" );
+        //JLabel lblLadescreen= new JLabel("  Fortschritt Ihres Amtsjahres");
+        lblLadescreen.setFont(lblLadescreen.getFont().deriveFont(Font.BOLD, 24)); 
         JProgressBar pbwarten = new JProgressBar(0,100);
         
         fenster.add(ladescreen);
