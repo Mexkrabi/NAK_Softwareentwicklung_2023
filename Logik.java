@@ -63,9 +63,9 @@ public class Logik
     {
         System.out.println("Berechne Einfluss von " + sektorVON.getName() + " (" + sektorVON.getWert() + ") auf " 
                                 + sektorNACH.getName() + " (" + sektorNACH.getWert() + ") ...");
-        int delta;
+        int delta = -999; //Zahl ohne Bedeutung
         //Sonderfälle mit Multiplikation
-        if(einflussHash == bw_auf_bg) {
+        if (einflussHash == bw_auf_bg) {
             //Sonderfall 1
             System.out.println("Sonderfall erkannt: Verrechne mit BWF");
             delta =  Main.bevölkerungswachstumsfaktor.getWert() * einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
@@ -73,6 +73,18 @@ public class Logik
             //Sonderfall 2
             System.out.println("Sonderfall erkannt: Verrechne mit VL");
             delta =  Main.versorgungslage.getWert() * einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
+        } else if (einflussHash == bg_auf_bwf) {
+            //Sonderfall - Gleichsetzen
+            System.out.println("Sonderfall erkannt: BWF direkt ersetzen");
+            sektorNACH.setWert(einflussHash.get(sektorVON.getWert()));
+            System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
+            return;
+        } else if (einflussHash == wl_auf_vl) {
+            //Sonderfall - Gleichsetzen
+            System.out.println("Sonderfall erkannt: VL direkt ersetzen");
+            sektorNACH.setWert(einflussHash.get(sektorVON.getWert()));
+            System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
+            return;
         } else {
             //Normalfall
             delta = einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
