@@ -91,7 +91,7 @@ public class GUI extends JFrame implements ActionListener {
 
         //legt die Größe des Frames fest
         //startBildschirm.setSize(300, 300);
-        fenster.setSize(300,300);
+        fenster.setSize(400,400);
         
         // Zentriert das JFrame auf dem Bildschirm
         fenster.setLocationRelativeTo(null);
@@ -144,7 +144,7 @@ public class GUI extends JFrame implements ActionListener {
         fenster.add(auswahlDatei);
 
         //legt die Größe des Frames fest
-        fenster.setSize(300,300);
+        fenster.setSize(400,400);
         // Zentriert das JFrame auf dem Bildschirm
         fenster.setLocationRelativeTo(null);
         
@@ -182,7 +182,7 @@ public class GUI extends JFrame implements ActionListener {
         JLabel lblLebensqualität = new JLabel("Lebensqualität = " + Main.lebensqualität.getWert());
         JLabel lblBildung = new JLabel("Bildung = " + Main.bildung.getWert());
         JLabel lblStaatsvermögen = new JLabel("Staatsvermögen = " + Main.staatsvermögen.getWert());
-        JLabel lblLeer = new JLabel("");
+        JLabel lblLeer = new JLabel("Wertebereich");
         JLabel lblLeer2 = new JLabel("");
         JLabel lblSimulationsablauf = new JLabel("***** Simulationsablauf *****");
         JLabel lblRundenzahl = new JLabel("Rundenzahl = " + Main.logik.aktuelleRunde);
@@ -197,14 +197,28 @@ public class GUI extends JFrame implements ActionListener {
         pbBildung = new JProgressBar(Main.bildung.getMin(),Main.bildung.getMax());
         
         pbBevökerungsgröße.setValue(Main.bevölkerungsgröße.getWert());
+        pbBevökerungsgröße.setString(Main.bevölkerungsgröße.getMin() +" - " + Main.bevölkerungsgröße.getMax());
+        pbBevökerungsgröße.setStringPainted(true);
         pbBevökerungswachstum.setValue(Main.bevölkerungswachstum.getWert());
+        pbBevökerungswachstum.setString(Main.bevölkerungswachstum.getMin() +" - " + Main.bevölkerungswachstum.getMax());
+        pbBevökerungswachstum.setStringPainted(true);
         pbWirtschaftsleistung.setValue(Main.wirtschaftsleistung.getWert());
+        pbWirtschaftsleistung.setString(Main.wirtschaftsleistung.getMin() +" - " + Main.wirtschaftsleistung.getMax());
+        pbWirtschaftsleistung.setStringPainted(true);
         pbModernisierungsgrad.setValue(Main.modernisierungsgrad.getWert());
+        pbModernisierungsgrad.setString(Main.modernisierungsgrad.getMin() +" - " + Main.modernisierungsgrad.getMax());
+        pbModernisierungsgrad.setStringPainted(true);
         pbPolitStab.setValue(Main.politische_stabilität.getWert());
+        pbPolitStab.setString(Main.politische_stabilität.getMin() +" - " + Main.politische_stabilität.getMax());
+        pbPolitStab.setStringPainted(true);
         pbUmwelt.setValue(Main.umweltverschmutzung.getWert());
+        pbUmwelt.setString(Main.umweltverschmutzung.getMin() +" - " + Main.umweltverschmutzung.getMax());
+        pbUmwelt.setStringPainted(true);
         pbLeben.setValue(Main.lebensqualität.getWert());
+        pbLeben.setString(Main.lebensqualität.getMin() +" - " + Main.lebensqualität.getMax());
+        pbLeben.setStringPainted(true);
         pbBildung.setValue(Main.bildung.getWert());
-        pbBildung.setString(Main.umweltverschmutzung.getMin() +"-" + Main.umweltverschmutzung.getMax());
+        pbBildung.setString(Main.umweltverschmutzung.getMin() +" - " + Main.umweltverschmutzung.getMax());
         pbBildung.setStringPainted(true);
         
         btweiter = new JButton ("Weiter");
@@ -238,7 +252,7 @@ public class GUI extends JFrame implements ActionListener {
         startwerte.add(btweiter);
         
 
-        fenster.setSize(500,700);//Passt die Größe des Fensters an 
+        fenster.setSize(600,800);//Passt die Größe des Fensters an 
         fenster.setLocationRelativeTo(null);
         fenster.setVisible(true);
         startwerte.setVisible(true);
@@ -520,6 +534,11 @@ public class GUI extends JFrame implements ActionListener {
             System.out.println("Weiter geklickt");
             startwerte.setVisible(false);
         } else if (e.getSource() == btPunktezuweisungBestätigen) {
+            Main.bildung.setWert(intBildung);
+            Main.wirtschaftsleistung.setWert(intWirtschaftsleistung);
+            Main.modernisierungsgrad.setWert(intModernisierungsgrad);
+            Main.lebensqualität.setWert(intLeben);
+            
             setSpielstand("BERECHNUNG");
             spielstandänderung();
             System.out.println("Weiter geklickt");
