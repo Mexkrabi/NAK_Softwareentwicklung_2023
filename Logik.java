@@ -150,6 +150,7 @@ public class Logik
         
         System.out.println("HashMap erzeugt: " + hashmap);
         return hashmap;
+
     }
     
     public void einflussWerteErzeugen() 

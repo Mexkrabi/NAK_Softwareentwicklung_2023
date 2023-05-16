@@ -14,14 +14,14 @@ public class GUI extends JFrame implements ActionListener {
     }
     // Instanzvariablen 
     private JFrame fenster;
-    private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen;
+    private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen, gameover, victory;
     public JComboBox<String> cbDateien;
     private JProgressBar pbLeben, pbWirtschaftsleistung, pbModernisierungsgrad, pbBildung, pbPolitStab, pbUmwelt, pbVersorgung, pbBevökerungswachstum, pbBevökerungsgröße, Bevölkerungswachstumsfaktor;
     public String strSpielstand, strAuswahl;
     private Integer intWirtschaftsleistung, intModernisierungsgrad, intLeben, intBildung, intStaatsvermögen, intVerbleibendeRunden;
     private String spielstand; //# <-- ersetzen in der Main
     private JLabel lblwilkommen;
-    private JButton btStart, btEnde, btAuswahlBestätigen, btweiter, btPunktezuweisungBestätigen;
+    private JButton btStart, btEnde, btAuswahlBestätigen, btweiter, btPunktezuweisungBestätigen, btGameover, btVictory;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung, lblVerbleibendesStaatskapital;
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
@@ -398,6 +398,54 @@ public class GUI extends JFrame implements ActionListener {
         ladescreen.setVisible(false);
     }   
 
+    public void gameover()
+    {
+        // tragen Sie hier den Code ein
+        fenster.setTitle("+**** Game over *****");
+
+        gameover = new JPanel();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
+        gameover.setLayout(new GridLayout(2, 2, 20, 20));
+        JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider inerhalb Ihrer Amtszeit in eine Kriese geführt ");
+        lblGameover.setFont(lblGameover.getFont().deriveFont(Font.BOLD, 26));
+        lblGameover.setBounds(1, 1, 1, 2);
+        btStart = new JButton (" Neues Spiel Starten");
+        btEnde = new JButton(" Spiel Beenden");
+        
+        fenster.add(gameover);
+        gameover.add(lblGameover);
+        gameover.add(btStart);
+        gameover.add(btEnde);
+
+        fenster.setVisible(true);
+        gameover.setVisible(true);
+        System.out.println("Game over");
+
+    }
+        public void victory()
+    {
+        // tragen Sie hier den Code ein
+        fenster.setTitle("+**** Victory *****");
+
+        victory = new JPanel();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
+        victory.setLayout(new GridLayout(2, 2, 20, 20));
+        JLabel lblVictory= new JLabel(" Sie haben Ihr Land Erfolgreich regiert und es weit voran getrieben ");
+        lblVictory.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 26));
+        lblVictory.setBounds(1, 1, 1, 2);
+        btStart = new JButton (" Neues Spiel Starten");
+        btEnde = new JButton(" Spiel Beenden");
+        
+        fenster.add(gameover);
+        gameover.add(lblVictory);
+        gameover.add(btStart);
+        gameover.add(btEnde);
+
+        fenster.setVisible(true);
+        victory.setVisible(true);
+        System.out.println("Game over");
+
+    }
     //Getter & Setter
     public String getSpielstand() 
     {
@@ -419,6 +467,8 @@ public class GUI extends JFrame implements ActionListener {
             setSpielstand("AUSWAHL");
             spielstandänderung();
             startBildschirm.setVisible(false);
+            victory.setVisible(false);
+            gameover.setVisible(false);
         } else if (e.getSource() == btEnde) {
             // Aktion für Button 2
             System.out.println("Ende wurde geklickt.");
