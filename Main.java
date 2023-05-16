@@ -74,19 +74,17 @@ public class Main
         //# Code startet
         
         System.out.println("Code startet...");
-        dateiLeser = new DateiLeser();
-    
         
         //# SCHRITT 0 ------------------------------
         
+        dateiLeser = new DateiLeser();
         gui = new GUI();
         gui.setSpielstand("START");
         gui.spielstandänderung();
-        //warten, bis Spielstand geändert wird
-        warteSolangeNoch("START");
-
-
+        
+        warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
         //Warten auf Start-Knopfdruck
+        
         //# SCHRITT 1 ------------------------------
         //#EVENT: SPIELSTART
         
@@ -106,9 +104,8 @@ public class Main
         Bildung = 2
         Staatsvermögen = 8
         +++ Simulationsablauf +++
-        Rundenzahl = 10�
+        Rundenzahl = 10
          */
-        
         //#STARTWERTE EINLESEN
         logik = new Logik(); //Logik-Handler generiert
         try {
@@ -133,7 +130,12 @@ public class Main
             ex.printStackTrace(); 
         }
         
-        //#Sektoren erzeugen /////////////////////////////
+        System.out.println("---\nHashmap mit Startwerten:");
+        for (String i : logik.startwerteHash.keySet()) {
+          System.out.println("Key: " + i + " - Wert: " + logik.startwerteHash.get(i));
+        }
+        
+        //#SEKTOREN ERZEUGEN
         /* To Do für jeden Sektor: (9x bzw. 11x)
          * -> Name              String
          * -> min               int
@@ -170,9 +172,11 @@ public class Main
 
         //Bevölkerungswachstumsfaktor
         //# Hinzufügen von Berechnung des Startwerts (wo "0" bisher steht)
+        //# !!
         bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3, 0); //min max aus Angabe Tabelle (HA-Dokument)
         //Versorgungslage
         //# Hinzufügen von Berechnung des Startwerts (wo "0" bisher steht)
+        //# !!
         versorgungslage = new Sektor("Versorgungslage", -4, 1, 0); //min max aus Angabe Tabelle (HA-Dokument)
 
         /*
@@ -189,34 +193,28 @@ public class Main
             +++ Simulationsablauf +++
             Rundenzahl = 10�
         */
-        
-        //etc...
-        gui.setSpielstand("STARTWERTE");
-        gui.spielstandänderung();
-        //warten, bis Spielstand geändert wird
-        //warteSolangeNoch("STARTWERTE");
-        //spielstart();
-        
-        //#TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        System.out.println("###############Testing###############");
-        
-        System.out.println("Hashmap mit Startwerten:");
-        for (String i : logik.startwerteHash.keySet()) {
-          System.out.println("Key: " + i + " - Wert: " + logik.startwerteHash.get(i));
+        //#LOOP ÜBER DIE RUNDENANZAHL
+        while(logik.aktuelleRunde <= logik.rundenzahl) {
+            //# SCHRITT 2 ------------------------------
+            //# WERTE ANZEIGEN
+            gui.setSpielstand("STARTWERTE");
+            gui.spielstandänderung();
+            
+            //warten, bis Spielstand geändert wird
+            //warteSolangeNoch("STARTWERTE");
+            //spielstart();
+            
+            //# INVESTIERE STAATSVERMÖGEN
+            //Investieren passiert alles über die GUI
+            warteBis("WERTZUWEISEN");
+            warteSolangeNoch("WERTZUWEISEN");
+            
+            
+            //# SCHRITT 3 ------------------------------
+            //# EVENT: BERECHNUNGSPHASE
+            warteBis("BERECHNUNG");
+            logik.rundeBerechnen(); //Berechnung über die Logik
         }
-        
-        System.out.println("###############Testing###############");
-        //#TESTING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        
-        //# SCHRITT 2 ------------------------------
-        
-        warteSolangeNoch("WERTZUWEISEN");
-        //# SCHRITT 3 ------------------------------
-        //TESTING ><><><><><><><><
-        warteBis("BERECHNUNG");
-        logik.rundeBerechnen();
-        gui.setSpielstand("STARTWERTE");
-        gui.spielstandänderung();
         //# SCHRITT 4 ------------------------------
 
     }
