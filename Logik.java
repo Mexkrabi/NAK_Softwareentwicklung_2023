@@ -64,13 +64,14 @@ public class Logik
     {
         System.out.println("Berechne Einfluss von " + sektorVON.getName() + " (" + sektorVON.getWert() + ") auf " 
                             + sektorNACH.getName() + " (" + sektorNACH.getWert() + ") ...");
-        int delta = einflussHash.get(sektorVON.getWert());//passenden Wert in den der Hashmap suchen
-        int neuerWert = delta + sektorNACH.getWert();
+        int delta = einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
+        System.out.println("Änderungswert: " + delta);
+        int neuerWert = delta + sektorNACH.getWert(); //berechnet neuen Wert
         if (sektorNACH.prüfeObImWertebereich(neuerWert)){
-            sektorNACH.setWert(neuerWert);
+            sektorNACH.setWert(neuerWert); //fügt neuen Wert ein
             System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
         } else {
-            gameOver();
+            gameOver(); //# noch nicht implementiert
             return; // bricht methode ab, da nicht weiter rechnen
         }
     }
