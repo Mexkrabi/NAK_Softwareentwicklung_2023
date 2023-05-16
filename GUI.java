@@ -50,7 +50,9 @@ public class GUI extends JFrame implements ActionListener {
                 wertezuweisung();
                 break;
             case "BERECHNUNG" :
-                System.out.println("HUIIIIIIIIIIII");;
+                break;
+            case "LADEN" :
+                ladescreen();
 
         }
     }
@@ -358,8 +360,8 @@ public class GUI extends JFrame implements ActionListener {
     /**
      * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
      * 
-     * @param  y	(Beschreibung des Parameters)
-     * @return		(Beschreibung des Rückgabewertes)
+     * @param  y    (Beschreibung des Parameters)
+     * @return        (Beschreibung des Rückgabewertes)
      */
     public void ladescreen()
     {
@@ -368,24 +370,30 @@ public class GUI extends JFrame implements ActionListener {
 
         ladescreen = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
-        wertezuweisen.setLayout(new GridLayout(2, 1, 20, 20));
+        ladescreen.setLayout(new GridLayout(2, 1, 20, 20));
         
         JLabel lblLadescreen= new JLabel("Fortschritt Ihres Amtsjahres");
         JProgressBar pbwarten = new JProgressBar(0,100);
         
+        fenster.add(ladescreen);
+        ladescreen.add(lblLadescreen);
+        ladescreen.add(pbwarten);
+        fenster.setVisible(true);
         for(int i =0; i<=100;i++){
             
             try {
                 // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
                 //# evtl. Überprüfen!
-                Thread.sleep(100);
+                Thread.sleep(75);
                 pbwarten.setValue(i);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
             
         }
-        
+        System.out.println("Jahr beendet");
+        fenster.setVisible(false);
+        ladescreen.setVisible(false);
     }   
 
     //Getter & Setter

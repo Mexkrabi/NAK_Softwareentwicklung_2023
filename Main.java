@@ -214,7 +214,8 @@ public class Main
             //# EVENT: BERECHNUNGSPHASE
             warteBis("BERECHNUNG");
             logik.rundeBerechnen(); //Berechnung über die Logik
-            
+            gui.setSpielstand("LADEN");
+            gui.spielstandänderung();
             logik.aktuelleRunde++;
         }
         //# SCHRITT 4 ------------------------------
