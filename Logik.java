@@ -53,132 +53,72 @@ public class Logik
         startwerteHash = new HashMap<String, Integer>();
     }
 
-    public void rundeBerechnen (){
-        // 1.Wirtschaftsleistung (Rückkopplung)
-        
-        int anderung = wl_auf_wl.get(Main.wirtschaftsleistung.getWert());//passenden Wert in den der Hashmap suchen
-        int neuerWert = anderung + Main.wirtschaftsleistung.getWert();
-        if (Main.wirtschaftsleistung.prüfeObImWertebereich(neuerWert)){
-            Main.wirtschaftsleistung.setWert(neuerWert);
-        }
-        else {
+    /**
+     * Diese Methode berechnet einen einzelnen Einflussschritt.
+     * 
+     * @param einflussHash HashMap, aus welcher der Wert eingelesen werden soll.
+     * @param sektorVON Sektor, von welchem die Änderung ausgeht (erste Stelle im Hash-Namen, bzw. Key)
+     * @param sektorNACH Sektor, dessen Wert geändert werden soll (zweite Stelle im Hash-Namen, bzw. Wert)
+     */
+    public void einflussRechner(HashMap<Integer, Integer> einflussHash, Sektor sektorVON, Sektor sektorNACH) 
+    {
+        System.out.println("Berechne Einfluss von " + sektorVON.getName() + " (" + sektorVON.getWert() + ") auf " 
+                            + sektorNACH.getName() + " (" + sektorNACH.getWert() + ") ...");
+        int delta = einflussHash.get(sektorVON.getWert());//passenden Wert in den der Hashmap suchen
+        int neuerWert = delta + sektorNACH.getWert();
+        if (sektorNACH.prüfeObImWertebereich(neuerWert)){
+            sektorNACH.setWert(neuerWert);
+            System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
+        } else {
             gameOver();
             return; // bricht methode ab, da nicht weiter rechnen
         }
+    }
+    
+    public void rundeBerechnen (){
+        System.out.println("Starte die Rundenberechnung ...");
+        // 1.Wirtschaftsleistung (Rückkopplung)
+        einflussRechner(wl_auf_wl, Main.wirtschaftsleistung, Main.wirtschaftsleistung);
         
         // 2. Versorgungslage
-        Main.versorgungslage.setWert(wl_auf_vl.get(Main.wirtschaftsleistung.getWert())); // da  Ergeniss nicht berechnet wird, kann der Wert nicht außerhalb des Wertebereichs sein
-                
+        
+        
         // 3. Modernisierungsgrad (Rückkopplung)
-        anderung = mg_auf_mg.get(Main.modernisierungsgrad.getWert());//passenden Wert in den der Hashmap suchen
-        neuerWert = anderung + Main.modernisierungsgrad.getWert();
-        if (Main.modernisierungsgrad.prüfeObImWertebereich(neuerWert)){
-            Main.modernisierungsgrad.setWert(neuerWert);
-        }
-        else {
-            gameOver();
-            return; // bricht methode ab, da nicht weiter rechnen
-        }
+
         
         // 4. Bildung (Rückkopplung)
-        anderung = bl_auf_bl.get(Main.bildung.getWert());//passenden Wert in den der Hashmap suchen
-        neuerWert = anderung + Main.bildung.getWert();
-        if (Main.bildung.prüfeObImWertebereich(neuerWert)){
-            Main.bildung.setWert(neuerWert);
-        }
-        else {
-            gameOver();
-            return; // bricht methode ab, da nicht weiter rechnen
-        }
+
+        
         // 5. Umweltverschmutzung
-        anderung = mg_auf_uwv.get(Main.modernisierungsgrad.getWert()) + wl_auf_uwv.get(Main.wirtschaftsleistung.getWert());//passende Werte in den der Hashmaps suchen und addieren
-        neuerWert = anderung + Main.umweltverschmutzung.getWert();
-        if (Main.umweltverschmutzung.prüfeObImWertebereich(neuerWert)){
-            Main.umweltverschmutzung.setWert(neuerWert);
-        }
-        else {
-            gameOver();
-            return; // bricht methode ab, da nicht weiter rechnen
-        }
+
         
         // 6. Umweltverschmutzung (Rückkopplung)
-        anderung = uwv_auf_uwv.get(Main.umweltverschmutzung.getWert());//passenden Wert in den der Hashmap suchen
-        neuerWert = anderung + Main.umweltverschmutzung.getWert();
-        if (Main.umweltverschmutzung.prüfeObImWertebereich(neuerWert)){
-            Main.umweltverschmutzung.setWert(neuerWert);
-        }
-        else {
-            gameOver();
-            return; // bricht methode ab, da nicht weiter rechnen
-        }
+
+        
         // 7. Lebensqualität
-        anderung = uwv_auf_lq.get(Main.umweltverschmutzung.getWert()) + bl_auf_lq.get(Main.bildung.getWert()) + bg_auf_lq.get(Main.bevölkerungsgröße.getWert());//passenden Wert in den der Hashmap suchen
-        neuerWert = anderung + Main.lebensqualität.getWert();
-        if (Main.lebensqualität.prüfeObImWertebereich(neuerWert)){
-            Main.lebensqualität.setWert(neuerWert);
-        }
-        else {
-            gameOver();
-            return; // bricht methode ab, da nicht weiter rechnen
-        }
+
+        
         // 8. Lebensqualität (Rückkopplung)
-        anderung = lq_auf_lq.get(Main.lebensqualität.getWert());//passenden Wert in den der Hashmap suchen
-        neuerWert = anderung + Main.lebensqualität.getWert();
-        if (Main.lebensqualität.prüfeObImWertebereich(neuerWert)){
-            Main.lebensqualität.setWert(neuerWert);
-        }
-        else {
-            gameOver();
-            return; // bricht methode ab, da nicht weiter rechnen
-        }
+
+        
         // 9. Bevölkerungswachstum
-        anderung = bl_auf_bw.get(Main.bildung.getWert()) + lq_auf_bw.get(Main.lebensqualität.getWert());//passenden Wert in den der Hashmap suchen
-        neuerWert = anderung + Main.bevölkerungswachstum.getWert();
-        if (Main.bevölkerungswachstum.prüfeObImWertebereich(neuerWert)){
-            Main.bevölkerungswachstum.setWert(neuerWert);
-        }
-        else {
-            gameOver();
-            return; // bricht methode ab, da nicht weiter rechnen
-        }
+
         
         // 10. Bevölkerungswachstumsfakto�
-        Main.bevölkerungswachstumsfaktor.setWert(bg_auf_bwf.get(Main.bevölkerungsgröße.getWert())); // da  Ergeniss nicht berechnet wird, kann der Wert nicht außerhalb des Wertebereichs sein
+        
         
         // 11. Bevölkerungsgröße
-        anderung = bw_auf_bg.get(Main.bevölkerungswachstum.getWert()) * Main.bevölkerungswachstumsfaktor.getWert();//passenden Wert in den der Hashmap suchen
-        neuerWert = anderung + Main.bevölkerungsgröße.getWert();
-        if (Main.bevölkerungsgröße.prüfeObImWertebereich(neuerWert)){
-            Main.bevölkerungsgröße.setWert(neuerWert);
-        }
-        else {
-            gameOver();
-            return; // bricht methode ab, da nicht weiter rechnen
-        }
+        
         
         // 12. Bevölkerungsgröße (Rückkopplung)
         
+        
         // 13. Politische Stabilität
-        anderung = lq_auf_ps.get(Main.lebensqualität.getWert());//passenden Wert in den der Hashmap suchen
-        neuerWert = anderung + Main.politische_stabilität.getWert();
-        if (Main.politische_stabilität.prüfeObImWertebereich(neuerWert)){
-            Main.politische_stabilität.setWert(neuerWert);
-        }
-        else {
-            gameOver();
-            return; // bricht methode ab, da nicht weiter rechnen
-        }
+
+        
         // 14. Staatsvermögen
-        anderung = (bg_auf_sv.get(Main.bevölkerungsgröße.getWert()) *  Main.versorgungslage.getWert()) + wl_auf_sv.get(Main.wirtschaftsleistung.getWert()) + 
-            + ps_auf_sv.get(Main.politische_stabilität.getWert()) + lq_auf_sv.get(Main.lebensqualität.getWert());//passendee Wert in den der Hashmap suchen und Berechnungen machen
-        neuerWert = anderung + Main.staatsvermögen.getWert();
-        if (Main.staatsvermögen.prüfeObImWertebereich(neuerWert)){
-            Main.staatsvermögen.setWert(neuerWert);
-        }
-        else {
-            gameOver();
-            return; // bricht methode ab, da nicht weiter rechnen
-        }
+        
+        
     }
     public void gameOver(){
         
