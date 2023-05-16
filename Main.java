@@ -215,6 +215,8 @@ public class Main
         //TESTING ><><><><><><><><
         warteBis("BERECHNUNG");
         logik.rundeBerechnen();
+        gui.setSpielstand("STARTWERTE");
+        gui.spielstandänderung();
         //# SCHRITT 4 ------------------------------
 
     }

@@ -204,6 +204,8 @@ public class GUI extends JFrame implements ActionListener {
         pbUmwelt.setValue(Main.umweltverschmutzung.getWert());
         pbLeben.setValue(Main.lebensqualität.getWert());
         pbBildung.setValue(Main.bildung.getWert());
+        pbBildung.setString(Main.umweltverschmutzung.getMin() +"-" + Main.umweltverschmutzung.getMax());
+        pbBildung.setStringPainted(true);
         
         btweiter = new JButton ("Weiter");
         fenster.add(startwerte);
