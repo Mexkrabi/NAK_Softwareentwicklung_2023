@@ -200,9 +200,9 @@ public class Main
         //#TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
         System.out.println("###############Testing###############");
         
-        System.out.println("Gebe Hashmap mit Startwerten aus:");
+        System.out.println("Hashmap mit Startwerten:");
         for (String i : logik.startwerteHash.keySet()) {
-          System.out.println("key: " + i + " value: " + logik.startwerteHash.get(i));
+          System.out.println("Key: " + i + " - Wert: " + logik.startwerteHash.get(i));
         }
         
         System.out.println("###############Testing###############");
@@ -210,8 +210,10 @@ public class Main
         
         //# SCHRITT 2 ------------------------------
         
+        warteSolangeNoch("WERTZUWEISEN");
         //# SCHRITT 3 ------------------------------
         //TESTING ><><><><><><><><
+        warteBis("BERECHNUNG");
         logik.rundeBerechnen();
         //# SCHRITT 4 ------------------------------
 
@@ -275,6 +277,20 @@ public class Main
     public static void warteSolangeNoch(String woraufGewartetWird) 
     {
         while(gui.getSpielstand() == woraufGewartetWird)
+        {
+            try {
+                // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
+                //# evtl. Überprüfen!
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+    
+    public static void warteBis(String woraufGewartetWird) 
+    {
+                while(gui.getSpielstand() != woraufGewartetWird)
         {
             try {
                 // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
