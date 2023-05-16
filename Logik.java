@@ -17,27 +17,27 @@ public class Logik
     public int rundenzahl; //Rundenzahl wird hier gespeichert und als Referenz verwendet
     public int aktuelleRunde; //aktuelle Runde hier gespeichert
     
-    //Hashmaps mit Wertebeeinflussung
-    private HashMap<Integer, Integer> mg_auf_uwv;
-    private HashMap<Integer, Integer> mg_auf_mg;
-    private HashMap<Integer, Integer> wl_auf_wl;
-    private HashMap<Integer, Integer> wl_auf_uwv;
-    private HashMap<Integer, Integer> uwv_auf_uwv;
-    private HashMap<Integer, Integer> uwv_auf_lq;
-    private HashMap<Integer, Integer> bl_auf_bl;
-    private HashMap<Integer, Integer> bl_auf_lq;
-    private HashMap<Integer, Integer> bl_auf_bw;
-    private HashMap<Integer, Integer> bg_auf_sv;
-    private HashMap<Integer, Integer> ps_auf_sv;
-    private HashMap<Integer, Integer> wl_auf_sv;
-    private HashMap<Integer, Integer> lq_auf_sv;
-    private HashMap<Integer, Integer> bg_auf_bwf;
-    private HashMap<Integer, Integer> wl_auf_vl;
-    private HashMap<Integer, Integer> lq_auf_lq;
-    private HashMap<Integer, Integer> lq_auf_bw;
-    private HashMap<Integer, Integer> bg_auf_lq;
-    private HashMap<Integer, Integer> lq_auf_ps;
-    private HashMap<Integer, Integer> bw_auf_bg;
+    //Hashmaps mit Wertebeeinflussung und Berechnungsschritt im Kommentar
+    private HashMap<Integer, Integer> mg_auf_uwv; // 5
+    private HashMap<Integer, Integer> mg_auf_mg; // 3
+    private HashMap<Integer, Integer> wl_auf_wl; // 1
+    private HashMap<Integer, Integer> wl_auf_uwv; // 5
+    private HashMap<Integer, Integer> uwv_auf_uwv; // 6
+    private HashMap<Integer, Integer> uwv_auf_lq; // 7
+    private HashMap<Integer, Integer> bl_auf_bl; // 4
+    private HashMap<Integer, Integer> bl_auf_lq; // 7
+    private HashMap<Integer, Integer> bl_auf_bw; // 9
+    private HashMap<Integer, Integer> bg_auf_sv; // 14
+    private HashMap<Integer, Integer> ps_auf_sv; // 14
+    private HashMap<Integer, Integer> wl_auf_sv; // 14
+    private HashMap<Integer, Integer> lq_auf_sv; // 14
+    private HashMap<Integer, Integer> bg_auf_bwf; // 10, 12
+    private HashMap<Integer, Integer> wl_auf_vl; // 2
+    private HashMap<Integer, Integer> lq_auf_lq; // 8
+    private HashMap<Integer, Integer> lq_auf_bw; // 9
+    private HashMap<Integer, Integer> bg_auf_lq; // 7
+    private HashMap<Integer, Integer> lq_auf_ps; // 13
+    private HashMap<Integer, Integer> bw_auf_bg; // 11, 12
     
     /**
      * Konstruktor der Klasse Logik
