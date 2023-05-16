@@ -214,6 +214,8 @@ public class Main
             //# EVENT: BERECHNUNGSPHASE
             warteBis("BERECHNUNG");
             logik.rundeBerechnen(); //Berechnung über die Logik
+            
+            logik.aktuelleRunde++;
         }
         //# SCHRITT 4 ------------------------------
 
