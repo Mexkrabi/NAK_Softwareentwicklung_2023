@@ -82,43 +82,51 @@ public class Logik
         einflussRechner(wl_auf_wl, Main.wirtschaftsleistung, Main.wirtschaftsleistung);
         
         // 2. Versorgungslage
-        
+        einflussRechner(wl_auf_vl, Main.wirtschaftsleistung, Main.versorgungslage);
         
         // 3. Modernisierungsgrad (Rückkopplung)
-
+        einflussRechner(mg_auf_mg, Main.modernisierungsgrad, Main.modernisierungsgrad);
         
         // 4. Bildung (Rückkopplung)
-
+        einflussRechner(bl_auf_bl, Main.bildung, Main.bildung);
         
         // 5. Umweltverschmutzung
-
+        einflussRechner(wl_auf_uwv, Main.wirtschaftsleistung, Main.umweltverschmutzung);
+        einflussRechner(mg_auf_uwv, Main.modernisierungsgrad, Main.umweltverschmutzung);
         
         // 6. Umweltverschmutzung (Rückkopplung)
-
+        einflussRechner(uwv_auf_uwv, Main.umweltverschmutzung, Main.umweltverschmutzung);
         
         // 7. Lebensqualität
-
+        einflussRechner(bl_auf_lq, Main.bildung, Main.lebensqualität);
+        einflussRechner(uwv_auf_lq, Main.umweltverschmutzung, Main.lebensqualität);
+        einflussRechner(bg_auf_lq, Main.bevölkerungsgröße, Main.lebensqualität);
         
         // 8. Lebensqualität (Rückkopplung)
-
+        einflussRechner(lq_auf_lq, Main.lebensqualität, Main.lebensqualität);
         
         // 9. Bevölkerungswachstum
-
+        einflussRechner(bl_auf_bw, Main.bildung, Main.bevölkerungswachstum);        
+        einflussRechner(lq_auf_bw, Main.lebensqualität, Main.bevölkerungswachstum);        
         
-        // 10. Bevölkerungswachstumsfakto�
-        
+        // 10. Bevölkerungswachstumsfaktor
+        einflussRechner(bg_auf_bwf, Main.bevölkerungsgröße, Main.bevölkerungswachstumsfaktor);
         
         // 11. Bevölkerungsgröße
-        
-        
+        einflussRechner(bw_auf_bg, Main.bevölkerungswachstum, Main.bevölkerungsgröße);
+                
         // 12. Bevölkerungsgröße (Rückkopplung)
-        
+        einflussRechner(bg_auf_bwf, Main.bevölkerungsgröße, Main.bevölkerungswachstumsfaktor);
+        einflussRechner(bw_auf_bg, Main.bevölkerungswachstum, Main.bevölkerungsgröße);
         
         // 13. Politische Stabilität
-
+        einflussRechner(lq_auf_ps, Main.lebensqualität, Main.politische_stabilität);
         
         // 14. Staatsvermögen
-        
+        einflussRechner(lq_auf_sv, Main.lebensqualität, Main.staatsvermögen);
+        einflussRechner(wl_auf_sv, Main.wirtschaftsleistung, Main.staatsvermögen);
+        einflussRechner(ps_auf_sv, Main.politische_stabilität, Main.staatsvermögen);
+        einflussRechner(bg_auf_sv, Main.bevölkerungsgröße, Main.staatsvermögen);        
         
     }
     public void gameOver(){
