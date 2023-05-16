@@ -14,7 +14,8 @@ public class Logik
     
     public HashMap<String, Integer> startwerteHash; //HashMap mit allen Anfangswerten aus der .sim Datei
     
-    public int rundenzahl; //Rundenzahl wird hier gespeichert
+    public int rundenzahl; //Rundenzahl wird hier gespeichert und als Referenz verwendet
+    public int aktuelleRunde; //aktuelle Runde hier gespeichert
     
     //Hashmaps mit Wertebeeinflussung
     private HashMap<Integer, Integer> mg_auf_uwv;
