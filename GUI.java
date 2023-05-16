@@ -629,6 +629,7 @@ public class GUI extends JFrame implements ActionListener {
             Main.wirtschaftsleistung.setWert(intWirtschaftsleistung);
             Main.modernisierungsgrad.setWert(intModernisierungsgrad);
             Main.lebensqualität.setWert(intLeben);
+            Main.staatsvermögen.setWert(intStaatsvermögen); // <-- Das hat gefehlt
 
             setSpielstand("BERECHNUNG");
             spielstandänderung();
