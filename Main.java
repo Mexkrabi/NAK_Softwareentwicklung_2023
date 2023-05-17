@@ -1,8 +1,11 @@
 import java.util.Scanner;
 
 /**
- * Beschreiben Sie hier die Klasse Main.
+ * Die Klasse Main.
  * The brain of the operation.
+ * 
+ * Link zur GitHub Repository:
+ * https://github.com/Mexkrabi/NAK_Softwareentwicklung_2023
  * 
  * @author Sven Vazquez de Lara Kallas, Malte Fischer, Livia Kadenbach 
  * @version 0.5

@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Beschreiben Sie hier die Klasse GUI.
  * 
  * @author Malte Fischer
- * @version (0.1)
+ * @version 0.1
  */
 public class GUI extends JFrame implements ActionListener {
     public GUI() {

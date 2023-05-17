@@ -4,8 +4,8 @@
  * Kenngrößen (hier Sektoren genannt) dar.
  * Ein Sektor ist z.B. "Bevölkerungswachstum", "Lebensqualität", "Staatsvermögen"
  *
- * @author (your name)
- * @version (1.0)
+ * @author Sven Vazquez de Lara Kallas
+ * @version 1.0
  */
 public class Sektor
 {
