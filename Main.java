@@ -216,11 +216,18 @@ public class Main
             
             //# SCHRITT 3 ------------------------------
             //# EVENT: BERECHNUNGSPHASE
+            gui.setSpielstand("LADEN"); //Ladescreen
+            gui.spielstandänderung();
+            
             warteBis("BERECHNUNG");
             logik.rundeBerechnen(); //Berechnung über die Logik
-            gui.setSpielstand("LADEN");
-            gui.spielstandänderung();
-            logik.aktuelleRunde++;
+            if(gui.getSpielstand() != "GAMEOVER") {
+                System.out.println("Rundenzahl erhöht");
+                logik.aktuelleRunde++;
+            } else {
+                System.out.println("Spielstand wurde auf 'GAMEOVER' gesetzt, keine weitere Rundenberechnung");
+                break;
+            }
         }
         
         //# SCHRITT 4 ------------------------------

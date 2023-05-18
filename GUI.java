@@ -176,7 +176,7 @@ public class GUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         startwerte.setLayout(new GridLayout(14, 2, 10, 10));
         JLabel lblAusgangslage = new JLabel();
-        if(Main.logik.aktuelleRunde == Main.logik.rundenzahl) {
+        if(Main.logik.aktuelleRunde == 0) {
             lblAusgangslage.setText("***** Ausgangslage *****");
         } else {
             lblAusgangslage.setText("***** Werte nach Runde " + Main.logik.aktuelleRunde + " *****");
@@ -374,7 +374,7 @@ public class GUI extends JFrame implements ActionListener {
     public void ladescreen()
     {
         // tragen Sie hier den Code ein
-        fenster.setTitle("+**** Jahr wird simuliert *****");
+        fenster.setTitle("***** Jahr wird simuliert *****");
 
         ladescreen = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
@@ -404,17 +404,20 @@ public class GUI extends JFrame implements ActionListener {
         System.out.println("Jahr beendet");
         fenster.setVisible(false);
         ladescreen.setVisible(false);
+        
+        setSpielstand("BERECHNUNG");
+        spielstandänderung();
     }   
 
     public void gameover()
     {
         // tragen Sie hier den Code ein
-        fenster.setTitle("+**** Game over *****");
+        fenster.setTitle("***** Game over *****");
 
         gameover = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         gameover.setLayout(new GridLayout(2, 2, 20, 20));
-        JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider inerhalb Ihrer Amtszeit in eine Kriese geführt ");
+        JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider inerhalb Ihrer Amtszeit in eine Krise geführt ");
         lblGameover.setFont(lblGameover.getFont().deriveFont(Font.BOLD, 26));
         lblGameover.setBounds(1, 1, 1, 2);
         btStart = new JButton (" Neues Spiel Starten");
