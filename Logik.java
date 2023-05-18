@@ -63,7 +63,7 @@ public class Logik
     {
         System.out.println("Berechne Einfluss von " + sektorVON.getName() + " (" + sektorVON.getWert() + ") auf " 
                                 + sektorNACH.getName() + " (" + sektorNACH.getWert() + ") ...");
-        int delta = -999; //Zahl ohne Bedeutung
+        int delta = -999; //Zahl deutet auf Fehler hin, falls nicht verändert
         //Sonderfälle mit Multiplikation
         if (einflussHash == bw_auf_bg) {
             //Sonderfall 1
