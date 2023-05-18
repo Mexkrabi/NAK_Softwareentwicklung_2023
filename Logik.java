@@ -5,12 +5,12 @@ import java.util.*;
  * Hier wird die Spiellogik, die Berechnung der Einflussgrößen und die 
  * Abbruchsbedingungen überprüft und kontrolliert.
  *
- * @author Sven Vazquez de Lara Kallas, Livia Kadenbach
- * @version (0.1)
+ * @author Sven Vazquez de Lara Kallas
+ * @version 0.1
  */
 public class Logik
 {
-    //public ArrayList<Sektor> alleSektoren; //hier werden alle Sektoren gespeichert
+    //public ArrayList<Sektor> alleSektoren; //hier werden alle Sektoren gespeichert (nicht in Verwendung)
     public HashMap<String, Integer> startwerteHash; //HashMap mit allen Anfangswerten aus der .sim Datei
     
     public int rundenzahl; //Rundenzahl wird hier gespeichert und als Referenz verwendet
@@ -30,8 +30,8 @@ public class Logik
     private HashMap<Integer, Integer> ps_auf_sv; // 14
     private HashMap<Integer, Integer> wl_auf_sv; // 14
     private HashMap<Integer, Integer> lq_auf_sv; // 14
-    private HashMap<Integer, Integer> bg_auf_bwf; // 10, 12
-    private HashMap<Integer, Integer> wl_auf_vl; // 2
+    public HashMap<Integer, Integer> bg_auf_bwf; // 10, 12
+    public HashMap<Integer, Integer> wl_auf_vl; // 2
     private HashMap<Integer, Integer> lq_auf_lq; // 8
     private HashMap<Integer, Integer> lq_auf_bw; // 9
     private HashMap<Integer, Integer> bg_auf_lq; // 7
@@ -53,7 +53,7 @@ public class Logik
     }
 
     /**
-     * Diese Methode berechnet einen einzelnen Einflussschritt.
+     * Diese Methode berechnet einen einzelnen Einflussschritt. Der neue Wert wird direkt im Ziel-Sektor eingesetzt.
      * 
      * @param einflussHash HashMap, aus welcher der Wert eingelesen werden soll.
      * @param sektorVON Sektor, von welchem die Änderung ausgeht (erste Stelle im Hash-Namen, bzw. Key)
@@ -63,7 +63,7 @@ public class Logik
     {
         System.out.println("Berechne Einfluss von " + sektorVON.getName() + " (" + sektorVON.getWert() + ") auf " 
                                 + sektorNACH.getName() + " (" + sektorNACH.getWert() + ") ...");
-        int delta = -999; //Zahl ohne Bedeutung
+        int delta = -999; //Zahl deutet auf Fehler hin, falls nicht verändert
         //Sonderfälle mit Multiplikation
         if (einflussHash == bw_auf_bg) {
             //Sonderfall 1
@@ -95,7 +95,7 @@ public class Logik
             sektorNACH.setWert(neuerWert); //fügt neuen Wert ein
             System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
         } else {
-            gameOver(); //# noch nicht implementiert
+            gameOver(false);
             return; // bricht methode ab, da nicht weiter rechnen
         }
     }
@@ -153,9 +153,27 @@ public class Logik
         einflussRechner(bg_auf_sv, Main.bevölkerungsgröße, Main.staatsvermögen);        
         
     }
-    public void gameOver(){
+    /**
+     * Das Aufrufen dieser Funktion beendet das Spiel. 
+     * Es soll übergeben werden, ob das Spiel gewonnen wurde oder nicht.
+     * 
+     * @param gewonnen TRUE: Spiel gewonnen, FALSE: Spiel verloren
+     */
+    public void gameOver(boolean gewonnen)
+    {
+        //"Game Over" - Bedingungen
+        // -> Außerhalb vom Wertebereich    LOSS
+        // -> Runden zu Ende                WIN/LOSS
         
+        System.out.println("\n------ GAME OVER ------\n");
+        if(gewonnen) {
+            Main.gui.setSpielstand("VICTORY");
+        } else {
+            Main.gui.setSpielstand("GAMEOVER");
+        }
+        Main.gui.spielstandänderung();
     }
+    
     /**
      * Erzeugt eine HashMap aus dem Imput eines Arrays.
      * Wird für die Wertebeziehungen benutzt.
@@ -174,7 +192,6 @@ public class Logik
         
         System.out.println("HashMap erzeugt: " + hashmap);
         return hashmap;
-
     }
     
     public void einflussWerteErzeugen() 

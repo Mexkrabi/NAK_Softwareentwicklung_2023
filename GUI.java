@@ -6,7 +6,7 @@ import java.awt.event.*;
  * Beschreiben Sie hier die Klasse GUI.
  * 
  * @author Malte Fischer
- * @version (0.1)
+ * @version 0.1
  */
 public class GUI extends JFrame implements ActionListener {
     public GUI() {
@@ -35,7 +35,7 @@ public class GUI extends JFrame implements ActionListener {
         // wenn diese Methode aufgerufen wird und der Wert zu einem der Case passt,
         // dann wird der zugehöhrige Code ausgeführt
         switch (strSpielstand) {
-            case "START":
+            case "START" :
                 startBildschirm();
                 break;
             case "AUSWAHL" :
@@ -53,7 +53,15 @@ public class GUI extends JFrame implements ActionListener {
                 break;
             case "LADEN" :
                 ladescreen();
-               
+                break;
+            case "GAMEOVER" :
+                gameover();
+                break;
+            case "VICTORY" :
+                victory();
+                break;
+            default : //falls Spielstand falsch angegeben wird, oder nicht erkannt wird
+                System.out.println("! '" + strSpielstand + "' ist kein gültiger Spielstand !");
 
         }
     }
@@ -169,7 +177,7 @@ public class GUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         startwerte.setLayout(new GridLayout(14, 2, 10, 10));
         JLabel lblAusgangslage = new JLabel();
-        if(Main.logik.aktuelleRunde == Main.logik.rundenzahl) {
+        if(Main.logik.aktuelleRunde == 0) {
             lblAusgangslage.setText("***** Ausgangslage *****");
         } else {
             lblAusgangslage.setText("***** Werte nach Runde " + Main.logik.aktuelleRunde + " *****");
@@ -367,7 +375,7 @@ public class GUI extends JFrame implements ActionListener {
     public void ladescreen()
     {
         // tragen Sie hier den Code ein
-        fenster.setTitle("+**** Jahr wird Simuliert *****");
+        fenster.setTitle("***** Jahr wird simuliert *****");
 
         ladescreen = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
@@ -397,21 +405,28 @@ public class GUI extends JFrame implements ActionListener {
         System.out.println("Jahr beendet");
         fenster.setVisible(false);
         ladescreen.setVisible(false);
+        
+        setSpielstand("BERECHNUNG");
+        spielstandänderung();
     }   
 
     public void gameover()
     {
         // tragen Sie hier den Code ein
-        fenster.setTitle("+**** Game over *****");
+        fenster.setTitle("***** Game over *****");
 
         gameover = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         gameover.setLayout(new GridLayout(2, 2, 20, 20));
-        JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider inerhalb Ihrer Amtszeit in eine Kriese geführt ");
+        JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider inerhalb Ihrer Amtszeit in eine Krise geführt ");
         lblGameover.setFont(lblGameover.getFont().deriveFont(Font.BOLD, 26));
         lblGameover.setBounds(1, 1, 1, 2);
         btStart = new JButton (" Neues Spiel Starten");
         btEnde = new JButton(" Spiel Beenden");
+        
+        //fügt einen ActionListener hinzu um auf einen klick zu reagieren
+        btStart.addActionListener(this);
+        btEnde.addActionListener(this);
         
         fenster.add(gameover);
         gameover.add(lblGameover);
@@ -436,6 +451,10 @@ public class GUI extends JFrame implements ActionListener {
         lblVictory.setBounds(1, 1, 1, 2);
         btStart = new JButton (" Neues Spiel Starten");
         btEnde = new JButton(" Spiel Beenden");
+        
+        //fügt einen ActionListener hinzu um auf einen klick zu reagieren
+        btStart.addActionListener(this);
+        btEnde.addActionListener(this);
         
         fenster.add(gameover);
         gameover.add(lblVictory);
