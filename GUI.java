@@ -512,7 +512,7 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == btModernRunter) {
             intStaatsvermögen = intStaatsvermögen + 1;
             intModernisierungsgrad = intModernisierungsgrad - 1;
-            if(intModernisierungsgrad == Main.logik.startwerteHash.get("Modernisierungsgrad")) {
+            if(intModernisierungsgrad ==  Main.modernisierungsgrad.getWert()) {
                 btModernRunter.setVisible(false);
             }
             lblVerbleibendesStaatskapital.setText("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
@@ -596,7 +596,7 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == btLebenRunter) {
             intStaatsvermögen = intStaatsvermögen + 1;
             intLeben = intLeben - 1;
-            if(intLeben == Main.logik.startwerteHash.get("Lebensqualität")) {
+            if(intLeben == Main.lebensqualität.getWert()) {
                 btLebenRunter.setVisible(false);
             }
             lblVerbleibendesStaatskapital.setText("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
@@ -625,7 +625,7 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == btBildungRunter) {
             intStaatsvermögen = intStaatsvermögen + 1;
             intBildung = intBildung - 1;
-            if(intBildung == Main.logik.startwerteHash.get("Bildung")) {
+            if(intBildung ==  Main.bildung.getWert()) {
                 btBildungRunter.setVisible(false);
             }
             lblVerbleibendesStaatskapital.setText("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
