@@ -30,8 +30,8 @@ public class Logik
     private HashMap<Integer, Integer> ps_auf_sv; // 14
     private HashMap<Integer, Integer> wl_auf_sv; // 14
     private HashMap<Integer, Integer> lq_auf_sv; // 14
-    private HashMap<Integer, Integer> bg_auf_bwf; // 10, 12
-    private HashMap<Integer, Integer> wl_auf_vl; // 2
+    public HashMap<Integer, Integer> bg_auf_bwf; // 10, 12
+    public HashMap<Integer, Integer> wl_auf_vl; // 2
     private HashMap<Integer, Integer> lq_auf_lq; // 8
     private HashMap<Integer, Integer> lq_auf_bw; // 9
     private HashMap<Integer, Integer> bg_auf_lq; // 7
@@ -53,7 +53,7 @@ public class Logik
     }
 
     /**
-     * Diese Methode berechnet einen einzelnen Einflussschritt.
+     * Diese Methode berechnet einen einzelnen Einflussschritt. Der neue Wert wird direkt im Ziel-Sektor eingesetzt.
      * 
      * @param einflussHash HashMap, aus welcher der Wert eingelesen werden soll.
      * @param sektorVON Sektor, von welchem die Änderung ausgeht (erste Stelle im Hash-Namen, bzw. Key)

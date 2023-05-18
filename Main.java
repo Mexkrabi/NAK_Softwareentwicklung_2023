@@ -148,27 +148,35 @@ public class Main
         //Bevölkerungsgröße
         int startwert1 = logik.startwerteHash.get("Bevölkerungsgröße"); //Startwert aus Hashmap ziehen
         bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert1); //min max aus Angabe Tabelle (HA-Dokument)
+        
         //Bevölkerungswachstum
         int startwert2 = logik.startwerteHash.get("Bevölkerungswachstum"); //Startwert aus Hashmap ziehen
         bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30, startwert2); //min max aus Angabe Tabelle (HA-Dokument)
+        
         //Wirtschaftsleistung
         int startwert3 = logik.startwerteHash.get("Wirtschaftsleistung"); //Startwert aus Hashmap ziehen
         wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30, startwert3); //min max aus Angabe Tabelle (HA-Dokument)
+        
         //Modernisierungsgrad
         int startwert4 = logik.startwerteHash.get("Modernisierungsgrad"); //Startwert aus Hashmap ziehen
         modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30, startwert4); //min max aus Angabe Tabelle (HA-Dokument)
+        
         //Politische Stabilität
         int startwert5 = logik.startwerteHash.get("Politische Stabilität"); //Startwert aus Hashmap ziehen
         politische_stabilität = new Sektor("Politische Stabilität", -10, 40, startwert5); //min max aus Angabe Tabelle (HA-Dokument)
+        
         //Umweltverschmutzung
         int startwert6 = logik.startwerteHash.get("Umweltverschmutzung"); //Startwert aus Hashmap ziehen
         umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30, startwert6); //min max aus Angabe Tabelle (HA-Dokument)
+        
         //Lebensqualität
         int startwert7 = logik.startwerteHash.get("Lebensqualität"); //Startwert aus Hashmap ziehen
         lebensqualität = new Sektor("Lebensqualität", 1, 30, startwert7); //min max aus Angabe Tabelle (HA-Dokument)
+        
         //Bildung
         int startwert8 = logik.startwerteHash.get("Bildung"); //Startwert aus Hashmap ziehen
         bildung = new Sektor("Bildung", 1, 30, startwert8); //min max aus Angabe Tabelle (HA-Dokument)
+        
         //Staatsvermögen
         int startwert9 = logik.startwerteHash.get("Staatsvermögen"); //Startwert aus Hashmap ziehen
         staatsvermögen = new Sektor("Staatsvermögen", 1, 32000, startwert9); //min max aus Angabe Tabelle (HA-Dokument)
@@ -176,12 +184,13 @@ public class Main
         //Bevölkerungswachstumsfaktor
         //# Hinzufügen von Berechnung des Startwerts (wo "0" bisher steht)
         //# !!
-        bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3, 0); //min max aus Angabe Tabelle (HA-Dokument)
+        bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3, 0/*Phantom-Startwert*/); //min max aus Angabe Tabelle (HA-Dokument)
+        logik.einflussRechner(logik.bg_auf_bwf, bevölkerungsgröße, bevölkerungswachstumsfaktor); //richtiger Startwert hier berechnet
         //Versorgungslage
         //# Hinzufügen von Berechnung des Startwerts (wo "0" bisher steht)
         //# !!
-        versorgungslage = new Sektor("Versorgungslage", -4, 1, 0); //min max aus Angabe Tabelle (HA-Dokument)
-
+        versorgungslage = new Sektor("Versorgungslage", -4, 1, 0/*Phantom-Startwert*/); //min max aus Angabe Tabelle (HA-Dokument)
+        logik.einflussRechner(logik.wl_auf_vl, wirtschaftsleistung, versorgungslage); //richtiger Startwert hier berechnet
         /*
              +++ Ausgangslage +++
             Bevölkerungsgröße = 32

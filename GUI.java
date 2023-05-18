@@ -394,7 +394,7 @@ public class GUI extends JFrame implements ActionListener {
             try {
                 // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
                 //# evtl. Überprüfen!
-                Thread.sleep(75);
+                Thread.sleep(50);
                 pbwarten.setValue(i);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -423,6 +423,10 @@ public class GUI extends JFrame implements ActionListener {
         btStart = new JButton (" Neues Spiel Starten");
         btEnde = new JButton(" Spiel Beenden");
         
+        //fügt einen ActionListener hinzu um auf einen klick zu reagieren
+        btStart.addActionListener(this);
+        btEnde.addActionListener(this);
+        
         fenster.add(gameover);
         gameover.add(lblGameover);
         gameover.add(btStart);
@@ -446,6 +450,10 @@ public class GUI extends JFrame implements ActionListener {
         lblVictory.setBounds(1, 1, 1, 2);
         btStart = new JButton (" Neues Spiel Starten");
         btEnde = new JButton(" Spiel Beenden");
+        
+        //fügt einen ActionListener hinzu um auf einen klick zu reagieren
+        btStart.addActionListener(this);
+        btEnde.addActionListener(this);
         
         fenster.add(gameover);
         gameover.add(lblVictory);
