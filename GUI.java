@@ -35,7 +35,7 @@ public class GUI extends JFrame implements ActionListener {
         // wenn diese Methode aufgerufen wird und der Wert zu einem der Case passt,
         // dann wird der zugehöhrige Code ausgeführt
         switch (strSpielstand) {
-            case "START":
+            case "START" :
                 startBildschirm();
                 break;
             case "AUSWAHL" :
@@ -53,7 +53,15 @@ public class GUI extends JFrame implements ActionListener {
                 break;
             case "LADEN" :
                 ladescreen();
-
+                break;
+            case "GAMEOVER" :
+                gameover();
+                break;
+            case "VICTORY" :
+                victory();
+                break;
+            default : //falls Spielstand falsch angegeben wird, oder nicht erkannt wird
+                System.out.println("! '" + strSpielstand + "' ist kein gültiger Spielstand !");
         }
     }
 
@@ -366,7 +374,7 @@ public class GUI extends JFrame implements ActionListener {
     public void ladescreen()
     {
         // tragen Sie hier den Code ein
-        fenster.setTitle("+**** Jahr wird Simuliert *****");
+        fenster.setTitle("+**** Jahr wird simuliert *****");
 
         ladescreen = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird

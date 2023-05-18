@@ -95,7 +95,7 @@ public class Logik
             sektorNACH.setWert(neuerWert); //fügt neuen Wert ein
             System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
         } else {
-            gameOver(); //# noch nicht implementiert
+            gameOver(false);
             return; // bricht methode ab, da nicht weiter rechnen
         }
     }
@@ -153,9 +153,27 @@ public class Logik
         einflussRechner(bg_auf_sv, Main.bevölkerungsgröße, Main.staatsvermögen);        
         
     }
-    public void gameOver(){
+    /**
+     * Das Aufrufen dieser Funktion beendet das Spiel. 
+     * Es soll übergeben werden, ob das Spiel gewonnen wurde oder nicht.
+     * 
+     * @param gewonnen TRUE: Spiel gewonnen, FALSE: Spiel verloren
+     */
+    public void gameOver(boolean gewonnen)
+    {
+        //"Game Over" - Bedingungen
+        // -> Außerhalb vom Wertebereich    LOSS
+        // -> Runden zu Ende                WIN/LOSS
         
+        System.out.println("\n------ GAME OVER ------\n");
+        if(gewonnen) {
+            Main.gui.setSpielstand("VICTORY");
+        } else {
+            Main.gui.setSpielstand("GAMEOVER");
+        }
+        Main.gui.spielstandänderung();
     }
+    
     /**
      * Erzeugt eine HashMap aus dem Imput eines Arrays.
      * Wird für die Wertebeziehungen benutzt.
@@ -174,7 +192,6 @@ public class Logik
         
         System.out.println("HashMap erzeugt: " + hashmap);
         return hashmap;
-
     }
     
     public void einflussWerteErzeugen() 
