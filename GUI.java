@@ -53,6 +53,7 @@ public class GUI extends JFrame implements ActionListener {
                 break;
             case "LADEN" :
                 ladescreen();
+               
 
         }
     }
@@ -386,7 +387,7 @@ public class GUI extends JFrame implements ActionListener {
             try {
                 // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
                 //# evtl. Überprüfen!
-                Thread.sleep(75);
+                Thread.sleep(50);
                 pbwarten.setValue(i);
             } catch (InterruptedException e) {
                 e.printStackTrace();
