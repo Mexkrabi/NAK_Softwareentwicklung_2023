@@ -415,11 +415,14 @@ public class GUI extends JFrame implements ActionListener {
         fenster.setTitle("***** Game over *****");
 
         gameover = new JPanel();
+        gameover.setLayout(new GridLayout(3, 1, 50, 50));
+
+        
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
-        gameover.setLayout(new GridLayout(2, 2, 20, 20));
+        
         JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider inerhalb Ihrer Amtszeit in eine Krise geführt ");
-        lblGameover.setFont(lblGameover.getFont().deriveFont(Font.BOLD, 26));
-        lblGameover.setBounds(1, 1, 1, 2);
+        lblGameover.setFont(lblGameover.getFont().deriveFont(Font.BOLD, 20));
+ 
         btStart = new JButton (" Neues Spiel Starten");
         btEnde = new JButton(" Spiel Beenden");
         
@@ -428,14 +431,18 @@ public class GUI extends JFrame implements ActionListener {
         btEnde.addActionListener(this);
         
         fenster.add(gameover);
+        
         gameover.add(lblGameover);
         gameover.add(btStart);
         gameover.add(btEnde);
-
+        
+        fenster.setSize(800,300);
+        fenster.setLocationRelativeTo(null);
+        
         fenster.setVisible(true);
         gameover.setVisible(true);
         System.out.println("Game over");
-
+        
     }
         public void victory()
     {
@@ -444,10 +451,9 @@ public class GUI extends JFrame implements ActionListener {
 
         victory = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
-        victory.setLayout(new GridLayout(2, 2, 20, 20));
+        victory.setLayout(new GridLayout(3, 1, 50, 50));
         JLabel lblVictory= new JLabel(" Sie haben Ihr Land Erfolgreich regiert und es weit voran getrieben ");
         lblVictory.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 26));
-        lblVictory.setBounds(1, 1, 1, 2);
         btStart = new JButton (" Neues Spiel Starten");
         btEnde = new JButton(" Spiel Beenden");
         
@@ -455,7 +461,7 @@ public class GUI extends JFrame implements ActionListener {
         btStart.addActionListener(this);
         btEnde.addActionListener(this);
         
-        fenster.add(gameover);
+        fenster.add(victory);
         gameover.add(lblVictory);
         gameover.add(btStart);
         gameover.add(btEnde);
