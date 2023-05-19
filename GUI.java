@@ -14,7 +14,7 @@ public class GUI extends JFrame implements ActionListener {
     }
     // Instanzvariablen 
     private JFrame fenster;
-    private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen, gameover, victory;
+    private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen, gameover, victory, lastActivePanel;
     public JComboBox<String> cbDateien;
     private JProgressBar pbLeben, pbWirtschaftsleistung, pbModernisierungsgrad, pbBildung, pbPolitStab, pbUmwelt, pbVersorgung, pbBevökerungswachstum, pbBevökerungsgröße, Bevölkerungswachstumsfaktor;
     public String strSpielstand, strAuswahl;
@@ -83,7 +83,8 @@ public class GUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
         startBildschirm.setLayout(new GridLayout(3, 1, 30, 30));
-
+        
+        lastActivePanel = startBildschirm;
         // Label & Button erstellen 
         lblwilkommen = new JLabel("Willkommen!");
         btStart = new JButton("Start");
@@ -418,7 +419,7 @@ public class GUI extends JFrame implements ActionListener {
 
         gameover = new JPanel();
         gameover.setLayout(new GridLayout(3, 1, 50, 50));
-
+        lastActivePanel = gameover;
         
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         
@@ -454,6 +455,8 @@ public class GUI extends JFrame implements ActionListener {
         victory = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         victory.setLayout(new GridLayout(3, 1, 50, 50));
+        lastActivePanel = victory;
+        
         JLabel lblVictory= new JLabel(" Sie haben Ihr Land Erfolgreich regiert und es weit voran getrieben ");
         lblVictory.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 26));
         btStart = new JButton (" Neues Spiel Starten");
@@ -491,7 +494,7 @@ public class GUI extends JFrame implements ActionListener {
         if (e.getSource() == btStart) {
             // Aktion für Button 1
             System.out.println("Start wurde geklickt.");
-            startBildschirm.setVisible(false);
+            lastActivePanel.setVisible(false);
             //#try-catch Block evtl. notwendig, um Fehler beierstmaligem Button-Click zu verhindern (victory und gameover existieren inch nicht zu dem Zeitpunkt)
             setSpielstand("AUSWAHL");
             spielstandänderung();
