@@ -154,6 +154,18 @@ public class Logik
         einflussRechner(bg_auf_sv, Main.bevölkerungsgröße, Main.staatsvermögen);        
         
     }
+    
+    public void neustarten() {
+        //Werte zurücksetzen
+        //Rundenzahl zurücksetzen
+        aktuelleRunde = 1;
+        //boolean ändern
+        Main.boolNeustarten = true;
+        //Hash clearen
+        startwerteHash.clear();
+        
+    }
+    
     /**
      * Das Aufrufen dieser Funktion beendet das Spiel. 
      * Es soll übergeben werden, ob das Spiel gewonnen wurde oder nicht.

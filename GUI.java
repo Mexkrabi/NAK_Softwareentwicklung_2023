@@ -41,7 +41,7 @@ public class GUI extends JFrame implements ActionListener {
             case "AUSWAHL" :
                 dateiAuswal();
                 break;
-            case "PAUSE":
+            case "BREAK" :
                 break;
             case "STARTWERTE" :
                 startwerte();
@@ -60,9 +60,10 @@ public class GUI extends JFrame implements ActionListener {
             case "VICTORY" :
                 victory();
                 break;
-            case "BREAK" :
-                break;
             case "NEUSTART" :
+                Main.logik.neustarten();
+                setSpielstand("AUSWAHL");
+                spielstandänderung();
                 break;
             default : //falls Spielstand falsch angegeben wird, oder nicht erkannt wird
                 System.out.println("! '" + strSpielstand + "' ist kein gültiger Spielstand !");
@@ -507,7 +508,7 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == btEnde) {
             // Aktion für Button 2
             System.out.println("Ende wurde geklickt.");
-            
+            Main.boolNeustarten = false;
             System.exit(0);
         } else if (e.getSource() == btModernHoch) {
             //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
