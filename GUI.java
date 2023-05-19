@@ -60,6 +60,8 @@ public class GUI extends JFrame implements ActionListener {
             case "VICTORY" :
                 victory();
                 break;
+            case "BREAK" :
+                break;
             default : //falls Spielstand falsch angegeben wird, oder nicht erkannt wird
                 System.out.println("! '" + strSpielstand + "' ist kein gültiger Spielstand !");
         }

@@ -92,6 +92,7 @@ public class Main
     
     /**
      * Enthält den gesamten Spielablauf in einer Funktion, um das Spiel erneut starten zu können.
+     * Wird erstmalig in der main() aufgerufen. Im Falle einer neuen Runde wird es in der GUI beim drücken des Startknopfes aufgerufen.
      */
     public static void spielAblauf()
     {
