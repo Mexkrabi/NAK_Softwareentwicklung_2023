@@ -21,7 +21,7 @@ public class GUI extends JFrame implements ActionListener {
     private Integer intWirtschaftsleistung, intModernisierungsgrad, intLeben, intBildung, intStaatsvermögen, intVerbleibendeRunden;
     private String spielstand; //# <-- ersetzen in der Main
     private JLabel lblwilkommen;
-    private JButton btStart, btEnde, btAuswahlBestätigen, btweiter, btPunktezuweisungBestätigen, btGameover, btVictory;
+    private JButton btStart, btEnde, btAuswahlBestätigen, btweiter, btPunktezuweisungBestätigen, btHauptmenü;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung, lblVerbleibendesStaatskapital;
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
@@ -425,18 +425,19 @@ public class GUI extends JFrame implements ActionListener {
         
         JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider inerhalb Ihrer Amtszeit in eine Krise geführt ");
         lblGameover.setFont(lblGameover.getFont().deriveFont(Font.BOLD, 20));
- 
-        btStart = new JButton (" Neues Spiel Starten");
+        btHauptmenü = new JButton("Zurück zum Hauptmenü"); 
+        
+        //btStart = new JButton (" Neues Spiel Starten");
         btEnde = new JButton(" Spiel Beenden");
         
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
-        btStart.addActionListener(this);
+        btHauptmenü.addActionListener(this);
         btEnde.addActionListener(this);
         
         fenster.add(gameover);
         
         gameover.add(lblGameover);
-        gameover.add(btStart);
+        gameover.add(btHauptmenü);
         gameover.add(btEnde);
         
         fenster.setSize(800,300);
@@ -459,17 +460,19 @@ public class GUI extends JFrame implements ActionListener {
         
         JLabel lblVictory= new JLabel(" Sie haben Ihr Land Erfolgreich regiert und es weit voran getrieben ");
         lblVictory.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 26));
-        btStart = new JButton (" Neues Spiel Starten");
+        //btStart = new JButton (" Neues Spiel Starten");
+        btHauptmenü = new JButton("Zurück zum Hauptmenü"); 
         btEnde = new JButton(" Spiel Beenden");
         
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
-        btStart.addActionListener(this);
+        //btStart.addActionListener(this);
         btEnde.addActionListener(this);
+        btHauptmenü.addActionListener(this);
         
         fenster.add(victory);
-        gameover.add(lblVictory);
-        gameover.add(btStart);
-        gameover.add(btEnde);
+        victory.add(lblVictory);
+        victory.add(btHauptmenü);
+        victory.add(btEnde);
 
         fenster.setVisible(true);
         victory.setVisible(true);
@@ -498,6 +501,7 @@ public class GUI extends JFrame implements ActionListener {
             //#try-catch Block evtl. notwendig, um Fehler beierstmaligem Button-Click zu verhindern (victory und gameover existieren inch nicht zu dem Zeitpunkt)
             setSpielstand("AUSWAHL");
             spielstandänderung();
+            
         } else if (e.getSource() == btEnde) {
             // Aktion für Button 2
             System.out.println("Ende wurde geklickt.");
@@ -663,6 +667,8 @@ public class GUI extends JFrame implements ActionListener {
             spielstandänderung();
             System.out.println("Weiter geklickt");
             wertezuweisen.setVisible(false);
-        }
+        }   else if (e.getSource() == btHauptmenü) {
+            Main.spielAblauf();
     }
+     }
 }
