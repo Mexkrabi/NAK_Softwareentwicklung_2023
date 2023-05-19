@@ -505,6 +505,7 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == btEnde) {
             // Aktion für Button 2
             System.out.println("Ende wurde geklickt.");
+            
             System.exit(0);
         } else if (e.getSource() == btModernHoch) {
             //# Prüfe ob wert im Wertebereich wenn nicht ERROR Methode in Logik aufrufen (switch case)
@@ -668,7 +669,9 @@ public class GUI extends JFrame implements ActionListener {
             System.out.println("Weiter geklickt");
             wertezuweisen.setVisible(false);
         }   else if (e.getSource() == btHauptmenü) {
-            Main.spielAblauf();
+            lastActivePanel.setVisible(false);
+            setSpielstand("START");
+            spielstandänderung();
     }
      }
 }
