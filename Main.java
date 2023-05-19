@@ -100,6 +100,9 @@ public class Main
         //# SCHRITT 1 ------------------------------
         //#EVENT: SPIELSTART
         
+        gui.setSpielstand("AUSWAHL");
+        gui.spielstandänderung();
+            
         warteSolangeNoch("AUSWAHL"); //Warte, bis Auswahl der .sim Datei in der GUI getätigt
         pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
         
