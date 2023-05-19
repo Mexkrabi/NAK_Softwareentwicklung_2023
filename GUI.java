@@ -491,7 +491,8 @@ public class GUI extends JFrame implements ActionListener {
             System.out.println("Start wurde geklickt.");
             startBildschirm.setVisible(false);
             //#try-catch Block evtl. notwendig, um Fehler beierstmaligem Button-Click zu verhindern (victory und gameover existieren inch nicht zu dem Zeitpunkt)
-            Main.spielAblauf();
+            setSpielstand("AUSWAHL");
+            spielstandänderung();
         } else if (e.getSource() == btEnde) {
             // Aktion für Button 2
             System.out.println("Ende wurde geklickt.");
