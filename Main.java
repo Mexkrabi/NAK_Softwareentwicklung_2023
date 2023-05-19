@@ -85,8 +85,6 @@ public class Main
         gui.setSpielstand("START");
         gui.spielstandänderung();
         
-        warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
-        //Warten auf Start-Knopfdruck
         
         //# Ab hier alles in der Methode spielAblauf() ausgelagert [Schritt 1 - 4]
         spielAblauf();
@@ -100,9 +98,9 @@ public class Main
     {
         //# SCHRITT 1 ------------------------------
         //#EVENT: SPIELSTART
-        
-        gui.setSpielstand("AUSWAHL");
-        gui.spielstandänderung();
+ 
+        warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
+        //Warten auf Start-Knopfdruck
             
         warteSolangeNoch("AUSWAHL"); //Warte, bis Auswahl der .sim Datei in der GUI getätigt
         pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
