@@ -15,6 +15,7 @@ public class Main
     // static Variablen --> erlauben Zugriff von allen Klassen ohne ein Objekt zu erzeugen
     //public static String spielstand; //wird stattdessen in der GUI gespeichert
     public static String pfadStartwerte; //Speichert Dateipfad der .sim
+    public static boolean boolNeustarten; //wenn wahr, wird das Spiel neugestartet
     
     public static DateiLeser dateiLeser; //DateiLeser --> Zugriff von allen Klassen möglich
     public static GUI gui; //Globaler GUI-Handler
@@ -88,15 +89,16 @@ public class Main
         
         //# Ab hier alles in der Methode spielAblauf() ausgelagert [Schritt 1 - 4]
         do{
+            Main.boolNeustarten = false;
             spielAblauf();
-        } while(warteBis("NEUSTART"));
+        } while(warteBis(boolNeustarten));
     }
     
     /**
      * Enthält den gesamten Spielablauf in einer Funktion, um das Spiel erneut starten zu können.
      * Wird erstmalig in der main() aufgerufen. Im Falle einer neuen Runde wird es in der GUI beim drücken des Startknopfes aufgerufen.
      */
-    public static String spielAblauf()
+    public static void spielAblauf()
     {
         //# SCHRITT 1 ------------------------------
         //#EVENT: SPIELSTART
@@ -262,12 +264,12 @@ public class Main
             System.out.println("GEWONNEN!!!!!");
         }
         
-        warteBis("NEUSTART");
-        //# Ende der main()
+        warteBis("NEUSTART"); //wichtig, warten
+        
         if(gui.getSpielstand() == "START") {
-            return spielAblauf();
+            spielAblauf();
         }
-        else return null;
+        //# Ende der main()
     }
     
     /* 
@@ -308,8 +310,8 @@ public class Main
         /////////////////////
         try{
             System.out.println("Versuche String in Integer Umwandlung von: " + str);
-            String nurZahlen = str.replaceAll("\\D", ""); // Kürzen des Strings, um alle Nicht-Ziffern zu entfernen
-            int number = Integer.parseInt(nurZahlen);
+            String nurZahlen = str.replaceAll("[^\\d-]", ""); // Kürzen des Strings, um alle Nicht-Ziffern und Nicht-Minuszeichen zu entfernen
+            int number = Integer.parseInt(nurZahlen); // Umwandeln des gekürzten Strings in einen Integer
             System.out.println("Output: " + number); // output
             return number;
         }
@@ -343,6 +345,21 @@ public class Main
     public static boolean warteBis(String woraufGewartetWird) 
     {
         while(gui.getSpielstand() != woraufGewartetWird)
+        {
+            try {
+                // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
+                //# evtl. Überprüfen!
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+    
+        public static boolean warteBis(boolean woraufGewartetWird) 
+    {
+        while(woraufGewartetWird == true)
         {
             try {
                 // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
