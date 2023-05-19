@@ -88,6 +88,15 @@ public class Main
         warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
         //Warten auf Start-Knopfdruck
         
+        //# Ab hier alles in der Methode spielAblauf() ausgelagert [Schritt 1 - 4]
+        spielAblauf();
+    }
+    
+    /**
+     * Enthält den gesamten Spielablauf in einer Funktion, um das Spiel erneut starten zu können.
+     */
+    public static void spielAblauf()
+    {
         //# SCHRITT 1 ------------------------------
         //#EVENT: SPIELSTART
         
