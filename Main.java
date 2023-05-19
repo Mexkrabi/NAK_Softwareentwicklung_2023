@@ -100,7 +100,7 @@ public class Main
  
         warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
         //Warten auf Start-Knopfdruck
-            
+        
         warteSolangeNoch("AUSWAHL"); //Warte, bis Auswahl der .sim Datei in der GUI getätigt
         pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
         
