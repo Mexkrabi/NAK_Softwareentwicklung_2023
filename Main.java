@@ -253,6 +253,11 @@ public class Main
         //# SCHRITT 4 ------------------------------
         
         //Victory or Game Over
+        if(gui.getSpielstand() != "GAMEOVER") {
+            gui.setSpielstand("VICTORY");
+            gui.spielstandänderung();
+            System.out.println("GEWONNEN!!!!!");
+        }
         
         //# Ende der main()
     }
