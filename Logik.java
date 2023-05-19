@@ -43,6 +43,7 @@ public class Logik
      */
     public Logik()
     {
+        this.aktuelleRunde = 1;
         hashErzeuger();
         einflussWerteErzeugen();
     }
