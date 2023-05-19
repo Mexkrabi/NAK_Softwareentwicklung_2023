@@ -82,8 +82,6 @@ public class Main
         
         dateiLeser = new DateiLeser();
         gui = new GUI();
-        gui.setSpielstand("START");
-        gui.spielstandänderung();
         
         
         //# Ab hier alles in der Methode spielAblauf() ausgelagert [Schritt 1 - 4]
@@ -99,6 +97,9 @@ public class Main
         //# SCHRITT 1 ------------------------------
         //#EVENT: SPIELSTART
  
+        gui.setSpielstand("START");
+        gui.spielstandänderung();
+        
         warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
         //Warten auf Start-Knopfdruck
         
