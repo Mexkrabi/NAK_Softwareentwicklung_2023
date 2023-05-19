@@ -87,14 +87,16 @@ public class Main
         gui.spielstandänderung();
         
         //# Ab hier alles in der Methode spielAblauf() ausgelagert [Schritt 1 - 4]
-        spielAblauf();
+        do{
+            spielAblauf();
+        } while(warteBis("NEUSTART"));
     }
     
     /**
      * Enthält den gesamten Spielablauf in einer Funktion, um das Spiel erneut starten zu können.
      * Wird erstmalig in der main() aufgerufen. Im Falle einer neuen Runde wird es in der GUI beim drücken des Startknopfes aufgerufen.
      */
-    public static void spielAblauf()
+    public static String spielAblauf()
     {
         //# SCHRITT 1 ------------------------------
         //#EVENT: SPIELSTART
@@ -261,11 +263,12 @@ public class Main
             System.out.println("GEWONNEN!!!!!");
         }
         
-        warteBis("ENDE");
+        warteBis("NEUSTART");
         //# Ende der main()
         if(gui.getSpielstand() == "START") {
-            spielAblauf();
+            return spielAblauf();
         }
+        else return null;
     }
     
     /* 
@@ -323,7 +326,7 @@ public class Main
      * 
      * @param woraufGewartetWird Wert, der den Code anhält, bis dieser sich ändert
      */
-    public static void warteSolangeNoch(String woraufGewartetWird) 
+    public static boolean warteSolangeNoch(String woraufGewartetWird) 
     {
         while(gui.getSpielstand() == woraufGewartetWird)
         {
@@ -335,11 +338,12 @@ public class Main
                 e.printStackTrace();
             }
         }
+        return true;
     }
     
-    public static void warteBis(String woraufGewartetWird) 
+    public static boolean warteBis(String woraufGewartetWird) 
     {
-                while(gui.getSpielstand() != woraufGewartetWird)
+        while(gui.getSpielstand() != woraufGewartetWird)
         {
             try {
                 // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
@@ -349,6 +353,7 @@ public class Main
                 e.printStackTrace();
             }
         }
+        return true;
     }
     
     /**

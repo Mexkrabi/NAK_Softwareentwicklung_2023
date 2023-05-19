@@ -62,6 +62,8 @@ public class GUI extends JFrame implements ActionListener {
                 break;
             case "BREAK" :
                 break;
+            case "NEUSTART" :
+                break;
             default : //falls Spielstand falsch angegeben wird, oder nicht erkannt wird
                 System.out.println("! '" + strSpielstand + "' ist kein gültiger Spielstand !");
         }
@@ -670,7 +672,7 @@ public class GUI extends JFrame implements ActionListener {
             wertezuweisen.setVisible(false);
         }   else if (e.getSource() == btHauptmenü) {
             lastActivePanel.setVisible(false);
-            setSpielstand("START");
+            setSpielstand("NEUSTART");
             spielstandänderung();
     }
      }
