@@ -106,7 +106,7 @@ public class GUI extends JFrame implements ActionListener {
         fenster.add(startBildschirm);
 
         //legt die Größe des Frames fest
-        //startBildschirm.setSize(300, 300);
+        //startBildschirm.setSize(400, 400);
         fenster.setSize(400,400);
 
         // Zentriert das JFrame auf dem Bildschirm
@@ -445,7 +445,7 @@ public class GUI extends JFrame implements ActionListener {
         gameover.add(btHauptmenü);
         gameover.add(btEnde);
         
-        fenster.setSize(800,300);
+        fenster.setSize(800,800);
         fenster.setLocationRelativeTo(null);
         
         fenster.setVisible(true);
@@ -684,7 +684,8 @@ public class GUI extends JFrame implements ActionListener {
             setSpielstand("NEUSTART");
             spielstandänderung();
             
-            //Main.restartApplication();
+            
+        
     }
      }
 }
