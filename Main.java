@@ -343,18 +343,32 @@ public class Main
             System.out.println("GEWONNEN!!!!!");
         }
         
-        String fileName = "Ergebnis.res";
         
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+        //#AUSGABE IN .res DATEI
+        String dateiName = "Ergebnis.res";
+        String dateipfad = System.getProperty("user.dir") + "/res-Dateien";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(dateipfad + "/" + dateiName))) {
             // Konvertiere den Hash zu einem Textformat und schreibe in die Datei
-            String content = hashMapToStringlogik.masterHash);
-            writer.write(content);
+            
+            // Iteriere über die äußere HashMap
+            for (HashMap<String, Integer> innereMap : logik.masterHash.values()) {
+                // Iteriere über die innere HashMap
+                String content = hashMapToString(innereMap);
+                writer.write(content);
 
+                for (Integer value : innereMap.values()) {
+                    // Gib den extrahierten Wert aus
+                    System.out.println(value);
+                    
+                }
+            }
+                        
             System.out.println("Die Datei wurde erfolgreich erstellt.");
 
         } catch (IOException e) {
             System.out.println("Fehler beim Schreiben der Datei: " + e.getMessage());
         }
+        //////Ausgabe beendet ^^^^^^
         
         warteBis("NEUSTART"); //wichtig, warten
         

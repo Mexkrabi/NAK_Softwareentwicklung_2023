@@ -16,8 +16,8 @@ public class Sektor
     //private String wird_beeinflusst_von; //Sektor, der Einfluss auf diese Kenngröße hat
     //private String beeinflusst;
     private int wert; //Aktueller Wert 
-    private String name; //Bezeichnung des Sektors
-    private int min, max; //Minimum und Maximum definieren Wertebereich des Sektors
+    private final String name; //Bezeichnung des Sektors
+    private final int min, max; //Minimum und Maximum definieren Wertebereich des Sektors
 
     //# Größen beim Start:
     /*
@@ -93,27 +93,15 @@ public class Sektor
     {
         return name;
     }
-    public void setName(String name) 
-    {
-        this.name = name;
-    }
 
     public int getMin() 
     {
         return min;
     }
-    public void setMin(int min) 
-    {
-        this.min = min;
-    }
 
     public int getMax() 
     {
         return max;
-    }
-    public void setMax(int max) 
-    {
-        this.max = max;
     }
 
     public int getWert() 

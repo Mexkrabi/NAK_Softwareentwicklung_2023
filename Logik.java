@@ -55,9 +55,9 @@ public class Logik
      */
     public void hashErzeuger()
     {
-        startwerteHash = new HashMap<String, Integer>();
-        simulationsErfolg = new HashMap<Integer, Integer>();
-        masterHash = new HashMap<Integer, HashMap<String, Integer>>();
+        startwerteHash = new HashMap<>();
+        simulationsErfolg = new HashMap<>();
+        masterHash = new HashMap<>();
     }
 
     /**
