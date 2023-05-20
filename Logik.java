@@ -15,6 +15,8 @@ public class Logik
     
     public int rundenzahl; //Rundenzahl wird hier gespeichert und als Referenz verwendet
     public int aktuelleRunde; //aktuelle Runde hier gespeichert
+    public HashMap<Integer, Integer> simulationsErfolg; //speichert den Simulationserfolg Runde für Runde
+    public HashMap<Integer, HashMap<String, Integer>> masterHash; //Speicher alle Werte in jeweilige Runden-HashMaps: <Runde, <Sektorname, Sektorwert>>
     
     //Hashmaps mit Wertebeeinflussung und Berechnungsschritt im Kommentar
     private HashMap<Integer, Integer> mg_auf_uwv; // 5
@@ -48,9 +50,14 @@ public class Logik
         einflussWerteErzeugen();
     }
     
+    /**
+     * Erzeuge alle HashMaps zu beginn.
+     */
     public void hashErzeuger()
     {
         startwerteHash = new HashMap<String, Integer>();
+        simulationsErfolg = new HashMap<Integer, Integer>();
+        masterHash = new HashMap<Integer, HashMap<String, Integer>>();
     }
 
     /**
@@ -239,6 +246,32 @@ public class Logik
         } else { 
             einflussRechner(bg_auf_sv, Main.bevölkerungsgröße, Main.staatsvermögen);        
         }
+        
+        speichernRundenwerte(aktuelleRunde);
+    }
+    
+    private int berechneSimulationserfolg() 
+    {
+        int lq = Main.lebensqualität.getWert();
+        int ps = Main.politische_stabilität.getWert();
+        int sv = Main.staatsvermögen.getWert();
+        
+        System.out.println("Speichert Simulationserfolg für Runde " + aktuelleRunde + " ...");
+        
+        int berechnung = 3 * lq + ps + sv; //Formel zur Berechnung vom Simulationserfolg
+        
+        System.out.println("Simulationserfolg: " + berechnung);
+        
+        return berechnung; //Gibt errechneten Wert zurück
+    }
+    
+    private void speichernRundenwerte(int runde) 
+    {
+        //Speichern vom Simulationserfolg
+        simulationsErfolg.put(runde, berechneSimulationserfolg());
+        
+        //Speichern von allen einzelnen Werten
+        
     }
     
     public void neustarten() {
@@ -249,7 +282,7 @@ public class Logik
         Main.boolNeustarten = true;
         //Hash clearen
         startwerteHash.clear();
-        
+         
     }
     
     /**
