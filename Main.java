@@ -92,7 +92,7 @@ public class Main
         
         
         //do{
-            Main.boolNeustarten = false;
+            //Main.boolNeustarten = false;
             spielAblauf();
         //} while(warteBis(boolNeustarten));
         
