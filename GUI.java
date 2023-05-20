@@ -464,7 +464,7 @@ public class GUI extends JFrame implements ActionListener {
         lastActivePanel = victory;
         
         JLabel lblVictory= new JLabel(" Sie haben Ihr Land Erfolgreich regiert und es weit voran getrieben ");
-        JLabel lblErgebnis= new JLabel("Simulationserfolg: " + Main.logik.simulationsErfolg.get(Main.logik.aktuelleRunde));
+        JLabel lblErgebnis= new JLabel("Simulationserfolg: " + Main.logik.simulationsErfolg.get(Main.logik.aktuelleRunde -1 ));
         lblErgebnis.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 15));
         
         lblVictory.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 20));
