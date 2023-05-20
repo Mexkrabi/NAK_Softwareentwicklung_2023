@@ -182,10 +182,13 @@ public class GUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         startwerte.setLayout(new GridLayout(14, 2, 10, 10));
         JLabel lblAusgangslage = new JLabel();
-        if(Main.logik.aktuelleRunde == 0) {
+        JLabel lblRundenzahl = new JLabel();
+        if(Main.logik.aktuelleRunde == 1) {
             lblAusgangslage.setText("***** Ausgangslage *****");
+            lblRundenzahl.setText("Insgesamt zu spielende Runden : " + Main.logik.rundenzahl);
         } else {
             lblAusgangslage.setText("***** Werte nach Runde " + Main.logik.aktuelleRunde + " *****");
+            lblRundenzahl.setText("Ergebnis nach = " + (Main.logik.aktuelleRunde - 1)+ ". Runden");
         }
 
         JLabel lblBevölkerungsgröße = new JLabel("Bevölkerungsgröße = " + Main.bevölkerungsgröße.getWert());
@@ -200,7 +203,6 @@ public class GUI extends JFrame implements ActionListener {
         JLabel lblLeer = new JLabel("");
         JLabel lblLeer2 = new JLabel("Wertebereich:");
         JLabel lblSimulationsablauf = new JLabel("***** Simulationsablauf *****");
-        JLabel lblRundenzahl = new JLabel("Rundenzahl = " + Main.logik.aktuelleRunde);
 
         pbLeben = new JProgressBar(Main.lebensqualität.getMin(),Main.lebensqualität.getMax());
         pbBevökerungsgröße = new JProgressBar(Main.bevölkerungsgröße.getMin(),Main.bevölkerungsgröße.getMax());
@@ -331,7 +333,7 @@ public class GUI extends JFrame implements ActionListener {
         btBildungHoch.addActionListener(this);
         btBildungRunter.addActionListener(this);
 
-        JLabel lblVerbleibendeRunden = new JLabel("Verbleibende Runden: " + Main.logik.rundenzahl); //System gedribbelt
+        JLabel lblVerbleibendeRunden = new JLabel("Verbleibende Runden: " + (Main.logik.rundenzahl - Main.logik.aktuelleRunde +1)); //System gedribbelt
         intStaatsvermögen = Main.staatsvermögen.getWert();
         lblVerbleibendesStaatskapital = new JLabel("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
         btPunktezuweisungBestätigen.setBounds(5, 3, 1, 2);
@@ -386,7 +388,7 @@ public class GUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         ladescreen.setLayout(new GridLayout(2, 1, 20, 20));
         //Integer intJahr = (Main.Logik.rundenzahl- Main.Logik.aktuelleRunde + 1);
-        JLabel lblLadescreen= new JLabel("  Ihr " +  (Main.logik.aktuelleRunde + 1) + ". Amtsjahr wird Simuliert" );
+        JLabel lblLadescreen= new JLabel("  Ihr " +  (Main.logik.aktuelleRunde ) + ". Amtsjahr wird Simuliert" );
         //JLabel lblLadescreen= new JLabel("  Fortschritt Ihres Amtsjahres");
         lblLadescreen.setFont(lblLadescreen.getFont().deriveFont(Font.BOLD, 24)); 
         JProgressBar pbwarten = new JProgressBar(0,100);
@@ -477,7 +479,7 @@ public class GUI extends JFrame implements ActionListener {
         victory.add(btHauptmenü);
         victory.add(btEnde);
         
-        fenster.setSize(800,300);
+        fenster.setSize(800,800);
         fenster.setLocationRelativeTo(null);
         
 
