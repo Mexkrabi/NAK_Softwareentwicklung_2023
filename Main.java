@@ -1,17 +1,22 @@
-import java.util.Scanner;
+import java.util.*;
+import java.io.*;
 
 /**
- * Beschreiben Sie hier die Klasse Main.
+ * Die Klasse Main.
  * The brain of the operation.
  * 
+ * Link zur GitHub Repository:
+ * https://github.com/Mexkrabi/NAK_Softwareentwicklung_2023
+ * 
  * @author Sven Vazquez de Lara Kallas, Malte Fischer, Livia Kadenbach 
- * @version 0.1
+ * @version 0.5
  */
 public class Main
 {
     // static Variablen --> erlauben Zugriff von allen Klassen ohne ein Objekt zu erzeugen
-    public static String spielstand;
+    //public static String spielstand; //wird stattdessen in der GUI gespeichert
     public static String pfadStartwerte; //Speichert Dateipfad der .sim
+    public static boolean boolNeustarten; //wenn wahr, wird das Spiel neugestartet
     
     public static DateiLeser dateiLeser; //DateiLeser --> Zugriff von allen Klassen möglich
     public static GUI gui; //Globaler GUI-Handler
@@ -30,6 +35,7 @@ public class Main
     public static Sektor staatsvermögen;
     public static Sektor bevölkerungswachstumsfaktor;
     public static Sektor versorgungslage;
+    
     
     /**
      * Main Funktion
@@ -73,20 +79,38 @@ public class Main
         //# Code startet
         
         System.out.println("Code startet...");
-        dateiLeser = new DateiLeser();
-    
+        
         //# SCHRITT 0 ------------------------------
         
+        dateiLeser = new DateiLeser();
         gui = new GUI();
+        
         gui.setSpielstand("START");
         gui.spielstandänderung();
-        //warten, bis Spielstand geändert wird
-        warteSolangeNoch("START");
-
-
-        //Warten auf Start-Knopfdruck
+        warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
+        //# Ab hier alles in der Methode spielAblauf() ausgelagert [Schritt 1 - 4]
+        
+        
+        //do{
+            //Main.boolNeustarten = false;
+            spielAblauf();
+        //} while(warteBis(boolNeustarten));
+        
+    }
+    
+    /**
+     * Enthält den gesamten Spielablauf in einer Funktion, um das Spiel erneut starten zu können.
+     * Wird erstmalig in der main() aufgerufen. Im Falle einer neuen Runde wird es in der GUI beim drücken des Startknopfes aufgerufen.
+     */
+    public static void spielAblauf()
+    {
         //# SCHRITT 1 ------------------------------
         //#EVENT: SPIELSTART
+ 
+        //gui.setSpielstand("START");
+        //gui.spielstandänderung();
+        
+        warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
         
         warteSolangeNoch("AUSWAHL"); //Warte, bis Auswahl der .sim Datei in der GUI getätigt
         pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
@@ -104,20 +128,34 @@ public class Main
         Bildung = 2
         Staatsvermögen = 8
         +++ Simulationsablauf +++
-        Rundenzahl = 10�
+        Rundenzahl = 10
          */
-        
-        //#STARTWERTE EINLESEN
+        //#STARTWERTE EINLESEN UND IN HASHMAP PACKEN
         logik = new Logik(); //Logik-Handler generiert
+        
+        leseStartwerteFür("Rundenzahl");
+        logik.rundenzahl = logik.startwerteHash.get("Rundenzahl");
+        
+        leseStartwerteFür("Bevölkerungsgröße");
+        leseStartwerteFür("Bevölkerungswachstum");
+        leseStartwerteFür("Lebensqualität");
+        leseStartwerteFür("Wirtschaftsleistung");
+        leseStartwerteFür("Modernisierungsgrad");
+        leseStartwerteFür("Politische Stabilität");
+        leseStartwerteFür("Umweltverschmutzung");
+        leseStartwerteFür("Bildung");
+        leseStartwerteFür("Staatsvermögen");
+        /*
         try {
-            logik.rundenzahl = alsInteger(dateiLeser.auslesen(pfadStartwerte, "Rundenzahl")); //Rundenanzahl festgelegt
+            //logik.rundenzahl = alsInteger(dateiLeser.auslesen(pfadStartwerte, "Rundenzahl")); //Rundenanzahl festgelegt
             
             //# in HashMap packen
             // Wiederholen für alle Anfangswerte vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
             String str = dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungsgr��e");
             logik.startwerteHash.put("Bevölkerungsgröße", alsInteger(str));
             // Wiederholen für alle Anfangswerte ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            /* hier in kompakter Form: vvvvvv           *///#Prüfen, ob Umlaute gehen oder nicht
+            // hier in kompakter Form: vvvvvv           
+            //#Prüfen, ob Umlaute gehen oder nicht
             logik.startwerteHash.put("Bevölkerungswachstum", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungswachstum"))); 
             logik.startwerteHash.put("Lebensqualität", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Lebensqualit�t")));
             logik.startwerteHash.put("Wirtschaftsleistung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Wirtschaftsleistung")));
@@ -126,51 +164,17 @@ public class Main
             logik.startwerteHash.put("Umweltverschmutzung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Umweltverschmutzung")));
             logik.startwerteHash.put("Bildung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Bildung")));
             logik.startwerteHash.put("Staatsvermögen", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Staatsverm�gen")));
-        } catch(Exception ex)
-        {
+        } catch(Exception ex) {
             ex.printStackTrace(); 
         }
+        */
+        System.out.println("---\nHashmap mit Startwerten:");
+        for (String i : logik.startwerteHash.keySet()) {
+          System.out.println("Key: " + i + " - Wert: " + logik.startwerteHash.get(i));
+        }
         
-        //#Sektoren erzeugen /////////////////////////////
-        /* To Do für jeden Sektor: (9x bzw. 11x)
-         * -> Name              String
-         * -> min               int
-         * -> max               int
-         * -> startwert         int
-         */
-        //Bevölkerungsgröße
-        int startwert1 = logik.startwerteHash.get("Bevölkerungsgröße"); //Startwert aus Hashmap ziehen
-        bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert1); //min max aus Angabe Tabelle (HA-Dokument)
-        //Bevölkerungswachstum
-        int startwert2 = logik.startwerteHash.get("Bevölkerungswachstum"); //Startwert aus Hashmap ziehen
-        bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30, startwert2); //min max aus Angabe Tabelle (HA-Dokument)
-        //Wirtschaftsleistung
-        int startwert3 = logik.startwerteHash.get("Wirtschaftsleistung"); //Startwert aus Hashmap ziehen
-        wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30, startwert3); //min max aus Angabe Tabelle (HA-Dokument)
-        //Modernisierungsgrad
-        int startwert4 = logik.startwerteHash.get("Modernisierungsgrad"); //Startwert aus Hashmap ziehen
-        modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30, startwert4); //min max aus Angabe Tabelle (HA-Dokument)
-        //Politische Stabilität
-        int startwert5 = logik.startwerteHash.get("Politische Stabilität"); //Startwert aus Hashmap ziehen
-        politische_stabilität = new Sektor("Politische Stabilität", -10, 40, startwert5); //min max aus Angabe Tabelle (HA-Dokument)
-        //Umweltverschmutzung
-        int startwert6 = logik.startwerteHash.get("Umweltverschmutzung"); //Startwert aus Hashmap ziehen
-        umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30, startwert6); //min max aus Angabe Tabelle (HA-Dokument)
-        //Lebensqualität
-        int startwert7 = logik.startwerteHash.get("Lebensqualität"); //Startwert aus Hashmap ziehen
-        lebensqualität = new Sektor("Lebensqualität", 1, 30, startwert7); //min max aus Angabe Tabelle (HA-Dokument)
-        //Bildung
-        int startwert8 = logik.startwerteHash.get("Bildung"); //Startwert aus Hashmap ziehen
-        bildung = new Sektor("Bildung", 1, 30, startwert8); //min max aus Angabe Tabelle (HA-Dokument)
-        //Staatsvermögen
-        int startwert9 = logik.startwerteHash.get("Staatsvermögen"); //Startwert aus Hashmap ziehen
-        staatsvermögen = new Sektor("Staatsvermögen", 1, 32000, startwert9); //min max aus Angabe Tabelle (HA-Dokument)
-
-        //Bevölkerungswachstumsfaktor
-        bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3, 0); //min max aus Angabe Tabelle (HA-Dokument)
-        //Versorgungslage
-        versorgungslage = new Sektor("Versorgungslage", -4, 1, 0); //min max aus Angabe Tabelle (HA-Dokument)
-
+        //#SEKTOREN ERZEUGEN
+        sektorenErzeugen();
         /*
              +++ Ausgangslage +++
             Bevölkerungsgröße = 32
@@ -185,29 +189,274 @@ public class Main
             +++ Simulationsablauf +++
             Rundenzahl = 10�
         */
-        
-        //etc...
-        gui.setSpielstand("STARTWERTE");
-        gui.spielstandänderung();
-        //warten, bis Spielstand geändert wird
-        //warteSolangeNoch("STARTWERTE");
-        //spielstart();
-        
-        //#TESTING vvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-        System.out.println("###############Testing###############");
-        
-        System.out.println("Gebe Hashmap mit Startwerten aus:");
-        for (String i : logik.startwerteHash.keySet()) {
-          System.out.println("key: " + i + " value: " + logik.startwerteHash.get(i));
+        //#LOOP ÜBER DIE RUNDENANZAHL
+        while (logik.aktuelleRunde <= logik.rundenzahl) {
+            
+            //# SCHRITT 2 ------------------------------
+            //# WERTE ANZEIGEN
+            gui.setSpielstand("STARTWERTE");
+            gui.spielstandänderung();
+            
+            //warten, bis Spielstand geändert wird
+            //warteSolangeNoch("STARTWERTE");
+            //spielstart();
+            
+            //# INVESTIERE STAATSVERMÖGEN
+            //Investieren passiert alles über die GUI
+            warteBis("WERTZUWEISEN");
+            warteSolangeNoch("WERTZUWEISEN");
+            
+            
+            //# SCHRITT 3 ------------------------------
+            //# EVENT: BERECHNUNGSPHASE
+            gui.setSpielstand("LADEN"); //Ladescreen
+            gui.spielstandänderung();
+            
+            warteBis("BERECHNUNG");
+            logik.rundeBerechnen(); //Berechnung über die Logik
+            logik.speichernRundenwerte(logik.aktuelleRunde); //Speichern aller Rundenwerte
+            
+            if(gui.getSpielstand() != "GAMEOVER") {
+                System.out.println("Rundenzahl erhöht");
+                logik.aktuelleRunde++;
+            } else {
+                System.out.println("Spielstand wurde auf 'GAMEOVER' gesetzt, keine weitere Rundenberechnung");
+                break;
+            }
         }
         
-        System.out.println("###############Testing###############");
-        //#TESTING ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-        
-        //# SCHRITT 2 ------------------------------
-        //# SCHRITT 3 ------------------------------
         //# SCHRITT 4 ------------------------------
+        
+        //Victory or Game Over
+        if(gui.getSpielstand() != "GAMEOVER") {
+            gui.setSpielstand("VICTORY");
+            gui.spielstandänderung();
+            System.out.println("GEWONNEN!!!!!");
+        }
+        
+        
+        //#AUSGABE IN .res DATEI
+        String dateiName = "Ergebnis.res";
+        String dateipfad = System.getProperty("user.dir") + "/res-Dateien";
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(dateipfad + "/" + dateiName))) {
+            // Konvertiere den Hash zu einem Textformat und schreibe in die Datei
+            
+            // Iteriere über die äußere HashMap
+            /*for (HashMap<String, Integer> innereMap : logik.masterHash.values()) {
+                // Iteriere über die innere HashMap
+                String content = hashMapToString(innereMap);
+                writer.write(content);
 
+                for (Integer value : innereMap.values()) {
+                    // Gib den extrahierten Wert aus
+                    System.out.println(value);
+                    
+                }
+            }*/
+            writer.write("Simulationserfolg über die Runden:");
+            writer.newLine();
+            
+            writer.newLine();
+            HashMap<Integer, Integer> hashMap = logik.simulationsErfolg;
+            for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
+                Integer key = entry.getKey();
+                Integer value = entry.getValue();
+                writer.write("Simulationserfolg in Runde " + key + " = " + value);
+                writer.newLine();
+            } 
+            
+            //ALLES AUSGELAGERT!!!  
+            schreibeInDatei(bevölkerungsgröße, writer);
+            schreibeInDatei(bevölkerungswachstum, writer);
+            schreibeInDatei(wirtschaftsleistung, writer);
+            schreibeInDatei(modernisierungsgrad, writer);
+            schreibeInDatei(politische_stabilität, writer);
+            schreibeInDatei(umweltverschmutzung, writer);
+            schreibeInDatei(lebensqualität, writer);
+            schreibeInDatei(bildung, writer);
+            schreibeInDatei(staatsvermögen, writer);
+            schreibeInDatei(bevölkerungswachstumsfaktor, writer);
+            schreibeInDatei(versorgungslage, writer);
+            
+            System.out.println("Die Datei wurde erfolgreich erstellt.");
+
+        } catch (IOException e) {
+            System.out.println("Fehler beim Schreiben der Datei: " + e.getMessage());
+        }
+        //////Ausgabe beendet ^^^^^^
+        
+        warteBis("NEUSTART"); //wichtig, warten
+        
+        main(new String[]{});
+        /*
+        if(gui.getSpielstand() == "START") {
+            spielAblauf();
+        }
+        */
+        //# Ende der main()
+    }
+    
+    /* Erzeugt Sektoren und Ausgangslage
+     * 
+     */
+    private static void sektorenErzeugen(){
+        /* To Do für jeden Sektor: (9x bzw. 11x)
+         * -> Name              String
+         * -> min               int
+         * -> max               int
+         * -> startwert         int
+         */
+        //Bevölkerungsgröße
+        //erzeugeSektor("Bevölkerungsgröße", 1, 50);
+        try {
+            int startwert1 = logik.startwerteHash.get("Bevölkerungsgröße"); //Startwert aus Hashmap ziehen
+            bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert1); //min max aus Angabe Tabelle (HA-Dokument)
+        } catch(Exception ex) {
+            bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50);//Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
+        
+        //Bevölkerungswachstum
+        //erzeugeSektor("Bevölkerungswachstum", 1, 30);
+        try {
+            int startwert2 = logik.startwerteHash.get("Bevölkerungswachstum"); //Startwert aus Hashmap ziehen
+            bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30, startwert2); //min max aus Angabe Tabelle (HA-Dokument)
+        } catch(Exception ex) {
+            bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
+        
+        //Wirtschaftsleistung
+        //erzeugeSektor("Wirtschaftsleistung", 1, 30);
+        try {
+            int startwert3 = logik.startwerteHash.get("Wirtschaftsleistung"); //Startwert aus Hashmap ziehen
+            wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30, startwert3); //min max aus Angabe Tabelle (HA-Dokument)        
+        } catch(Exception ex) {
+            wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
+        
+        //Modernisierungsgrad
+        //erzeugeSektor("Modernisierungsgrad", 1, 30);
+        try {
+            int startwert4 = logik.startwerteHash.get("Modernisierungsgrad"); //Startwert aus Hashmap ziehen
+            modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30, startwert4); //min max aus Angabe Tabelle (HA-Dokument)       
+        } catch(Exception ex) {
+            modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
+        
+        //Politische Stabilität
+        //erzeugeSektor("Politische Stabilität", -10, 40);
+        try {
+            int startwert5 = logik.startwerteHash.get("Politische Stabilität"); //Startwert aus Hashmap ziehen
+            politische_stabilität = new Sektor("Politische Stabilität", -10, 40, startwert5); //min max aus Angabe Tabelle (HA-Dokument) 
+        } catch(Exception ex) {
+            politische_stabilität = new Sektor("Politische Stabilität", -10, 40); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
+        
+        //Umweltverschmutzung
+        //erzeugeSektor("Umweltverschmutzung", 1, 30);
+        try {
+            int startwert6 = logik.startwerteHash.get("Umweltverschmutzung"); //Startwert aus Hashmap ziehen
+            umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30, startwert6); //min max aus Angabe Tabelle (HA-Dokument)        
+        } catch(Exception ex) {
+            umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
+        
+        //Lebensqualität
+        //erzeugeSektor("Lebensqualität", 1, 30);
+        try {
+            int startwert7 = logik.startwerteHash.get("Lebensqualität"); //Startwert aus Hashmap ziehen
+            lebensqualität = new Sektor("Lebensqualität", 1, 30, startwert7); //min max aus Angabe Tabelle (HA-Dokument)        
+        } catch(Exception ex) {
+            lebensqualität = new Sektor("Lebensqualität", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
+        
+        //Bildung
+        //erzeugeSektor("Bildung", 1, 30);
+        try {
+            int startwert8 = logik.startwerteHash.get("Bildung"); //Startwert aus Hashmap ziehen
+            bildung = new Sektor("Bildung", 1, 30, startwert8); //min max aus Angabe Tabelle (HA-Dokument)       
+        } catch(Exception ex) {
+            bildung = new Sektor("Bildung", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
+        
+        //Staatsvermögen
+        //erzeugeSektor("Staatsvermögen", 1, 32000);
+        try {
+            int startwert9 = logik.startwerteHash.get("Staatsvermögen"); //Startwert aus Hashmap ziehen
+            staatsvermögen = new Sektor("Staatsvermögen", 1, 32000, startwert9); //min max aus Angabe Tabelle (HA-Dokument)   
+        } catch(Exception ex) {
+            staatsvermögen = new Sektor("Staatsvermögen", 1, 32000); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
+        
+
+        //Bevölkerungswachstumsfaktor
+        //erzeugeSektor("Bevölkerungswachstumsfaktor", 1, 3);
+        //# Hinzufügen von Berechnung des Startwerts (wo "0" bisher steht)
+        //# !!
+        bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3, 0/*Phantom-Startwert*/); //min max aus Angabe Tabelle (HA-Dokument)
+        logik.einflussRechner(logik.bg_auf_bwf, bevölkerungsgröße, bevölkerungswachstumsfaktor); //richtiger Startwert hier berechnet
+        
+        //Versorgungslage
+        //erzeugeSektor("Versorgungslage", 1, 30);
+        //# Hinzufügen von Berechnung des Startwerts (wo "0" bisher steht)
+        //# !!
+        versorgungslage = new Sektor("Versorgungslage", -4, 1, 0/*Phantom-Startwert*/); //min max aus Angabe Tabelle (HA-Dokument)
+        logik.einflussRechner(logik.wl_auf_vl, wirtschaftsleistung, versorgungslage); //richtiger Startwert hier berechnet
+    }
+    
+    
+    private static void schreibeInDatei(Sektor sektor, BufferedWriter writer) {
+            try {
+                writer.newLine();
+                HashMap<Integer, Integer> hashMap = sektor.werte;
+                for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
+                    Integer key = entry.getKey();
+                    Integer value = entry.getValue();
+                    writer.write(sektor.getName() + " in Runde " + key + " = " + value);
+                    writer.newLine();
+                } 
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+    }
+    
+    /**
+     * Methode mit try-catch Block, um Sektoren anahnd von eingelesenem Startwert zu erzeugen.
+     * Falls kein Startwert vorhanden/gefunden, wird ein Standardwert eingefügt.
+     * 
+     * @param
+     */
+    private static void erzeugeSektor(String name, int min, int max) 
+    {
+        try {
+            int startwert1 = logik.startwerteHash.get(name); //Startwert aus Hashmap ziehen
+            bevölkerungsgröße = new Sektor(name, min, max, startwert1); //min max aus Angabe Tabelle (HA-Dokument)
+        } catch(Exception ex) {
+            bevölkerungsgröße = new Sektor(name, min, max); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
+    }
+    
+    /**
+     * Liest Startwerte aus der vorher ausgewählten Datei ein und fürg sie zur startWerte HashMap hinzu.
+     */
+    private static void leseStartwerteFür(String input) 
+    {
+        //vervollständigen
+        String str = dateiLeser.auslesen(pfadStartwerte, ersetzeSonderzeichen(input));
+        try {
+            logik.startwerteHash.put(input, alsInteger(str));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
     }
     
     /* 
@@ -216,6 +465,29 @@ public class Main
      * vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
      */
 
+    /**
+     * Ersetzt Umlaute und vordefinierte Sonderzeivhen in "�" für das Einlesen von Dateien, die keine Sonderzeichen unterstützen.
+     */
+    public static String ersetzeSonderzeichen(String text) 
+    {
+        try {
+            String replacedText = text.replace("ä", "�")
+                                      .replace("ö", "�")
+                                      .replace("ü", "�")
+                                      .replace("Ä", "�")
+                                      .replace("Ö", "�")
+                                      .replace("Ü", "�")
+                                      .replace("ß", "�");
+    
+            System.out.println("'" + text + "' ersetzt mit '" + replacedText + "'");
+            return replacedText;
+        } catch (Exception ex) {
+            System.out.println(text + " enthält keine Umlaute.");
+            return text;
+        }
+    }
+
+    
     /**
      * Methode erzeugt einen int Array. Einfach den kleinsten und größten Wert eingeber.
      * Der Rest wird immer +1 hinzugefügt.
@@ -248,8 +520,8 @@ public class Main
         /////////////////////
         try{
             System.out.println("Versuche String in Integer Umwandlung von: " + str);
-            String nurZahlen = str.replaceAll("\\D", ""); // Kürzen des Strings, um alle Nicht-Ziffern zu entfernen
-            int number = Integer.parseInt(nurZahlen);
+            String nurZahlen = str.replaceAll("[^\\d-]", ""); // Kürzen des Strings, um alle Nicht-Ziffern und Nicht-Minuszeichen zu entfernen
+            int number = Integer.parseInt(nurZahlen); // Umwandeln des gekürzten Strings in einen Integer
             System.out.println("Output: " + number); // output
             return number;
         }
@@ -265,7 +537,7 @@ public class Main
      * 
      * @param woraufGewartetWird Wert, der den Code anhält, bis dieser sich ändert
      */
-    public static void warteSolangeNoch(String woraufGewartetWird) 
+    public static boolean warteSolangeNoch(String woraufGewartetWird) 
     {
         while(gui.getSpielstand() == woraufGewartetWird)
         {
@@ -277,6 +549,37 @@ public class Main
                 e.printStackTrace();
             }
         }
+        return true;
+    }
+    
+    public static boolean warteBis(String woraufGewartetWird) 
+    {
+        while(gui.getSpielstand() != woraufGewartetWird)
+        {
+            try {
+                // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
+                //# evtl. Überprüfen!
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
+    }
+    
+        public static boolean warteBis(boolean woraufGewartetWird) 
+    {
+        while(woraufGewartetWird == true)
+        {
+            try {
+                // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
+                //# evtl. Überprüfen!
+                Thread.sleep(100);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        return true;
     }
     
     /**
@@ -289,5 +592,19 @@ public class Main
     {
         Scanner sc = new Scanner(System.in); //Konsoleneingabeleser
         return sc.next();
+    }
+    
+    private static String hashMapToString(Map<String, Integer> hashMap) {
+        StringBuilder sb = new StringBuilder();
+
+        // Durchlaufe den Hash und konvertiere die Werte zu Text
+        for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            sb.append(key).append("=").append(value).append(System.lineSeparator());
+        }
+
+        return sb.toString();
+    
     }
 }

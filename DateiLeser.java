@@ -7,9 +7,8 @@ import java.nio.file.*;
  * Diese Klasse enthält den Code für das Einlesen der externen .sim Dateien.
  * Die Dateien beinhalten Anfangswerte für das Spiel.
  * 
- * @author Sven Vazquez de Lara Kallas
- * @author Livia Kadenbach
- * @version (0.2)
+ * @author Sven Vazquez de Lara Kallas & Livia Kadenbach
+ * @version 0.2
  */
 public class DateiLeser 
 {   
@@ -63,11 +62,13 @@ public class DateiLeser
     /**
      * Liest die komplette Datei aus und gibt sie in der Konsole wieder
      * 
+     * Quelle zur Dokumentation: https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/package-summary.html#files
+     * 
      * @param pfad Pfad der Datei angeben
      */
     public void allesAuslesen(String pfad) 
     {
-        try (BufferedReader br = new BufferedReader(new FileReader(pfad))) 
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pfad), "UTF-8"))) //UTF-8 lässt Umlaute erkennen
         {
             String line;
             while ((line = br.readLine()) != null) 
@@ -87,6 +88,8 @@ public class DateiLeser
      * Die Methode fügt dem Suchwort automatisch ein " = " hinzu.
      * Ist dies nicht gewünscht, sollte die Methode nochmal angepasst werden.
      * 
+     * Quelle zur Dokumentation: https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/package-summary.html#files
+     * 
      * @param pfad Pfad der Datei angeben
      * @param suchwort Suchwort aus der Datei eingeben. Der unmittelbare Wert danach wird dann ausgelesen und zurückgegeben.
      * @return Alle Zeichen in der Zeile nach dem gegebenen Suchwort wird wiedergegeben.
@@ -96,7 +99,7 @@ public class DateiLeser
         System.out.println("Suchwort, welches zum auslesen eingegeben wurde: " + suchwort);
         suchwort = suchwort + " = "; //Erweitert mit " = "
         System.out.println("Länge von '" + suchwort + "' ist: " + suchwort.length()); //suchwort.lenght() gibt String-Länge
-        try (BufferedReader br = new BufferedReader(new FileReader(pfad))) 
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pfad), "UTF-8"))) //UTF-8 lässt Umlaute erkennen
         {
             String line;
             while ((line = br.readLine()) != null) 
@@ -119,7 +122,7 @@ public class DateiLeser
         return "Wert konnte nicht gefunden werden.";
     }
 
-    //# @Livia bitte "dateienFinden()" bearbeiten vvvvvvvv
+    
     /**
      * 
      */
@@ -131,7 +134,6 @@ public class DateiLeser
                 dateien.add(file.getName().substring(0,file.getName().length()-4));//packt den Dateinamen ohne die Endung .sim in die Menge
             }
         }
-        
         return dateien;
     }
     
