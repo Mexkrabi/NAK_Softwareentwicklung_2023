@@ -329,6 +329,8 @@ public class Main
         
         
         warteBis("NEUSTART"); //wichtig, warten
+        
+        main(new String[]{});
         /*
         if(gui.getSpielstand() == "START") {
             spielAblauf();
