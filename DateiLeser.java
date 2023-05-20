@@ -128,7 +128,7 @@ public class DateiLeser
         
         for (File file : new File(dieserOrdner).listFiles()){
             if (!file.isDirectory() && file.getName().endsWith(".sim")){ //prüft dass es kein ordner ist und der dateityp eine .sim Datei ist
-                dateien.add(file.getName().substring(0,file.getName().length()-4));//packt den Dateinamen ohne die Endung .sim in die Liste
+                dateien.add(file.getName().substring(0,file.getName().length()-4));//packt den Dateinamen ohne die Endung .sim in die Menge
             }
         }
         
