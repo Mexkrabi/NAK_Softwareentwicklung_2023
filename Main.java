@@ -130,15 +130,22 @@ public class Main
         +++ Simulationsablauf +++
         Rundenzahl = 10
          */
-        //#STARTWERTE EINLESEN
+        //#STARTWERTE EINLESEN UND IN HASHMAP PACKEN
         logik = new Logik(); //Logik-Handler generiert
-        //# ALLES IN EINZELNE TRY-CATCH BLÖCKE PACKEN
         
-        //Test
         leseStartwerteFür("Rundenzahl");
         logik.rundenzahl = logik.startwerteHash.get("Rundenzahl");
-        //Test
         
+        leseStartwerteFür("Bevölkerungsgröße");
+        leseStartwerteFür("Bevölkerungswachstum");
+        leseStartwerteFür("Lebensqualität");
+        leseStartwerteFür("Wirtschaftsleistung");
+        leseStartwerteFür("Modernisierungsgrad");
+        leseStartwerteFür("Politische Stabilität");
+        leseStartwerteFür("Umweltverschmutzung");
+        leseStartwerteFür("Bildung");
+        leseStartwerteFür("Staatsvermögen");
+        /*
         try {
             //logik.rundenzahl = alsInteger(dateiLeser.auslesen(pfadStartwerte, "Rundenzahl")); //Rundenanzahl festgelegt
             
@@ -147,7 +154,8 @@ public class Main
             String str = dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungsgr��e");
             logik.startwerteHash.put("Bevölkerungsgröße", alsInteger(str));
             // Wiederholen für alle Anfangswerte ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            /* hier in kompakter Form: vvvvvv           *///#Prüfen, ob Umlaute gehen oder nicht
+            // hier in kompakter Form: vvvvvv           
+            //#Prüfen, ob Umlaute gehen oder nicht
             logik.startwerteHash.put("Bevölkerungswachstum", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungswachstum"))); 
             logik.startwerteHash.put("Lebensqualität", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Lebensqualit�t")));
             logik.startwerteHash.put("Wirtschaftsleistung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Wirtschaftsleistung")));
@@ -159,7 +167,7 @@ public class Main
         } catch(Exception ex) {
             ex.printStackTrace(); 
         }
-        
+        */
         System.out.println("---\nHashmap mit Startwerten:");
         for (String i : logik.startwerteHash.keySet()) {
           System.out.println("Key: " + i + " - Wert: " + logik.startwerteHash.get(i));
