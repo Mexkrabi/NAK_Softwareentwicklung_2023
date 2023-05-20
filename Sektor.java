@@ -55,6 +55,27 @@ public class Sektor
         System.out.println("Startwert: " + startwert);
     }
     
+    /**
+     * Konstruktor, falls kein Startwert eingegeben wurde. Standardwert dann = 10
+     * 
+     * @param name Name des Sektors
+     * @param min Kleinster Wert des Sektors
+     * @param max Größter Wert des Sektors
+     * @param startwert Definiere den Startwert des Sektors 
+     */
+    public Sektor(String name, int min, int max)
+    {
+        this.name = name;
+        this.min = min;
+        this.max = max;
+        this.wert = 10;
+        //this.wertebereich = wertebereich; //Array mit allen möglichen Werten für den Sektor 
+        System.out.println("---");
+        System.out.println("Neuer Sektor '" + name + "' erzeugt");
+        System.out.println("Wertebereich: " + min + " bis " + max);
+        System.out.println("Startwert: " + this.wert);
+    }
+    
     public boolean prüfeObImWertebereich(int eingabe)
     {
         System.out.printf("Prüfe ob " + eingabe + " im Wertebereich ... ");

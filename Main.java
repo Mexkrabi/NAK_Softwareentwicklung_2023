@@ -34,7 +34,7 @@ public class Main
     public static Sektor staatsvermögen;
     public static Sektor bevölkerungswachstumsfaktor;
     public static Sektor versorgungslage;
-   
+    
     
     /**
      * Main Funktion
@@ -133,18 +133,18 @@ public class Main
             
             //# in HashMap packen
             // Wiederholen für alle Anfangswerte vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-            String str = dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungsgr��e");
+            String str = dateiLeser.auslesen(pfadStartwerte, "Bevölkerungsgröße");
             logik.startwerteHash.put("Bevölkerungsgröße", alsInteger(str));
             // Wiederholen für alle Anfangswerte ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
             /* hier in kompakter Form: vvvvvv           *///#Prüfen, ob Umlaute gehen oder nicht
-            logik.startwerteHash.put("Bevölkerungswachstum", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungswachstum"))); 
-            logik.startwerteHash.put("Lebensqualität", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Lebensqualit�t")));
+            logik.startwerteHash.put("Bevölkerungswachstum", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Bevölkerungswachstum"))); 
+            logik.startwerteHash.put("Lebensqualität", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Lebensqualität")));
             logik.startwerteHash.put("Wirtschaftsleistung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Wirtschaftsleistung")));
             logik.startwerteHash.put("Modernisierungsgrad", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Modernisierungsgrad")));
-            logik.startwerteHash.put("Politische Stabilität", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Politische Stabilit�t")));
+            logik.startwerteHash.put("Politische Stabilität", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Politische Stabilität")));
             logik.startwerteHash.put("Umweltverschmutzung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Umweltverschmutzung")));
             logik.startwerteHash.put("Bildung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Bildung")));
-            logik.startwerteHash.put("Staatsvermögen", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Staatsverm�gen")));
+            logik.startwerteHash.put("Staatsvermögen", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Staatsvermögen")));
         } catch(Exception ex) {
             ex.printStackTrace(); 
         }
@@ -162,9 +162,12 @@ public class Main
          * -> startwert         int
          */
         //Bevölkerungsgröße
-        int startwert1 = logik.startwerteHash.get("Bevölkerungsgröße"); //Startwert aus Hashmap ziehen
-        bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert1); //min max aus Angabe Tabelle (HA-Dokument)
-        
+        try {
+            int startwert1 = logik.startwerteHash.get("Bevölkerungsgröße"); //Startwert aus Hashmap ziehen
+            bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert1); //min max aus Angabe Tabelle (HA-Dokument)
+        } catch(Exception ex) {
+            ex.printStackTrace(); 
+        }
         //Bevölkerungswachstum
         int startwert2 = logik.startwerteHash.get("Bevölkerungswachstum"); //Startwert aus Hashmap ziehen
         bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30, startwert2); //min max aus Angabe Tabelle (HA-Dokument)
@@ -270,6 +273,16 @@ public class Main
             spielAblauf();
         }
         //# Ende der main()
+    }
+    
+    private static void erzeugeSektor() 
+    {
+        try {
+            int startwert1 = logik.startwerteHash.get("Bevölkerungsgröße"); //Startwert aus Hashmap ziehen
+            bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert1); //min max aus Angabe Tabelle (HA-Dokument)
+        } catch(Exception ex) {
+            ex.printStackTrace(); 
+        }
     }
     
     /* 
