@@ -172,6 +172,7 @@ public class Main
             int startwert1 = logik.startwerteHash.get("Bevölkerungsgröße"); //Startwert aus Hashmap ziehen
             bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert1); //min max aus Angabe Tabelle (HA-Dokument)
         } catch(Exception ex) {
+            bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50);//Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
             ex.printStackTrace(); 
         }
         
