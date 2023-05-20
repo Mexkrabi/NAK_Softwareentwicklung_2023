@@ -679,7 +679,7 @@ public class GUI extends JFrame implements ActionListener {
             wertezuweisen.setVisible(false);
         }   else if (e.getSource() == btHauptmenü) {
             lastActivePanel.setVisible(false);
-            fenster.dispose()
+            fenster.dispose();
             setSpielstand("NEUSTART");
             spielstandänderung();
             //Main.restartApplication();
