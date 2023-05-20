@@ -133,8 +133,14 @@ public class Main
         //#STARTWERTE EINLESEN
         logik = new Logik(); //Logik-Handler generiert
         //# ALLES IN EINZELNE TRY-CATCH BLÖCKE PACKEN
+        
+        //Test
+        leseStartwerteFür("Rundenzahl");
+        logik.rundenzahl = logik.startwerteHash.get("Rundenzahl");
+        //Test
+        
         try {
-            logik.rundenzahl = alsInteger(dateiLeser.auslesen(pfadStartwerte, "Rundenzahl")); //Rundenanzahl festgelegt
+            //logik.rundenzahl = alsInteger(dateiLeser.auslesen(pfadStartwerte, "Rundenzahl")); //Rundenanzahl festgelegt
             
             //# in HashMap packen
             // Wiederholen für alle Anfangswerte vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -345,7 +351,7 @@ public class Main
      * 
      * @param
      */
-    /*private static void erzeugeSektor(String name, int min, int max) 
+    private static void erzeugeSektor(String name, int min, int max) 
     {
         try {
             int startwert1 = logik.startwerteHash.get(name); //Startwert aus Hashmap ziehen
@@ -354,7 +360,21 @@ public class Main
             bevölkerungsgröße = new Sektor(name, min, max); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
             ex.printStackTrace(); 
         }
-    }*/
+    }
+    
+    /**
+     * Liest Startwerte aus der vorher ausgewählten Datei ein und fürg sie zur startWerte HashMap hinzu.
+     */
+    private static void leseStartwerteFür(String input) 
+    {
+        //vervollständigen
+        String str = dateiLeser.auslesen(pfadStartwerte, ersetzeSonderzeichen(input));
+        try {
+            logik.startwerteHash.put(input, alsInteger(str));
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
     
     /* 
      * vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -362,6 +382,29 @@ public class Main
      * vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
      */
 
+    /**
+     * Ersetzt Umlaute und vordefinierte Sonderzeivhen in "�" für das Einlesen von Dateien, die keine Sonderzeichen unterstützen.
+     */
+    public static String ersetzeSonderzeichen(String text) 
+    {
+        try {
+            String replacedText = text.replace("ä", "�")
+                                      .replace("ö", "�")
+                                      .replace("ü", "�")
+                                      .replace("Ä", "�")
+                                      .replace("Ö", "�")
+                                      .replace("Ü", "�")
+                                      .replace("ß", "�");
+    
+            System.out.println("'" + text + "' ersetzt mit '" + replacedText + "'");
+            return replacedText;
+        } catch (Exception ex) {
+            System.out.println(text + " enthält keine Umlaute.");
+            return text;
+        }
+    }
+
+    
     /**
      * Methode erzeugt einen int Array. Einfach den kleinsten und größten Wert eingeber.
      * Der Rest wird immer +1 hinzugefügt.
