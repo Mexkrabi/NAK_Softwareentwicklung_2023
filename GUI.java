@@ -433,7 +433,7 @@ public class GUI extends JFrame implements ActionListener {
         btHauptmenü = new JButton("Zurück zum Hauptmenü"); 
         
         //btStart = new JButton (" Neues Spiel Starten");
-        btEnde = new JButton(" Spiel Beenden");
+        btEnde = new JButton("Spiel Beenden");
         
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btHauptmenü.addActionListener(this);
@@ -460,14 +460,17 @@ public class GUI extends JFrame implements ActionListener {
 
         victory = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
-        victory.setLayout(new GridLayout(3, 1, 50, 50));
+        victory.setLayout(new GridLayout(4, 1, 50, 50));
         lastActivePanel = victory;
         
         JLabel lblVictory= new JLabel(" Sie haben Ihr Land Erfolgreich regiert und es weit voran getrieben ");
-        lblVictory.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 26));
+        JLabel lblErgebnis= new JLabel("Simulationserfolg: " + Main.logik.simulationsErfolg.get(Main.logik.aktuelleRunde));
+        lblErgebnis.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 15));
+        
+        lblVictory.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 20));
         //btStart = new JButton (" Neues Spiel Starten");
         btHauptmenü = new JButton("Zurück zum Hauptmenü"); 
-        btEnde = new JButton(" Spiel Beenden");
+        btEnde = new JButton("Spiel Beenden");
         
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         //btStart.addActionListener(this);
@@ -476,6 +479,7 @@ public class GUI extends JFrame implements ActionListener {
         
         fenster.add(victory);
         victory.add(lblVictory);
+        victory.add(lblErgebnis);
         victory.add(btHauptmenü);
         victory.add(btEnde);
         
