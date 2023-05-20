@@ -112,7 +112,7 @@ public class Main
         
         warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
         
-        //warteSolangeNoch("AUSWAHL"); //Warte, bis Auswahl der .sim Datei in der GUI getätigt
+        warteSolangeNoch("AUSWAHL"); //Warte, bis Auswahl der .sim Datei in der GUI getätigt
         pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
         
         //Datei wird eingelesen nach folgenden Daten:
@@ -261,7 +261,7 @@ public class Main
         //erzeugeSektor("Bevölkerungswachstumsfaktor", 1, 3);
         //# Hinzufügen von Berechnung des Startwerts (wo "0" bisher steht)
         //# !!
-        bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3); //min max aus Angabe Tabelle (HA-Dokument)
+        bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3, 0/*Phantom-Startwert*/); //min max aus Angabe Tabelle (HA-Dokument)
         logik.einflussRechner(logik.bg_auf_bwf, bevölkerungsgröße, bevölkerungswachstumsfaktor); //richtiger Startwert hier berechnet
         
         //Versorgungslage
