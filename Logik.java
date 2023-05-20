@@ -256,11 +256,11 @@ public class Logik
         int ps = Main.politische_stabilität.getWert();
         int sv = Main.staatsvermögen.getWert();
         
-        System.out.println("Speichert Simulationserfolg für Runde " + aktuelleRunde + " ...");
+        System.out.println("\nSpeichert Simulationserfolg für Runde " + aktuelleRunde + " ...");
         
         int berechnung = 3 * lq + ps + sv; //Formel zur Berechnung vom Simulationserfolg
         
-        System.out.println("Simulationserfolg: " + berechnung);
+        System.out.println("Simulationserfolg: " + berechnung + "\n");
         
         return berechnung; //Gibt errechneten Wert zurück
     }
