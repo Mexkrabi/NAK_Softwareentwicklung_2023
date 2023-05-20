@@ -351,7 +351,7 @@ public class Main
             // Konvertiere den Hash zu einem Textformat und schreibe in die Datei
             
             // Iteriere über die äußere HashMap
-            for (HashMap<String, Integer> innereMap : logik.masterHash.values()) {
+            /*for (HashMap<String, Integer> innereMap : logik.masterHash.values()) {
                 // Iteriere über die innere HashMap
                 String content = hashMapToString(innereMap);
                 writer.write(content);
@@ -361,15 +361,32 @@ public class Main
                     System.out.println(value);
                     
                 }
-            }
+            }*/
             writer.write("Simulationserfolg über die Runden:");
             writer.newLine();
-            for (Map.Entry<Integer, Integer> entry : logik.simulationsErfolg.entrySet()) {
+            
+            writer.newLine();
+            HashMap<Integer, Integer> hashMap = logik.simulationsErfolg;
+            for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
                 Integer key = entry.getKey();
                 Integer value = entry.getValue();
-                writer.write("Erfolg in Runde " + key + " = " + value);
+                writer.write("Simulationserfolg in Runde " + key + " = " + value);
                 writer.newLine();
-            }          
+            } 
+            
+            //ALLES AUSGELAGERT!!!  
+            schreibeInDatei(bevölkerungsgröße, writer);
+            schreibeInDatei(bevölkerungswachstum, writer);
+            schreibeInDatei(wirtschaftsleistung, writer);
+            schreibeInDatei(modernisierungsgrad, writer);
+            schreibeInDatei(politische_stabilität, writer);
+            schreibeInDatei(umweltverschmutzung, writer);
+            schreibeInDatei(lebensqualität, writer);
+            schreibeInDatei(bildung, writer);
+            schreibeInDatei(staatsvermögen, writer);
+            schreibeInDatei(bevölkerungswachstumsfaktor, writer);
+            schreibeInDatei(versorgungslage, writer);
+            
             System.out.println("Die Datei wurde erfolgreich erstellt.");
 
         } catch (IOException e) {
@@ -386,6 +403,21 @@ public class Main
         }
         */
         //# Ende der main()
+    }
+    
+    private static void schreibeInDatei(Sektor sektor, BufferedWriter writer) {
+            try {
+                writer.newLine();
+                HashMap<Integer, Integer> hashMap = sektor.werte;
+                for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
+                    Integer key = entry.getKey();
+                    Integer value = entry.getValue();
+                    writer.write(sektor.getName() + " in Runde " + key + " = " + value);
+                    writer.newLine();
+                } 
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
     }
     
     /**
