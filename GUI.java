@@ -456,7 +456,7 @@ public class GUI extends JFrame implements ActionListener {
         public void victory()
     {
         // tragen Sie hier den Code ein
-        fenster.setTitle("+**** Victory *****");
+        fenster.setTitle("***** Victory *****");
 
         victory = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
@@ -679,9 +679,11 @@ public class GUI extends JFrame implements ActionListener {
             wertezuweisen.setVisible(false);
         }   else if (e.getSource() == btHauptmenü) {
             lastActivePanel.setVisible(false);
+            fenster.dispose()
             setSpielstand("NEUSTART");
             spielstandänderung();
             //Main.restartApplication();
     }
      }
 }
+
