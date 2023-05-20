@@ -167,53 +167,106 @@ public class Main
          * -> startwert         int
          */
         //Bevölkerungsgröße
-        erzeugeSektor("Bevölkerungsgröße", 1, 50);
-        /*
+        //erzeugeSektor("Bevölkerungsgröße", 1, 50);
         try {
             int startwert1 = logik.startwerteHash.get("Bevölkerungsgröße"); //Startwert aus Hashmap ziehen
             bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert1); //min max aus Angabe Tabelle (HA-Dokument)
         } catch(Exception ex) {
             ex.printStackTrace(); 
         }
-        */
+        
         //Bevölkerungswachstum
-        int startwert2 = logik.startwerteHash.get("Bevölkerungswachstum"); //Startwert aus Hashmap ziehen
-        bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30, startwert2); //min max aus Angabe Tabelle (HA-Dokument)
+        //erzeugeSektor("Bevölkerungswachstum", 1, 30);
+        try {
+            int startwert2 = logik.startwerteHash.get("Bevölkerungswachstum"); //Startwert aus Hashmap ziehen
+            bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30, startwert2); //min max aus Angabe Tabelle (HA-Dokument)
+        } catch(Exception ex) {
+            bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
         
         //Wirtschaftsleistung
-        int startwert3 = logik.startwerteHash.get("Wirtschaftsleistung"); //Startwert aus Hashmap ziehen
-        wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30, startwert3); //min max aus Angabe Tabelle (HA-Dokument)
+        //erzeugeSektor("Wirtschaftsleistung", 1, 30);
+        try {
+            int startwert3 = logik.startwerteHash.get("Wirtschaftsleistung"); //Startwert aus Hashmap ziehen
+            wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30, startwert3); //min max aus Angabe Tabelle (HA-Dokument)        
+        } catch(Exception ex) {
+            wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
         
         //Modernisierungsgrad
-        int startwert4 = logik.startwerteHash.get("Modernisierungsgrad"); //Startwert aus Hashmap ziehen
-        modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30, startwert4); //min max aus Angabe Tabelle (HA-Dokument)
+        //erzeugeSektor("Modernisierungsgrad", 1, 30);
+        try {
+            int startwert4 = logik.startwerteHash.get("Modernisierungsgrad"); //Startwert aus Hashmap ziehen
+            modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30, startwert4); //min max aus Angabe Tabelle (HA-Dokument)       
+        } catch(Exception ex) {
+            modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
         
         //Politische Stabilität
+        //erzeugeSektor("Politische Stabilität", -10, 40);
+        try {
+            int startwert5 = logik.startwerteHash.get("Politische Stabilität"); //Startwert aus Hashmap ziehen
+            politische_stabilität = new Sektor("Politische Stabilität", -10, 40, startwert5); //min max aus Angabe Tabelle (HA-Dokument) 
+        } catch(Exception ex) {
+            politische_stabilität = new Sektor("Politische Stabilität", -10, 40); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
         int startwert5 = logik.startwerteHash.get("Politische Stabilität"); //Startwert aus Hashmap ziehen
         politische_stabilität = new Sektor("Politische Stabilität", -10, 40, startwert5); //min max aus Angabe Tabelle (HA-Dokument)
         
         //Umweltverschmutzung
-        int startwert6 = logik.startwerteHash.get("Umweltverschmutzung"); //Startwert aus Hashmap ziehen
-        umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30, startwert6); //min max aus Angabe Tabelle (HA-Dokument)
+        //erzeugeSektor("Umweltverschmutzung", 1, 30);
+        try {
+            int startwert6 = logik.startwerteHash.get("Umweltverschmutzung"); //Startwert aus Hashmap ziehen
+            umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30, startwert6); //min max aus Angabe Tabelle (HA-Dokument)        
+        } catch(Exception ex) {
+            umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
         
         //Lebensqualität
-        int startwert7 = logik.startwerteHash.get("Lebensqualität"); //Startwert aus Hashmap ziehen
-        lebensqualität = new Sektor("Lebensqualität", 1, 30, startwert7); //min max aus Angabe Tabelle (HA-Dokument)
+        //erzeugeSektor("Lebensqualität", 1, 30);
+        try {
+            int startwert7 = logik.startwerteHash.get("Lebensqualität"); //Startwert aus Hashmap ziehen
+            lebensqualität = new Sektor("Lebensqualität", 1, 30, startwert7); //min max aus Angabe Tabelle (HA-Dokument)        
+        } catch(Exception ex) {
+            lebensqualität = new Sektor("Lebensqualität", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
         
         //Bildung
-        int startwert8 = logik.startwerteHash.get("Bildung"); //Startwert aus Hashmap ziehen
-        bildung = new Sektor("Bildung", 1, 30, startwert8); //min max aus Angabe Tabelle (HA-Dokument)
+        //erzeugeSektor("Bildung", 1, 30);
+        try {
+            int startwert8 = logik.startwerteHash.get("Bildung"); //Startwert aus Hashmap ziehen
+            bildung = new Sektor("Bildung", 1, 30, startwert8); //min max aus Angabe Tabelle (HA-Dokument)       
+        } catch(Exception ex) {
+            bildung = new Sektor("Bildung", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
         
         //Staatsvermögen
-        int startwert9 = logik.startwerteHash.get("Staatsvermögen"); //Startwert aus Hashmap ziehen
-        staatsvermögen = new Sektor("Staatsvermögen", 1, 32000, startwert9); //min max aus Angabe Tabelle (HA-Dokument)
+        //erzeugeSektor("Staatsvermögen", 1, 32000);
+        try {
+            int startwert9 = logik.startwerteHash.get("Staatsvermögen"); //Startwert aus Hashmap ziehen
+            staatsvermögen = new Sektor("Staatsvermögen", 1, 32000, startwert9); //min max aus Angabe Tabelle (HA-Dokument)   
+        } catch(Exception ex) {
+            staatsvermögen = new Sektor("Staatsvermögen", 1, 32000); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
+            ex.printStackTrace(); 
+        }
+        
 
         //Bevölkerungswachstumsfaktor
+        //erzeugeSektor("Bevölkerungswachstumsfaktor", 1, 3);
         //# Hinzufügen von Berechnung des Startwerts (wo "0" bisher steht)
         //# !!
-        bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3, 0/*Phantom-Startwert*/); //min max aus Angabe Tabelle (HA-Dokument)
+        bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3); //min max aus Angabe Tabelle (HA-Dokument)
         logik.einflussRechner(logik.bg_auf_bwf, bevölkerungsgröße, bevölkerungswachstumsfaktor); //richtiger Startwert hier berechnet
+        
         //Versorgungslage
+        //erzeugeSektor("Versorgungslage", 1, 30);
         //# Hinzufügen von Berechnung des Startwerts (wo "0" bisher steht)
         //# !!
         versorgungslage = new Sektor("Versorgungslage", -4, 1, 0/*Phantom-Startwert*/); //min max aus Angabe Tabelle (HA-Dokument)
@@ -277,7 +330,6 @@ public class Main
         
         
         warteBis("NEUSTART"); //wichtig, warten
-        restartApplication(); //beten, dass der Code wieder startet (Bitte Skall wir haben wirklich doll Angst!)
         /*
         if(gui.getSpielstand() == "START") {
             spielAblauf();
@@ -292,7 +344,7 @@ public class Main
      * 
      * @param
      */
-    private static void erzeugeSektor(String name, int min, int max) 
+    /*private static void erzeugeSektor(String name, int min, int max) 
     {
         try {
             int startwert1 = logik.startwerteHash.get(name); //Startwert aus Hashmap ziehen
@@ -301,7 +353,7 @@ public class Main
             bevölkerungsgröße = new Sektor(name, min, max); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
             ex.printStackTrace(); 
         }
-    }
+    }*/
     
     /* 
      * vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
@@ -413,19 +465,5 @@ public class Main
     {
         Scanner sc = new Scanner(System.in); //Konsoleneingabeleser
         return sc.next();
-    }
-    
-    public static void restartApplication() {
-        String javaBin = System.getProperty("java.home") + "/bin/java";
-        String classPath = System.getProperty("java.class.path");
-        String className = Main.class.getName();
-
-        ProcessBuilder builder = new ProcessBuilder(javaBin, "-cp", classPath, className);
-
-        try {
-            builder.start();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 }
