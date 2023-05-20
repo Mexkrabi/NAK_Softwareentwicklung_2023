@@ -323,6 +323,8 @@ public class Main
             
             warteBis("BERECHNUNG");
             logik.rundeBerechnen(); //Berechnung über die Logik
+            logik.speichernRundenwerte(logik.aktuelleRunde); //Speichern aller Rundenwerte
+            
             if(gui.getSpielstand() != "GAMEOVER") {
                 System.out.println("Rundenzahl erhöht");
                 logik.aktuelleRunde++;

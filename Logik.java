@@ -246,11 +246,9 @@ public class Logik
         } else { 
             einflussRechner(bg_auf_sv, Main.bevölkerungsgröße, Main.staatsvermögen);        
         }
-        
-        speichernRundenwerte(aktuelleRunde);
     }
     
-    private int berechneSimulationserfolg() 
+    public int berechneSimulationserfolg() 
     {
         int lq = Main.lebensqualität.getWert();
         int ps = Main.politische_stabilität.getWert();
@@ -265,7 +263,7 @@ public class Logik
         return berechnung; //Gibt errechneten Wert zurück
     }
     
-    private void speichernRundenwerte(int runde) 
+    public void speichernRundenwerte(int runde) 
     {
         //Speichern vom Simulationserfolg
         simulationsErfolg.put(runde, berechneSimulationserfolg());
