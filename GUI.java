@@ -386,7 +386,7 @@ public class GUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         ladescreen.setLayout(new GridLayout(2, 1, 20, 20));
         //Integer intJahr = (Main.Logik.rundenzahl- Main.Logik.aktuelleRunde + 1);
-        JLabel lblLadescreen= new JLabel("  Ihr " +  (Main.logik.aktuelleRunde + 1) + " Amtsjahr wird Simuliert" );
+        JLabel lblLadescreen= new JLabel("  Ihr " +  (Main.logik.aktuelleRunde + 1) + ". Amtsjahr wird Simuliert" );
         //JLabel lblLadescreen= new JLabel("  Fortschritt Ihres Amtsjahres");
         lblLadescreen.setFont(lblLadescreen.getFont().deriveFont(Font.BOLD, 24)); 
         JProgressBar pbwarten = new JProgressBar(0,100);
@@ -476,10 +476,14 @@ public class GUI extends JFrame implements ActionListener {
         victory.add(lblVictory);
         victory.add(btHauptmenü);
         victory.add(btEnde);
+        
+        fenster.setSize(800,300);
+        fenster.setLocationRelativeTo(null);
+        
 
         fenster.setVisible(true);
         victory.setVisible(true);
-        System.out.println("Game over");
+        System.out.println("Victory");
 
     }
     //Getter & Setter
