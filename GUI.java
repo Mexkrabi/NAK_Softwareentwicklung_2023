@@ -679,9 +679,9 @@ public class GUI extends JFrame implements ActionListener {
             wertezuweisen.setVisible(false);
         }   else if (e.getSource() == btHauptmenü) {
             lastActivePanel.setVisible(false);
-            //setSpielstand("NEUSTART");
-            //spielstandänderung();
-            Main.restartApplication();
+            setSpielstand("NEUSTART");
+            spielstandänderung();
+            //Main.restartApplication();
     }
      }
 }
