@@ -56,7 +56,7 @@ public class Sektor
     }
     
     /**
-     * Konstruktor, falls kein Startwert eingegeben wurde. Standardwert dann = 10
+     * Alternativ-Konstruktor, falls kein Startwert eingegeben wurde. Standardwert dann = 10
      * 
      * @param name Name des Sektors
      * @param min Kleinster Wert des Sektors
