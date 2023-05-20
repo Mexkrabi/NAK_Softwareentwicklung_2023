@@ -80,7 +80,7 @@ public class GUI extends JFrame implements ActionListener {
     {
         // Erstellt ein neues Fenster mit dem Titel "Start-End Frame" 
         // und ein neues JPanel "startBildschirm"
-        fenster.setTitle("Start-End Frame");
+        fenster.setTitle("Startbildschirm");
         startBildschirm = new JPanel();
         // Das Programm wird geschlossen wenn das "X" geklickt wird
         setDefaultCloseOperation(EXIT_ON_CLOSE);
