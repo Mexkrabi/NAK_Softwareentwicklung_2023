@@ -108,6 +108,10 @@ public class Logik
         }
     }
     
+    /**
+     * Führt alle Berechnungsschritte in der richtigen Reihenfolge durch. Sobald ein Wert außerhalb vom Wertebereich liegt,
+     * bricht die Funktion ab --> Game Over Screen
+     */
     public void rundeBerechnen (){
         System.out.println("Starte die Rundenberechnung ...");
         // 1.Wirtschaftsleistung (Rückkopplung)
@@ -234,7 +238,7 @@ public class Logik
         if(Main.gui.getSpielstand() == "GAMEOVER") {
             return;
         } else { 
-        einflussRechner(wl_auf_sv, Main.wirtschaftsleistung, Main.staatsvermögen);
+            einflussRechner(wl_auf_sv, Main.wirtschaftsleistung, Main.staatsvermögen);
         }
         if(Main.gui.getSpielstand() == "GAMEOVER") {
             return;
@@ -248,8 +252,15 @@ public class Logik
         }
     }
     
+    /**
+     * Berechnet den Simulationserfolg für die aktuelle Runde und gibt den errechneten Wert wieder.
+     * Formel: sim_erfolg = 3 * lq + ps + sv
+     * 
+     * @return Berechneter Simulationserfolg als int
+     */
     public int berechneSimulationserfolg() 
     {
+        //Aktuelle relevante Sektor-Werte einlesen
         int lq = Main.lebensqualität.getWert();
         int ps = Main.politische_stabilität.getWert();
         int sv = Main.staatsvermögen.getWert();
