@@ -87,7 +87,7 @@ public class Main
         
         gui.setSpielstand("START");
         gui.spielstandänderung();
-        
+        warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
         //# Ab hier alles in der Methode spielAblauf() ausgelagert [Schritt 1 - 4]
         
         
@@ -112,7 +112,7 @@ public class Main
         
         warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
         
-        warteSolangeNoch("AUSWAHL"); //Warte, bis Auswahl der .sim Datei in der GUI getätigt
+        //warteSolangeNoch("AUSWAHL"); //Warte, bis Auswahl der .sim Datei in der GUI getätigt
         pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
         
         //Datei wird eingelesen nach folgenden Daten:
@@ -215,8 +215,6 @@ public class Main
             politische_stabilität = new Sektor("Politische Stabilität", -10, 40); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
             ex.printStackTrace(); 
         }
-        int startwert5 = logik.startwerteHash.get("Politische Stabilität"); //Startwert aus Hashmap ziehen
-        politische_stabilität = new Sektor("Politische Stabilität", -10, 40, startwert5); //min max aus Angabe Tabelle (HA-Dokument)
         
         //Umweltverschmutzung
         //erzeugeSektor("Umweltverschmutzung", 1, 30);
