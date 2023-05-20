@@ -343,6 +343,18 @@ public class Main
             System.out.println("GEWONNEN!!!!!");
         }
         
+        String fileName = "Ergebnis.res";
+        
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(fileName))) {
+            // Konvertiere den Hash zu einem Textformat und schreibe in die Datei
+            String content = hashMapToStringlogik.masterHash);
+            writer.write(content);
+
+            System.out.println("Die Datei wurde erfolgreich erstellt.");
+
+        } catch (IOException e) {
+            System.out.println("Fehler beim Schreiben der Datei: " + e.getMessage());
+        }
         
         warteBis("NEUSTART"); //wichtig, warten
         
@@ -519,5 +531,19 @@ public class Main
     {
         Scanner sc = new Scanner(System.in); //Konsoleneingabeleser
         return sc.next();
+    }
+    
+    private static String hashMapToString(Map<String, Integer> hashMap) {
+        StringBuilder sb = new StringBuilder();
+
+        // Durchlaufe den Hash und konvertiere die Werte zu Text
+        for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
+            String key = entry.getKey();
+            Integer value = entry.getValue();
+            sb.append(key).append("=").append(value).append(System.lineSeparator());
+        }
+
+        return sb.toString();
+    
     }
 }
