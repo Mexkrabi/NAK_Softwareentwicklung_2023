@@ -362,7 +362,14 @@ public class Main
                     
                 }
             }
-                        
+            writer.write("Simulationserfolg über die Runden:");
+            writer.newLine();
+            for (Map.Entry<Integer, Integer> entry : logik.simulationsErfolg.entrySet()) {
+                Integer key = entry.getKey();
+                Integer value = entry.getValue();
+                writer.write("Erfolg in Runde " + key + " = " + value);
+                writer.newLine();
+            }          
             System.out.println("Die Datei wurde erfolgreich erstellt.");
 
         } catch (IOException e) {
