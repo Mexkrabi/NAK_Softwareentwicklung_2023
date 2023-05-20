@@ -16,7 +16,7 @@ public class Logik
     public int rundenzahl; //Rundenzahl wird hier gespeichert und als Referenz verwendet
     public int aktuelleRunde; //aktuelle Runde hier gespeichert
     public HashMap<Integer, Integer> simulationsErfolg; //speichert den Simulationserfolg Runde für Runde
-    public HashMap<Integer, HashMap<String, Integer>> masterHash; //Speicher alle Werte in jeweilige Runden-HashMaps: <Runde, <Sektorname, Sektorwert>>
+    //public HashMap<Integer, HashMap<String, Integer>> masterHash; //Speicher alle Werte in jeweilige Runden-HashMaps: <Runde, <Sektorname, Sektorwert>>
     
     //Hashmaps mit Wertebeeinflussung und Berechnungsschritt im Kommentar
     private HashMap<Integer, Integer> mg_auf_uwv; // 5
@@ -57,7 +57,7 @@ public class Logik
     {
         startwerteHash = new HashMap<>();
         simulationsErfolg = new HashMap<>();
-        masterHash = new HashMap<>();
+        //masterHash = new HashMap<>();
     }
 
     /**
@@ -280,7 +280,33 @@ public class Logik
         simulationsErfolg.put(runde, berechneSimulationserfolg());
         
         //Speichern von allen einzelnen Werten
+        //Zuerst alle aktuellen Werte der Runde einlesen
+        int bg = Main.bevölkerungsgröße.getWert();
+        int bw = Main.bevölkerungswachstum.getWert();
+        int wl = Main.wirtschaftsleistung.getWert();
+        int mg = Main.modernisierungsgrad.getWert();
+        int ps = Main.politische_stabilität.getWert();
+        int uwv = Main.umweltverschmutzung.getWert();
+        int lq = Main.lebensqualität.getWert();
+        int bl = Main.bildung.getWert();
+        int sv = Main.staatsvermögen.getWert();
+        int bwf = Main.bevölkerungswachstumsfaktor.getWert();
+        int vl = Main.versorgungslage.getWert();
         
+        Main.bevölkerungsgröße.aktuellenWertSpeichern();
+        Main.bevölkerungswachstum.aktuellenWertSpeichern();
+        Main.wirtschaftsleistung.aktuellenWertSpeichern();
+        Main.modernisierungsgrad.aktuellenWertSpeichern();
+        Main.politische_stabilität.aktuellenWertSpeichern();
+        Main.umweltverschmutzung.aktuellenWertSpeichern();
+        Main.lebensqualität.aktuellenWertSpeichern();
+        Main.bildung.aktuellenWertSpeichern();
+        Main.staatsvermögen.aktuellenWertSpeichern();
+        Main.bevölkerungswachstumsfaktor.aktuellenWertSpeichern();
+        Main.versorgungslage.aktuellenWertSpeichern();
+        
+        //dann der HashMap hinzufügen
+        //masterHash.put(aktuelleRunde, Main.bevölkerungsgröße.getName());
     }
     
     public void neustarten() {

@@ -1,3 +1,4 @@
+import java.util.HashMap;
 
 /**
  * Diese Klasse stellt die Grundstruktur für die einzelnen 
@@ -18,7 +19,9 @@ public class Sektor
     private int wert; //Aktueller Wert 
     private final String name; //Bezeichnung des Sektors
     private final int min, max; //Minimum und Maximum definieren Wertebereich des Sektors
-
+    
+    public HashMap<Integer, Integer> werte; //Speichert nach und nach die Werte nach jeder Runde ein
+    
     //# Größen beim Start:
     /*
          +++ Ausgangslage +++
@@ -48,6 +51,7 @@ public class Sektor
         this.min = min;
         this.max = max;
         this.wert = startwert;
+        werte = new HashMap<>();
         //this.wertebereich = wertebereich; //Array mit allen möglichen Werten für den Sektor 
         System.out.println("---");
         System.out.println("Neuer Sektor '" + name + "' erzeugt");
@@ -69,6 +73,7 @@ public class Sektor
         this.min = min;
         this.max = max;
         this.wert = 10;
+        werte = new HashMap<>();
         //this.wertebereich = wertebereich; //Array mit allen möglichen Werten für den Sektor 
         System.out.println("---");
         System.out.println("Neuer Sektor '" + name + "' erzeugt");
@@ -86,6 +91,12 @@ public class Sektor
             System.out.println(eingabe + " ist NICHT im Wertebereich");
             return false;
         }
+    }
+    
+    public void aktuellenWertSpeichern() 
+    {
+        //Speicher aktuellen Wert in Hashmap
+        werte.put(Main.logik.aktuelleRunde, getWert());
     }
     
     //Getter & Setter
