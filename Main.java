@@ -1,4 +1,5 @@
 import java.util.Scanner;
+import java.io.IOException;
 
 /**
  * Die Klasse Main.
@@ -395,5 +396,19 @@ public class Main
     {
         Scanner sc = new Scanner(System.in); //Konsoleneingabeleser
         return sc.next();
+    }
+    
+    public static void restartApplication() {
+        String javaBin = System.getProperty("java.home") + "/bin/java";
+        String classPath = System.getProperty("java.class.path");
+        String className = Main.class.getName();
+
+        ProcessBuilder builder = new ProcessBuilder(javaBin, "-cp", classPath, className);
+
+        try {
+            builder.start();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 }
