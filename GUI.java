@@ -62,8 +62,8 @@ public class GUI extends JFrame implements ActionListener {
                 break;
             case "NEUSTART" :
                 Main.logik.neustarten();
-                setSpielstand("AUSWAHL");
-                spielstandänderung();
+                //setSpielstand("AUSWAHL");
+                //spielstandänderung();
                 break;
             default : //falls Spielstand falsch angegeben wird, oder nicht erkannt wird
                 System.out.println("! '" + strSpielstand + "' ist kein gültiger Spielstand !");
