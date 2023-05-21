@@ -108,6 +108,7 @@ public class Logik
             System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
             return true; //alles ok
         } else {
+            sektorNACH.setWert(neuerWert); //fügt neuen Wert ein, für bessere Nachvollziehbarkeit in der .res Datei
             gameOver(false);
             return false; //verloren
         }
