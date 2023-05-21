@@ -7,28 +7,19 @@ import java.nio.file.*;
  * Diese Klasse enthält den Code für das Einlesen der externen .sim Dateien.
  * Die Dateien beinhalten Anfangswerte für das Spiel.
  * 
- * @author Sven Vazquez de Lara Kallas & Livia Kadenbach
+ * @author Sven Vazquez de Lara Kallas, Livia Kadenbach
  * @version 0.2
  */
 public class DateiLeser 
 {   
-    private String dieserOrdner =  ""; //Ordnerpfad mit .sim Dateien
+    private String dieserOrdner; //Ordnerpfad mit .sim Dateien
     
+    /**
+     * Konstruktor für DateiLeser-Klasse. Speichert sofort den Dateipfad des sim-Dateien Ordners.
+     */
     public DateiLeser()
     {
         dieserOrdner = System.getProperty("user.dir") + "/sim-Dateien"; //aktueller Dateipfad + Ordner mit sim-Dateien
-        //System.out.println(String.join(",", dateienFinden()));
-        
-    }
-    
-    /**
-     * überladener construktor für alternativen Pfad
-     * 
-     * @param alternativPfad 
-     */
-    public DateiLeser(String alternativPfad) 
-    {
-        dieserOrdner = alternativPfad;
     }
     
     /**
@@ -99,7 +90,7 @@ public class DateiLeser
         System.out.println("Suchwort, welches zum auslesen eingegeben wurde: " + suchwort);
         suchwort = suchwort + " = "; //Erweitert mit " = "
         System.out.println("Länge von '" + suchwort + "' ist: " + suchwort.length()); //suchwort.lenght() gibt String-Länge
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pfad), "UTF-8"))) //UTF-8 lässt Umlaute erkennen
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pfad), "UTF-8"))) //UTF-8 lässt angeblich Umlaute erkennen
         {
             String line;
             while ((line = br.readLine()) != null) 
@@ -122,7 +113,7 @@ public class DateiLeser
         return "Wert konnte nicht gefunden werden.";
     }
 
-    
+    //#TODO @Livia
     /**
      * 
      */
