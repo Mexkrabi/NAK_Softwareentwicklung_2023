@@ -236,7 +236,7 @@ public class Main
         
         
         //#AUSGABE IN .res DATEI
-        String dateiName = "Ergebnis.res";
+        String dateiName = logik.spielername + "-Ergebnis.res";
         String dateipfad = System.getProperty("user.dir") + "/res-Dateien";
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dateipfad + "/" + dateiName))) {
             // Konvertiere den Hash zu einem Textformat und schreibe in die Datei

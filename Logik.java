@@ -15,6 +15,7 @@ public class Logik
     
     public int rundenzahl; //Rundenzahl wird hier gespeichert und als Referenz verwendet
     public int aktuelleRunde; //aktuelle Runde hier gespeichert
+    public String spielername; //spielername wird hier gespeichert
     public HashMap<Integer, Integer> simulationsErfolg; //speichert den Simulationserfolg Runde für Runde
     //public HashMap<Integer, HashMap<String, Integer>> masterHash; //Speicher alle Werte in jeweilige Runden-HashMaps: <Runde, <Sektorname, Sektorwert>>
     

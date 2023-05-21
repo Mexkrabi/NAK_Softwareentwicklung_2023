@@ -752,6 +752,7 @@ public class GUI extends JFrame implements ActionListener {
                     // Eingabe ist gültig
                     System.out.println("Eingabe gültig: " + eingabe);
                     
+                    //Main.logik.spielername = eingabe;
                     namenEintragen.setVisible(false);
                     setSpielstand("AUSWAHL");
                     spielstandänderung();
