@@ -116,6 +116,9 @@ public class Main
         //gui.spielstandänderung();
         
         warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
+        
+        logik = new Logik(); //Logik-Handler generiert
+        
         warteSolangeNoch("SPIELERNAME"); //warten, bis Spielername eingefügt wurde
         warteSolangeNoch("AUSWAHL"); //warten, bis Auswahl der .sim Datei in der GUI getätigt
         pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
@@ -136,7 +139,8 @@ public class Main
         Rundenzahl = 10
          */
         //#STARTWERTE EINLESEN UND IN HASHMAP PACKEN
-        logik = new Logik(); //Logik-Handler generiert
+        
+        
         
         leseStartwerteFür("Rundenzahl");
         logik.rundenzahl = logik.startwerteHash.get("Rundenzahl");

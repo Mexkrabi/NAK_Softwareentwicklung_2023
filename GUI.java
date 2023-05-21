@@ -744,19 +744,19 @@ public class GUI extends JFrame implements ActionListener {
             
         }   else if (e.getSource() == btNamenbestätigen) {
             String eingabe = txtName.getText();
-                if (eingabe.matches(".*[\\\\/:*?\"<>|].*")) {
-                    // Eingabe enthält ungültige Zeichen
-                    System.out.println("Ungültige Zeichen in der Eingabe.");
-                    // Hier kannst du eine Fehlermeldung anzeigen oder weitere Aktionen ausführen
-                } else {
-                    // Eingabe ist gültig
-                    System.out.println("Eingabe gültig: " + eingabe);
-                    
-                    //Main.logik.spielername = eingabe;
-                    namenEintragen.setVisible(false);
-                    setSpielstand("AUSWAHL");
-                    spielstandänderung();
-         }
+            if (eingabe.matches(".*[\\\\/:*?\"<>|].*")) {
+                // Eingabe enthält ungültige Zeichen
+                System.out.println("Ungültige Zeichen in der Eingabe.");
+                // Hier kannst du eine Fehlermeldung anzeigen oder weitere Aktionen ausführen
+            } else {
+                // Eingabe ist gültig
+                System.out.println("Eingabe gültig: " + eingabe);
+                
+                Main.logik.spielername = eingabe;
+                namenEintragen.setVisible(false);
+                setSpielstand("AUSWAHL");
+                spielstandänderung();
+            }
          
         }
     }
