@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * https://github.com/Mexkrabi/NAK_Softwareentwicklung_2023
  * 
  * @author Sven Vazquez de Lara Kallas, Malte Fischer, Livia Kadenbach 
- * @version 0.5
+ * @version 0.7
  */
 public class Main
 {
@@ -19,6 +19,7 @@ public class Main
     //public static String spielstand; //wird stattdessen in der GUI gespeichert
     public static String pfadStartwerte; //Speichert Dateipfad der .sim
     public static boolean boolNeustarten; //wenn wahr, wird das Spiel neugestartet
+    public static boolean fehlerBeimErzeugenEinesSektors = false; //wird wahr, falls beim erzeugen eines Sektors versucht wird, einen ungültigen Wert einzusetzen.
     
     public static DateiLeser dateiLeser; //Zentraler DateiLeser --> Zugriff von allen Klassen möglich
     public static GUI gui; //Globaler GUI-Handler
@@ -184,20 +185,13 @@ public class Main
         
         //#SEKTOREN ERZEUGEN
         alleSektorenErzeugen(); //Methode erzeugt alle Sektoren inkl. zugehörigen Startwert
-        /*
-             +++ Ausgangslage +++
-            Bevölkerungsgröße = 32
-            Bevölkerungswachstum = 7
-            Wirtschaftsleistung = 20
-            Modernisierungsgrad = 5
-            Politische Stabilität = 6
-            Umweltverschmutzung = 16
-            Lebensqualität = 20
-            Bildung = 2
-            Staatsvermögen = 8
-            +++ Simulationsablauf +++
-            Rundenzahl = 10
-        */
+        
+        if(fehlerBeimErzeugenEinesSektors) { //Ausgabe einer GUI-Fehlermeldung, falls es einen falschen Wert gab.
+            gui.popUpAusgeben("Einige Angaben aus der ausgewählten Datei sind fehlerhaft oder wurden nicht erkannt. "
+                                + "Die betroffenen Sektoren wurden mit dem Standardwert " 
+                                + Sektor.standardStartwert + " erzeugt.");
+        }
+
         //#LOOP ÜBER DIE RUNDENANZAHL
         while (logik.aktuelleRunde <= logik.rundenzahl) {
             
@@ -298,12 +292,8 @@ public class Main
         
         warteBis("NEUSTART"); //wichtig, warten
         
-        main(new String[]{});
-        /*
-        if(gui.getSpielstand() == "START") {
-            spielAblauf();
-        }
-        */
+        main(new String[]{}); //Wiederaufrufen der main() Funktion --> Code startet neu
+        
         //# Ende der main()
     }
     
@@ -410,12 +400,12 @@ public class Main
 
         //Bevölkerungswachstumsfaktor
         //erzeugeSektor("Bevölkerungswachstumsfaktor", 1, 3);
-        bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3, 0/*Phantom-Startwert*/); //min max aus Angabe Tabelle (HA-Dokument)
+        bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3); //min max aus Angabe Tabelle (HA-Dokument)
         logik.einflussRechner(logik.bg_auf_bwf, bevölkerungsgröße, bevölkerungswachstumsfaktor); //richtiger Startwert hier berechnet
         
         //Versorgungslage
         //erzeugeSektor("Versorgungslage", 1, 30);
-        versorgungslage = new Sektor("Versorgungslage", -4, 1, 0/*Phantom-Startwert*/); //min max aus Angabe Tabelle (HA-Dokument)
+        versorgungslage = new Sektor("Versorgungslage", -4, 1); //min max aus Angabe Tabelle (HA-Dokument)
         logik.einflussRechner(logik.wl_auf_vl, wirtschaftsleistung, versorgungslage); //richtiger Startwert hier berechnet
     }
     

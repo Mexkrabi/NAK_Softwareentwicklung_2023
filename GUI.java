@@ -544,6 +544,17 @@ public class GUI extends JFrame implements ActionListener {
         System.out.println("Victory");
 
     }
+    
+    /**
+     * Gibt ein Pop-Up Fenster aus mit einer beliebigen (Fehler-)Meldung
+     * 
+     * @param text Text, der angezeigt werden soll.
+     */
+    public void popUpAusgeben(String text)
+    {
+        JOptionPane.showMessageDialog(null, text);
+    }
+    
     //Getter & Setter
     public String getSpielstand() 
     {

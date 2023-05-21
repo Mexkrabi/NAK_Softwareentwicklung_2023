@@ -14,7 +14,7 @@ public class Sektor
     private final String name; //Bezeichnung des Sektors
     private final int min, max; //Minimum und Maximum definieren Wertebereich des Sektors
     
-    private final int standardStartwert = 10; // <<< Standard-Startwert HIER VERÄNDERN, falls kein Anderer Wert vorgegeben.
+    public static final int standardStartwert = 1; // <<< Standard-Startwert HIER VERÄNDERN, falls kein Anderer Wert vorgegeben.
     
     public HashMap<Integer, Integer> werte; //Speichert nach und nach die Werte nach jeder Runde ein
     
@@ -34,24 +34,31 @@ public class Sektor
         Rundenzahl = 10
     */
     /**
-     * Constructor for objects of class Sektor
+     * Konstruktor der Klasse Sektor
      * 
      * @param name Name des Sektors
      * @param min Kleinster Wert des Sektors
      * @param max Größter Wert des Sektors
      * @param startwert Definiere den Startwert des Sektors 
      */
-    public Sektor(String name, int min, int max, int startwert)
+    public Sektor(String name, int min, int max, int startwert) throws Exception
     {
         this.name = name;
         this.min = min;
         this.max = max;
-        this.wert = startwert;
+        if(prüfeObImWertebereich(startwert)) {
+            this.wert = startwert;
+        } else {
+            System.out.println("Ausgelesener Startwert ungültig! Standard-Startwert wird stattdessen eingefügt.");
+            this.wert = standardStartwert;
+            Main.fehlerBeimErzeugenEinesSektors = true;
+            throw new Exception("Ausgelesener Startwert für '" + this.name + "' ungültig! Standard-Startwert wird stattdessen eingefügt.");
+        }
         werte = new HashMap<>();
         System.out.println("---");
         System.out.println("Neuer Sektor '" + name + "' erzeugt");
         System.out.println("Wertebereich: " + min + " bis " + max);
-        System.out.println("Startwert: " + startwert);
+        System.out.println("Startwert: " + this.wert);
     }
     
     /**
