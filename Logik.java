@@ -5,7 +5,7 @@ import java.util.*;
  * Hier wird die Spiellogik, die Berechnung der Einflussgrößen und die 
  * Abbruchsbedingungen überprüft und kontrolliert.
  *
- * @author Sven Vazquez de Lara Kallas & Livia Kadenbach
+ * @author Sven Vazquez de Lara Kallas, Livia Kadenbach
  * @version 0.2
  */
 public class Logik
@@ -15,7 +15,7 @@ public class Logik
     
     public int rundenzahl; //Rundenzahl wird hier gespeichert und als Referenz verwendet
     public int aktuelleRunde; //aktuelle Runde hier gespeichert
-    public String spielername; //spielername wird hier gespeichert
+    public String spielername; //Spielername wird hier gespeichert
     public HashMap<Integer, Integer> simulationsErfolg; //speichert den Simulationserfolg Runde für Runde
     //public HashMap<Integer, HashMap<String, Integer>> masterHash; //Speicher alle Werte in jeweilige Runden-HashMaps: <Runde, <Sektorname, Sektorwert>>
     
@@ -63,6 +63,7 @@ public class Logik
 
     /**
      * Diese Methode berechnet einen einzelnen Einflussschritt. Der neue Wert wird direkt im Ziel-Sektor eingesetzt.
+     * Automatische Prüfung der Werte integriert. Gibt zurück, ob das Spiel weitergehen kann oder nicht.
      * 
      * @param einflussHash HashMap, aus welcher der Wert eingelesen werden soll.
      * @param sektorVON Sektor, von welchem die Änderung ausgeht (erste Stelle im Hash-Namen, bzw. Key)
@@ -76,21 +77,21 @@ public class Logik
         int delta = -999; //Zahl deutet auf Fehler hin, falls nicht verändert
         //Sonderfälle mit Multiplikation
         if (einflussHash == bw_auf_bg) {
-            //Sonderfall 1
+            //Sonderfall 1 - Multiplizieren mit BWF
             System.out.println("Sonderfall erkannt: Verrechne mit BWF");
             delta =  Main.bevölkerungswachstumsfaktor.getWert() * einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
         } else if (einflussHash == bg_auf_sv) {
-            //Sonderfall 2
+            //Sonderfall 2 - Multiplizieren mit VL
             System.out.println("Sonderfall erkannt: Verrechne mit VL");
             delta =  Main.versorgungslage.getWert() * einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
         } else if (einflussHash == bg_auf_bwf) {
-            //Sonderfall - Gleichsetzen
+            //Sonderfall - Gleichsetzen BWF
             System.out.println("Sonderfall erkannt: BWF direkt ersetzen");
             sektorNACH.setWert(einflussHash.get(sektorVON.getWert()));
             System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
             return true; //Keine Prüfung auf Game Over Notwendig, da garantiert im Wertebereich
         } else if (einflussHash == wl_auf_vl) {
-            //Sonderfall - Gleichsetzen
+            //Sonderfall - Gleichsetzen VL
             System.out.println("Sonderfall erkannt: VL direkt ersetzen");
             sektorNACH.setWert(einflussHash.get(sektorVON.getWert()));
             System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
@@ -100,7 +101,6 @@ public class Logik
             delta = einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
         }
         System.out.println("Änderungswert: " + delta);
-        
         
         int neuerWert = delta + sektorNACH.getWert(); //berechnet neuen Wert
         if (sektorNACH.prüfeObImWertebereich(neuerWert)){
@@ -227,8 +227,7 @@ public class Logik
         int ps = Main.politische_stabilität.getWert();
         int sv = Main.staatsvermögen.getWert();
         
-        System.out.println("\nSpeichert Simulationserfolg für Runde " + aktuelleRunde + " ...");
-        //#TODO: Wird das wirklich gespeichert? wenn ja: where the f*** is it?
+        System.out.println("\nBerechne Simulationserfolg für Runde " + aktuelleRunde + " ...");
         
         int simulationserfolg = 3 * lq + ps + sv;
         
@@ -237,25 +236,19 @@ public class Logik
         return simulationserfolg;
     }
     
+    /**
+     * Methode ruft alle Größen der gegebenen Runde auf und speichert sie in den vorhergesehenen HashMaps.
+     * Ruft mehrere Methoden gebündelt auf.
+     * 
+     * @param runde Runde, für welche die Werte gespeichert werden sollen. [im Normalfall: aktuelleRunde]
+     */
     public void speichernRundenwerte(int runde) 
     {
         //Speichern vom Simulationserfolg
         simulationsErfolg.put(runde, berechneSimulationserfolg());
+        System.out.println("Simulationserfolg gespeichert");
         
         //Speichern von allen einzelnen Werten
-        //Zuerst alle aktuellen Werte der Runde einlesen
-        int bg = Main.bevölkerungsgröße.getWert();
-        int bw = Main.bevölkerungswachstum.getWert();
-        int wl = Main.wirtschaftsleistung.getWert();
-        int mg = Main.modernisierungsgrad.getWert();
-        int ps = Main.politische_stabilität.getWert();
-        int uwv = Main.umweltverschmutzung.getWert();
-        int lq = Main.lebensqualität.getWert();
-        int bl = Main.bildung.getWert();
-        int sv = Main.staatsvermögen.getWert();
-        int bwf = Main.bevölkerungswachstumsfaktor.getWert();
-        int vl = Main.versorgungslage.getWert();
-        
         Main.bevölkerungsgröße.aktuellenWertSpeichern();
         Main.bevölkerungswachstum.aktuellenWertSpeichern();
         Main.wirtschaftsleistung.aktuellenWertSpeichern();
@@ -267,11 +260,12 @@ public class Logik
         Main.staatsvermögen.aktuellenWertSpeichern();
         Main.bevölkerungswachstumsfaktor.aktuellenWertSpeichern();
         Main.versorgungslage.aktuellenWertSpeichern();
-        
-        //dann der HashMap hinzufügen
-        //masterHash.put(aktuelleRunde, Main.bevölkerungsgröße.getName());
+        System.out.println("Sektorenwerte gespeichert");
     }
     
+    /**
+     * Methode setzt gewisse Werte zurück und bereitet den Code auf ein Spielneustart vor.
+     */
     public void neustarten() {
         //Werte zurücksetzen
         //Rundenzahl zurücksetzen
@@ -293,7 +287,7 @@ public class Logik
     {
         //"Game Over" - Bedingungen
         // -> Außerhalb vom Wertebereich    LOSS
-        // -> Runden zu Ende                WIN/LOSS
+        // -> Runden zu Ende                WIN
         
         System.out.println("\n------ GAME OVER ------\n");
         if(gewonnen) {
@@ -324,6 +318,10 @@ public class Logik
         return hashmap;
     }
     
+    /**
+     * Methode erzeugt alle vordefinierten Einflusswerte aus der Excel-Tabelle (nur im Code veränderbar).
+     * Daraufhin werden die Beziehungs-HashMaps erzeugt und befüllt.
+     */
     public void einflussWerteErzeugen() 
     {
         //Werte aus Excel-Tabelle als int[] Arrays gespeichert
