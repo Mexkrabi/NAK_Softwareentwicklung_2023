@@ -34,14 +34,14 @@ public class Sektor
         Rundenzahl = 10
     */
     /**
-     * Constructor for objects of class Sektor
+     * Konstruktor der Klasse Sektor
      * 
      * @param name Name des Sektors
      * @param min Kleinster Wert des Sektors
      * @param max Größter Wert des Sektors
      * @param startwert Definiere den Startwert des Sektors 
      */
-    public Sektor(String name, int min, int max, int startwert)
+    public Sektor(String name, int min, int max, int startwert) throws Exception
     {
         this.name = name;
         this.min = min;
@@ -51,6 +51,7 @@ public class Sektor
         } else {
             System.out.println("Ausgelesener Startwert ungültig! Standard-Startwert wird stattdessen eingefügt.");
             this.wert = standardStartwert;
+            throw new Exception("Ausgelesener Startwert für '" + this.name + "' ungültig! Standard-Startwert wird stattdessen eingefügt.");
         }
         werte = new HashMap<>();
         System.out.println("---");
