@@ -14,18 +14,19 @@ public class GUI extends JFrame implements ActionListener {
     }
     // Instanzvariablen 
     private JFrame fenster;
-    private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen, gameover, victory, lastActivePanel;
+    private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen, gameover, victory, lastActivePanel, namenEintragen;
     public JComboBox<String> cbDateien;
     private JProgressBar pbLeben, pbWirtschaftsleistung, pbModernisierungsgrad, pbBildung, pbPolitStab, pbUmwelt, pbVersorgung, pbBevökerungswachstum, pbBevökerungsgröße, Bevölkerungswachstumsfaktor;
     public String strSpielstand, strAuswahl;
     private Integer intWirtschaftsleistung, intModernisierungsgrad, intLeben, intBildung, intStaatsvermögen, intVerbleibendeRunden;
     private String spielstand; //# <-- ersetzen in der Main
     private JLabel lblwilkommen;
-    private JButton btStart, btEnde, btAuswahlBestätigen, btweiter, btPunktezuweisungBestätigen, btHauptmenü;
+    private JButton btStart, btEnde, btAuswahlBestätigen, btweiter, btPunktezuweisungBestätigen, btHauptmenü, btNamenbestätigen;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung, lblVerbleibendesStaatskapital;
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
-
+    private JTextField txtName;
+    
     /**
      * Die Methode spielstandänderunglegt organisiert anhand einer Variablen den aktuellen Spielstand 
      * 
@@ -37,6 +38,9 @@ public class GUI extends JFrame implements ActionListener {
         switch (strSpielstand) {
             case "START" :
                 startBildschirm();
+                break;
+            case "SPIELERNAME" :
+                startwerte();
                 break;
             case "AUSWAHL" :
                 dateiAuswal();
@@ -117,6 +121,53 @@ public class GUI extends JFrame implements ActionListener {
         startBildschirm.setVisible(true);
     }
 
+    /**
+     * Die Methode erstellt den Startbildschirm und gibt die Wahl zwischen Starten und Beenden 
+     * des Programmes
+     * 
+     * 
+     */
+    private void spielername()
+    {
+        // Erstellt ein neues Fenster mit dem Titel "Start-End Frame" 
+        // und ein neues JPanel "startBildschirm"
+        fenster.setTitle("Spielernamen eintragen");
+        namenEintragen = new JPanel();
+        // Das Programm wird geschlossen wenn das "X" geklickt wird
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
+        startBildschirm.setLayout(new GridLayout(3, 1, 30, 30));
+        
+        
+        // Label & Button erstellen 
+        JLabel lblNamenEintragen = new JLabel("Bitte tragen Sie den Namen ein unter dem Sie regieren");
+        btNamenbestätigen = new JButton("Eingabe bestätigen");
+        txtName = new JTextField();
+            
+        //fügt einen ActionListener hinzu um auf einen klick zu reagieren
+        btNamenbestätigen.addActionListener(this);
+        
+
+        //Fügt das JLabel und die beiden JButtons zum JPanel hinzu
+        startBildschirm.add(lblNamenEintragen);
+        startBildschirm.add(txtName);
+        startBildschirm.add(btNamenbestätigen);
+        
+
+        //Fügt das JPanel zum JFrame hinzu
+        fenster.add(namenEintragen);
+
+        //legt die Größe des Frames fest
+        //startBildschirm.setSize(400, 400);
+        fenster.setSize(700,700);
+
+        // Zentriert das JFrame auf dem Bildschirm
+        fenster.setLocationRelativeTo(null);
+
+        //setzt die Sichtbarkeit auf true
+        fenster.setVisible(true);
+        startBildschirm.setVisible(true);
+    }
     /**
      * Die Methode erstellt eine Eingabemaske auf der ausgewählt werden kann welches Land 
      * gespielt werden soll und legt somit die auszulesende Datei fest
@@ -512,9 +563,8 @@ public class GUI extends JFrame implements ActionListener {
             System.out.println("Start wurde geklickt.");
             lastActivePanel.setVisible(false);
             //#try-catch Block evtl. notwendig, um Fehler beierstmaligem Button-Click zu verhindern (victory und gameover existieren inch nicht zu dem Zeitpunkt)
-            setSpielstand("AUSWAHL");
+            setSpielstand("SPIELERNAME");
             spielstandänderung();
-            
         } else if (e.getSource() == btEnde) {
             // Aktion für Button 2
             System.out.println("Ende wurde geklickt.");
@@ -688,9 +738,21 @@ public class GUI extends JFrame implements ActionListener {
             setSpielstand("NEUSTART");
             spielstandänderung();
             
-            
-        
+        }   else if (e.getSource() == btNamenbestätigen) {
+            String eingabe = txtName.getText();
+                if (eingabe.matches(".*[\\\\/:*?\"<>|].*")) {
+                    // Eingabe enthält ungültige Zeichen
+                    System.out.println("Ungültige Zeichen in der Eingabe.");
+                    // Hier kannst du eine Fehlermeldung anzeigen oder weitere Aktionen ausführen
+                } else {
+                    // Eingabe ist gültig
+                    System.out.println("Eingabe gültig: " + eingabe);
+                    
+                    
+                    setSpielstand("AUSAWAHL");
+                    spielstandänderung();
+         }
+         
+        }
     }
-     }
 }
-
