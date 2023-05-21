@@ -40,7 +40,7 @@ public class GUI extends JFrame implements ActionListener {
                 startBildschirm();
                 break;
             case "SPIELERNAME" :
-                startwerte();
+                spielername();
                 break;
             case "AUSWAHL" :
                 dateiAuswal();
@@ -136,22 +136,26 @@ public class GUI extends JFrame implements ActionListener {
         // Das Programm wird geschlossen wenn das "X" geklickt wird
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
-        startBildschirm.setLayout(new GridLayout(3, 1, 30, 30));
+        namenEintragen.setLayout(new GridLayout(3, 1, 30, 30));
         
         
         // Label & Button erstellen 
         JLabel lblNamenEintragen = new JLabel("Bitte tragen Sie den Namen ein unter dem Sie regieren");
         btNamenbestätigen = new JButton("Eingabe bestätigen");
         txtName = new JTextField();
+        
+        //Font currentFont = txtName.getFont();
+        //Font newFont = currentFont.deriveFont(currentFont.getSize() + 2f); // Hier kannst du die gewünschte Schriftgröße anpassen   
+        //txtName.setFont(newFont);
             
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btNamenbestätigen.addActionListener(this);
         
 
         //Fügt das JLabel und die beiden JButtons zum JPanel hinzu
-        startBildschirm.add(lblNamenEintragen);
-        startBildschirm.add(txtName);
-        startBildschirm.add(btNamenbestätigen);
+        namenEintragen.add(lblNamenEintragen);
+        namenEintragen.add(txtName);
+        namenEintragen.add(btNamenbestätigen);
         
 
         //Fügt das JPanel zum JFrame hinzu
@@ -166,7 +170,7 @@ public class GUI extends JFrame implements ActionListener {
 
         //setzt die Sichtbarkeit auf true
         fenster.setVisible(true);
-        startBildschirm.setVisible(true);
+        namenEintragen.setVisible(true);
     }
     /**
      * Die Methode erstellt eine Eingabemaske auf der ausgewählt werden kann welches Land 
@@ -748,8 +752,8 @@ public class GUI extends JFrame implements ActionListener {
                     // Eingabe ist gültig
                     System.out.println("Eingabe gültig: " + eingabe);
                     
-                    
-                    setSpielstand("AUSAWAHL");
+                    namenEintragen.setVisible(false);
+                    setSpielstand("AUSWAHL");
                     spielstandänderung();
          }
          
