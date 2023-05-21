@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * https://github.com/Mexkrabi/NAK_Softwareentwicklung_2023
  * 
  * @author Sven Vazquez de Lara Kallas, Malte Fischer, Livia Kadenbach 
- * @version 0.5
+ * @version 0.7
  */
 public class Main
 {
@@ -184,20 +184,7 @@ public class Main
         
         //#SEKTOREN ERZEUGEN
         alleSektorenErzeugen(); //Methode erzeugt alle Sektoren inkl. zugehörigen Startwert
-        /*
-             +++ Ausgangslage +++
-            Bevölkerungsgröße = 32
-            Bevölkerungswachstum = 7
-            Wirtschaftsleistung = 20
-            Modernisierungsgrad = 5
-            Politische Stabilität = 6
-            Umweltverschmutzung = 16
-            Lebensqualität = 20
-            Bildung = 2
-            Staatsvermögen = 8
-            +++ Simulationsablauf +++
-            Rundenzahl = 10
-        */
+
         //#LOOP ÜBER DIE RUNDENANZAHL
         while (logik.aktuelleRunde <= logik.rundenzahl) {
             
@@ -298,12 +285,8 @@ public class Main
         
         warteBis("NEUSTART"); //wichtig, warten
         
-        main(new String[]{});
-        /*
-        if(gui.getSpielstand() == "START") {
-            spielAblauf();
-        }
-        */
+        main(new String[]{}); //Wiederaufrufen der main() Funktion --> Code startet neu
+        
         //# Ende der main()
     }
     

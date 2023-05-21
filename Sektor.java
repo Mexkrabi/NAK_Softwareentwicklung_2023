@@ -46,7 +46,12 @@ public class Sektor
         this.name = name;
         this.min = min;
         this.max = max;
-        this.wert = startwert;
+        if(prüfeObImWertebereich(startwert)) {
+            this.wert = startwert;
+        } else {
+            System.out.println("Ausgelesener Startwert ungültig! Standard-Startwert wird stattdessen eingefügt.");
+            this.wert = standardStartwert;
+        }
         werte = new HashMap<>();
         System.out.println("---");
         System.out.println("Neuer Sektor '" + name + "' erzeugt");

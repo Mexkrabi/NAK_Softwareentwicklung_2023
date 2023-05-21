@@ -8,7 +8,7 @@ import java.nio.file.*;
  * Die Dateien beinhalten Anfangswerte für das Spiel.
  * 
  * @author Sven Vazquez de Lara Kallas, Livia Kadenbach
- * @version 0.2
+ * @version 0.3
  */
 public class DateiLeser 
 {   
@@ -25,7 +25,7 @@ public class DateiLeser
     /**
      * Methode erlaubt die Wahl der .sim Datei per Konsoleneingabe
      * 
-     * @return Gibt den den ausgewählten Dateipfad zurück als String
+     * @return Gibt den ausgewählten Dateipfad als String zurück
      */
     public String simDateiAuswahl()
     {
@@ -77,7 +77,7 @@ public class DateiLeser
      * Der unmittelbare Wert nach dem Suchwort wird dann ausgelesen und zurückgegeben.
      * 
      * Die Methode fügt dem Suchwort automatisch ein " = " hinzu.
-     * Ist dies nicht gewünscht, sollte die Methode nochmal angepasst werden.
+     * Ist dies nicht gewünscht, kann die Methode nochmal im Code angepasst werden.
      * 
      * Quelle zur Dokumentation: https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/package-summary.html#files
      * 
@@ -115,7 +115,11 @@ public class DateiLeser
 
     //#TODO @Livia
     /**
+     * [BESCHREIBUNG]
      * 
+     * Quelle zur Dokumentation: [LINK]
+     * 
+     * [RETURN]
      */
     public Set<String> dateienFinden(){
         Set<String> dateien = new HashSet<String>();
