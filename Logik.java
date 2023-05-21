@@ -5,8 +5,8 @@ import java.util.*;
  * Hier wird die Spiellogik, die Berechnung der Einflussgrößen und die 
  * Abbruchsbedingungen überprüft und kontrolliert.
  *
- * @author Sven Vazquez de Lara Kallas
- * @version 0.1
+ * @author Sven Vazquez de Lara Kallas & Livia Kadenbach
+ * @version 0.2
  */
 public class Logik
 {
@@ -66,8 +66,9 @@ public class Logik
      * @param einflussHash HashMap, aus welcher der Wert eingelesen werden soll.
      * @param sektorVON Sektor, von welchem die Änderung ausgeht (erste Stelle im Hash-Namen, bzw. Key)
      * @param sektorNACH Sektor, dessen Wert geändert werden soll (zweite Stelle im Hash-Namen, bzw. Wert)
+     * @return FALSE falls verloren, TRUE falls weiterspielen
      */
-    public void einflussRechner(HashMap<Integer, Integer> einflussHash, Sektor sektorVON, Sektor sektorNACH) 
+    public boolean einflussRechner(HashMap<Integer, Integer> einflussHash, Sektor sektorVON, Sektor sektorNACH) 
     {
         System.out.println("Berechne Einfluss von " + sektorVON.getName() + " (" + sektorVON.getWert() + ") auf " 
                                 + sektorNACH.getName() + " (" + sektorNACH.getWert() + ") ...");
@@ -86,25 +87,28 @@ public class Logik
             System.out.println("Sonderfall erkannt: BWF direkt ersetzen");
             sektorNACH.setWert(einflussHash.get(sektorVON.getWert()));
             System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
-            return;
+            return true; //Keine Prüfung auf Game Over Notwendig, da garantiert im Wertebereich
         } else if (einflussHash == wl_auf_vl) {
             //Sonderfall - Gleichsetzen
             System.out.println("Sonderfall erkannt: VL direkt ersetzen");
             sektorNACH.setWert(einflussHash.get(sektorVON.getWert()));
             System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
-            return;
+            return true; //Keine Prüfung auf Game Over Notwendig, da garantiert im Wertebereich
         } else {
             //Normalfall
             delta = einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
         }
         System.out.println("Änderungswert: " + delta);
+        
+        
         int neuerWert = delta + sektorNACH.getWert(); //berechnet neuen Wert
         if (sektorNACH.prüfeObImWertebereich(neuerWert)){
             sektorNACH.setWert(neuerWert); //fügt neuen Wert ein
             System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
+            return true; //alles ok
         } else {
             gameOver(false);
-            return; // bricht methode ab, da nicht weiter rechnen
+            return false; //verloren
         }
     }
     
@@ -115,140 +119,97 @@ public class Logik
     public void rundeBerechnen (){
         System.out.println("Starte die Rundenberechnung ...");
         // 1.Wirtschaftsleistung (Rückkopplung)
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
-            return;
-        } else {
-            einflussRechner(wl_auf_wl, Main.wirtschaftsleistung, Main.wirtschaftsleistung);
+        if(!einflussRechner(wl_auf_wl, Main.wirtschaftsleistung, Main.wirtschaftsleistung)) { //methode wird einmal ausgeführt, prüft ob false
+           return; //wenn false returned wird abgebrochen, sonst nächste Zeile
         }
+        
         // 2. Versorgungslage
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
-            return;
-        } else { 
-            einflussRechner(wl_auf_vl, Main.wirtschaftsleistung, Main.versorgungslage);
+        if(!einflussRechner(wl_auf_vl, Main.wirtschaftsleistung, Main.versorgungslage)){ //methode wird einmal ausgeführt, prüft ob false
+           return; //wenn false wird abgebrochen, sonst nächste Zeile
         }
             
         // 3. Modernisierungsgrad (Rückkopplung)
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(mg_auf_mg, Main.modernisierungsgrad, Main.modernisierungsgrad)){
             return;
-        } else { 
-            einflussRechner(mg_auf_mg, Main.modernisierungsgrad, Main.modernisierungsgrad);
         }
-        
+                
         // 4. Bildung (Rückkopplung)
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(bl_auf_bl, Main.bildung, Main.bildung)){
             return;
-        } else { 
-            einflussRechner(bl_auf_bl, Main.bildung, Main.bildung);
         }
         
         // 5. Umweltverschmutzung
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(wl_auf_uwv, Main.wirtschaftsleistung, Main.umweltverschmutzung)){
             return;
-        } else { 
-            einflussRechner(wl_auf_uwv, Main.wirtschaftsleistung, Main.umweltverschmutzung);
         }
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(mg_auf_uwv, Main.modernisierungsgrad, Main.umweltverschmutzung)){
             return;
-        } else { 
-            einflussRechner(mg_auf_uwv, Main.modernisierungsgrad, Main.umweltverschmutzung);
         }
         
         // 6. Umweltverschmutzung (Rückkopplung)
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(uwv_auf_uwv, Main.umweltverschmutzung, Main.umweltverschmutzung)){
             return;
-        } else { 
-            einflussRechner(uwv_auf_uwv, Main.umweltverschmutzung, Main.umweltverschmutzung);
         }
         
         // 7. Lebensqualität
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(bl_auf_lq, Main.bildung, Main.lebensqualität)){
             return;
-        } else { 
-            einflussRechner(bl_auf_lq, Main.bildung, Main.lebensqualität);
         }
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(uwv_auf_lq, Main.umweltverschmutzung, Main.lebensqualität)){
             return;
-        } else { 
-            einflussRechner(uwv_auf_lq, Main.umweltverschmutzung, Main.lebensqualität);
         }
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(bg_auf_lq, Main.bevölkerungsgröße, Main.lebensqualität)){
             return;
-        } else { 
-            einflussRechner(bg_auf_lq, Main.bevölkerungsgröße, Main.lebensqualität);
         }
         
         // 8. Lebensqualität (Rückkopplung)
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(lq_auf_lq, Main.lebensqualität, Main.lebensqualität)){
             return;
-        } else { 
-            einflussRechner(lq_auf_lq, Main.lebensqualität, Main.lebensqualität);
         }
         
         // 9. Bevölkerungswachstum
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
-            return;
-        } else { 
-            einflussRechner(bl_auf_bw, Main.bildung, Main.bevölkerungswachstum);   
+        if(!einflussRechner(bl_auf_bw, Main.bildung, Main.bevölkerungswachstum)){
+            return;  
         }
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(lq_auf_bw, Main.lebensqualität, Main.bevölkerungswachstum)){
             return;
-        } else { 
-            einflussRechner(lq_auf_bw, Main.lebensqualität, Main.bevölkerungswachstum);     
         }
         
         // 10. Bevölkerungswachstumsfaktor
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(bg_auf_bwf, Main.bevölkerungsgröße, Main.bevölkerungswachstumsfaktor)){
             return;
-        } else { 
-            einflussRechner(bg_auf_bwf, Main.bevölkerungsgröße, Main.bevölkerungswachstumsfaktor);
         }
         
         // 11. Bevölkerungsgröße
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(bw_auf_bg, Main.bevölkerungswachstum, Main.bevölkerungsgröße)){
             return;
-        } else { 
-            einflussRechner(bw_auf_bg, Main.bevölkerungswachstum, Main.bevölkerungsgröße);
         }
                 
         // 12. Bevölkerungsgröße (Rückkopplung)
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(bg_auf_bwf, Main.bevölkerungsgröße, Main.bevölkerungswachstumsfaktor)){
             return;
-        } else { 
-            einflussRechner(bg_auf_bwf, Main.bevölkerungsgröße, Main.bevölkerungswachstumsfaktor);
         }
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(bw_auf_bg, Main.bevölkerungswachstum, Main.bevölkerungsgröße)){
             return;
-        } else { 
-            einflussRechner(bw_auf_bg, Main.bevölkerungswachstum, Main.bevölkerungsgröße);
         }
         
         // 13. Politische Stabilität
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(lq_auf_ps, Main.lebensqualität, Main.politische_stabilität)){
             return;
-        } else { 
-            einflussRechner(lq_auf_ps, Main.lebensqualität, Main.politische_stabilität);
         }
         
         // 14. Staatsvermögen
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
-            return;
-        } else { 
-            einflussRechner(lq_auf_sv, Main.lebensqualität, Main.staatsvermögen); 
+        if(!einflussRechner(lq_auf_sv, Main.lebensqualität, Main.staatsvermögen)){
+            return; 
         }
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(wl_auf_sv, Main.wirtschaftsleistung, Main.staatsvermögen)){
             return;
-        } else { 
-            einflussRechner(wl_auf_sv, Main.wirtschaftsleistung, Main.staatsvermögen);
         }
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
+        if(!einflussRechner(ps_auf_sv, Main.politische_stabilität, Main.staatsvermögen)){
             return;
-        } else { 
-            einflussRechner(ps_auf_sv, Main.politische_stabilität, Main.staatsvermögen);
         }
-        if(Main.gui.getSpielstand() == "GAMEOVER") {
-            return;
-        } else { 
-            einflussRechner(bg_auf_sv, Main.bevölkerungsgröße, Main.staatsvermögen);        
+        if(!einflussRechner(bg_auf_sv, Main.bevölkerungsgröße, Main.staatsvermögen)){
+            return;        
         }
     }
     
@@ -266,12 +227,13 @@ public class Logik
         int sv = Main.staatsvermögen.getWert();
         
         System.out.println("\nSpeichert Simulationserfolg für Runde " + aktuelleRunde + " ...");
+        //#TODO: Wird das wirklich gespeichert? wenn ja: where the f*** is it?
         
-        int berechnung = 3 * lq + ps + sv; //Formel zur Berechnung vom Simulationserfolg
+        int simulationserfolg = 3 * lq + ps + sv;
         
-        System.out.println("Simulationserfolg: " + berechnung + "\n");
+        System.out.println("Simulationserfolg: " + simulationserfolg + "\n");
         
-        return berechnung; //Gibt errechneten Wert zurück
+        return simulationserfolg;
     }
     
     public void speichernRundenwerte(int runde) 

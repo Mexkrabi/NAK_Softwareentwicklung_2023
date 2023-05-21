@@ -7,7 +7,7 @@ import java.nio.file.*;
  * Diese Klasse enthält den Code für das Einlesen der externen .sim Dateien.
  * Die Dateien beinhalten Anfangswerte für das Spiel.
  * 
- * @author Sven Vazquez de Lara Kallas
+ * @author Sven Vazquez de Lara Kallas & Livia Kadenbach
  * @version 0.2
  */
 public class DateiLeser 
@@ -130,11 +130,10 @@ public class DateiLeser
         Set<String> dateien = new HashSet<String>();
         
         for (File file : new File(dieserOrdner).listFiles()){
-            if (!file.isDirectory() && file.getName().endsWith(".sim")){ //prüft dass es kein ordner ist und der Dateityp eine .sim Datei ist
-                dateien.add(file.getName().substring(0,file.getName().length()-4));//packt den Dateinamen ohne die Endung .sim in die Liste
+            if (!file.isDirectory() && file.getName().endsWith(".sim")){ //prüft dass es kein ordner ist und der dateityp eine .sim Datei ist
+                dateien.add(file.getName().substring(0,file.getName().length()-4));//packt den Dateinamen ohne die Endung .sim in die Menge
             }
         }
-        
         return dateien;
     }
     
