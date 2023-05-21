@@ -241,12 +241,7 @@ public class Main
         
         
         //#AUSGABE IN .res DATEI
-        //Zeitstempel
-        LocalDateTime zeitJetzt = LocalDateTime.now(); // Aktuellen Zeitstempel abrufen
-        DateTimeFormatter formatierer = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"); // Format für den Zeitstempel festlegen
-        String zeitstempel = zeitJetzt.format(formatierer); // Zeitstempel in das gewünschte Format konvertieren
-        
-        String dateiName = logik.spielername + "-Ergebnis_" + zeitstempel + ".res"; // Dateinamen erstellen
+        String dateiName = logik.spielername + "-Ergebnis_" + zeitstempel() + ".res"; // Dateinamen erstellen
         String dateipfad = System.getProperty("user.dir") + "/res-Dateien"; //Dateipfad des res-Dateien Ordners auslesen
         
         //#Schreiben:
@@ -480,6 +475,23 @@ public class Main
      * vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
      */
 
+    /**
+     * Ruft den jetztigen Zeitpunkt auf und gibt diesen als Zeitstempel String zurück.
+     * 
+     * Quelle zur Dokumentation: 
+     * https://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html
+     * 
+     * @return Gibt Zeitstempel in der Form "yyyyMMdd_HHmmss" als String zurück
+     */
+    public static String zeitstempel() 
+    {
+        //Zeitstempel erzeugen
+        LocalDateTime zeitJetzt = LocalDateTime.now(); // Aktuelle Zeit abrufen
+        DateTimeFormatter form = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"); // Format für den Zeitstempel festlegen
+        String zeitstempel = zeitJetzt.format(form); // Zeitstempel in das gewünschte Format konvertieren
+        return zeitstempel;
+    }
+    
     /**
      * Ersetzt Umlaute und vordefinierte Sonderzeivhen in "�" für das Einlesen von Dateien, die keine Sonderzeichen unterstützen.
      * 
