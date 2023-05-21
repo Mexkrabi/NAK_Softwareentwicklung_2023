@@ -78,6 +78,7 @@ public class Sektor
     /**
      * Prüfung des eingegebenen Werts mit min und max dieses Sektors.
      * 
+     * @param eingabe Wert, welcher geprüft werden soll
      * @return TRUE: Im Wertebereich, FALSE: Nicht im Wertebereich --> Weiterverwendung in Abbruchsbedingung
      */
     public boolean prüfeObImWertebereich(int eingabe)

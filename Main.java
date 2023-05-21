@@ -84,10 +84,10 @@ public class Main
         
         //# SCHRITT 0 ------------------------------
         
-        dateiLeser = new DateiLeser();
-        gui = new GUI();
+        dateiLeser = new DateiLeser(); //DateiLeser erzeugt
+        gui = new GUI(); //GUI generiert
         
-        gui.setSpielstand("START");
+        gui.setSpielstand("START"); //Spiel bereit zum starten
         gui.spielstandänderung();
         warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
         
@@ -114,8 +114,8 @@ public class Main
         //gui.spielstandänderung();
         
         warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
-        warteSolangeNoch("SPIELERNAME");
-        warteSolangeNoch("AUSWAHL"); //Warte, bis Auswahl der .sim Datei in der GUI getätigt
+        warteSolangeNoch("SPIELERNAME"); //warten, bis Spielername eingefügt wurde
+        warteSolangeNoch("AUSWAHL"); //warten, bis Auswahl der .sim Datei in der GUI getätigt
         pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
         
         //Datei wird eingelesen nach folgenden Daten:
@@ -190,7 +190,7 @@ public class Main
             Bildung = 2
             Staatsvermögen = 8
             +++ Simulationsablauf +++
-            Rundenzahl = 10�
+            Rundenzahl = 10
         */
         //#LOOP ÜBER DIE RUNDENANZAHL
         while (logik.aktuelleRunde <= logik.rundenzahl) {
@@ -496,7 +496,6 @@ public class Main
         }
     }
 
-    
     /**
      * Methode erzeugt einen int Array. Einfach den kleinsten und größten Wert eingeber.
      * Der Rest wird immer +1 hinzugefügt.
@@ -517,7 +516,6 @@ public class Main
         return array; // Gib das fertige Array zurück
     }
 
-    
     /**
      * Wandelt einen String zu einem Integer um
      * 

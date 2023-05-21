@@ -68,7 +68,7 @@ public class Logik
      * @param einflussHash HashMap, aus welcher der Wert eingelesen werden soll.
      * @param sektorVON Sektor, von welchem die Änderung ausgeht (erste Stelle im Hash-Namen, bzw. Key)
      * @param sektorNACH Sektor, dessen Wert geändert werden soll (zweite Stelle im Hash-Namen, bzw. Wert)
-     * @return FALSE falls verloren, TRUE falls weiterspielen
+     * @return TRUE: Continue, FALSE: Game Over
      */
     public boolean einflussRechner(HashMap<Integer, Integer> einflussHash, Sektor sektorVON, Sektor sektorNACH) 
     {
@@ -319,7 +319,7 @@ public class Logik
     }
     
     /**
-     * Methode erzeugt alle vordefinierten Einflusswerte aus der Excel-Tabelle (nur im Code veränderbar).
+     * Methode erzeugt alle vordefinierten Einflusswerte aus der Excel-Tabelle (Kein Dateizugriff, nur im Code veränderbar).
      * Daraufhin werden die Beziehungs-HashMaps erzeugt und befüllt.
      */
     public void einflussWerteErzeugen() 
