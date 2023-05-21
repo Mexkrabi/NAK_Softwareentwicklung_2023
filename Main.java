@@ -18,12 +18,11 @@ public class Main
     public static String pfadStartwerte; //Speichert Dateipfad der .sim
     public static boolean boolNeustarten; //wenn wahr, wird das Spiel neugestartet
     
-    public static DateiLeser dateiLeser; //DateiLeser --> Zugriff von allen Klassen möglich
+    public static DateiLeser dateiLeser; //Zentraler DateiLeser --> Zugriff von allen Klassen möglich
     public static GUI gui; //Globaler GUI-Handler
     public static Logik logik; //Globaler Logik-Handler
     
     //Alle Sektoren hier als static Variablen
-    //# evtl. in ArrayList packen vvvvvvvv
     public static Sektor bevölkerungsgröße;
     public static Sektor bevölkerungswachstum;
     public static Sektor wirtschaftsleistung;
@@ -36,9 +35,12 @@ public class Main
     public static Sektor bevölkerungswachstumsfaktor;
     public static Sektor versorgungslage;
     
-    
     /**
-     * Main Funktion
+     * Main Funktion. Hier wird das Zusammenspiel der einzelnen Klassen und Objekte koordiniert und zentral geregelt.
+     * Der Ablauf der einzelnen Aktionen wird hier definiert und ausgeführt.
+     * Unterteilung in merhreren Schritten (vgl. Kommentare in dieser Funktion)
+     * 
+     * @param args LEERE EINGABE
      */
     public static void main(String[] args) {
         
@@ -70,7 +72,7 @@ public class Main
          *   
          * 4) Ende
          *   -> speichern der Zwischenwerte/Simulationserfolge in .res Datei
-         *   -> Graph einblenden
+         *   -> (evtl. Graph einblenden)
          *   -> (evtl. Highscore anzeigen)
          *   -> Neues Spiel starten (reset aller Werte, Möglichkeit einlesen neuer Datei)
          *
@@ -88,12 +90,13 @@ public class Main
         gui.setSpielstand("START");
         gui.spielstandänderung();
         warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
-        //# Ab hier alles in der Methode spielAblauf() ausgelagert [Schritt 1 - 4]
         
-        
+        //# Ab hier alles in der Methode spielAblauf() ausgelagert [Schritt 1 - 4]        
         //do{
             //Main.boolNeustarten = false;
+            
             spielAblauf();
+            
         //} while(warteBis(boolNeustarten));
         
     }
@@ -174,7 +177,7 @@ public class Main
         }
         
         //#SEKTOREN ERZEUGEN
-        sektorenErzeugen();
+        alleSektorenErzeugen(); //Methode erzeugt alle Sektoren inkl. zugehörigen Startwert
         /*
              +++ Ausgangslage +++
             Bevölkerungsgröße = 32
@@ -296,10 +299,10 @@ public class Main
         //# Ende der main()
     }
     
-    /* Erzeugt Sektoren und Ausgangslage
-     * 
+    /**
+     * Methode erzeugt Sektoren inkl. zugehörigen Startwert aus der startwerteHash, welche zuvor aus den Inhalten der .sim Datei erzeugt wurde.
      */
-    private static void sektorenErzeugen(){
+    private static void alleSektorenErzeugen(){
         /* To Do für jeden Sektor: (9x bzw. 11x)
          * -> Name              String
          * -> min               int
@@ -399,20 +402,19 @@ public class Main
 
         //Bevölkerungswachstumsfaktor
         //erzeugeSektor("Bevölkerungswachstumsfaktor", 1, 3);
-        //# Hinzufügen von Berechnung des Startwerts (wo "0" bisher steht)
-        //# !!
         bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3, 0/*Phantom-Startwert*/); //min max aus Angabe Tabelle (HA-Dokument)
         logik.einflussRechner(logik.bg_auf_bwf, bevölkerungsgröße, bevölkerungswachstumsfaktor); //richtiger Startwert hier berechnet
         
         //Versorgungslage
         //erzeugeSektor("Versorgungslage", 1, 30);
-        //# Hinzufügen von Berechnung des Startwerts (wo "0" bisher steht)
-        //# !!
         versorgungslage = new Sektor("Versorgungslage", -4, 1, 0/*Phantom-Startwert*/); //min max aus Angabe Tabelle (HA-Dokument)
         logik.einflussRechner(logik.wl_auf_vl, wirtschaftsleistung, versorgungslage); //richtiger Startwert hier berechnet
     }
     
-    
+    //#TODO @Livia
+    /**
+     * 
+     */
     private static void schreibeInDatei(Sektor sektor, BufferedWriter writer) {
             try {
                 writer.newLine();
@@ -432,7 +434,9 @@ public class Main
      * Methode mit try-catch Block, um Sektoren anahnd von eingelesenem Startwert zu erzeugen.
      * Falls kein Startwert vorhanden/gefunden, wird ein Standardwert eingefügt.
      * 
-     * @param
+     * @param name Sektor-Name
+     * @param min Kleinst-möglicher Wert
+     * @param max Größt-möglicher Wert
      */
     private static void erzeugeSektor(String name, int min, int max) 
     {
@@ -446,7 +450,9 @@ public class Main
     }
     
     /**
-     * Liest Startwerte aus der vorher ausgewählten Datei ein und fürg sie zur startWerte HashMap hinzu.
+     * Liest Startwerte aus der vorher ausgewählten Datei ein und fügt sie zur startWerte HashMap hinzu.
+     * 
+     * @param input Nach diesem Namen wird in der Datei gesucht, der zugehörige Zahlenwert ausgelesen und gespeichert.
      */
     private static void leseStartwerteFür(String input) 
     {
@@ -467,6 +473,9 @@ public class Main
 
     /**
      * Ersetzt Umlaute und vordefinierte Sonderzeivhen in "�" für das Einlesen von Dateien, die keine Sonderzeichen unterstützen.
+     * 
+     * @param text Zu ersetzender Text
+     * @return Gibt eingegebenen Text zurück, mit "�" anstelle von Sonderzeichen. Ansonsten bleibt der Text gleich.
      */
     public static String ersetzeSonderzeichen(String text) 
     {
@@ -494,6 +503,7 @@ public class Main
      * 
      * @param start kleinster Wert des Arrays
      * @param ende größter Wert des Arrays
+     * @return Gibt fertigen int[] Array zurück
      */
     public int[] erzeugeArray(int start, int ende) {
         
@@ -512,6 +522,7 @@ public class Main
      * Wandelt einen String zu einem Integer um
      * 
      * @param str Der String, der zu einem Integer umgewandelt werden soll
+     * @return Nur die Zahlen aus dem eingegebenen String
      */
     public static Integer alsInteger(String str) throws Exception 
     {
@@ -527,15 +538,17 @@ public class Main
         }
         catch (NumberFormatException ex){
             ex.printStackTrace();
-            throw new Exception("! Umwandlung von '" + str + "' war nicht erfolgreich"); //Custom Fehlermeldung auswerfen
+            throw new Exception("! Umwandlung von '" + str + "' war nicht erfolgreich - Der String enthält keine Zahlen !"); //Custom Fehlermeldung auswerfen
         }
         
     }
     
+    //#TODO: Quelle für Clock einfügen
     /**
      * while-Schleife, die solange wartet bis die Variable "spielstand" vom mitgegebenem Wert abweicht
      * 
-     * @param woraufGewartetWird Wert, der den Code anhält, bis dieser sich ändert
+     * @param woraufGewartetWird Wert, der den Code anhält, solange dieser Spielstand noch bestehen bleibt
+     * @return TRUE, sobald Warten beendet.
      */
     public static boolean warteSolangeNoch(String woraufGewartetWird) 
     {
@@ -543,7 +556,6 @@ public class Main
         {
             try {
                 // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
-                //# evtl. Überprüfen!
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -552,13 +564,19 @@ public class Main
         return true;
     }
     
+    //#TODO: Quelle für Clock einfügen
+    /**
+     * while-Schleife, die solange wartet bis die Variable "spielstand" dem mitgegebenem Wert entspricht
+     * 
+     * @param woraufGewartetWird Wert, der den Code anhält, bis dieser Spielstand erreicht wird
+     * @return TRUE, sobald Warten beendet.
+     */
     public static boolean warteBis(String woraufGewartetWird) 
     {
         while(gui.getSpielstand() != woraufGewartetWird)
         {
             try {
                 // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
-                //# evtl. Überprüfen!
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -567,13 +585,19 @@ public class Main
         return true;
     }
     
+    //#TODO: Quelle für Clock einfügen
+    /**
+     * while-Schleife, die solange wartet bis eine beliebige boolean Variable auf TRUE gesetzt wird.
+     * 
+     * @param woraufGewartetWird boolean Wert, der den Code anhält, bis dieser auf TRUE gesetzt wird.
+     * @return TRUE, sobald Warten beendet.
+     */
         public static boolean warteBis(boolean woraufGewartetWird) 
     {
         while(woraufGewartetWird == true)
         {
             try {
                 // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
-                //# evtl. Überprüfen!
                 Thread.sleep(100);
             } catch (InterruptedException e) {
                 e.printStackTrace();
@@ -594,6 +618,10 @@ public class Main
         return sc.next();
     }
     
+    //#TODO @Malte: Description und Quelle
+    /**
+     * 
+     */
     private static String hashMapToString(Map<String, Integer> hashMap) {
         StringBuilder sb = new StringBuilder();
 
@@ -605,6 +633,5 @@ public class Main
         }
 
         return sb.toString();
-    
     }
 }
