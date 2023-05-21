@@ -748,6 +748,7 @@ public class GUI extends JFrame implements ActionListener {
                 // Eingabe enthält ungültige Zeichen
                 System.out.println("Ungültige Zeichen in der Eingabe.");
                 JOptionPane.showMessageDialog(null, "Bitte geben Sie einen Namen ohne Sonderzeichen ein");
+                txtName.setText("");
                 // Hier kannst du eine Fehlermeldung anzeigen oder weitere Aktionen ausführen
             } else {
                 // Eingabe ist gültig
