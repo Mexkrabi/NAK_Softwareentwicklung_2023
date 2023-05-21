@@ -747,6 +747,7 @@ public class GUI extends JFrame implements ActionListener {
             if (eingabe.matches(".*[\\\\/:*?\"<>|].*")) {
                 // Eingabe enthält ungültige Zeichen
                 System.out.println("Ungültige Zeichen in der Eingabe.");
+                JOptionPane.showMessageDialog(null, "Bitte geben Sie einen Namen ohne Sonderzeichen ein");
                 // Hier kannst du eine Fehlermeldung anzeigen oder weitere Aktionen ausführen
             } else {
                 // Eingabe ist gültig
