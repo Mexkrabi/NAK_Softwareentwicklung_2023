@@ -144,9 +144,6 @@ public class GUI extends JFrame implements ActionListener {
         btNamenbestätigen = new JButton("Eingabe bestätigen");
         txtName = new JTextField();
         
-        //Font currentFont = txtName.getFont();
-        //Font newFont = currentFont.deriveFont(currentFont.getSize() + 2f); // Hier kannst du die gewünschte Schriftgröße anpassen   
-        //txtName.setFont(newFont);
             
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btNamenbestätigen.addActionListener(this);
@@ -751,11 +748,13 @@ public class GUI extends JFrame implements ActionListener {
                 txtName.setText("");
                 // Hier kannst du eine Fehlermeldung anzeigen oder weitere Aktionen ausführen
             } else {
-                // Eingabe ist gültig
+                // Wenn die Eingabe gültig ist:
                 System.out.println("Eingabe gültig: " + eingabe);
-                
+                // ausblenden des Aktiven panel
                 Main.logik.spielername = eingabe;
                 namenEintragen.setVisible(false);
+                
+                //Spielstand wird auf Auswahl gestzt
                 setSpielstand("AUSWAHL");
                 spielstandänderung();
             }
