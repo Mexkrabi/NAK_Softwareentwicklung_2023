@@ -1,5 +1,7 @@
 import java.util.*;
 import java.io.*;
+import java.time.*;
+import java.time.format.DateTimeFormatter;
 
 /**
  * Die Klasse Main.
@@ -239,8 +241,15 @@ public class Main
         
         
         //#AUSGABE IN .res DATEI
-        String dateiName = logik.spielername + "-Ergebnis.res";
-        String dateipfad = System.getProperty("user.dir") + "/res-Dateien";
+        //Zeitstempel
+        LocalDateTime zeitJetzt = LocalDateTime.now(); // Aktuellen Zeitstempel abrufen
+        DateTimeFormatter formatierer = DateTimeFormatter.ofPattern("yyyyMMdd_HHmmss"); // Format für den Zeitstempel festlegen
+        String zeitstempel = zeitJetzt.format(formatierer); // Zeitstempel in das gewünschte Format konvertieren
+        
+        String dateiName = logik.spielername + "-Ergebnis_" + zeitstempel + ".res"; // Dateinamen erstellen
+        String dateipfad = System.getProperty("user.dir") + "/res-Dateien"; //Dateipfad des res-Dateien Ordners auslesen
+        
+        //#Schreiben:
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dateipfad + "/" + dateiName))) {
             // Konvertiere den Hash zu einem Textformat und schreibe in die Datei
             
