@@ -10,15 +10,11 @@ import java.util.HashMap;
  */
 public class Sektor
 {
-    
-    //# To Do: Getter und Setter für 'name', 'wertebereich' und 'wert' hinzufügen
-    // instance variables - replace the example below with your own
-    //private int[] wertebereich; //Akzeptierte Werte laut Aufgabenstellung
-    //private String wird_beeinflusst_von; //Sektor, der Einfluss auf diese Kenngröße hat
-    //private String beeinflusst;
     private int wert; //Aktueller Wert 
     private final String name; //Bezeichnung des Sektors
     private final int min, max; //Minimum und Maximum definieren Wertebereich des Sektors
+    
+    private final int standardStartwert = 10; // <<< Standard-Startwert HIER VERÄNDERN, falls kein Anderer Wert vorgegeben.
     
     public HashMap<Integer, Integer> werte; //Speichert nach und nach die Werte nach jeder Runde ein
     
@@ -35,7 +31,7 @@ public class Sektor
         Bildung = 2
         Staatsvermögen = 8
         +++ Simulationsablauf +++
-        Rundenzahl = 10�
+        Rundenzahl = 10
     */
     /**
      * Constructor for objects of class Sektor
@@ -45,14 +41,13 @@ public class Sektor
      * @param max Größter Wert des Sektors
      * @param startwert Definiere den Startwert des Sektors 
      */
-    public Sektor(String name, int min, int max, int startwert /*,int[] wertebereich*/)
+    public Sektor(String name, int min, int max, int startwert)
     {
         this.name = name;
         this.min = min;
         this.max = max;
         this.wert = startwert;
         werte = new HashMap<>();
-        //this.wertebereich = wertebereich; //Array mit allen möglichen Werten für den Sektor 
         System.out.println("---");
         System.out.println("Neuer Sektor '" + name + "' erzeugt");
         System.out.println("Wertebereich: " + min + " bis " + max);
@@ -60,7 +55,7 @@ public class Sektor
     }
     
     /**
-     * Alternativ-Konstruktor, falls kein Startwert eingegeben wurde. Standardwert dann = 10
+     * Alternativ-Konstruktor, falls kein Startwert eingegeben wurde. Standardwert dann = standardStartwert. Siehe Instanzvariablen
      * 
      * @param name Name des Sektors
      * @param min Kleinster Wert des Sektors
@@ -72,15 +67,19 @@ public class Sektor
         this.name = name;
         this.min = min;
         this.max = max;
-        this.wert = 10;
+        this.wert = standardStartwert;
         werte = new HashMap<>();
-        //this.wertebereich = wertebereich; //Array mit allen möglichen Werten für den Sektor 
         System.out.println("---");
         System.out.println("Neuer Sektor '" + name + "' erzeugt");
         System.out.println("Wertebereich: " + min + " bis " + max);
         System.out.println("Startwert: " + this.wert);
     }
     
+    /**
+     * Prüfung des eingegebenen Werts mit min und max dieses Sektors.
+     * 
+     * @return TRUE: Im Wertebereich, FALSE: Nicht im Wertebereich --> Weiterverwendung in Abbruchsbedingung
+     */
     public boolean prüfeObImWertebereich(int eingabe)
     {
         System.out.printf("Prüfe ob " + eingabe + " im Wertebereich ... ");
@@ -93,6 +92,9 @@ public class Sektor
         }
     }
     
+    /**
+     * Ruft aktuellen Wert auf und speichert es in der werte HashMap.
+     */
     public void aktuellenWertSpeichern() 
     {
         //Speicher aktuellen Wert in Hashmap
