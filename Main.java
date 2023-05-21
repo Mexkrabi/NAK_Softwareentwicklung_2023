@@ -19,6 +19,7 @@ public class Main
     //public static String spielstand; //wird stattdessen in der GUI gespeichert
     public static String pfadStartwerte; //Speichert Dateipfad der .sim
     public static boolean boolNeustarten; //wenn wahr, wird das Spiel neugestartet
+    public static boolean fehlerBeimErzeugenEinesSektors = false; //wird wahr, falls beim erzeugen eines Sektors versucht wird, einen ungültigen Wert einzusetzen.
     
     public static DateiLeser dateiLeser; //Zentraler DateiLeser --> Zugriff von allen Klassen möglich
     public static GUI gui; //Globaler GUI-Handler
@@ -184,6 +185,12 @@ public class Main
         
         //#SEKTOREN ERZEUGEN
         alleSektorenErzeugen(); //Methode erzeugt alle Sektoren inkl. zugehörigen Startwert
+        
+        if(fehlerBeimErzeugenEinesSektors) { //Ausgabe einer GUI-Fehlermeldung, falls es einen falschen Wert gab.
+            gui.popUpAusgeben("Einige Angaben aus der ausgewählten Datei sind fehlerhaft oder wurden nicht erkannt. "
+                                + "Die betroffenen Sektoren wurden mit dem Standardwert " 
+                                + Sektor.standardStartwert + " erzeugt.");
+        }
 
         //#LOOP ÜBER DIE RUNDENANZAHL
         while (logik.aktuelleRunde <= logik.rundenzahl) {

@@ -14,7 +14,7 @@ public class Sektor
     private final String name; //Bezeichnung des Sektors
     private final int min, max; //Minimum und Maximum definieren Wertebereich des Sektors
     
-    private final int standardStartwert = 1; // <<< Standard-Startwert HIER VERÄNDERN, falls kein Anderer Wert vorgegeben.
+    public static final int standardStartwert = 1; // <<< Standard-Startwert HIER VERÄNDERN, falls kein Anderer Wert vorgegeben.
     
     public HashMap<Integer, Integer> werte; //Speichert nach und nach die Werte nach jeder Runde ein
     
@@ -51,6 +51,7 @@ public class Sektor
         } else {
             System.out.println("Ausgelesener Startwert ungültig! Standard-Startwert wird stattdessen eingefügt.");
             this.wert = standardStartwert;
+            Main.fehlerBeimErzeugenEinesSektors = true;
             throw new Exception("Ausgelesener Startwert für '" + this.name + "' ungültig! Standard-Startwert wird stattdessen eingefügt.");
         }
         werte = new HashMap<>();
