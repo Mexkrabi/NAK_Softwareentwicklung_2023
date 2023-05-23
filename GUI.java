@@ -884,7 +884,7 @@ public class GUI extends JFrame implements ActionListener {
                 graphausgabe();
             }else{
                 lastActivePanel.setVisible(false);
-                victory();
+                graphausgabe();
             }
         }   else if (e.getSource() == cbAuswahl) {
             lblVerlauf.setText("Anzeigen von " + cbAuswahl.getSelectedItem());
