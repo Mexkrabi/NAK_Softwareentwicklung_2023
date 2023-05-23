@@ -892,7 +892,9 @@ public class GUI extends JFrame implements ActionListener {
         }   else if (e.getSource() == cbAuswahl) {
             lblVerlauf.setText("Anzeigen von " + cbAuswahl.getSelectedItem());
             String str = cbAuswahl.getSelectedItem().toString();
-            tabellenPanel.removeAll();
+            try {
+                tabellenPanel.removeAll();
+            } catch (NullPointerException ex) {}
             switch (str) {
                 case "Bildung":
                     erzeugeTabelle(Main.bildung.werte);
