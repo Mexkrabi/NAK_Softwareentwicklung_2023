@@ -510,6 +510,7 @@ public class GUI extends JFrame implements ActionListener {
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btHauptmenü.addActionListener(this);
         btEnde.addActionListener(this);
+        btVerlauf.addActionListener(this);
 
         fenster.add(gameover);
 
