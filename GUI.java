@@ -882,6 +882,9 @@ public class GUI extends JFrame implements ActionListener {
             if (lastActivePanel == victory) {
                 lastActivePanel.setVisible(false);
                 graphausgabe();
+            }else if(lastActivePanel == gameover){
+                lastActivePanel.setVisible(false);
+                graphausgabe();
             }else{
                 lastActivePanel.setVisible(false);
                 graphausgabe();
