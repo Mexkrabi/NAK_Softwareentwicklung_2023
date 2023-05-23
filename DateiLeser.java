@@ -7,7 +7,7 @@ import java.nio.file.*;
  * Diese Klasse enthält den Code für das Einlesen der externen .sim Dateien.
  * Die Dateien beinhalten Anfangswerte für das Spiel.
  * 
- * @author Sven Vazquez de Lara Kallas, Livia Kadenbach
+ * @author Livia Kadenbach
  * @version 0.3
  */
 public class DateiLeser 

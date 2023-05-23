@@ -5,7 +5,7 @@ import java.util.*;
  * Hier wird die Spiellogik, die Berechnung der Einflussgrößen und die 
  * Abbruchsbedingungen überprüft und kontrolliert.
  *
- * @author Sven Vazquez de Lara Kallas, Livia Kadenbach
+ * @author Sven Vazquez de Lara Kallas
  * @version 0.2
  */
 public class Logik

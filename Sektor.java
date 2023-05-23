@@ -5,7 +5,7 @@ import java.util.HashMap;
  * Kenngrößen (hier Sektoren genannt) dar.
  * Ein Sektor ist z.B. "Bevölkerungswachstum", "Lebensqualität", "Staatsvermögen"
  *
- * @author Sven Vazquez de Lara Kallas
+ * @author Livia Kadenbach
  * @version 1.0
  */
 public class Sektor
