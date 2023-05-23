@@ -3,17 +3,6 @@ import java.io.*;
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
-import java.awt.Color;
-import java.util.HashMap;
-import java.util.Map;
-import javax.swing.JFrame;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.data.category.DefaultCategoryDataset;
-
-
 /**
  * Die Klasse Main.
  * The brain of the operation.
@@ -701,54 +690,5 @@ public class Main
         }
 
         return sb.toString();
-    }
-    
-    
-    
-    
-    
-    public static void tester(String[] args) {
-        Map<String, Integer> hashMap = new HashMap<>();
-        hashMap.put("Jan", 100);
-        hashMap.put("Feb", 200);
-        hashMap.put("Mar", 150);
-        hashMap.put("Apr", 300);
-        hashMap.put("May", 250);
-        hashMap.put("Jun", 400);
-
-        createLineChart(hashMap);
-    }
-
-    private static void createLineChart(Map<String, Integer> hashMap) {
-        // Create a dataset
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
-            String key = entry.getKey();
-            int value = entry.getValue();
-            dataset.addValue(value, "Values", key);
-        }
-
-        // Create the chart
-        JFreeChart chart = ChartFactory.createLineChart(
-            "Line Chart", // Chart title
-            "X-Axis", // X-axis label
-            "Y-Axis", // Y-axis label
-            dataset, // Dataset
-            PlotOrientation.VERTICAL, // Plot orientation
-            true, // Show legend
-            true, // Use tooltips
-            false // Generate URLs
-        );
-
-        // Customize the chart
-        chart.setBackgroundPaint(Color.WHITE);
-
-        // Create a chart panel and display it in a JFrame
-        ChartPanel chartPanel = new ChartPanel(chart);
-        JFrame frame = new JFrame("Line Chart");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.add(chartPanel);
-        frame.pack();
-        frame.setVisible(true);
     }
 }
