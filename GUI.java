@@ -1,4 +1,5 @@
 import javax.swing.*;
+import javax.swing.table.DefaultTableModel;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.Graphics;
@@ -18,7 +19,7 @@ public class GUI extends JFrame implements ActionListener {
     }
     // Instanzvariablen 
     private JFrame fenster;
-    private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen, gameover, victory, lastActivePanel, namenEintragen, graph;
+    private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen, gameover, victory, lastActivePanel, namenEintragen, graph, tabellenPanel;
     public JComboBox<String> cbDateien, cbAuswahl;
     private JProgressBar pbLeben, pbWirtschaftsleistung, pbModernisierungsgrad, pbBildung, pbPolitStab, pbUmwelt, pbVersorgung, pbBevökerungswachstum, pbBevökerungsgröße, Bevölkerungswachstumsfaktor;
     public String strSpielstand, strAuswahl;
@@ -31,8 +32,8 @@ public class GUI extends JFrame implements ActionListener {
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
     private JButton btVerlauf;
     private JTextField txtName;
-
-
+    
+    
     /**
      * Die Methode spielstandänderunglegt organisiert anhand einer Variablen den aktuellen Spielstand
      * Es wird je nach Spielstand eine Methode aufgerufen, welche den für den jeweiligen Spielstand die 
@@ -579,7 +580,7 @@ public class GUI extends JFrame implements ActionListener {
 
         graph = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
-        graph.setLayout(new GridLayout(3, 1, 50, 50));
+        graph.setLayout(new GridLayout(4, 1, 50, 50));
         
         lastActivePanel = graph;
         btVerlauf.setText("Zurück zu Übersicht");
@@ -599,9 +600,17 @@ public class GUI extends JFrame implements ActionListener {
         cbAuswahl.addItem("Bevölkerungswachstumsfaktor");
         cbAuswahl.addItem("Versorgungslage");
         
+<<<<<<< HEAD
+=======
+        cbAuswahl.addActionListener(this);
+        
+        tabellenPanel = new JPanel();
+        erzeugeTabelle(Main.logik.simulationsErfolg);
+>>>>>>> d06ffa5b52bc0cc75da84ac85ac71180dd156613
 
         fenster.add(graph);
         graph.add(lblVerlauf);
+        graph.add(tabellenPanel, 1);
         graph.add(cbAuswahl);
         graph.add(btVerlauf);
         
@@ -609,6 +618,7 @@ public class GUI extends JFrame implements ActionListener {
         fenster.setLocationRelativeTo(null);
 
         fenster.setVisible(true);
+        tabellenPanel.setVisible(true);
         graph.setVisible(true);
         System.out.println("Verlauf wird angezeigt");
 
@@ -624,6 +634,42 @@ public class GUI extends JFrame implements ActionListener {
         JOptionPane.showMessageDialog(null, text);
     }
 
+    /**
+     * 
+     */
+    public void erzeugeTabelle(HashMap<Integer, Integer> hashMap) {
+        //SwingUtilities.invokeLater(() -> 
+        //{
+            
+            //Tabelle aus HashMap erzeugen
+            JTable table = createJTableFromHashMap(hashMap);
+            
+            //Tabelle dem Panel hinzufügen
+            tabellenPanel.add(new JScrollPane(table));
+            graph.add(tabellenPanel);
+            tabellenPanel.setVisible(true);
+        //}
+        //);
+    }
+
+    /**
+     * 
+     */
+    public JTable createJTableFromHashMap(HashMap<Integer, Integer> hashMap) {
+        DefaultTableModel tableModel = new DefaultTableModel();
+        tableModel.addColumn("Schlüssel");
+        tableModel.addColumn("Wert");
+
+        for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
+            Integer key = entry.getKey();
+            Integer value = entry.getValue();
+            tableModel.addRow(new Object[]{key, value});
+        }
+
+        return new JTable(tableModel);
+    }
+    
+    
     //Getter & Setter
     public String getSpielstand() 
     {
@@ -841,6 +887,61 @@ public class GUI extends JFrame implements ActionListener {
             }
         }   else if (e.getSource() == cbAuswahl) {
             lblVerlauf.setText("Anzeigen von " + cbAuswahl.getSelectedItem());
+            String str = cbAuswahl.getSelectedItem().toString();
+            tabellenPanel.removeAll();
+            switch (str) {
+                case "Bildung":
+                    erzeugeTabelle(Main.bildung.werte);
+                    break;
+                
+                case "Lebensqualität":
+                    erzeugeTabelle(Main.lebensqualität.werte);
+                    break;
+                
+                case "Bevölkerungsgröße":
+                    erzeugeTabelle(Main.bevölkerungsgröße.werte);
+                    break;
+                    
+                case "Bevölkerungswachstum":
+                    erzeugeTabelle(Main.bevölkerungswachstum.werte);
+                    break;
+                
+                case "Bevölkerungswachstumsfaktor":
+                    erzeugeTabelle(Main.bevölkerungswachstumsfaktor.werte);
+                    break;
+                
+                case "Wirtschaftsleistung":
+                    erzeugeTabelle(Main.wirtschaftsleistung.werte);
+                    break;
+                
+                case "Modernisierungsgrad":
+                    erzeugeTabelle(Main.modernisierungsgrad.werte);
+                    break;
+                
+                case "Versorgungslage":
+                    erzeugeTabelle(Main.versorgungslage.werte);
+                    break;
+                
+                case "Staatsvermögen":
+                    erzeugeTabelle(Main.staatsvermögen.werte);
+                    break;
+                
+                case "Politische Stabilität":
+                    erzeugeTabelle(Main.politische_stabilität.werte);
+                    break;
+                
+                case "Umweltverschmutzung":
+                    erzeugeTabelle(Main.umweltverschmutzung.werte);
+                    break;
+                
+                case "Simulationserfolg":
+                    erzeugeTabelle(Main.logik.simulationsErfolg);
+                    break;
+            }
+            tabellenPanel.repaint();
+            graph.remove(tabellenPanel);
+            graph.add(tabellenPanel, 1);
+            tabellenPanel.setVisible(true);
         }
-}
+    }
 }
