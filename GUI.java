@@ -502,6 +502,7 @@ public class GUI extends JFrame implements ActionListener {
         JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider inerhalb Ihrer Amtszeit in eine Krise geführt ");
         lblGameover.setFont(lblGameover.getFont().deriveFont(Font.BOLD, 20));
         btHauptmenü = new JButton("Zurück zum Hauptmenü"); 
+        btVerlauf = new JButton("Verlauf der Werte Anzeigen");
 
         //btStart = new JButton (" Neues Spiel Starten");
         btEnde = new JButton("Spiel Beenden");
@@ -513,6 +514,7 @@ public class GUI extends JFrame implements ActionListener {
         fenster.add(gameover);
 
         gameover.add(lblGameover);
+        gameover.add(btVerlauf);
         gameover.add(btHauptmenü);
         gameover.add(btEnde);
 
