@@ -585,7 +585,8 @@ public class GUI extends JFrame implements ActionListener {
         btVerlauf.setText("Zurück zu Übersicht");
         lblVerlauf= new JLabel("Anzeige des Verlaufs des Auswahl");
         cbAuswahl = new JComboBox<String>();
-
+        
+        cbAuswahl.addActionListener(this);
 
         //Fügt Werte in die ComboBox
         cbAuswahl.addItem("Bildung");
@@ -598,7 +599,6 @@ public class GUI extends JFrame implements ActionListener {
         cbAuswahl.addItem("Bevölkerungswachstumsfaktor");
         cbAuswahl.addItem("Versorgungslage");
         
-        cbAuswahl.addActionListener(this);
 
         fenster.add(graph);
         graph.add(lblVerlauf);
