@@ -606,7 +606,7 @@ public class GUI extends JFrame implements ActionListener {
 
         fenster.add(graph);
         graph.add(lblVerlauf);
-        graph.add(tabellenPanel);
+        graph.add(tabellenPanel, 1);
         graph.add(cbAuswahl);
         graph.add(btVerlauf);
         
@@ -935,6 +935,9 @@ public class GUI extends JFrame implements ActionListener {
                     break;
             }
             tabellenPanel.repaint();
+            graph.remove(tabellenPanel);
+            graph.add(tabellenPanel, 1);
+            tabellenPanel.setVisible(true);
         }
     }
 }
