@@ -43,6 +43,8 @@ public class Main
      * Der Ablauf der einzelnen Aktionen wird hier definiert und ausgeführt.
      * Unterteilung in merhreren Schritten (vgl. Kommentare in dieser Funktion)
      * 
+     * [Sven Vazquez de Lara Kallas]
+     * 
      * @param args LEERE EINGABE
      */
     public static void main(String[] args) {
@@ -107,6 +109,8 @@ public class Main
     /**
      * Enthält den gesamten Spielablauf in einer Funktion, um das Spiel erneut starten zu können.
      * Wird erstmalig in der main() aufgerufen. Im Falle einer neuen Runde wird es in der GUI beim drücken des Startknopfes aufgerufen.
+     * 
+     * [Sven Vazquez de Lara Kallas]
      */
     public static void spielAblauf()
     {
@@ -299,6 +303,8 @@ public class Main
     
     /**
      * Methode erzeugt Sektoren inkl. zugehörigen Startwert aus der startwerteHash, welche zuvor aus den Inhalten der .sim Datei erzeugt wurde.
+     * 
+     * [Sven Vazquez de Lara Kallas]
      */
     private static void alleSektorenErzeugen(){
         /* To Do für jeden Sektor: (9x bzw. 11x)
@@ -411,7 +417,11 @@ public class Main
     
     //#TODO @Livia
     /**
+     * BESCHREIBUNG
      * 
+     * [Livia Kadenbach]
+     * 
+     * @param ...
      */
     private static void schreibeInDatei(Sektor sektor, BufferedWriter writer) {
             try {
@@ -432,6 +442,8 @@ public class Main
      * Methode mit try-catch Block, um Sektoren anahnd von eingelesenem Startwert zu erzeugen.
      * Falls kein Startwert vorhanden/gefunden, wird ein Standardwert eingefügt.
      * 
+     * [Sven Vazquez de Lara Kallas]
+     * 
      * @param name Sektor-Name
      * @param min Kleinst-möglicher Wert
      * @param max Größt-möglicher Wert
@@ -449,6 +461,8 @@ public class Main
     
     /**
      * Liest Startwerte aus der vorher ausgewählten Datei ein und fügt sie zur startWerte HashMap hinzu.
+     * 
+     * [Sven Vazquez de Lara Kallas]
      * 
      * @param input Nach diesem Namen wird in der Datei gesucht, der zugehörige Zahlenwert ausgelesen und gespeichert.
      */
@@ -472,6 +486,8 @@ public class Main
     /**
      * Ruft den jetztigen Zeitpunkt auf und gibt diesen als Zeitstempel String zurück.
      * 
+     * [Sven Vazquez de Lara Kallas]
+     * 
      * Quelle zur Dokumentation: 
      * https://docs.oracle.com/javase/8/docs/api/java/time/package-summary.html
      * 
@@ -488,6 +504,8 @@ public class Main
     
     /**
      * Ersetzt Umlaute und vordefinierte Sonderzeivhen in "�" für das Einlesen von Dateien, die keine Sonderzeichen unterstützen.
+     * 
+     * [Sven Vazquez de Lara Kallas]
      * 
      * @param text Zu ersetzender Text
      * @return Gibt eingegebenen Text zurück, mit "�" anstelle von Sonderzeichen. Ansonsten bleibt der Text gleich.
@@ -515,6 +533,8 @@ public class Main
      * Methode erzeugt einen int Array. Einfach den kleinsten und größten Wert eingeber.
      * Der Rest wird immer +1 hinzugefügt.
      * 
+     * [Sven Vazquez de Lara Kallas]
+     * 
      * @param start kleinster Wert des Arrays
      * @param ende größter Wert des Arrays
      * @return Gibt fertigen int[] Array zurück
@@ -533,6 +553,8 @@ public class Main
 
     /**
      * Wandelt einen String zu einem Integer um
+     * 
+     * [Sven Vazquez de Lara Kallas]
      * 
      * @param str Der String, der zu einem Integer umgewandelt werden soll
      * @return Nur die Zahlen aus dem eingegebenen String
@@ -556,9 +578,13 @@ public class Main
         
     }
     
-    //#TODO: Quelle für Clock einfügen
     /**
      * while-Schleife, die solange wartet bis die Variable "spielstand" vom mitgegebenem Wert abweicht
+     * 
+     * Quelle für Dokumentation:
+     * https://docs.oracle.com/javase/tutorial/essential/concurrency/sleep.html
+     * 
+     * [Sven Vazquez de Lara Kallas]
      * 
      * @param woraufGewartetWird Wert, der den Code anhält, solange dieser Spielstand noch bestehen bleibt
      * @return TRUE, sobald Warten beendet.
@@ -576,10 +602,14 @@ public class Main
         }
         return true;
     }
-    
-    //#TODO: Quelle für Clock einfügen
+
     /**
      * while-Schleife, die solange wartet bis die Variable "spielstand" dem mitgegebenem Wert entspricht
+     * 
+     * Quelle für Dokumentation:
+     * https://docs.oracle.com/javase/tutorial/essential/concurrency/sleep.html
+     * 
+     * [Sven Vazquez de Lara Kallas]
      * 
      * @param woraufGewartetWird Wert, der den Code anhält, bis dieser Spielstand erreicht wird
      * @return TRUE, sobald Warten beendet.
@@ -598,9 +628,13 @@ public class Main
         return true;
     }
     
-    //#TODO: Quelle für Clock einfügen
     /**
      * while-Schleife, die solange wartet bis eine beliebige boolean Variable auf TRUE gesetzt wird.
+     * 
+     * Quelle für Dokumentation:
+     * https://docs.oracle.com/javase/tutorial/essential/concurrency/sleep.html
+     * 
+     * [Sven Vazquez de Lara Kallas]
      * 
      * @param woraufGewartetWird boolean Wert, der den Code anhält, bis dieser auf TRUE gesetzt wird.
      * @return TRUE, sobald Warten beendet.
@@ -623,6 +657,8 @@ public class Main
      * Vereinfachte Methode zum Einlesen von Konsoleneingaben. Funktioniert mit Javas "Scanner" Klasse
      * und wartet, bis ein beliebiger Wert eingetippt wurde.
      * 
+     * [Sven Vazquez de Lara Kallas]
+     * 
      * @return Gibt Wert wieder, der in der Konsole eingegeben wurde.
      */
     public static String konsoleneingabe() 
@@ -633,7 +669,15 @@ public class Main
     
     //#TODO @Malte: Description und Quelle
     /**
+     * BESCHREIBUNG
      * 
+     * Quelle für Dokumentation:
+     * https:
+     * 
+     * @param ...
+     * @return ...
+     * 
+     * [Malte Fischer]
      */
     private static String hashMapToString(Map<String, Integer> hashMap) {
         StringBuilder sb = new StringBuilder();
