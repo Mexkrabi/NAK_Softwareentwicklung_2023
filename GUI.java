@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.Graphics;
+import java.util.Map;
+import java.util.*;
+
 
 /**
  * Beschreiben Sie hier die Klasse GUI.
@@ -10,11 +14,11 @@ import java.awt.event.*;
  */
 public class GUI extends JFrame implements ActionListener {
     public GUI() {
-        fenster = new JFrame();
+        fenster = new JFrame(); // erstellen eines Fenster
     }
     // Instanzvariablen 
     private JFrame fenster;
-    private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen, gameover, victory, lastActivePanel, namenEintragen;
+    private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen, gameover, victory, lastActivePanel, namenEintragen, graph;
     public JComboBox<String> cbDateien;
     private JProgressBar pbLeben, pbWirtschaftsleistung, pbModernisierungsgrad, pbBildung, pbPolitStab, pbUmwelt, pbVersorgung, pbBevökerungswachstum, pbBevökerungsgröße, Bevölkerungswachstumsfaktor;
     public String strSpielstand, strAuswahl;
@@ -26,9 +30,11 @@ public class GUI extends JFrame implements ActionListener {
     private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
     private JTextField txtName;
-    
+
     /**
-     * Die Methode spielstandänderunglegt organisiert anhand einer Variablen den aktuellen Spielstand 
+     * Die Methode spielstandänderunglegt organisiert anhand einer Variablen den aktuellen Spielstand
+     * Es wird je nach Spielstand eine Methode aufgerufen, welche den für den jeweiligen Spielstand die 
+     * Visualisierung übernimmt.
      * 
      */
     public void spielstandänderung()
@@ -36,8 +42,8 @@ public class GUI extends JFrame implements ActionListener {
         // wenn diese Methode aufgerufen wird und der Wert zu einem der Case passt,
         // dann wird der zugehöhrige Code ausgeführt
         switch (strSpielstand) {
-            case "START" :
-                startBildschirm();
+            case "START" :// wenn strSpielstand = "START" dann
+                startBildschirm();// wird die Methode für den Startbildschirm aufgerufen
                 break;
             case "SPIELERNAME" :
                 spielername();
@@ -65,9 +71,7 @@ public class GUI extends JFrame implements ActionListener {
                 victory();
                 break;
             case "NEUSTART" :
-                Main.logik.neustarten();
-                //setSpielstand("AUSWAHL");
-                //spielstandänderung();
+                Main.logik.neustarten(); // es wird in der Klasse Logik eine Methode für den Neustart aufgerufen
                 break;
             default : //falls Spielstand falsch angegeben wird, oder nicht erkannt wird
                 System.out.println("! '" + strSpielstand + "' ist kein gültiger Spielstand !");
@@ -86,11 +90,11 @@ public class GUI extends JFrame implements ActionListener {
         // und ein neues JPanel "startBildschirm"
         fenster.setTitle("Startbildschirm");
         startBildschirm = new JPanel();
-        // Das Programm wird geschlossen wenn das "X" geklickt wird
+        // Das Fenster wird geschlossen wenn das "X" geklickt wird
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
         startBildschirm.setLayout(new GridLayout(3, 1, 30, 30));
-        
+
         lastActivePanel = startBildschirm;
         // Label & Button erstellen 
         lblwilkommen = new JLabel("Willkommen!");
@@ -122,44 +126,40 @@ public class GUI extends JFrame implements ActionListener {
     }
 
     /**
-     * Die Methode erstellt den Startbildschirm und gibt die Wahl zwischen Starten und Beenden 
-     * des Programmes
-     * 
+     * Die Methode erstellt ein Fenster in welchem der Spieler seinen Spielernamen in ein Textfeld schreib
+     * Dieser Name wird für den Namen der Ausgabedatei verwendet.
+     * Der Name wird beim klicken des Bestätigungs Button überprüft und nur bei übereinstimmung mit dem 
+     * vorgeschriebenen Format akzeptiert.
      * 
      */
     private void spielername()
     {
-        // Erstellt ein neues Fenster mit dem Titel "Start-End Frame" 
-        // und ein neues JPanel "startBildschirm"
+        // Erstellt ein neues Fenster mit dem Titel "Spielernamen eintragen" 
+        // und ein neues JPanel "namenEintragen"
         fenster.setTitle("Spielernamen eintragen");
         namenEintragen = new JPanel();
-        // Das Programm wird geschlossen wenn das "X" geklickt wird
+        // Das Fenster wird geschlossen wenn das "X" geklickt wird
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
         namenEintragen.setLayout(new GridLayout(3, 1, 30, 30));
-        
-        
+
         // Label & Button erstellen 
-        JLabel lblNamenEintragen = new JLabel("Bitte tragen Sie den Namen ein unter dem Sie regieren");
+        JLabel lblNamenEintragen = new JLabel("Bitte tragen Sie den Namen ein unter dem Sie regieren wollen");
         btNamenbestätigen = new JButton("Eingabe bestätigen");
         txtName = new JTextField();
-        
-            
+
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btNamenbestätigen.addActionListener(this);
-        
 
         //Fügt das JLabel und die beiden JButtons zum JPanel hinzu
         namenEintragen.add(lblNamenEintragen);
         namenEintragen.add(txtName);
         namenEintragen.add(btNamenbestätigen);
-        
 
         //Fügt das JPanel zum JFrame hinzu
         fenster.add(namenEintragen);
 
         //legt die Größe des Frames fest
-        //startBildschirm.setSize(400, 400);
         fenster.setSize(700,700);
 
         // Zentriert das JFrame auf dem Bildschirm
@@ -169,9 +169,10 @@ public class GUI extends JFrame implements ActionListener {
         fenster.setVisible(true);
         namenEintragen.setVisible(true);
     }
+
     /**
-     * Die Methode erstellt eine Eingabemaske auf der ausgewählt werden kann welches Land 
-     * gespielt werden soll und legt somit die auszulesende Datei fest
+     * Die Methode erstellt eine Eingabemaske auf der über eine ComboBox die zu spielende Datei 
+     * ausgewählt werden kann welches Land gespielt werden soll und legt somit die auszulesende Datei fest
      * 
      * 
      */
@@ -221,28 +222,34 @@ public class GUI extends JFrame implements ActionListener {
     }
 
     /**
-     * Die Methode zeigt dem Spieler die Startwerte seiner Simulation
+     * Die Methode zeigt dem Spieler die Startwerte seiner Simulation und zeigt den Werte bereich der einzelnen 
+     * Sektoren in einer ProgressBar an. Es wird zudem überprüft, ob es sich um die erste Runde handelt
      * 
      * 
      */
     public void startwerte()
     {
-        // tragen Sie hier den Code ein
-        fenster.setTitle("Startwerte der Simulation");
+        fenster.setTitle("Startwerte der Simulation"); // der Name des Fensters wird angepasst
 
-        startwerte = new JPanel();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
+        startwerte = new JPanel();// neues Panel wird erstellt
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Fenster wird beendet wenn auf X geklickt wird
+        //Erzeuge eine 14x2 Matrix mit einem Abstand von 10 Pixeln 
         startwerte.setLayout(new GridLayout(14, 2, 10, 10));
+        //es werden Label erstellt
         JLabel lblAusgangslage = new JLabel();
         JLabel lblRundenzahl = new JLabel();
+        //Es wird überprüft, ob es sich um die erste Runde handelt 
         if(Main.logik.aktuelleRunde == 1) {
+            // in der ersten Runde werden die Label nach den Startwerten benannt
             lblAusgangslage.setText("***** Ausgangslage *****");
             lblRundenzahl.setText("Insgesamt zu spielende Runden : " + Main.logik.rundenzahl);
         } else {
+            // ab der zweiten Runde werden die Label nach den Runden benannt
             lblAusgangslage.setText("***** Werte nach Runde " + Main.logik.aktuelleRunde + " *****");
             lblRundenzahl.setText("Ergebnis nach = " + (Main.logik.aktuelleRunde - 1)+ ". Runden");
         }
 
+        // es werden Label erstellt in die die Namen der Sektoren mit den zugehöhrigen Wert geschrieben wird
         JLabel lblBevölkerungsgröße = new JLabel("Bevölkerungsgröße = " + Main.bevölkerungsgröße.getWert());
         JLabel lblBevölkerungswachstum = new JLabel("Bevölkerungswachstum = " + Main.bevölkerungswachstum.getWert());
         JLabel lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung = " + Main.wirtschaftsleistung.getWert());
@@ -444,13 +451,13 @@ public class GUI extends JFrame implements ActionListener {
         //JLabel lblLadescreen= new JLabel("  Fortschritt Ihres Amtsjahres");
         lblLadescreen.setFont(lblLadescreen.getFont().deriveFont(Font.BOLD, 24)); 
         JProgressBar pbwarten = new JProgressBar(0,100);
-        
+
         fenster.add(ladescreen);
         ladescreen.add(lblLadescreen);
         ladescreen.add(pbwarten);
         fenster.setVisible(true);
         for(int i =0; i<=100;i++){
-            
+
             try {
                 // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
                 //# evtl. Überprüfen!
@@ -459,12 +466,12 @@ public class GUI extends JFrame implements ActionListener {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-            
+
         }
         System.out.println("Jahr beendet");
         fenster.setVisible(false);
         ladescreen.setVisible(false);
-        
+
         setSpielstand("BERECHNUNG");
         spielstandänderung();
     }   
@@ -477,35 +484,36 @@ public class GUI extends JFrame implements ActionListener {
         gameover = new JPanel();
         gameover.setLayout(new GridLayout(3, 1, 50, 50));
         lastActivePanel = gameover;
-        
+
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
-        
+
         JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider inerhalb Ihrer Amtszeit in eine Krise geführt ");
         lblGameover.setFont(lblGameover.getFont().deriveFont(Font.BOLD, 20));
         btHauptmenü = new JButton("Zurück zum Hauptmenü"); 
-        
+
         //btStart = new JButton (" Neues Spiel Starten");
         btEnde = new JButton("Spiel Beenden");
-        
+
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btHauptmenü.addActionListener(this);
         btEnde.addActionListener(this);
-        
+
         fenster.add(gameover);
-        
+
         gameover.add(lblGameover);
         gameover.add(btHauptmenü);
         gameover.add(btEnde);
-        
+
         fenster.setSize(800,800);
         fenster.setLocationRelativeTo(null);
-        
+
         fenster.setVisible(true);
         gameover.setVisible(true);
         System.out.println("Game over");
-        
+
     }
-        public void victory()
+
+    public void victory()
     {
         // tragen Sie hier den Code ein
         fenster.setTitle("***** Victory *****");
@@ -514,37 +522,82 @@ public class GUI extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         victory.setLayout(new GridLayout(4, 1, 50, 50));
         lastActivePanel = victory;
-        
+
         JLabel lblVictory= new JLabel(" Sie haben Ihr Land Erfolgreich regiert und es weit voran getrieben ");
         JLabel lblErgebnis= new JLabel("Simulationserfolg: " + Main.logik.simulationsErfolg.get(Main.logik.aktuelleRunde -1 ));
         lblErgebnis.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 15));
-        
+
         lblVictory.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 20));
         //btStart = new JButton (" Neues Spiel Starten");
         btHauptmenü = new JButton("Zurück zum Hauptmenü"); 
         btEnde = new JButton("Spiel Beenden");
-        
+
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         //btStart.addActionListener(this);
         btEnde.addActionListener(this);
         btHauptmenü.addActionListener(this);
-        
+
         fenster.add(victory);
         victory.add(lblVictory);
         victory.add(lblErgebnis);
         victory.add(btHauptmenü);
         victory.add(btEnde);
-        
+
         fenster.setSize(800,800);
         fenster.setLocationRelativeTo(null);
-        
 
         fenster.setVisible(true);
         victory.setVisible(true);
         System.out.println("Victory");
 
     }
-    
+
+    /**
+     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
+     * 
+     * @param  y	(Beschreibung des Parameters)
+     * @return		(Beschreibung des Rückgabewertes)
+     */
+    public void graphausgabe()
+    {
+        // einblenden eines graphen 
+        // tragen Sie hier den Code ein
+        fenster.setTitle("***** Victory *****");
+
+        victory = new JPanel();
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
+        victory.setLayout(new GridLayout(4, 1, 50, 50));
+        lastActivePanel = victory;
+
+        JLabel lblVictory= new JLabel(" Sie haben Ihr Land Erfolgreich regiert und es weit voran getrieben ");
+        JLabel lblErgebnis= new JLabel("Simulationserfolg: " + Main.logik.simulationsErfolg.get(Main.logik.aktuelleRunde -1 ));
+        lblErgebnis.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 15));
+
+        lblVictory.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 20));
+        //btStart = new JButton (" Neues Spiel Starten");
+        btHauptmenü = new JButton("Zurück zum Hauptmenü"); 
+        btEnde = new JButton("Spiel Beenden");
+
+        //fügt einen ActionListener hinzu um auf einen klick zu reagieren
+        //btStart.addActionListener(this);
+        btEnde.addActionListener(this);
+        btHauptmenü.addActionListener(this);
+
+        fenster.add(victory);
+        victory.add(lblVictory);
+        victory.add(lblErgebnis);
+        victory.add(btHauptmenü);
+        victory.add(btEnde);
+
+        fenster.setSize(800,800);
+        fenster.setLocationRelativeTo(null);
+
+        fenster.setVisible(true);
+        victory.setVisible(true);
+        System.out.println("Victory");
+
+    }
+
     /**
      * Gibt ein Pop-Up Fenster aus mit einer beliebigen (Fehler-)Meldung
      * 
@@ -554,7 +607,7 @@ public class GUI extends JFrame implements ActionListener {
     {
         JOptionPane.showMessageDialog(null, text);
     }
-    
+
     //Getter & Setter
     public String getSpielstand() 
     {
@@ -746,10 +799,10 @@ public class GUI extends JFrame implements ActionListener {
         }   else if (e.getSource() == btHauptmenü) {
             lastActivePanel.setVisible(false);
             fenster.dispose();
-            
+
             setSpielstand("NEUSTART");
             spielstandänderung();
-            
+
         }   else if (e.getSource() == btNamenbestätigen) {
             String eingabe = txtName.getText();
             if (eingabe.matches(".*[\\\\/:*?\"<>|].*")) {
@@ -769,7 +822,8 @@ public class GUI extends JFrame implements ActionListener {
                 setSpielstand("AUSWAHL");
                 spielstandänderung();
             }
-         
+
         }
     }
 }
+
