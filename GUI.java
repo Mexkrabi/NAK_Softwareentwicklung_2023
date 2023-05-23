@@ -600,13 +600,11 @@ public class GUI extends JFrame implements ActionListener {
         cbAuswahl.addItem("Bevölkerungswachstumsfaktor");
         cbAuswahl.addItem("Versorgungslage");
         
-<<<<<<< HEAD
-=======
+
         cbAuswahl.addActionListener(this);
         
         tabellenPanel = new JPanel();
         erzeugeTabelle(Main.logik.simulationsErfolg);
->>>>>>> d06ffa5b52bc0cc75da84ac85ac71180dd156613
 
         fenster.add(graph);
         graph.add(lblVerlauf);
