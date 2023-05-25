@@ -32,6 +32,7 @@ public class GUI extends JFrame implements ActionListener {
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
     private JButton btVerlauf;
     private JTextField txtName;
+    private Boolean boAbschluss;
     
     
     /**
@@ -521,6 +522,8 @@ public class GUI extends JFrame implements ActionListener {
 
         fenster.setSize(800,800);
         fenster.setLocationRelativeTo(null);
+        
+        boAbschluss = false;
 
         fenster.setVisible(true);
         gameover.setVisible(true);
@@ -562,6 +565,8 @@ public class GUI extends JFrame implements ActionListener {
 
         fenster.setSize(800,800);
         fenster.setLocationRelativeTo(null);
+        
+        boAbschluss = true;
 
         fenster.setVisible(true);
         victory.setVisible(true);
@@ -572,8 +577,8 @@ public class GUI extends JFrame implements ActionListener {
     /**
      * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
      * 
-     * @param  y	(Beschreibung des Parameters)
-     * @return		(Beschreibung des Rückgabewertes)
+     * @param  y    (Beschreibung des Parameters)
+     * @return        (Beschreibung des Rückgabewertes)
      */
     public void graphausgabe()
     {
@@ -582,17 +587,20 @@ public class GUI extends JFrame implements ActionListener {
         fenster.setTitle("***** Verlauf *****");
 
         graph = new JPanel();
+        tabellenPanel = new JPanel();
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
         graph.setLayout(new GridLayout(4, 1, 50, 50));
         
+        lastActivePanel.setVisible(false);
         lastActivePanel = graph;
         btVerlauf.setText("Zurück zu Übersicht");
         lblVerlauf= new JLabel("Anzeige des Verlaufs des Auswahl");
         cbAuswahl = new JComboBox<String>();
         
-        cbAuswahl.addActionListener(this);
+        
 
         //Fügt Werte in die ComboBox
+        cbAuswahl.addItem("Staatsvermögen");
         cbAuswahl.addItem("Bildung");
         cbAuswahl.addItem("Lebensqualität");
         cbAuswahl.addItem("Bevölkerungsgröße");
@@ -600,18 +608,18 @@ public class GUI extends JFrame implements ActionListener {
         cbAuswahl.addItem("Wirtschaftsleistung");
         cbAuswahl.addItem("Modernisierungsgrad");
         cbAuswahl.addItem("Staatsvermögen");
-        cbAuswahl.addItem("Bevölkerungswachstumsfaktor");
+        //cbAuswahl.addItem("Bevölkerungswachstumsfaktor");
         cbAuswahl.addItem("Versorgungslage");
+        
         
 
         cbAuswahl.addActionListener(this);
         
-        tabellenPanel = new JPanel();
         erzeugeTabelle(Main.logik.simulationsErfolg);
 
         fenster.add(graph);
         graph.add(lblVerlauf);
-        graph.add(tabellenPanel, 1);
+        graph.add(tabellenPanel);
         graph.add(cbAuswahl);
         graph.add(btVerlauf);
         
@@ -647,8 +655,8 @@ public class GUI extends JFrame implements ActionListener {
             
             //Tabelle dem Panel hinzufügen
             tabellenPanel.add(new JScrollPane(table));
-            graph.add(tabellenPanel);
-            tabellenPanel.setVisible(true);
+            //graph.add(tabellenPanel);
+            //tabellenPanel.setVisible(true);
         //}
         //);
     }
@@ -879,16 +887,20 @@ public class GUI extends JFrame implements ActionListener {
             }
 
         }   else if (e.getSource() == btVerlauf) {
-            if (lastActivePanel == victory) {
+                if (lastActivePanel == victory) {
                 lastActivePanel.setVisible(false);
                 graphausgabe();
-            }else if(lastActivePanel == gameover){
-                lastActivePanel.setVisible(false);
-                graphausgabe();
-            }else{
-                lastActivePanel.setVisible(false);
-                graphausgabe();
-            }
+                }else if(lastActivePanel == gameover){
+               lastActivePanel.setVisible(false);
+               graphausgabe();
+                }else if (lastActivePanel == graph){
+                    if (boAbschluss == false) {
+                        lastActivePanel.setVisible(false);
+                        gameover();
+                    }else{
+                        lastActivePanel.setVisible(false);
+                        victory();}
+                }
         }   else if (e.getSource() == cbAuswahl) {
             lblVerlauf.setText("Anzeigen von " + cbAuswahl.getSelectedItem());
             String str = cbAuswahl.getSelectedItem().toString();
