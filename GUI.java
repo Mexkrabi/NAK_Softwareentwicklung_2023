@@ -16,7 +16,25 @@ import java.util.*;
 public class GUI extends JFrame implements ActionListener {
     public GUI() {
         fenster = new JFrame(); // erstellen eines Fenster
+        //# Prüfen ob ok
+        // Quellen:
+        //https://stackoverflow.com/questions/13207519/adding-a-new-windowlistener-to-a-jframe
+        //https://docs.oracle.com/javase/8/docs/api/java/awt/event/WindowListener.html
+        fenster.addWindowListener(new WindowAdapter()
+        {
+            @Override
+            // es wird beim Klicken auf X das Programm Beendet
+            public void windowClosing(WindowEvent e) {
+                // Ausgabe über Beenden des Spiel
+                System.out.println("Das Programm wurde beendet");
+
+                // Das Programm beenden
+                System.exit(0);
+            }
+            }
+        ); 
     }
+        
     // Instanzvariablen 
     private JFrame fenster;
     private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen, gameover, victory, lastActivePanel, namenEintragen, graph, tabellenPanel;
@@ -92,6 +110,7 @@ public class GUI extends JFrame implements ActionListener {
         // Erstellt ein neues Fenster mit dem Titel "Start-End Frame" 
         // und ein neues JPanel "startBildschirm"
         fenster.setTitle("Startbildschirm");
+        
         startBildschirm = new JPanel();
         // Das Fenster wird geschlossen wenn das "X" geklickt wird
         setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -378,10 +397,12 @@ public class GUI extends JFrame implements ActionListener {
         pbModernisierungsgrad.setValue(intModernisierungsgrad);
         btModernHoch = new JButton("+");
         btModernRunter = new JButton("-");
-
+        
+        //fügt den investitions Button ActionListener hinzu
         btModernHoch.addActionListener(this);
         btModernRunter.addActionListener(this);
 
+        // es werden die Visualisierungen zum investeiren in Modernisierungsgrad erstellt
         lblLebensqualität = new JLabel("Lebensqualität: ");
         intLeben = Main.lebensqualität.getWert();
         pbLeben = new JProgressBar(Main.lebensqualität.getMin(),Main.lebensqualität.getMax());
@@ -389,28 +410,32 @@ public class GUI extends JFrame implements ActionListener {
         btLebenHoch = new JButton("+");
         btLebenRunter = new JButton("-");
 
+        //fügt den investitions Button ActionListener hinzu        
         btLebenHoch.addActionListener(this);
         btLebenRunter.addActionListener(this);
 
+        // es werden die Visualisierungen zum investeiren in Modernisierungsgrad erstellt
         lblBildung = new JLabel("Bildung: ");
         intBildung = Main.bildung.getWert();
         pbBildung = new JProgressBar(Main.bildung.getMin(),Main.bildung.getMax());
         pbBildung.setValue(intBildung);
         btBildungHoch = new JButton("+");
         btBildungRunter = new JButton("-");
-
         btPunktezuweisungBestätigen = new JButton("Zuweisung Bestätigen");
 
+        //fügt den investitions Button ActionListener hinzu
         btPunktezuweisungBestätigen.addActionListener(this);
         btBildungHoch.addActionListener(this);
         btBildungRunter.addActionListener(this);
 
+        //Fügt die Label für das Anzeigen der Verbleibenden runden und dem Staatskapital hinzu
         JLabel lblVerbleibendeRunden = new JLabel("Verbleibende Runden: " + (Main.logik.rundenzahl - Main.logik.aktuelleRunde +1)); //System gedribbelt
         intStaatsvermögen = Main.staatsvermögen.getWert();
         lblVerbleibendesStaatskapital = new JLabel("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
         btPunktezuweisungBestätigen.setBounds(5, 3, 1, 2);
         fenster.add(wertezuweisen);
 
+        // Es werden alle zuvor erstellten Label, Button und ProgressBars dem Panel hinzugefügt
         wertezuweisen.add(lblWirtschaftsleistung);
         wertezuweisen.add(pbWirtschaftsleistung);
         wertezuweisen.add(btWirtschaftHoch);
@@ -435,127 +460,183 @@ public class GUI extends JFrame implements ActionListener {
         wertezuweisen.add(lblVerbleibendesStaatskapital);
         wertezuweisen.add(btPunktezuweisungBestätigen);
 
+        //es werden die Sichtbarkeiten angepasst 
         fenster.setVisible(true);
         wertezuweisen.setVisible(true);
         btBildungRunter.setVisible(false);
         btLebenRunter.setVisible(false);
         btModernRunter.setVisible(false);
+        
+        // das Fenster wird auf die notwendige Größe angepasst
         fenster.pack();
-        //Passt das Fenster auf die notwendige Größe an 
+        
+        // das Fenster wird in die mitte des Bildschirm
         fenster.setLocationRelativeTo(null);
     }
 
     /**
-     * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
+     * Diese Methode dient der Visualisierung einer Runde. Es wird ein Ladescreen simuliert der über
+     * eine Zeitverzögerung gesteuert wird
      * 
-     * @param  y    (Beschreibung des Parameters)
-     * @return        (Beschreibung des Rückgabewertes)
+     * Quelle Thread.sleep():
+     * https://docs.oracle.com/javase/tutorial/essential/concurrency/sleep.html
      */
     public void ladescreen()
     {
-        // tragen Sie hier den Code ein
+        // setzt den Titel des Fensters neu
         fenster.setTitle("***** Jahr wird simuliert *****");
-
+        
+        // erstellt ein neues Panel 
         ladescreen = new JPanel();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
+        
+        //das Programm wird beendet wenn auf X geklickt wird
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //Erzeuge eine 2x1 Matrix mit einem Abstand von 20 Pixeln 
         ladescreen.setLayout(new GridLayout(2, 1, 20, 20));
-        //Integer intJahr = (Main.Logik.rundenzahl- Main.Logik.aktuelleRunde + 1);
+        
+        // erstellt ein Label 
         JLabel lblLadescreen= new JLabel("  Ihr " +  (Main.logik.aktuelleRunde ) + ". Amtsjahr wird Simuliert" );
-        //JLabel lblLadescreen= new JLabel("  Fortschritt Ihres Amtsjahres");
+        
+        //Die schriftgröße des Labels wird angepasst
         lblLadescreen.setFont(lblLadescreen.getFont().deriveFont(Font.BOLD, 24)); 
+        
+        //erstellt eine ProgressBar mit einem Werteberich von 0-100
         JProgressBar pbwarten = new JProgressBar(0,100);
-
+        
+        // dem Fenster werden das Panel, das Label und die ProgressBar hinzugefügt
         fenster.add(ladescreen);
         ladescreen.add(lblLadescreen);
         ladescreen.add(pbwarten);
+        // das verster wird wieder Sichtbar
         fenster.setVisible(true);
+        
+        //Die Schleife simuliert das Durchlaufen des Programmes und verzögert
         for(int i =0; i<=100;i++){
 
             try {
-                // Hier wird der Thread in der CPU blockiert, bis der Wert der Variable geändert wird
-                //# evtl. Überprüfen!
+                // das Programm wird bei jeder Zahl zwichen 0-100 für 15 ms pausiert
                 Thread.sleep(15);
+                // der Aktuelle werde von i wird in der ProgressBar angezeigt
                 pbwarten.setValue(i);
             } catch (InterruptedException e) {
+                //# PRüfen ob ok verfolgt den Fehler und gibt Klasse und Zeile zurück
                 e.printStackTrace();
             }
 
         }
+        // es gibt ein Update über die Konsole
         System.out.println("Jahr beendet");
+        // sets die Sichtbarkeit auf false
         fenster.setVisible(false);
         ladescreen.setVisible(false);
-
+        
+        //der Spielstand wird auf Berechnung gesetzt und die Berechnung ausgeführt
         setSpielstand("BERECHNUNG");
         spielstandänderung();
     }   
 
+    /**
+     * Diese Methode dient der Visualisierung wenn die Simulation gescheitert ist.
+     * Es wird ein neues Panel dem Fenster hinzugefügt in dem es die Möglichkeit gibt sich das Ergebnis
+     * anziegen zu lassen, das Spiel neu zu starten, oder es zu beenden
+     * 
+     * 
+     */
     public void gameover()
     {
-        // tragen Sie hier den Code ein
+        // setzt den Titel des Fensters neu 
         fenster.setTitle("***** Game over *****");
-
+        // es wird ein neues Panel erstellt
         gameover = new JPanel();
+        
+        //Erzeuge eine 4x1 Matrix mit einem Abstand von 50 Pixeln 
         gameover.setLayout(new GridLayout(4, 1, 50, 50));
+        
+        //weist einer variablen das Panel gameover zu
         lastActivePanel = gameover;
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
-
+        //das Fenster wird beendet wenn auf X geklickt wird
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        // es werden Label und Button erstellt 
         JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider inerhalb Ihrer Amtszeit in eine Krise geführt ");
-        lblGameover.setFont(lblGameover.getFont().deriveFont(Font.BOLD, 20));
         btHauptmenü = new JButton("Zurück zum Hauptmenü"); 
         btVerlauf = new JButton("Verlauf der Werte Anzeigen");
-
-        //btStart = new JButton (" Neues Spiel Starten");
         btEnde = new JButton("Spiel Beenden");
-
+        
+        // die Schriftgröße des Labels wird angepasst
+        lblGameover.setFont(lblGameover.getFont().deriveFont(Font.BOLD, 20));
+        
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btHauptmenü.addActionListener(this);
         btEnde.addActionListener(this);
         btVerlauf.addActionListener(this);
 
+        // Dem Fenster wird das Panel hinzugefügt
         fenster.add(gameover);
 
+        // dem Panel werden die zuvor erstellten Label und Button hinzugefügt
         gameover.add(lblGameover);
         gameover.add(btVerlauf);
         gameover.add(btHauptmenü);
         gameover.add(btEnde);
 
+        // die größe des Fenster wird auf 800 x 800 Pixel gesetzt
         fenster.setSize(800,800);
+        // das Fenster wird in die Mitte des Bildschirm gesetzt
         fenster.setLocationRelativeTo(null);
         
-        boAbschluss = false;
-
+        //das Fenster und das Panel werden Sichtbar
         fenster.setVisible(true);
         gameover.setVisible(true);
+        // in der Konsol wird Game over ausgegeben
         System.out.println("Game over");
 
     }
 
+    /**
+     * Diese Methode dient der Visualisierung wenn die Simulation erfolgreich abgeschlossen wurde.
+     * Es wird ein neues Panel dem Fenster hinzugefügt in dem es die Möglichkeit gibt sich das Ergebnis
+     * anziegen zu lassen, das Spiel neu zu starten, oder es zu beenden
+     * 
+     * 
+     */
     public void victory()
     {
-        // tragen Sie hier den Code ein
+        // setzt den Titel des Fensters neu
         fenster.setTitle("***** Victory *****");
-
+        
+        // es wird ein neues Panel erstellt
         victory = new JPanel();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
+        
+        //das Programm wird beendet wenn auf X geklickt wird
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        
+        //Erzeuge eine 5x1 Matrix mit einem Abstand von 50 Pixeln 
         victory.setLayout(new GridLayout(5, 1, 50, 50));
+        
+        //weist einer variablen das Panel gameover zu
         lastActivePanel = victory;
+        
         
         JLabel lblVictory= new JLabel(" Sie haben Ihr Land Erfolgreich regiert und es weit voran getrieben ");
         JLabel lblErgebnis= new JLabel("Simulationserfolg: " + Main.logik.simulationsErfolg.get(Main.logik.aktuelleRunde -1 ));
-        lblErgebnis.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 15));
-
-        lblVictory.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 20));
         btHauptmenü = new JButton("Zurück zum Hauptmenü"); 
         btEnde = new JButton("Spiel Beenden");
         btVerlauf = new JButton("Verlauf der Werte Anzeigen");
         
-        //fügt einen ActionListener hinzu um auf einen klick zu reagieren
+        // die Schriftgröße des Labels wird angepasst
+        lblErgebnis.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 15));
+        lblVictory.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 20));
         
+
+        //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btEnde.addActionListener(this);
         btVerlauf.addActionListener(this);
         btHauptmenü.addActionListener(this);
 
+        // dem Panel werden die zuvor erstellten Label und Button hinzugefügt
         fenster.add(victory);
         victory.add(lblVictory);
         victory.add(lblErgebnis);
@@ -563,13 +644,16 @@ public class GUI extends JFrame implements ActionListener {
         victory.add(btHauptmenü);
         victory.add(btEnde);
 
+        // die größe des Fenster wird auf 800 x 800 Pixel gesetzt
         fenster.setSize(800,800);
+        // das Fenster wird in die Mitte des Bildschirm gesetzt
         fenster.setLocationRelativeTo(null);
-        
-        boAbschluss = true;
 
+        //das Fenster und das Panel werden Sichtbar
         fenster.setVisible(true);
         victory.setVisible(true);
+        
+        // in der Konsol wird Victory ausgegeben
         System.out.println("Victory");
 
     }
@@ -577,29 +661,38 @@ public class GUI extends JFrame implements ActionListener {
     /**
      * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
      * 
-     * @param  y    (Beschreibung des Parameters)
-     * @return        (Beschreibung des Rückgabewertes)
+     * 
+     * 
      */
     public void graphausgabe()
     {
-        // einblenden eines graphen 
-        // tragen Sie hier den Code ein
+        // setzt den Titel des Fensters neu
         fenster.setTitle("***** Verlauf *****");
 
+        // es wird ein neues Panel erstellt
         graph = new JPanel();
         tabellenPanel = new JPanel();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
+        
+        //das Programm wird beendet wenn auf X geklickt wird
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        //Erzeuge eine 4x1 Matrix mit einem Abstand von 50 Pixeln
         graph.setLayout(new GridLayout(4, 1, 50, 50));
         
+        // sets die Sichtbarkeit des zugewiesene Panel auf false
         lastActivePanel.setVisible(false);
+        //weist einer variablen das Panel graph zu
         lastActivePanel = graph;
+        // weist dem Button einen neuen Text zu
         btVerlauf.setText("Zurück zu Übersicht");
+        // erstellt ein neues Label 
         lblVerlauf= new JLabel("Anzeigen von Simulationserfolg");
+        
+        // weist der String Variable den Wert Simulationserfolg zu 
         str = "Simulationserfolg";
+        
+        // es wird eine ComboBox erstellt
         cbAuswahl = new JComboBox<String>();
         
-        
-
         //Fügt Werte in die ComboBox
         cbAuswahl.addItem("Simulationserfolg");
         cbAuswahl.addItem("Bildung");
@@ -614,23 +707,29 @@ public class GUI extends JFrame implements ActionListener {
         cbAuswahl.addItem("Versorgungslage");
         
         
-
+        // fügt der ComboBox einen ActionListener hinzu
         cbAuswahl.addActionListener(this);
-        
+        // es wird die Methode zum erstellen der Tabelle aufgerfen und die Hash für den Simulationserfolg mitgegeben
         erzeugeTabelle(Main.logik.simulationsErfolg);
 
+        // dem Fenster wird das Panel graph zugewiesen
         fenster.add(graph);
+        // dem Panel graph werden die Label, Button und das Panel tabellenPanel zugewiesen
         graph.add(lblVerlauf);
         graph.add(tabellenPanel);
         graph.add(cbAuswahl);
         graph.add(btVerlauf);
         
+        // die größe des Fenster wird auf 800 x 800 Pixel gesetzt
         fenster.setSize(800,800);
+        // das Fenster wird in die Mitte des Bildschirm gesetzt
         fenster.setLocationRelativeTo(null);
 
+        //das Fenster und das Panel werden Sichtbar
         fenster.setVisible(true);
         tabellenPanel.setVisible(true);
         graph.setVisible(true);
+        // Die Konsolo gibt aus, dass der Verlauf aufgrufen wurde
         System.out.println("Verlauf wird angezeigt");
 
     }
@@ -893,7 +992,7 @@ public class GUI extends JFrame implements ActionListener {
                 lastActivePanel.setVisible(false);
                 graphausgabe();
             }else if (lastActivePanel == graph){
-                if (boAbschluss == false) {
+                if (strSpielstand == "GAMEOVER") {
                     lastActivePanel.setVisible(false);
                     gameover();
                 }else{
