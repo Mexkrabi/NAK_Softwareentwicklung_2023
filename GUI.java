@@ -22,13 +22,12 @@ public class GUI extends JFrame implements ActionListener {
     private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen, gameover, victory, lastActivePanel, namenEintragen, graph, tabellenPanel;
     public JComboBox<String> cbDateien, cbAuswahl;
     private JProgressBar pbLeben, pbWirtschaftsleistung, pbModernisierungsgrad, pbBildung, pbPolitStab, pbUmwelt, pbVersorgung, pbBevökerungswachstum, pbBevökerungsgröße, Bevölkerungswachstumsfaktor;
-    public String strSpielstand, strAuswahl;
+    public String strSpielstand, strAuswahl, str;
     private Integer intWirtschaftsleistung, intModernisierungsgrad, intLeben, intBildung, intStaatsvermögen, intVerbleibendeRunden;
     private String spielstand; 
     private JLabel lblwilkommen,lblVerlauf;
     private JButton btStart, btEnde, btAuswahlBestätigen, btweiter, btPunktezuweisungBestätigen, btHauptmenü, btNamenbestätigen, btVerlaufanzeigen;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung, lblVerbleibendesStaatskapital;
-    private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
     private JButton btVerlauf;
     private JTextField txtName;
@@ -594,7 +593,8 @@ public class GUI extends JFrame implements ActionListener {
         lastActivePanel.setVisible(false);
         lastActivePanel = graph;
         btVerlauf.setText("Zurück zu Übersicht");
-        lblVerlauf= new JLabel("Anzeige des Verlaufs des Auswahl");
+        lblVerlauf= new JLabel("Anzeigen von Simulationserfolg");
+        str = "Simulationserfolg";
         cbAuswahl = new JComboBox<String>();
         
         
@@ -900,9 +900,11 @@ public class GUI extends JFrame implements ActionListener {
                     victory();
                 }
             }
+            
         } else if (e.getSource() == cbAuswahl) {
+            if(str == cbAuswahl.getSelectedItem().toString()) {return;}
             lblVerlauf.setText("Anzeigen von " + cbAuswahl.getSelectedItem());
-            String str = cbAuswahl.getSelectedItem().toString();
+            str = cbAuswahl.getSelectedItem().toString();
             try {
                 tabellenPanel.removeAll();
             } catch (NullPointerException ex) {}
@@ -958,6 +960,7 @@ public class GUI extends JFrame implements ActionListener {
             tabellenPanel.repaint();
             graph.remove(tabellenPanel);
             graph.add(tabellenPanel, 1);
+            tabellenPanel.repaint();
             tabellenPanel.setVisible(true);
         }
     }
