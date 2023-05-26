@@ -600,7 +600,7 @@ public class GUI extends JFrame implements ActionListener {
         
 
         //Fügt Werte in die ComboBox
-        cbAuswahl.addItem("Staatsvermögen");
+        cbAuswahl.addItem("Simulationserfolg");
         cbAuswahl.addItem("Bildung");
         cbAuswahl.addItem("Lebensqualität");
         cbAuswahl.addItem("Bevölkerungsgröße");
@@ -608,7 +608,8 @@ public class GUI extends JFrame implements ActionListener {
         cbAuswahl.addItem("Wirtschaftsleistung");
         cbAuswahl.addItem("Modernisierungsgrad");
         cbAuswahl.addItem("Staatsvermögen");
-        //cbAuswahl.addItem("Bevölkerungswachstumsfaktor");
+        cbAuswahl.addItem("Bevölkerungswachstumsfaktor");
+        cbAuswahl.addItem("Politische Stabilität");
         cbAuswahl.addItem("Versorgungslage");
         
         
@@ -655,8 +656,8 @@ public class GUI extends JFrame implements ActionListener {
             
             //Tabelle dem Panel hinzufügen
             tabellenPanel.add(new JScrollPane(table));
-            //graph.add(tabellenPanel);
-            //tabellenPanel.setVisible(true);
+            graph.add(tabellenPanel);
+            tabellenPanel.setVisible(true);
         //}
         //);
     }
@@ -667,7 +668,7 @@ public class GUI extends JFrame implements ActionListener {
     public JTable createJTableFromHashMap(HashMap<Integer, Integer> hashMap) {
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("Schlüssel");
-        tableModel.addColumn("Wert");
+        tableModel.addColumn("Werte");
 
         for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
             Integer key = entry.getKey();
