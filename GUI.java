@@ -351,27 +351,30 @@ public class GUI extends JFrame implements ActionListener {
      */
     private void wertezuweisung()
     {
-        // erstellte
+        // setzt den Titel des Fensters neu
         fenster.setTitle("Werte zuweisen");
         
+        // erstelle ein neues Panel
         wertezuweisen = new JPanel();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Programm wird beendet wenn auf X geklickt wird
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Fenster wird geschlossen wenn auf X geklickt wird
+        //Erzeuge eine 5x4 Matrix mit einem Abstand von 10 Pixeln 
         wertezuweisen.setLayout(new GridLayout(5, 4, 10, 10));
-
+        
+        // es werden die Visualisierungen zum investeiren in Wirtschaftsleistung erstellt
         lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung: ");
         intWirtschaftsleistung = Main.wirtschaftsleistung.getWert();
-        //lblWirtschaftsleistungStand = new JLabel(intWirtschaftsleistung.toString());
         pbWirtschaftsleistung = new JProgressBar(Main.wirtschaftsleistung.getMin(),Main.wirtschaftsleistung.getMax());
         pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
         btWirtschaftHoch = new JButton("+");
         btWirtschaftRunter = new JButton("-");
-
+        
+        //fügt den investitions Button ActionListener hinzu
         btWirtschaftHoch.addActionListener(this);
         btWirtschaftRunter.addActionListener(this);
-
+        
+        // es werden die Visualisierungen zum investeiren in Modernisierungsgrad erstellt
         lblModernisierungsgrad = new JLabel("Modernisierungsgrad: ");
         intModernisierungsgrad = Main.modernisierungsgrad.getWert();
-        //lblModernisierungsgradStand = new JLabel(intModernisierungsgrad.toString()); Alte Version
         pbModernisierungsgrad = new JProgressBar(Main.modernisierungsgrad.getMin(),Main.modernisierungsgrad.getMax());
         pbModernisierungsgrad.setValue(intModernisierungsgrad);
         btModernHoch = new JButton("+");
@@ -382,7 +385,6 @@ public class GUI extends JFrame implements ActionListener {
 
         lblLebensqualität = new JLabel("Lebensqualität: ");
         intLeben = Main.lebensqualität.getWert();
-        //lblLebensqualitätStand = new JLabel(intLeben.toString());
         pbLeben = new JProgressBar(Main.lebensqualität.getMin(),Main.lebensqualität.getMax());
         pbLeben.setValue(intLeben);
         btLebenHoch = new JButton("+");
@@ -393,7 +395,6 @@ public class GUI extends JFrame implements ActionListener {
 
         lblBildung = new JLabel("Bildung: ");
         intBildung = Main.bildung.getWert();
-        //lblBildungStand = new JLabel(intBildung.toString());
         pbBildung = new JProgressBar(Main.bildung.getMin(),Main.bildung.getMax());
         pbBildung.setValue(intBildung);
         btBildungHoch = new JButton("+");
