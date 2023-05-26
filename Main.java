@@ -250,18 +250,6 @@ public class Main
         try (BufferedWriter writer = new BufferedWriter(new FileWriter(dateipfad + "/" + dateiName))) {
             // Konvertiere den Hash zu einem Textformat und schreibe in die Datei
             
-            // Iteriere über die äußere HashMap
-            /*for (HashMap<String, Integer> innereMap : logik.masterHash.values()) {
-                // Iteriere über die innere HashMap
-                String content = hashMapToString(innereMap);
-                writer.write(content);
-
-                for (Integer value : innereMap.values()) {
-                    // Gib den extrahierten Wert aus
-                    System.out.println(value);
-                    
-                }
-            }*/
             writer.write("Simulationserfolg über die Runden:");
             writer.newLine();
             
@@ -423,19 +411,20 @@ public class Main
      * 
      * @param ...
      */
-    private static void schreibeInDatei(Sektor sektor, BufferedWriter writer) {
-            try {
+    private static void schreibeInDatei(Sektor sektor, BufferedWriter writer) 
+    {
+        try {
+            writer.newLine();
+            HashMap<Integer, Integer> hashMap = sektor.werte;
+            for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
+                Integer key = entry.getKey();
+                Integer value = entry.getValue();
+                writer.write(sektor.getName() + " in Runde " + key + " = " + value);
                 writer.newLine();
-                HashMap<Integer, Integer> hashMap = sektor.werte;
-                for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
-                    Integer key = entry.getKey();
-                    Integer value = entry.getValue();
-                    writer.write(sektor.getName() + " in Runde " + key + " = " + value);
-                    writer.newLine();
-                } 
-            } catch (IOException ioe) {
-                ioe.printStackTrace();
-            }
+            } 
+        } catch (IOException ioe) {
+            ioe.printStackTrace();
+        }
     }
     
     /**
@@ -665,30 +654,5 @@ public class Main
     {
         Scanner sc = new Scanner(System.in); //Konsoleneingabeleser
         return sc.next();
-    }
-    
-    //#TODO @Malte: Description und Quelle
-    /**
-     * BESCHREIBUNG
-     * 
-     * Quelle für Dokumentation:
-     * https:
-     * 
-     * @param ...
-     * @return ...
-     * 
-     * [Malte Fischer]
-     */
-    private static String hashMapToString(Map<String, Integer> hashMap) {
-        StringBuilder sb = new StringBuilder();
-
-        // Durchlaufe den Hash und konvertiere die Werte zu Text
-        for (Map.Entry<String, Integer> entry : hashMap.entrySet()) {
-            String key = entry.getKey();
-            Integer value = entry.getValue();
-            sb.append(key).append("=").append(value).append(System.lineSeparator());
-        }
-
-        return sb.toString();
     }
 }

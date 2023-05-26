@@ -22,13 +22,12 @@ public class GUI extends JFrame implements ActionListener {
     private JPanel startBildschirm, wertezuweisen, auswahlDatei, startwerte, ladescreen, gameover, victory, lastActivePanel, namenEintragen, graph, tabellenPanel;
     public JComboBox<String> cbDateien, cbAuswahl;
     private JProgressBar pbLeben, pbWirtschaftsleistung, pbModernisierungsgrad, pbBildung, pbPolitStab, pbUmwelt, pbVersorgung, pbBevökerungswachstum, pbBevökerungsgröße, Bevölkerungswachstumsfaktor;
-    public String strSpielstand, strAuswahl;
+    public String strSpielstand, strAuswahl, str;
     private Integer intWirtschaftsleistung, intModernisierungsgrad, intLeben, intBildung, intStaatsvermögen, intVerbleibendeRunden;
     private String spielstand; 
     private JLabel lblwilkommen,lblVerlauf;
     private JButton btStart, btEnde, btAuswahlBestätigen, btweiter, btPunktezuweisungBestätigen, btHauptmenü, btNamenbestätigen, btVerlaufanzeigen;
     private JLabel lblWirtschaftsleistung, lblModernisierungsgrad, lblLebensqualität, lblBildung, lblVerbleibendesStaatskapital;
-    private JLabel lblWirtschaftsleistungStand, lblModernisierungsgradStand,lblLebensqualitätStand, lblBildungStand;
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
     private JButton btVerlauf;
     private JTextField txtName;
@@ -595,7 +594,8 @@ public class GUI extends JFrame implements ActionListener {
         lastActivePanel.setVisible(false);
         lastActivePanel = graph;
         btVerlauf.setText("Zurück zu Übersicht");
-        lblVerlauf= new JLabel("Anzeige des Verlaufs des Auswahl");
+        lblVerlauf= new JLabel("Anzeigen von Simulationserfolg");
+        str = "Simulationserfolg";
         cbAuswahl = new JComboBox<String>();
         
         
@@ -668,7 +668,7 @@ public class GUI extends JFrame implements ActionListener {
      */
     public JTable createJTableFromHashMap(HashMap<Integer, Integer> hashMap) {
         DefaultTableModel tableModel = new DefaultTableModel();
-        tableModel.addColumn("Schlüssel");
+        tableModel.addColumn("Runde");
         tableModel.addColumn("Werte");
 
         for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
@@ -722,7 +722,7 @@ public class GUI extends JFrame implements ActionListener {
                 pbModernisierungsgrad.setValue(intModernisierungsgrad);
                 System.out.println("Modernisierungsgrad um 1 Punkt hoch");
                 btModernRunter.setVisible(true);
-            }else {
+            } else {
                 System.out.println("Wert nicht im Wertebereich");
             }
         } else if (e.getSource() == btModernRunter) {
@@ -745,7 +745,7 @@ public class GUI extends JFrame implements ActionListener {
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
                 System.out.println("Wirtschaftleistung um 1 Punkt hoch");
-            }else if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung + 1) == true && intStaatsvermögen - 1 >= 0) {
+            } else if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung + 1) == true && intStaatsvermögen - 1 >= 0) {
                 intWirtschaftsleistung = intWirtschaftsleistung + 1;
                 intStaatsvermögen = intStaatsvermögen - 1;
                 System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
@@ -754,7 +754,7 @@ public class GUI extends JFrame implements ActionListener {
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
                 System.out.println("Wirtschaftleistung um 1 Punkt hoch");
-            }else {
+            } else {
                 System.out.println("Wert nicht im Wertebereich");
             }
         } else if (e.getSource() == btWirtschaftRunter) {
@@ -770,7 +770,7 @@ public class GUI extends JFrame implements ActionListener {
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
                 System.out.println("Wirtschaftleistung um 1 Punkt runter");
-            }else if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung -1) == true && intStaatsvermögen - 1 >= 0){
+            } else if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung -1) == true && intStaatsvermögen - 1 >= 0){
                 intWirtschaftsleistung = intWirtschaftsleistung - 1;
                 intStaatsvermögen = intStaatsvermögen - 1;
 
@@ -781,7 +781,7 @@ public class GUI extends JFrame implements ActionListener {
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
                 System.out.println("Wirtschaftleistung um 1 Punkt runter");
-            }else {
+            } else {
                 System.out.println("Wert nicht im Wertebereich");
             }
         } else if (e.getSource() == btLebenHoch) {
@@ -796,7 +796,7 @@ public class GUI extends JFrame implements ActionListener {
                 pbLeben.setValue(intLeben);
                 System.out.println("Lebensqualität um 1 Punkt hoch");
                 btLebenRunter.setVisible(true);
-            }else {
+            } else {
                 System.out.println(intLeben);
                 System.out.println(intStaatsvermögen);
             }
@@ -861,14 +861,14 @@ public class GUI extends JFrame implements ActionListener {
             spielstandänderung();
             System.out.println("Weiter geklickt");
             wertezuweisen.setVisible(false);
-        }   else if (e.getSource() == btHauptmenü) {
+        } else if (e.getSource() == btHauptmenü) {
             lastActivePanel.setVisible(false);
             fenster.dispose();
 
             setSpielstand("NEUSTART");
             spielstandänderung();
 
-        }   else if (e.getSource() == btNamenbestätigen) {
+        } else if (e.getSource() == btNamenbestätigen) {
             String eingabe = txtName.getText();
             if (eingabe.matches(".*[\\\\/:*?\"<>|].*")) {
                 // Eingabe enthält ungültige Zeichen
@@ -888,24 +888,24 @@ public class GUI extends JFrame implements ActionListener {
                 spielstandänderung();
             }
 
-        }   else if (e.getSource() == btVerlauf) {
-                if (lastActivePanel == victory) {
+        } else if (e.getSource() == btVerlauf) {
+            if (lastActivePanel == victory || lastActivePanel == gameover) {
                 lastActivePanel.setVisible(false);
                 graphausgabe();
-                }else if(lastActivePanel == gameover){
-               lastActivePanel.setVisible(false);
-               graphausgabe();
-                }else if (lastActivePanel == graph){
-                    if (boAbschluss == false) {
-                        lastActivePanel.setVisible(false);
-                        gameover();
-                    }else{
-                        lastActivePanel.setVisible(false);
-                        victory();}
+            }else if (lastActivePanel == graph){
+                if (boAbschluss == false) {
+                    lastActivePanel.setVisible(false);
+                    gameover();
+                }else{
+                    lastActivePanel.setVisible(false);
+                    victory();
                 }
-        }   else if (e.getSource() == cbAuswahl) {
+            }
+            
+        } else if (e.getSource() == cbAuswahl) {
+            if(str == cbAuswahl.getSelectedItem().toString()) {return;}
             lblVerlauf.setText("Anzeigen von " + cbAuswahl.getSelectedItem());
-            String str = cbAuswahl.getSelectedItem().toString();
+            str = cbAuswahl.getSelectedItem().toString();
             try {
                 tabellenPanel.removeAll();
             } catch (NullPointerException ex) {}
@@ -961,6 +961,7 @@ public class GUI extends JFrame implements ActionListener {
             tabellenPanel.repaint();
             graph.remove(tabellenPanel);
             graph.add(tabellenPanel, 1);
+            tabellenPanel.repaint();
             tabellenPanel.setVisible(true);
         }
     }
