@@ -47,71 +47,6 @@ public class DateiLeser
         return simFilePath; //gibt den ausgewählten Dateipfad zurück (gespeichert in Logik() )
     }
 
-    //#OBSOLETE
-    /** 
-     * Liest die komplette Datei aus und gibt sie in der Konsole wieder
-     * 
-     * Quelle zur Dokumentation: https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/package-summary.html#files
-     * 
-     * @param pfad Pfad der Datei angeben
-     */
-    public void allesAuslesen(String pfad) 
-    {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pfad), "UTF-8"))) //UTF-8 lässt Umlaute erkennen
-        {
-            String line;
-            while ((line = br.readLine()) != null) 
-            {
-                System.out.println(line.substring(0));
-            }
-        } catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
-    }
-
-    //#OBSOLETE
-    /**
-     * Methode erlaubt gezieltes Einlesen einer gegebenen Datei, mit beliebigem Suchkriterium.
-     * Der unmittelbare Wert nach dem Suchwort wird dann ausgelesen und zurückgegeben.
-     * 
-     * Die Methode fügt dem Suchwort automatisch ein " = " hinzu.
-     * Ist dies nicht gewünscht, kann die Methode nochmal im Code angepasst werden.
-     * 
-     * Quelle zur Dokumentation: https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/package-summary.html#files
-     * 
-     * @param pfad Pfad der Datei angeben
-     * @param suchwort Suchwort aus der Datei eingeben. Der unmittelbare Wert danach wird dann ausgelesen und zurückgegeben.
-     * @return Alle Zeichen in der Zeile nach dem gegebenen Suchwort wird wiedergegeben.
-     */
-    public String auslesen(String pfad, String suchwort) 
-    {
-        System.out.println("Suchwort, welches zum auslesen eingegeben wurde: " + suchwort);
-        suchwort = suchwort + " = "; //Erweitert mit " = "
-        System.out.println("Länge von '" + suchwort + "' ist: " + suchwort.length()); //suchwort.lenght() gibt String-Länge
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pfad), "UTF-8"))) //UTF-8 lässt angeblich Umlaute erkennen
-        {
-            String line;
-            while ((line = br.readLine()) != null) 
-            {
-                String ausgelesenerWert;
-                // Suche nach dem Suchwort, start
-                if (line.startsWith(suchwort)) 
-                {
-                    System.out.println("Eingabezeile: " + line.substring(0));
-                    ausgelesenerWert = line.substring(suchwort.length());
-                    System.out.println("Ausgelesener Wert: " + ausgelesenerWert);
-                    return ausgelesenerWert;
-                }
-                // Suche nach dem Suchwort, ende
-            }
-        } catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
-        return "Wert konnte nicht gefunden werden.";
-    }
-
     /**
      * Liest eine Datei ein und packt alle Sektoren, die im Format "sektorname = sektorwert" angegeben sind in eine Hashmap.
      * 
@@ -221,4 +156,71 @@ public class DateiLeser
     {
         return this.dieserOrdner;
     }
+    
+    //#OBSOLETE
+    /** 
+     * Liest die komplette Datei aus und gibt sie in der Konsole wieder
+     * 
+     * Quelle zur Dokumentation: https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/package-summary.html#files
+     * 
+     * @param pfad Pfad der Datei angeben
+     */
+    public void allesAuslesen(String pfad) 
+    {
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pfad), "UTF-8"))) //UTF-8 lässt Umlaute erkennen
+        {
+            String line;
+            while ((line = br.readLine()) != null) 
+            {
+                System.out.println(line.substring(0));
+            }
+        } catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+    }
+
+    //#OBSOLETE
+    /**
+     * Methode erlaubt gezieltes Einlesen einer gegebenen Datei, mit beliebigem Suchkriterium.
+     * Der unmittelbare Wert nach dem Suchwort wird dann ausgelesen und zurückgegeben.
+     * 
+     * Die Methode fügt dem Suchwort automatisch ein " = " hinzu.
+     * Ist dies nicht gewünscht, kann die Methode nochmal im Code angepasst werden.
+     * 
+     * Quelle zur Dokumentation: https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/package-summary.html#files
+     * 
+     * @param pfad Pfad der Datei angeben
+     * @param suchwort Suchwort aus der Datei eingeben. Der unmittelbare Wert danach wird dann ausgelesen und zurückgegeben.
+     * @return Alle Zeichen in der Zeile nach dem gegebenen Suchwort wird wiedergegeben.
+     */
+    public String auslesen(String pfad, String suchwort) 
+    {
+        System.out.println("Suchwort, welches zum auslesen eingegeben wurde: " + suchwort);
+        suchwort = suchwort + " = "; //Erweitert mit " = "
+        System.out.println("Länge von '" + suchwort + "' ist: " + suchwort.length()); //suchwort.lenght() gibt String-Länge
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pfad), "UTF-8"))) //UTF-8 lässt angeblich Umlaute erkennen
+        {
+            String line;
+            while ((line = br.readLine()) != null) 
+            {
+                String ausgelesenerWert;
+                // Suche nach dem Suchwort, start
+                if (line.startsWith(suchwort)) 
+                {
+                    System.out.println("Eingabezeile: " + line.substring(0));
+                    ausgelesenerWert = line.substring(suchwort.length());
+                    System.out.println("Ausgelesener Wert: " + ausgelesenerWert);
+                    return ausgelesenerWert;
+                }
+                // Suche nach dem Suchwort, ende
+            }
+        } catch (IOException e) 
+        {
+            e.printStackTrace();
+        }
+        return "Wert konnte nicht gefunden werden.";
+    }
+
+    
 }
