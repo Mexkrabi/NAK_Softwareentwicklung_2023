@@ -12,7 +12,7 @@ public class Sektor
 {
     private int wert; //Aktueller Wert 
     private final String name; //Bezeichnung des Sektors
-    private final int min, max; //Minimum und Maximum definieren Wertebereich des Sektors
+    private final int min, max; //Minimum und Maximum definieren Wertebereich des Sektors 
     
     public static final int standardStartwert = 1; // <<< Standard-Startwert HIER VERÄNDERN, falls kein Anderer Wert vorgegeben.
     
@@ -41,20 +41,21 @@ public class Sektor
      * @param max Größter Wert des Sektors
      * @param startwert Definiere den Startwert des Sektors 
      */
-    public Sektor(String name, int min, int max, int startwert) throws Exception
+    public Sektor(String name, int min, int max, int startwert)
     {
         this.name = name;
         this.min = min;
         this.max = max;
+        
         if(prüfeObImWertebereich(startwert)) {
             this.wert = startwert;
         } else {
-            System.out.println("Ausgelesener Startwert ungültig! Standard-Startwert wird stattdessen eingefügt.");
             this.wert = standardStartwert;
             Main.fehlerBeimErzeugenEinesSektors = true;
-            throw new Exception("Ausgelesener Startwert für '" + this.name + "' ungültig! Standard-Startwert wird stattdessen eingefügt.");
+            System.out.println("Eingelesener Startwert für '" + this.name + "' ist außerhalb des Wertebereichs (" + min + " bis " + max + ")! Standard-Startwert wird stattdessen eingefügt.");
         }
         werte = new HashMap<>();
+        
         System.out.println("---");
         System.out.println("Neuer Sektor '" + name + "' erzeugt");
         System.out.println("Wertebereich: " + min + " bis " + max);
@@ -67,7 +68,6 @@ public class Sektor
      * @param name Name des Sektors
      * @param min Kleinster Wert des Sektors
      * @param max Größter Wert des Sektors
-     * @param startwert Definiere den Startwert des Sektors 
      */
     public Sektor(String name, int min, int max)
     {

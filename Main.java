@@ -38,6 +38,8 @@ public class Main
     public static Sektor bevölkerungswachstumsfaktor;
     public static Sektor versorgungslage;
     
+    public static HashMap<String, Integer> startwerteMap; //HashMap mit allen Anfangswerten aus der .sim Datei
+    
     /**
      * Main Funktion. Hier wird das Zusammenspiel der einzelnen Klassen und Objekte koordiniert und zentral geregelt.
      * Der Ablauf der einzelnen Aktionen wird hier definiert und ausgeführt.
@@ -90,7 +92,8 @@ public class Main
         //# SCHRITT 0 ------------------------------
         
         dateiLeser = new DateiLeser(); //DateiLeser erzeugt
-        gui = new GUI(); //GUI generiert
+        gui = new GUI(); //GUI erzeugt
+        startwerteMap = new HashMap<>();
         
         gui.setSpielstand("START"); //Spiel bereit zum starten
         gui.spielstandänderung();
@@ -145,47 +148,14 @@ public class Main
          */
         //#STARTWERTE EINLESEN UND IN HASHMAP PACKEN
         
+        startwerteMap = dateiLeser.dateiAuslesen(pfadStartwerte);
         
-        
-        leseStartwerteFür("Rundenzahl");
-        logik.rundenzahl = logik.startwerteHash.get("Rundenzahl");
-        
-        leseStartwerteFür("Bevölkerungsgröße");
-        leseStartwerteFür("Bevölkerungswachstum");
-        leseStartwerteFür("Lebensqualität");
-        leseStartwerteFür("Wirtschaftsleistung");
-        leseStartwerteFür("Modernisierungsgrad");
-        leseStartwerteFür("Politische Stabilität");
-        leseStartwerteFür("Umweltverschmutzung");
-        leseStartwerteFür("Bildung");
-        leseStartwerteFür("Staatsvermögen");
-        /*
-        try {
-            //logik.rundenzahl = alsInteger(dateiLeser.auslesen(pfadStartwerte, "Rundenzahl")); //Rundenanzahl festgelegt
-            
-            //# in HashMap packen
-            // Wiederholen für alle Anfangswerte vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
-            String str = dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungsgr��e");
-            logik.startwerteHash.put("Bevölkerungsgröße", alsInteger(str));
-            // Wiederholen für alle Anfangswerte ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-            // hier in kompakter Form: vvvvvv           
-            //#Prüfen, ob Umlaute gehen oder nicht
-            logik.startwerteHash.put("Bevölkerungswachstum", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Bev�lkerungswachstum"))); 
-            logik.startwerteHash.put("Lebensqualität", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Lebensqualit�t")));
-            logik.startwerteHash.put("Wirtschaftsleistung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Wirtschaftsleistung")));
-            logik.startwerteHash.put("Modernisierungsgrad", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Modernisierungsgrad")));
-            logik.startwerteHash.put("Politische Stabilität", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Politische Stabilit�t")));
-            logik.startwerteHash.put("Umweltverschmutzung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Umweltverschmutzung")));
-            logik.startwerteHash.put("Bildung", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Bildung")));
-            logik.startwerteHash.put("Staatsvermögen", alsInteger(dateiLeser.auslesen(pfadStartwerte, "Staatsverm�gen")));
-        } catch(Exception ex) {
-            ex.printStackTrace(); 
-        }
-        */
         System.out.println("---\nHashmap mit Startwerten:");
-        for (String i : logik.startwerteHash.keySet()) {
-          System.out.println("Key: " + i + " - Wert: " + logik.startwerteHash.get(i));
+        for (String i : startwerteMap.keySet()) {
+          System.out.println("Key: " + i + " - Wert: " + startwerteMap.get(i));
         }
+        
+        logik.rundenzahl = startwerteMap.get("rundenzahl");
         
         //#SEKTOREN ERZEUGEN
         alleSektorenErzeugen(); //Methode erzeugt alle Sektoren inkl. zugehörigen Startwert
@@ -263,17 +233,17 @@ public class Main
             } 
             
             //ALLES AUSGELAGERT!!!  
-            schreibeInDatei(bevölkerungsgröße, writer);
-            schreibeInDatei(bevölkerungswachstum, writer);
-            schreibeInDatei(wirtschaftsleistung, writer);
-            schreibeInDatei(modernisierungsgrad, writer);
-            schreibeInDatei(politische_stabilität, writer);
-            schreibeInDatei(umweltverschmutzung, writer);
-            schreibeInDatei(lebensqualität, writer);
-            schreibeInDatei(bildung, writer);
-            schreibeInDatei(staatsvermögen, writer);
-            schreibeInDatei(bevölkerungswachstumsfaktor, writer);
-            schreibeInDatei(versorgungslage, writer);
+            schreibeSektorInDatei(bevölkerungsgröße, writer);
+            schreibeSektorInDatei(bevölkerungswachstum, writer);
+            schreibeSektorInDatei(wirtschaftsleistung, writer);
+            schreibeSektorInDatei(modernisierungsgrad, writer);
+            schreibeSektorInDatei(politische_stabilität, writer);
+            schreibeSektorInDatei(umweltverschmutzung, writer);
+            schreibeSektorInDatei(lebensqualität, writer);
+            schreibeSektorInDatei(bildung, writer);
+            schreibeSektorInDatei(staatsvermögen, writer);
+            schreibeSektorInDatei(bevölkerungswachstumsfaktor, writer);
+            schreibeSektorInDatei(versorgungslage, writer);
             
             System.out.println("Die Datei wurde erfolgreich erstellt.");
 
@@ -289,10 +259,12 @@ public class Main
         //# Ende der main()
     }
     
+    
     /**
      * Methode erzeugt Sektoren inkl. zugehörigen Startwert aus der startwerteHash, welche zuvor aus den Inhalten der .sim Datei erzeugt wurde.
      * 
-     * [Sven Vazquez de Lara Kallas]
+     * [Livia Kadenbach]
+     * 
      */
     private static void alleSektorenErzeugen(){
         /* To Do für jeden Sektor: (9x bzw. 11x)
@@ -301,95 +273,118 @@ public class Main
          * -> max               int
          * -> startwert         int
          */
+        int startwert;
         //Bevölkerungsgröße
         //erzeugeSektor("Bevölkerungsgröße", 1, 50);
-        try {
-            int startwert1 = logik.startwerteHash.get("Bevölkerungsgröße"); //Startwert aus Hashmap ziehen
-            bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert1); //min max aus Angabe Tabelle (HA-Dokument)
-        } catch(Exception ex) {
-            bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50);//Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
-            ex.printStackTrace(); 
+        if(startwerteMap.get("bevölkerungsgröße") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
+            startwert = startwerteMap.get("bevölkerungsgröße");
+            bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert); //min max aus Angabe Tabelle (HA-Dokument)
         }
+        else{
+            bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50); //min max aus Angabe Tabelle (HA-Dokument)
+            fehlerBeimErzeugenEinesSektors = true;
+            System.out.println("Kein Startwert für Bevölkerungsgröße gefunden."); 
+        }
+        
         
         //Bevölkerungswachstum
-        //erzeugeSektor("Bevölkerungswachstum", 1, 30);
-        try {
-            int startwert2 = logik.startwerteHash.get("Bevölkerungswachstum"); //Startwert aus Hashmap ziehen
-            bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30, startwert2); //min max aus Angabe Tabelle (HA-Dokument)
-        } catch(Exception ex) {
-            bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
-            ex.printStackTrace(); 
+        if(startwerteMap.get("bevölkerungswachstum") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
+            startwert = startwerteMap.get("bevölkerungswachstum");
+            bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)
         }
+        else{
+            bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)
+            fehlerBeimErzeugenEinesSektors = true;
+            System.out.println("Kein Startwert für Bevölkerungswachstum gefunden."); 
+            
+        }
+        
         
         //Wirtschaftsleistung
-        //erzeugeSektor("Wirtschaftsleistung", 1, 30);
-        try {
-            int startwert3 = logik.startwerteHash.get("Wirtschaftsleistung"); //Startwert aus Hashmap ziehen
-            wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30, startwert3); //min max aus Angabe Tabelle (HA-Dokument)        
-        } catch(Exception ex) {
-            wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
-            ex.printStackTrace(); 
+        if(startwerteMap.get("wirtschaftsleistung") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
+            startwert = startwerteMap.get("wirtschaftsleistung");
+            wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)
         }
+        else{
+            wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)
+            fehlerBeimErzeugenEinesSektors = true;
+            System.out.println("Kein Startwert für Wirtschaftsleistung gefunden."); 
+        }
+                
         
         //Modernisierungsgrad
-        //erzeugeSektor("Modernisierungsgrad", 1, 30);
-        try {
-            int startwert4 = logik.startwerteHash.get("Modernisierungsgrad"); //Startwert aus Hashmap ziehen
-            modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30, startwert4); //min max aus Angabe Tabelle (HA-Dokument)       
-        } catch(Exception ex) {
-            modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
-            ex.printStackTrace(); 
+        if(startwerteMap.get("modernisierungsgrad") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
+            startwert = startwerteMap.get("modernisierungsgrad");
+            modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)  
         }
+        else{
+            modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)  
+            fehlerBeimErzeugenEinesSektors = true;
+            System.out.println("Kein Startwert für Modernisierungsgrad gefunden."); 
+        }
+             
+        
         
         //Politische Stabilität
-        //erzeugeSektor("Politische Stabilität", -10, 40);
-        try {
-            int startwert5 = logik.startwerteHash.get("Politische Stabilität"); //Startwert aus Hashmap ziehen
-            politische_stabilität = new Sektor("Politische Stabilität", -10, 40, startwert5); //min max aus Angabe Tabelle (HA-Dokument) 
-        } catch(Exception ex) {
-            politische_stabilität = new Sektor("Politische Stabilität", -10, 40); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
-            ex.printStackTrace(); 
+        if(startwerteMap.get("politischestabilität") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
+            startwert = startwerteMap.get("politischestabilität");
+            politische_stabilität = new Sektor("Politische Stabilität", -10, 40, startwert); //min max aus Angabe Tabelle (HA-Dokument) 
         }
+        else{
+            politische_stabilität = new Sektor("Politische Stabilität", -10, 40); //min max aus Angabe Tabelle (HA-Dokument) 
+            fehlerBeimErzeugenEinesSektors = true;
+            System.out.println("Kein Startwert für Politische Stabilität gefunden."); 
+        }
+        
         
         //Umweltverschmutzung
-        //erzeugeSektor("Umweltverschmutzung", 1, 30);
-        try {
-            int startwert6 = logik.startwerteHash.get("Umweltverschmutzung"); //Startwert aus Hashmap ziehen
-            umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30, startwert6); //min max aus Angabe Tabelle (HA-Dokument)        
-        } catch(Exception ex) {
-            umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
-            ex.printStackTrace(); 
+        if(startwerteMap.get("umweltverschmutzung") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
+            startwert = startwerteMap.get("umweltverschmutzung");
+            umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)
         }
+        else{
+            umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)
+            fehlerBeimErzeugenEinesSektors = true;
+            System.out.println("Kein Startwert für Umweltverschmutzung gefunden."); 
+        }
+                
         
         //Lebensqualität
-        //erzeugeSektor("Lebensqualität", 1, 30);
-        try {
-            int startwert7 = logik.startwerteHash.get("Lebensqualität"); //Startwert aus Hashmap ziehen
-            lebensqualität = new Sektor("Lebensqualität", 1, 30, startwert7); //min max aus Angabe Tabelle (HA-Dokument)        
-        } catch(Exception ex) {
-            lebensqualität = new Sektor("Lebensqualität", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
-            ex.printStackTrace(); 
+        if(startwerteMap.get("lebensqualität") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
+            startwert = startwerteMap.get("lebensqualität");
+            lebensqualität = new Sektor("Lebensqualität", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)
         }
+        else{
+            lebensqualität = new Sektor("Lebensqualität", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)
+            fehlerBeimErzeugenEinesSektors = true;
+            System.out.println("Kein Startwert für Lebensqualität gefunden."); 
+        }
+                
         
         //Bildung
-        //erzeugeSektor("Bildung", 1, 30);
-        try {
-            int startwert8 = logik.startwerteHash.get("Bildung"); //Startwert aus Hashmap ziehen
-            bildung = new Sektor("Bildung", 1, 30, startwert8); //min max aus Angabe Tabelle (HA-Dokument)       
-        } catch(Exception ex) {
-            bildung = new Sektor("Bildung", 1, 30); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
-            ex.printStackTrace(); 
+        if(startwerteMap.get("bildung") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
+            startwert = startwerteMap.get("bildung");
+            bildung = new Sektor("Bildung", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)
         }
+        else{
+            bildung = new Sektor("Bildung", 1, 30); //min max aus Angabe Tabelle (HA-Dokument=
+            fehlerBeimErzeugenEinesSektors = true;
+            System.out.println("Kein Startwert für Bildung gefunden."); 
+        }
+              
+        
         
         //Staatsvermögen
-        //erzeugeSektor("Staatsvermögen", 1, 32000);
-        try {
-            int startwert9 = logik.startwerteHash.get("Staatsvermögen"); //Startwert aus Hashmap ziehen
-            staatsvermögen = new Sektor("Staatsvermögen", 1, 32000, startwert9); //min max aus Angabe Tabelle (HA-Dokument)   
-        } catch(Exception ex) {
-            staatsvermögen = new Sektor("Staatsvermögen", 1, 32000); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
-            ex.printStackTrace(); 
+        if(startwerteMap.get("staatsvermögen") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
+            startwert = startwerteMap.get("staatsvermögen");
+            staatsvermögen = new Sektor("Staatsvermögen", 1, 32000, startwert); //min max aus Angabe Tabelle (HA-Dokument) 
         }
+        else{
+            staatsvermögen = new Sektor("Staatsvermögen", 1, 32000); //min max aus Angabe Tabelle (HA-Dokument) 
+            fehlerBeimErzeugenEinesSektors = true;
+            System.out.println("Kein Startwert für Staatsvermögen gefunden."); 
+        }
+          
         
 
         //Bevölkerungswachstumsfaktor
@@ -403,15 +398,16 @@ public class Main
         logik.einflussRechner(logik.wl_auf_vl, wirtschaftsleistung, versorgungslage); //richtiger Startwert hier berechnet
     }
     
-    //#TODO @Livia
-    /**
-     * BESCHREIBUNG
+        /**
+     * Schreibt innerhalb eines BufferedWriter Kontextes den Verlauf eines Sektors in die Datei
      * 
      * [Livia Kadenbach]
      * 
-     * @param ...
+     * @param sektor Sektor für den der Verlauf in die Datei geschrieben werden soll
+     * @param writer Kontext in dem geschrieben wird
+     *
      */
-    private static void schreibeInDatei(Sektor sektor, BufferedWriter writer) 
+    private static void schreibeSektorInDatei(Sektor sektor, BufferedWriter writer) 
     {
         try {
             writer.newLine();
@@ -440,7 +436,7 @@ public class Main
     private static void erzeugeSektor(String name, int min, int max) 
     {
         try {
-            int startwert1 = logik.startwerteHash.get(name); //Startwert aus Hashmap ziehen
+            int startwert1 = startwerteMap.get(name); //Startwert aus Hashmap ziehen
             bevölkerungsgröße = new Sektor(name, min, max, startwert1); //min max aus Angabe Tabelle (HA-Dokument)
         } catch(Exception ex) {
             bevölkerungsgröße = new Sektor(name, min, max); //Sektor erzeugen, falls kein Startwert gefunden (Startwert in Sektor() definiert)
@@ -448,7 +444,9 @@ public class Main
         }
     }
     
+    //#OBSOLETE
     /**
+     * 
      * Liest Startwerte aus der vorher ausgewählten Datei ein und fügt sie zur startWerte HashMap hinzu.
      * 
      * [Sven Vazquez de Lara Kallas]
@@ -458,9 +456,9 @@ public class Main
     private static void leseStartwerteFür(String input) 
     {
         //vervollständigen
-        String str = dateiLeser.auslesen(pfadStartwerte, ersetzeSonderzeichen(input));
+        String str = dateiLeser.auslesen(pfadStartwerte, input);
         try {
-            logik.startwerteHash.put(input, alsInteger(str));
+            startwerteMap.put(input, alsInteger(str));
         } catch (Exception ex) {
             ex.printStackTrace();
         }

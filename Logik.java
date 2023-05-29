@@ -11,7 +11,7 @@ import java.util.*;
 public class Logik
 {
     //public ArrayList<Sektor> alleSektoren; //hier werden alle Sektoren gespeichert (nicht in Verwendung)
-    public HashMap<String, Integer> startwerteHash; //HashMap mit allen Anfangswerten aus der .sim Datei
+    
     
     public int rundenzahl; //Rundenzahl wird hier gespeichert und als Referenz verwendet
     public int aktuelleRunde; //aktuelle Runde hier gespeichert
@@ -56,7 +56,6 @@ public class Logik
      */
     public void hashErzeuger()
     {
-        startwerteHash = new HashMap<>();
         simulationsErfolg = new HashMap<>();
         //masterHash = new HashMap<>();
     }
@@ -273,8 +272,6 @@ public class Logik
         aktuelleRunde = 1;
         //boolean ändern
         Main.boolNeustarten = true;
-        //Hash clearen
-        startwerteHash.clear();
          
     }
     
