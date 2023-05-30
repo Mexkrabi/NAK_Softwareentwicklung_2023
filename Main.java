@@ -129,7 +129,7 @@ public class Main
         
         warteSolangeNoch("SPIELERNAME"); //warten, bis Spielername eingefügt wurde
         warteSolangeNoch("AUSWAHL"); //warten, bis Auswahl der .sim Datei in der GUI getätigt
-        pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
+        pfadStartwerte = dateiLeser.simDateiAuswahl(gui.strAuswahl); //Speichert Dateipfad der .sim
         
         //Datei wird eingelesen nach folgenden Daten:
         /*

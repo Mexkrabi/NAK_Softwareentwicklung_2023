@@ -24,17 +24,12 @@ public class DateiLeser
     /**
      * Methode erlaubt die Wahl der .sim Datei per Konsoleneingabe
      * 
+     * @param dateiname Dateiname der .sim-Datei von der man den Pfad haben möchte
+     * 
      * @return Gibt den ausgewählten Dateipfad als String zurück
      */
-    public String simDateiAuswahl()
+    public String simDateiAuswahl(String dateiname)
     {
-        //#String dieserOrdner = System.getProperty("user.dir") + "/sim-Dateien"; //aktueller Dateipfad + Ordner mit sim-Dateien
-
-        //#Main.warteSolangeNoch("AUSWAHL"); //warten, bis der Ordner gefunden wird 
-
-        String dateiname = Main.gui.strAuswahl; //Dateiname der ausgewählten Datei abspeichern 
-        //#Main.gui.strAuswahl = (String) Main.gui.cbDateien.getSelectedItem(); 
-
         System.out.println("Pfad des aktuellen Projektordners: " + dieserOrdner + "/" + dateiname + ".sim"); //zusammenfügen
         String simFilePath = dieserOrdner +  "/" + dateiname  + ".sim";
 
