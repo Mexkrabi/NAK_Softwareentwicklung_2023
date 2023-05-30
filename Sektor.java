@@ -18,21 +18,6 @@ public class Sektor
     
     public HashMap<Integer, Integer> werte; //Speichert nach und nach die Werte nach jeder Runde ein
     
-    //# Größen beim Start:
-    /*
-         +++ Ausgangslage +++
-        Bevölkerungsgröße = 32
-        Bevölkerungswachstum = 7
-        Wirtschaftsleistung = 20
-        Modernisierungsgrad = 5
-        Politische Stabilität = 6
-        Umweltverschmutzung = 16
-        Lebensqualität = 20
-        Bildung = 2
-        Staatsvermögen = 8
-        +++ Simulationsablauf +++
-        Rundenzahl = 10
-    */
     /**
      * Konstruktor der Klasse Sektor
      * 
@@ -40,7 +25,7 @@ public class Sektor
      * @param min Kleinster Wert des Sektors
      * @param max Größter Wert des Sektors
      * @param startwert Definiere den Startwert des Sektors 
-     */
+    */
     public Sektor(String name, int min, int max, int startwert)
     {
         this.name = name;

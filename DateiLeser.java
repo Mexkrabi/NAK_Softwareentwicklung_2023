@@ -30,12 +30,6 @@ public class DateiLeser
     {
         //#String dieserOrdner = System.getProperty("user.dir") + "/sim-Dateien"; //aktueller Dateipfad + Ordner mit sim-Dateien
 
-        ////////Hier mit Konsoleneingabe://////////////
-        //System.out.println("Wie heißt die Datei welche Sie auswählen wollen? (ohne Endung)");
-        //Scanner sc = new Scanner(System.in); //Konsoleneingabeleser
-        //String input = "/" + sc.next() + ".sim"; //Eingabe abspeichern
-        //////////////////////////////////////////////
-
         //#Main.warteSolangeNoch("AUSWAHL"); //warten, bis der Ordner gefunden wird 
 
         String dateiname = Main.gui.strAuswahl; //Dateiname der ausgewählten Datei abspeichern 
@@ -156,29 +150,5 @@ public class DateiLeser
     {
         return this.dieserOrdner;
     }
-    
-    //#OBSOLETE
-    /** 
-     * Liest die komplette Datei aus und gibt sie in der Konsole wieder
-     * 
-     * Quelle zur Dokumentation: https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/package-summary.html#files
-     * 
-     * @param pfad Pfad der Datei angeben
-     */
-    public void allesAuslesen(String pfad) 
-    {
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pfad), "UTF-8"))) //UTF-8 lässt Umlaute erkennen
-        {
-            String line;
-            while ((line = br.readLine()) != null) 
-            {
-                System.out.println(line.substring(0));
-            }
-        } catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
-    }
-
     
 }
