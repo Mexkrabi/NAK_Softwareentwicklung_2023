@@ -444,26 +444,6 @@ public class Main
         }
     }
     
-    //#OBSOLETE
-    /**
-     * 
-     * Liest Startwerte aus der vorher ausgewählten Datei ein und fügt sie zur startWerte HashMap hinzu.
-     * 
-     * [Sven Vazquez de Lara Kallas]
-     * 
-     * @param input Nach diesem Namen wird in der Datei gesucht, der zugehörige Zahlenwert ausgelesen und gespeichert.
-     */
-    private static void leseStartwerteFür(String input) 
-    {
-        //vervollständigen
-        String str = dateiLeser.auslesen(pfadStartwerte, input);
-        try {
-            startwerteMap.put(input, alsInteger(str));
-        } catch (Exception ex) {
-            ex.printStackTrace();
-        }
-    }
-    
     /* 
      * vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv
      * Sinnvolle Methoden, die unser Leben erleichtern.
