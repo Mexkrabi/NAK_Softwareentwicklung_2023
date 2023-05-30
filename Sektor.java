@@ -46,6 +46,7 @@ public class Sektor
         this.name = name;
         this.min = min;
         this.max = max;
+
         
         if(prüfeObImWertebereich(startwert)) {
             this.wert = startwert;

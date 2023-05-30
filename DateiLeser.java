@@ -180,47 +180,5 @@ public class DateiLeser
         }
     }
 
-    //#OBSOLETE
-    /**
-     * Methode erlaubt gezieltes Einlesen einer gegebenen Datei, mit beliebigem Suchkriterium.
-     * Der unmittelbare Wert nach dem Suchwort wird dann ausgelesen und zurückgegeben.
-     * 
-     * Die Methode fügt dem Suchwort automatisch ein " = " hinzu.
-     * Ist dies nicht gewünscht, kann die Methode nochmal im Code angepasst werden.
-     * 
-     * Quelle zur Dokumentation: https://docs.oracle.com/en/java/javase/15/docs/api/java.base/java/io/package-summary.html#files
-     * 
-     * @param pfad Pfad der Datei angeben
-     * @param suchwort Suchwort aus der Datei eingeben. Der unmittelbare Wert danach wird dann ausgelesen und zurückgegeben.
-     * @return Alle Zeichen in der Zeile nach dem gegebenen Suchwort wird wiedergegeben.
-     */
-    public String auslesen(String pfad, String suchwort) 
-    {
-        System.out.println("Suchwort, welches zum auslesen eingegeben wurde: " + suchwort);
-        suchwort = suchwort + " = "; //Erweitert mit " = "
-        System.out.println("Länge von '" + suchwort + "' ist: " + suchwort.length()); //suchwort.lenght() gibt String-Länge
-        try (BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(pfad), "UTF-8"))) //UTF-8 lässt angeblich Umlaute erkennen
-        {
-            String line;
-            while ((line = br.readLine()) != null) 
-            {
-                String ausgelesenerWert;
-                // Suche nach dem Suchwort, start
-                if (line.startsWith(suchwort)) 
-                {
-                    System.out.println("Eingabezeile: " + line.substring(0));
-                    ausgelesenerWert = line.substring(suchwort.length());
-                    System.out.println("Ausgelesener Wert: " + ausgelesenerWert);
-                    return ausgelesenerWert;
-                }
-                // Suche nach dem Suchwort, ende
-            }
-        } catch (IOException e) 
-        {
-            e.printStackTrace();
-        }
-        return "Wert konnte nicht gefunden werden.";
-    }
-
     
 }
