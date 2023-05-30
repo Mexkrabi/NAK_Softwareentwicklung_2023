@@ -702,6 +702,7 @@ public class GUI extends JFrame implements ActionListener {
         cbAuswahl.addItem("Wirtschaftsleistung");
         cbAuswahl.addItem("Modernisierungsgrad");
         cbAuswahl.addItem("Staatsvermögen");
+        cbAuswahl.addItem("Umweltverschmutzung");
         cbAuswahl.addItem("Bevölkerungswachstumsfaktor");
         cbAuswahl.addItem("Politische Stabilität");
         cbAuswahl.addItem("Versorgungslage");
