@@ -89,10 +89,10 @@ public class Sektor
     /**
      * Ruft aktuellen Wert auf und speichert es in der werte HashMap.
      */
-    public void aktuellenWertSpeichern() 
+    public void aktuellenWertSpeichern(int runde) 
     {
         //Speicher aktuellen Wert in Hashmap
-        werte.put(Main.logik.aktuelleRunde, getWert());
+        werte.put(runde, getWert());
     }
     
     //Getter & Setter

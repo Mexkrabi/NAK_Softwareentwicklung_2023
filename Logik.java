@@ -249,17 +249,17 @@ public class Logik
         System.out.println("Simulationserfolg gespeichert");
         
         //Speichern von allen einzelnen Werten
-        Main.bevölkerungsgröße.aktuellenWertSpeichern();
-        Main.bevölkerungswachstum.aktuellenWertSpeichern();
-        Main.wirtschaftsleistung.aktuellenWertSpeichern();
-        Main.modernisierungsgrad.aktuellenWertSpeichern();
-        Main.politische_stabilität.aktuellenWertSpeichern();
-        Main.umweltverschmutzung.aktuellenWertSpeichern();
-        Main.lebensqualität.aktuellenWertSpeichern();
-        Main.bildung.aktuellenWertSpeichern();
-        Main.staatsvermögen.aktuellenWertSpeichern();
-        Main.bevölkerungswachstumsfaktor.aktuellenWertSpeichern();
-        Main.versorgungslage.aktuellenWertSpeichern();
+        Main.bevölkerungsgröße.aktuellenWertSpeichern(aktuelleRunde);
+        Main.bevölkerungswachstum.aktuellenWertSpeichern(aktuelleRunde);
+        Main.wirtschaftsleistung.aktuellenWertSpeichern(aktuelleRunde);
+        Main.modernisierungsgrad.aktuellenWertSpeichern(aktuelleRunde);
+        Main.politische_stabilität.aktuellenWertSpeichern(aktuelleRunde);
+        Main.umweltverschmutzung.aktuellenWertSpeichern(aktuelleRunde);
+        Main.lebensqualität.aktuellenWertSpeichern(aktuelleRunde);
+        Main.bildung.aktuellenWertSpeichern(aktuelleRunde);
+        Main.staatsvermögen.aktuellenWertSpeichern(aktuelleRunde);
+        Main.bevölkerungswachstumsfaktor.aktuellenWertSpeichern(aktuelleRunde);
+        Main.versorgungslage.aktuellenWertSpeichern(aktuelleRunde);
         System.out.println("Sektorenwerte gespeichert");
     }
     
