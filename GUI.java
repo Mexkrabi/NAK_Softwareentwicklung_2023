@@ -112,8 +112,6 @@ public class GUI extends JFrame implements ActionListener {
         fenster.setTitle("Startbildschirm");
         
         startBildschirm = new JPanel();
-        // Das Fenster wird geschlossen wenn das "X" geklickt wird
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
         startBildschirm.setLayout(new GridLayout(3, 1, 30, 30));
 
@@ -122,7 +120,7 @@ public class GUI extends JFrame implements ActionListener {
         lblwilkommen = new JLabel("Willkommen!");
         btStart = new JButton("Start");
         btEnde = new JButton("Ende");
-
+        
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btStart.addActionListener(this);
         btEnde.addActionListener(this);
@@ -160,8 +158,6 @@ public class GUI extends JFrame implements ActionListener {
         // und ein neues JPanel "namenEintragen"
         fenster.setTitle("Spielernamen eintragen");
         namenEintragen = new JPanel();
-        // Das Fenster wird geschlossen wenn das "X" geklickt wird
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
         //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
         namenEintragen.setLayout(new GridLayout(3, 1, 30, 30));
 
@@ -204,8 +200,6 @@ public class GUI extends JFrame implements ActionListener {
         fenster.setTitle("zu Simulierendes Land auswählen");
         auswahlDatei = new JPanel();
 
-        // Das Programm wird geschlossen wenn das "X" geklickt wird
-        setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
         auswahlDatei.setLayout(new GridLayout(3, 2, 40, 40));
@@ -254,7 +248,6 @@ public class GUI extends JFrame implements ActionListener {
         fenster.setTitle("Startwerte der Simulation"); // der Name des Fensters wird angepasst
 
         startwerte = new JPanel();// neues Panel wird erstellt
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Fenster wird beendet wenn auf X geklickt wird
         //Erzeuge eine 14x2 Matrix mit einem Abstand von 10 Pixeln 
         startwerte.setLayout(new GridLayout(14, 2, 10, 10));
         //es werden Label erstellt
@@ -374,7 +367,6 @@ public class GUI extends JFrame implements ActionListener {
         
         // erstelle ein neues Panel
         wertezuweisen = new JPanel();
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);//das Fenster wird geschlossen wenn auf X geklickt wird
         //Erzeuge eine 5x4 Matrix mit einem Abstand von 10 Pixeln 
         wertezuweisen.setLayout(new GridLayout(5, 4, 10, 10));
         
@@ -383,6 +375,8 @@ public class GUI extends JFrame implements ActionListener {
         intWirtschaftsleistung = Main.wirtschaftsleistung.getWert();
         pbWirtschaftsleistung = new JProgressBar(Main.wirtschaftsleistung.getMin(),Main.wirtschaftsleistung.getMax());
         pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
+        //pbWirtschaftsleistung.setString(Main.wirtschaftsleistung.getMin() +" < " + intWirtschaftsleistung +" > " + Main.wirtschaftsleistung.getMax());
+        //pbWirtschaftsleistung.setStringPainted(true);
         btWirtschaftHoch = new JButton("+");
         btWirtschaftRunter = new JButton("-");
         
@@ -489,9 +483,6 @@ public class GUI extends JFrame implements ActionListener {
         // erstellt ein neues Panel 
         ladescreen = new JPanel();
         
-        //das Programm wird beendet wenn auf X geklickt wird
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        
         //Erzeuge eine 2x1 Matrix mit einem Abstand von 20 Pixeln 
         ladescreen.setLayout(new GridLayout(2, 1, 20, 20));
         
@@ -555,9 +546,6 @@ public class GUI extends JFrame implements ActionListener {
         
         //weist einer variablen das Panel gameover zu
         lastActivePanel = gameover;
-
-        //das Fenster wird beendet wenn auf X geklickt wird
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         // es werden Label und Button erstellt 
         JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider inerhalb Ihrer Amtszeit in eine Krise geführt ");
@@ -609,9 +597,6 @@ public class GUI extends JFrame implements ActionListener {
         
         // es wird ein neues Panel erstellt
         victory = new JPanel();
-        
-        //das Programm wird beendet wenn auf X geklickt wird
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         
         //Erzeuge eine 5x1 Matrix mit einem Abstand von 50 Pixeln 
         victory.setLayout(new GridLayout(5, 1, 50, 50));
@@ -672,9 +657,7 @@ public class GUI extends JFrame implements ActionListener {
         // es wird ein neues Panel erstellt
         graph = new JPanel();
         tabellenPanel = new JPanel();
-        
-        //das Programm wird beendet wenn auf X geklickt wird
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         //Erzeuge eine 4x1 Matrix mit einem Abstand von 50 Pixeln
         graph.setLayout(new GridLayout(4, 1, 50, 50));
         
@@ -844,6 +827,9 @@ public class GUI extends JFrame implements ActionListener {
  
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
+                //pbWirtschaftsleistung.setString(Main.wirtschaftsleistung.getMin() +" < " + intWirtschaftsleistung +" > " + Main.wirtschaftsleistung.getMax());
+                //pbWirtschaftsleistung.setStringPainted(true);
+                
                 System.out.println("Wirtschaftleistung um 1 Punkt hoch");
             } else if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung + 1) == true && intStaatsvermögen - 1 >= 0) {
                 intWirtschaftsleistung = intWirtschaftsleistung + 1;
