@@ -7,7 +7,7 @@ import java.nio.file.*;
  * Die Dateien beinhalten Anfangswerte für das Spiel.
  * 
  * @author Livia Kadenbach
- * @version 0.3
+ * @version 3.0
  */
 public class DateiLeser 
 {   

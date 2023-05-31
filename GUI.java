@@ -11,7 +11,7 @@ import java.util.*;
  * Beschreiben Sie hier die Klasse GUI.
  * 
  * @author Malte Fischer
- * @version 0.1
+ * @version 3.0
  */
 public class GUI extends JFrame implements ActionListener {
     public GUI() {

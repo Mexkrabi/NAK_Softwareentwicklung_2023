@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * https://github.com/Mexkrabi/NAK_Softwareentwicklung_2023
  * 
  * @author Sven Vazquez de Lara Kallas
- * @version 0.7
+ * @version 3.0
  */
 public class Main
 {

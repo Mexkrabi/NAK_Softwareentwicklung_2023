@@ -6,7 +6,7 @@ import java.util.HashMap;
  * Ein Sektor ist z.B. "Bevölkerungswachstum", "Lebensqualität", "Staatsvermögen"
  *
  * @author Livia Kadenbach
- * @version 1.0
+ * @version 3.0
  */
 public class Sektor
 {

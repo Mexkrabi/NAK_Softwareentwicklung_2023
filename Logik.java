@@ -6,7 +6,7 @@ import java.util.*;
  * Abbruchsbedingungen überprüft und kontrolliert.
  *
  * @author Sven Vazquez de Lara Kallas
- * @version 0.2
+ * @version 3.0
  */
 public class Logik
 {
