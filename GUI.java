@@ -111,13 +111,18 @@ public class GUI extends JFrame implements ActionListener {
         // und ein neues JPanel "startBildschirm"
         fenster.setTitle("Startbildschirm");
         
+        JPanel buttons = new JPanel ();
+        buttons.setLayout(new GridLayout(2, 1, 30, 30));
+
+        
+        
         startBildschirm = new JPanel();
         //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
-        startBildschirm.setLayout(new GridLayout(3, 1, 30, 30));
+        startBildschirm.setLayout(new GridLayout(2, 1, 30, 30));
 
         lastActivePanel = startBildschirm;
         // Label & Button erstellen 
-        lblwilkommen = new JLabel("Willkommen!");
+        lblwilkommen = new JLabel("<html>     Willkommen bei Ökolopoly! <br>     In Diesem Spiel sind die füre Ihre Rundenanzahl als " );
         btStart = new JButton("Start");
         btEnde = new JButton("Ende");
         
@@ -127,15 +132,16 @@ public class GUI extends JFrame implements ActionListener {
 
         //Fügt das JLabel und die beiden JButtons zum JPanel hinzu
         startBildschirm.add(lblwilkommen);
-        startBildschirm.add(btStart);
-        startBildschirm.add(btEnde);
+        startBildschirm.add(buttons);
+        buttons.add(btStart);
+        buttons.add(btEnde);
 
         //Fügt das JPanel zum JFrame hinzu
         fenster.add(startBildschirm);
 
         //legt die Größe des Frames fest
         //startBildschirm.setSize(400, 400);
-        fenster.setSize(400,400);
+        fenster.setSize(600,600);
 
         // Zentriert das JFrame auf dem Bildschirm
         fenster.setLocationRelativeTo(null);
@@ -143,6 +149,7 @@ public class GUI extends JFrame implements ActionListener {
         //setzt die Sichtbarkeit auf true
         fenster.setVisible(true);
         startBildschirm.setVisible(true);
+        buttons.setVisible(true);
     }
 
     /**
