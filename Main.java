@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
  * https://github.com/Mexkrabi/NAK_Softwareentwicklung_2023
  * 
  * @author Sven Vazquez de Lara Kallas
- * @version 0.7
+ * @version 3.0
  */
 public class Main
 {
@@ -129,7 +129,7 @@ public class Main
         
         warteSolangeNoch("SPIELERNAME"); //warten, bis Spielername eingefügt wurde
         warteSolangeNoch("AUSWAHL"); //warten, bis Auswahl der .sim Datei in der GUI getätigt
-        pfadStartwerte = dateiLeser.simDateiAuswahl(); //Speichert Dateipfad der .sim
+        pfadStartwerte = dateiLeser.simDateiAuswahl(gui.strAuswahl); //Speichert Dateipfad der .sim
         
         //Datei wird eingelesen nach folgenden Daten:
         /*

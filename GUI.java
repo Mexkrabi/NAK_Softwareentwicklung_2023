@@ -11,7 +11,7 @@ import java.util.*;
  * Beschreiben Sie hier die Klasse GUI.
  * 
  * @author Malte Fischer
- * @version 0.1
+ * @version 3.0
  */
 public class GUI extends JFrame implements ActionListener {
     public GUI() {
@@ -207,7 +207,6 @@ public class GUI extends JFrame implements ActionListener {
         fenster.setTitle("zu Simulierendes Land auswählen");
         auswahlDatei = new JPanel();
 
-
         //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
         auswahlDatei.setLayout(new GridLayout(3, 2, 40, 40));
 
@@ -219,10 +218,8 @@ public class GUI extends JFrame implements ActionListener {
         for (String datei : Main.dateiLeser.dateienFinden()){
             cbDateien.addItem(datei);
         }
-        /*cbDateien.addItem("Auswahl");
-        cbDateien.addItem("beispielland");
-        cbDateien.addItem("Hier die Dateinamen einfügen");*/
-
+        //cbDateien.addItem("Auswahl");
+        
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btAuswahlBestätigen.addActionListener(this);
 
@@ -247,7 +244,6 @@ public class GUI extends JFrame implements ActionListener {
     /**
      * Die Methode zeigt dem Spieler die Startwerte seiner Simulation und zeigt den Werte bereich der einzelnen 
      * Sektoren in einer ProgressBar an. Es wird zudem überprüft, ob es sich um die erste Runde handelt
-     * 
      * 
      */
     public void startwerte()
