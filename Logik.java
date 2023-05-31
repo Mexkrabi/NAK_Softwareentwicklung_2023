@@ -114,104 +114,62 @@ public class Logik
     }
     
     /**
-     * Führt alle Berechnungsschritte in der richtigen Reihenfolge durch. Sobald ein Wert außerhalb vom Wertebereich liegt,
-     * bricht die Funktion ab --> Game Over Screen
+     * Führt alle Berechnungsschritte in der richtigen Reihenfolge durch. 
+     * Nach jeder Berechnung wird der Wertebereich des betroffenen Sektors geprüft. 
+     * Sobald ein Wert außerhalb vom Wertebereich liegt, bricht die Funktion an dieser Stelle ab --> Game Over Screen
      */
     public void rundeBerechnen (){
         System.out.println("Starte die Rundenberechnung ...");
+        
         // 1.Wirtschaftsleistung (Rückkopplung)
-        if(!einflussRechner(wl_auf_wl, Main.wirtschaftsleistung, Main.wirtschaftsleistung)) { //methode wird einmal ausgeführt, prüft ob false
-           return; //wenn false returned wird abgebrochen, sonst nächste Zeile
-        }
+        if(!einflussRechner(wl_auf_wl, Main.wirtschaftsleistung, Main.wirtschaftsleistung)) {return;}
         
         // 2. Versorgungslage
-        if(!einflussRechner(wl_auf_vl, Main.wirtschaftsleistung, Main.versorgungslage)){ //methode wird einmal ausgeführt, prüft ob false
-           return; //wenn false wird abgebrochen, sonst nächste Zeile
-        }
+        if(!einflussRechner(wl_auf_vl, Main.wirtschaftsleistung, Main.versorgungslage)){return;}
             
         // 3. Modernisierungsgrad (Rückkopplung)
-        if(!einflussRechner(mg_auf_mg, Main.modernisierungsgrad, Main.modernisierungsgrad)){
-            return;
-        }
+        if(!einflussRechner(mg_auf_mg, Main.modernisierungsgrad, Main.modernisierungsgrad)){return;}
                 
         // 4. Bildung (Rückkopplung)
-        if(!einflussRechner(bl_auf_bl, Main.bildung, Main.bildung)){
-            return;
-        }
+        if(!einflussRechner(bl_auf_bl, Main.bildung, Main.bildung)){return;}
         
         // 5. Umweltverschmutzung
-        if(!einflussRechner(wl_auf_uwv, Main.wirtschaftsleistung, Main.umweltverschmutzung)){
-            return;
-        }
-        if(!einflussRechner(mg_auf_uwv, Main.modernisierungsgrad, Main.umweltverschmutzung)){
-            return;
-        }
+        if(!einflussRechner(wl_auf_uwv, Main.wirtschaftsleistung, Main.umweltverschmutzung)){return;}
+        if(!einflussRechner(mg_auf_uwv, Main.modernisierungsgrad, Main.umweltverschmutzung)){return;}
         
         // 6. Umweltverschmutzung (Rückkopplung)
-        if(!einflussRechner(uwv_auf_uwv, Main.umweltverschmutzung, Main.umweltverschmutzung)){
-            return;
-        }
+        if(!einflussRechner(uwv_auf_uwv, Main.umweltverschmutzung, Main.umweltverschmutzung)){return;}
         
         // 7. Lebensqualität
-        if(!einflussRechner(bl_auf_lq, Main.bildung, Main.lebensqualität)){
-            return;
-        }
-        if(!einflussRechner(uwv_auf_lq, Main.umweltverschmutzung, Main.lebensqualität)){
-            return;
-        }
-        if(!einflussRechner(bg_auf_lq, Main.bevölkerungsgröße, Main.lebensqualität)){
-            return;
-        }
+        if(!einflussRechner(bl_auf_lq, Main.bildung, Main.lebensqualität)){return;}
+        if(!einflussRechner(uwv_auf_lq, Main.umweltverschmutzung, Main.lebensqualität)){return;}
+        if(!einflussRechner(bg_auf_lq, Main.bevölkerungsgröße, Main.lebensqualität)){return;}
         
         // 8. Lebensqualität (Rückkopplung)
-        if(!einflussRechner(lq_auf_lq, Main.lebensqualität, Main.lebensqualität)){
-            return;
-        }
+        if(!einflussRechner(lq_auf_lq, Main.lebensqualität, Main.lebensqualität)){return;}
         
         // 9. Bevölkerungswachstum
-        if(!einflussRechner(bl_auf_bw, Main.bildung, Main.bevölkerungswachstum)){
-            return;  
-        }
-        if(!einflussRechner(lq_auf_bw, Main.lebensqualität, Main.bevölkerungswachstum)){
-            return;
-        }
+        if(!einflussRechner(bl_auf_bw, Main.bildung, Main.bevölkerungswachstum)){return;}
+        if(!einflussRechner(lq_auf_bw, Main.lebensqualität, Main.bevölkerungswachstum)){return;}
         
         // 10. Bevölkerungswachstumsfaktor
-        if(!einflussRechner(bg_auf_bwf, Main.bevölkerungsgröße, Main.bevölkerungswachstumsfaktor)){
-            return;
-        }
+        if(!einflussRechner(bg_auf_bwf, Main.bevölkerungsgröße, Main.bevölkerungswachstumsfaktor)){return;}
         
         // 11. Bevölkerungsgröße
-        if(!einflussRechner(bw_auf_bg, Main.bevölkerungswachstum, Main.bevölkerungsgröße)){
-            return;
-        }
+        if(!einflussRechner(bw_auf_bg, Main.bevölkerungswachstum, Main.bevölkerungsgröße)){return;}
                 
         // 12. Bevölkerungsgröße (Rückkopplung)
-        if(!einflussRechner(bg_auf_bwf, Main.bevölkerungsgröße, Main.bevölkerungswachstumsfaktor)){
-            return;
-        }
-        if(!einflussRechner(bw_auf_bg, Main.bevölkerungswachstum, Main.bevölkerungsgröße)){
-            return;
-        }
+        if(!einflussRechner(bg_auf_bwf, Main.bevölkerungsgröße, Main.bevölkerungswachstumsfaktor)){return;}
+        if(!einflussRechner(bw_auf_bg, Main.bevölkerungswachstum, Main.bevölkerungsgröße)){return;}
         
         // 13. Politische Stabilität
-        if(!einflussRechner(lq_auf_ps, Main.lebensqualität, Main.politische_stabilität)){
-            return;
-        }
+        if(!einflussRechner(lq_auf_ps, Main.lebensqualität, Main.politische_stabilität)){return;}
         
         // 14. Staatsvermögen
-        if(!einflussRechner(lq_auf_sv, Main.lebensqualität, Main.staatsvermögen)){
-            return; 
-        }
-        if(!einflussRechner(wl_auf_sv, Main.wirtschaftsleistung, Main.staatsvermögen)){
-            return;
-        }
-        if(!einflussRechner(ps_auf_sv, Main.politische_stabilität, Main.staatsvermögen)){
-            return;
-        }
-        if(!einflussRechner(bg_auf_sv, Main.bevölkerungsgröße, Main.staatsvermögen)){
-            return;        
-        }
+        if(!einflussRechner(lq_auf_sv, Main.lebensqualität, Main.staatsvermögen)){return;}
+        if(!einflussRechner(wl_auf_sv, Main.wirtschaftsleistung, Main.staatsvermögen)){return;}
+        if(!einflussRechner(ps_auf_sv, Main.politische_stabilität, Main.staatsvermögen)){return;}
+        if(!einflussRechner(bg_auf_sv, Main.bevölkerungsgröße, Main.staatsvermögen)){return;}
     }
     
     /**
