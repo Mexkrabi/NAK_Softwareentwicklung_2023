@@ -110,14 +110,15 @@ public class GUI extends JFrame implements ActionListener {
         // Erstellt ein neues Fenster mit dem Titel "Start-End Frame" 
         // und ein neues JPanel "startBildschirm"
         fenster.setTitle("Startbildschirm");
-        
+        // erstellt ein extra Panel was für die Plazierung der Buttons dient
         JPanel buttons = new JPanel ();
+        //Erzeuge eine 2x1 Matrix mit einem Abstand von 30 Pixeln
         buttons.setLayout(new GridLayout(2, 1, 30, 30));
 
         
         
         startBildschirm = new JPanel();
-        //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
+        //Erzeuge eine 2x1 Matrix mit einem Abstand von 30 Pixeln
         startBildschirm.setLayout(new GridLayout(2, 1, 30, 30));
 
         lastActivePanel = startBildschirm;
@@ -131,7 +132,7 @@ public class GUI extends JFrame implements ActionListener {
         btStart.addActionListener(this);
         btEnde.addActionListener(this);
 
-        //Fügt das JLabel und die beiden JButtons zum JPanel hinzu
+        //Fügt das JLabel und die beiden JButtons dem jeweligen JPanel hinzu
         startBildschirm.add(lblwilkommen);
         startBildschirm.add(buttons);
         buttons.add(btStart);
@@ -141,7 +142,6 @@ public class GUI extends JFrame implements ActionListener {
         fenster.add(startBildschirm);
 
         //legt die Größe des Frames fest
-        //startBildschirm.setSize(400, 400);
         fenster.setSize(700,700);
 
         // Zentriert das JFrame auf dem Bildschirm
