@@ -122,7 +122,8 @@ public class GUI extends JFrame implements ActionListener {
 
         lastActivePanel = startBildschirm;
         // Label & Button erstellen 
-        lblwilkommen = new JLabel("<html>     Willkommen bei Ökolopoly! <br>     In Diesem Spiel sind die füre Ihre Rundenanzahl als " );
+        lblwilkommen = new JLabel("<html>Willkommen bei Ökolopoly!<br> <br>In Diesem Spiel sind Sie für Ihre Rundenanzahl als Staatsoberhaubt eingesetzt und können Ihr Staatskapital in die Sektoren ihres Landes investieren. <br> <br> Investieren Sie weise, da ein Verlassen des Wertebereichs eines Sektors das Scheitern Ihrer Amtszeit bedeutet." );
+        lblwilkommen.setFont(lblwilkommen.getFont().deriveFont(Font.BOLD, 15));
         btStart = new JButton("Start");
         btEnde = new JButton("Ende");
         
@@ -141,7 +142,7 @@ public class GUI extends JFrame implements ActionListener {
 
         //legt die Größe des Frames fest
         //startBildschirm.setSize(400, 400);
-        fenster.setSize(600,600);
+        fenster.setSize(700,700);
 
         // Zentriert das JFrame auf dem Bildschirm
         fenster.setLocationRelativeTo(null);
