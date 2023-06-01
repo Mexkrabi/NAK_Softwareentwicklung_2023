@@ -102,6 +102,8 @@ public class GUI extends JFrame implements ActionListener {
     /**
      * Die Methode erstellt den Startbildschirm und gibt die Wahl zwischen Starten und Beenden 
      * des Programmes
+     * Quelle für html und br in Swing Components
+     * https://docs.oracle.com/javase/tutorial/uiswing/components/html.html
      * 
      * 
      */
@@ -123,7 +125,9 @@ public class GUI extends JFrame implements ActionListener {
 
         lastActivePanel = startBildschirm;
         // Label & Button erstellen 
+        // html im Label ermöglicht, dass der Text bearbeitet werden kann. br erstellt einen Absatz im Text
         lblwilkommen = new JLabel("<html>Willkommen bei Ökolopoly!<br> <br>In Diesem Spiel sind Sie für Ihre Rundenanzahl als Staatsoberhaubt eingesetzt und können Ihr Staatskapital in die Sektoren ihres Landes investieren. <br> <br> Investieren Sie weise, da ein Verlassen des Wertebereichs eines Sektors das Scheitern Ihrer Amtszeit bedeutet." );
+        //Setst die Schriftgröße auf 15
         lblwilkommen.setFont(lblwilkommen.getFont().deriveFont(Font.BOLD, 15));
         btStart = new JButton("Start");
         btEnde = new JButton("Ende");
@@ -785,26 +789,34 @@ public class GUI extends JFrame implements ActionListener {
     
     
     @Override
+    /** Diese Methode legt für jeden ActionListener fest was nach dem Drücken des Buttons ausgelöst werden soll. 
+     * Jeder Button ist in einem einzelnen if fall Programmiert
+     * 
+     * 
+     */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btStart) {
-            // Aktion für Button 1
+            // Der Button Start löst den wechseln des Spielstandes auf ="SPIELERNAME" aus.
+            // es wird ebendfalls bei einem Neustart das letzte aktive fenster auf nicht Sichtbar gesetzt
             System.out.println("Start wurde geklickt.");
             lastActivePanel.setVisible(false);
             setSpielstand("SPIELERNAME");
             spielstandänderung();
         } else if (e.getSource() == btEnde) {
-            // Aktion für Button 2
+            // Der Button Ende bricht das Programm ab
             System.out.println("Ende wurde geklickt.");
             Main.boolNeustarten = false;
             System.exit(0);
         } else if (e.getSource() == btModernHoch) {
             
             if (Main.modernisierungsgrad.prüfeObImWertebereich(intModernisierungsgrad + 1) == true && intStaatsvermögen - 1 >= 0) {
+                //Dieser Button setzt den Wert von Modernisierungsgrad um einen Hoch wenn der nachfolgende Wert 
+                //noch im Wertebereich liegt und Staatskapital - 1 >=  0 ist. 
                 intModernisierungsgrad = intModernisierungsgrad + 1;
                 intStaatsvermögen = intStaatsvermögen - 1;
                 System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
  
-
+                // Der aktualisierte Wert zum Staatsvermögen wird im Label angezeigt.
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbModernisierungsgrad.setValue(intModernisierungsgrad);
                 System.out.println("Modernisierungsgrad um 1 Punkt hoch");
@@ -813,34 +825,38 @@ public class GUI extends JFrame implements ActionListener {
                 System.out.println("Wert nicht im Wertebereich");
             }
         } else if (e.getSource() == btModernRunter) {
+            // es wird der Investierte Punkt zurück genommen.
             intStaatsvermögen = intStaatsvermögen + 1;
             intModernisierungsgrad = intModernisierungsgrad - 1;
+            ///wenn nach drücken des Buttons der Startwert der Runde wieder ereicht wird. Wird der BUtton ausgeblendet
             if(intModernisierungsgrad ==  Main.modernisierungsgrad.getWert()) {
                 btModernRunter.setVisible(false);
             }
+            //Die ProgresBar und das Label wird aktueallisiert
             lblVerbleibendesStaatskapital.setText("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
             pbModernisierungsgrad.setValue(intModernisierungsgrad);
 
             System.out.println("Modernisierung um 1 Punkt runter");
         } else if (e.getSource() == btWirtschaftHoch) {
-
+            // Es wird geprüft, ob wirtschaftsleistung größer ist als der Startwert.
             if(intWirtschaftsleistung < Main.wirtschaftsleistung.getWert()){
+                // Wenn Wirtschaftsleistung bereits einmal veringert wurde wird der Investierte Punkt wieder gut geschrieben
                 intWirtschaftsleistung = intWirtschaftsleistung + 1;
                 intStaatsvermögen = intStaatsvermögen + 1;
                 System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
  
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
-                //pbWirtschaftsleistung.setString(Main.wirtschaftsleistung.getMin() +" < " + intWirtschaftsleistung +" > " + Main.wirtschaftsleistung.getMax());
-                //pbWirtschaftsleistung.setStringPainted(true);
+                
                 
                 System.out.println("Wirtschaftleistung um 1 Punkt hoch");
             } else if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung + 1) == true && intStaatsvermögen - 1 >= 0) {
+                //Wenn wirtschaftsleistung höher oder gleich des Rundenstartwertes ist. Wird ein Punkt des Staatsvermögens abgezogen und der Wert von Wirtschaftsleistung erhöht.
                 intWirtschaftsleistung = intWirtschaftsleistung + 1;
                 intStaatsvermögen = intStaatsvermögen - 1;
                 System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
- 
 
+                // Es wird der Angezeigte Wert in dem Label und der ProgressBar angepasst
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
                 System.out.println("Wirtschaftleistung um 1 Punkt hoch");
@@ -850,24 +866,28 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == btWirtschaftRunter) {
             
             if(intWirtschaftsleistung > Main.wirtschaftsleistung.getWert()){
+                //Wenn bereits in der Runde in Wirtschaftsleistung investiert wurde werden die Punkte wieder gut geschrieben
                 intWirtschaftsleistung = intWirtschaftsleistung - 1;
                 intStaatsvermögen = intStaatsvermögen + 1;
 
                 System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
 
                 Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);//Prüfen ob Wert im Wertebereich 
-
+                
+                //Es wird der Angezeigte Wert in dem Label und der ProgressBar angepasst
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
                 System.out.println("Wirtschaftleistung um 1 Punkt runter");
             } else if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung -1) == true && intStaatsvermögen - 1 >= 0){
+                //Wenn wirtschaftslesitung noch nicht erhöht wurde, werden ein Punkt vom Staatsvermögen und ein Punkt abgezogen
                 intWirtschaftsleistung = intWirtschaftsleistung - 1;
                 intStaatsvermögen = intStaatsvermögen - 1;
 
                 System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
 
                 Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);//Prüfen ob Wert im Wertebereich 
-
+                
+                //Es wird der Angezeigte Wert in dem Label und der ProgressBar angepasst
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
                 System.out.println("Wirtschaftleistung um 1 Punkt runter");
@@ -877,32 +897,37 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == btLebenHoch) {
             
             if (Main.lebensqualität.prüfeObImWertebereich(intLeben + 1) == true && intStaatsvermögen - 1 >= 0) {
+                //Wenn der Wert plus eins noch im Wertebereich ist wird der Wetrt um einen Erhöht und das Staatskapitalum eien veringert
                 intLeben = intLeben + 1;
                 intStaatsvermögen = intStaatsvermögen - 1;
                 System.out.println(Main.lebensqualität.prüfeObImWertebereich(intLeben));
          
-
+                //Es wird der Angezeigte Wert in dem Label und der ProgressBar angepasst
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbLeben.setValue(intLeben);
                 System.out.println("Lebensqualität um 1 Punkt hoch");
                 btLebenRunter.setVisible(true);
             } else {
+                //Ausgabe der Werte wenn der Maxwert bereits erreicht ist
                 System.out.println(intLeben);
                 System.out.println(intStaatsvermögen);
             }
 
         } else if (e.getSource() == btLebenRunter) {
+            // Es wird der Wert vom Staatsvermögen um einen erhöht und der Wert der Wert von Leben um einen runter gesetzt
             intStaatsvermögen = intStaatsvermögen + 1;
             intLeben = intLeben - 1;
+            //Wenn der Sartwert der Runde wieder ereicht wurde wird der Button ausgeblendet
             if(intLeben == Main.lebensqualität.getWert()) {
                 btLebenRunter.setVisible(false);
             }
+            //Die Label und die ProgressBar wird angepasst, sowie der
             lblVerbleibendesStaatskapital.setText("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
             pbLeben.setValue(intLeben);
             System.out.println("Lebensqualität um 1 Punkt runter");
             System.out.println(intLeben);
             System.out.println(intStaatsvermögen);
-
+            
         } else if (e.getSource() == btBildungHoch) {
    
             if (Main.bildung.prüfeObImWertebereich(intBildung + 1) == true && intStaatsvermögen - 1 >= 0) {
