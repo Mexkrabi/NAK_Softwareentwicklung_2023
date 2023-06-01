@@ -258,8 +258,7 @@ public class Main
         
         //# Ende der main()
     }
-    
-    
+       
     /**
      * Methode erzeugt Sektoren inkl. zugehörigen Startwert aus der startwerteHash, welche zuvor aus den Inhalten der .sim Datei erzeugt wurde.
      * 
@@ -275,7 +274,6 @@ public class Main
          */
         int startwert;
         //Bevölkerungsgröße
-        //erzeugeSektor("Bevölkerungsgröße", 1, 50);
         if(startwerteMap.get("bevölkerungsgröße") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
             startwert = startwerteMap.get("bevölkerungsgröße");
             bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert); //min max aus Angabe Tabelle (HA-Dokument)
@@ -388,12 +386,10 @@ public class Main
         
 
         //Bevölkerungswachstumsfaktor
-        //erzeugeSektor("Bevölkerungswachstumsfaktor", 1, 3);
         bevölkerungswachstumsfaktor = new Sektor("Bevölkerungswachstumsfaktor", 1, 3); //min max aus Angabe Tabelle (HA-Dokument)
         logik.einflussRechner(logik.bg_auf_bwf, bevölkerungsgröße, bevölkerungswachstumsfaktor); //richtiger Startwert hier berechnet
         
         //Versorgungslage
-        //erzeugeSektor("Versorgungslage", 1, 30);
         versorgungslage = new Sektor("Versorgungslage", -4, 1); //min max aus Angabe Tabelle (HA-Dokument)
         logik.einflussRechner(logik.wl_auf_vl, wirtschaftsleistung, versorgungslage); //richtiger Startwert hier berechnet
     }
@@ -423,6 +419,7 @@ public class Main
         }
     }
     
+    //# diese Methode wird nicht mehr verwendet
     /**
      * Methode mit try-catch Block, um Sektoren anahnd von eingelesenem Startwert zu erzeugen.
      * Falls kein Startwert vorhanden/gefunden, wird ein Standardwert eingefügt.

@@ -511,7 +511,7 @@ public class GUI extends JFrame implements ActionListener {
 
             try {
                 // das Programm wird bei jeder Zahl zwichen 0-100 für 15 ms pausiert
-                Thread.sleep(15);
+                Thread.sleep(8);
                 // der Aktuelle werde von i wird in der ProgressBar angezeigt
                 pbwarten.setValue(i);
             } catch (InterruptedException e) {
