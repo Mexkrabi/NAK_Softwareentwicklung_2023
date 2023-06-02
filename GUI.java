@@ -98,6 +98,8 @@ public class GUI extends JFrame implements ActionListener {
                 System.out.println("! '" + strSpielstand + "' ist kein gültiger Spielstand !");
         }
     }
+    
+    
 
     /**
      * Die Methode erstellt den Startbildschirm und gibt die Wahl zwischen Starten und Beenden 
@@ -206,7 +208,7 @@ public class GUI extends JFrame implements ActionListener {
      * 
      * 
      */
-    public void dateiAuswal()
+    private void dateiAuswal()
     {
         // tragen Sie hier den Code ein
         fenster.setTitle("zu Simulierendes Land auswählen");
@@ -251,7 +253,7 @@ public class GUI extends JFrame implements ActionListener {
      * Sektoren in einer ProgressBar an. Es wird zudem überprüft, ob es sich um die erste Runde handelt
      * 
      */
-    public void startwerte()
+    private void startwerte()
     {
         fenster.setTitle("Startwerte der Simulation"); // der Name des Fensters wird angepasst
 
@@ -483,7 +485,7 @@ public class GUI extends JFrame implements ActionListener {
      * Quelle Thread.sleep():
      * https://docs.oracle.com/javase/tutorial/essential/concurrency/sleep.html
      */
-    public void ladescreen()
+    private void ladescreen()
     {
         // setzt den Titel des Fensters neu
         fenster.setTitle("***** Jahr wird simuliert *****");
@@ -542,7 +544,7 @@ public class GUI extends JFrame implements ActionListener {
      * 
      * 
      */
-    public void gameover()
+    private void gameover()
     {
         // setzt den Titel des Fensters neu 
         fenster.setTitle("***** Game over *****");
@@ -598,7 +600,7 @@ public class GUI extends JFrame implements ActionListener {
      * 
      * 
      */
-    public void victory()
+    private void victory()
     {
         // setzt den Titel des Fensters neu
         fenster.setTitle("***** Victory *****");
@@ -657,7 +659,7 @@ public class GUI extends JFrame implements ActionListener {
      * 
      * 
      */
-    public void graphausgabe()
+    private void graphausgabe()
     {
         // setzt den Titel des Fensters neu
         fenster.setTitle("***** Verlauf *****");

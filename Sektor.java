@@ -20,13 +20,15 @@ public class Sektor
     
     /**
      * Konstruktor der Klasse Sektor
+     * Prüft bei der Kostruktion, ob der Startwert im Wertebereich liegt. Falls er außerhalb des Werteberichs liegt wird die Konstruktion 
+     * abgebrochen und eine IllegalArgumentException geworfen. 
      * 
      * @param name Name des Sektors
      * @param min Kleinster Wert des Sektors
      * @param max Größter Wert des Sektors
      * @param startwert Definiere den Startwert des Sektors 
     */
-    public Sektor(String name, int min, int max, int startwert)
+    public Sektor(String name, int min, int max, int startwert) throws IllegalArgumentException
     {
         this.name = name;
         this.min = min;
@@ -36,8 +38,7 @@ public class Sektor
             this.wert = startwert;
         } else {
             this.wert = standardStartwert;
-            Main.fehlerBeimErzeugenEinesSektors = true;
-            System.out.println("Eingelesener Startwert für '" + this.name + "' ist außerhalb des Wertebereichs (" + min + " bis " + max + ")! Standard-Startwert wird stattdessen eingefügt.");
+            throw new IllegalArgumentException("Eingelesener Startwert für '" + this.name + "' ist außerhalb des Wertebereichs (" + min + " bis " + max + ")! Standard-Startwert wird stattdessen eingefügt.");
         }
         werte = new HashMap<>();
         
@@ -48,7 +49,7 @@ public class Sektor
     }
     
     /**
-     * Alternativ-Konstruktor, falls kein Startwert eingegeben wurde. Standardwert dann = standardStartwert. Siehe Instanzvariablen
+     * Alternativ-Konstruktor, falls kein Startwert vorhanden ist. Standardwert dann = standardStartwert. Siehe Instanzvariablen
      * 
      * @param name Name des Sektors
      * @param min Kleinster Wert des Sektors

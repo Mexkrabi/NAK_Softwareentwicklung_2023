@@ -19,7 +19,7 @@ public class Main
     //public static String spielstand; //wird stattdessen in der GUI gespeichert
     public static String pfadStartwerte; //Speichert Dateipfad der .sim
     public static boolean boolNeustarten; //wenn wahr, wird das Spiel neugestartet
-    public static boolean fehlerBeimErzeugenEinesSektors = false; //wird wahr, falls beim erzeugen eines Sektors versucht wird, einen ungültigen Wert einzusetzen.
+    public static byte fehlerBeimErzeugenEinesSektors; //Zählt die Fehler beim erzeugen der Sektoren
     
     public static DateiLeser dateiLeser; //Zentraler DateiLeser --> Zugriff von allen Klassen möglich
     public static GUI gui; //Globaler GUI-Handler
@@ -160,10 +160,11 @@ public class Main
         //#SEKTOREN ERZEUGEN
         alleSektorenErzeugen(); //Methode erzeugt alle Sektoren inkl. zugehörigen Startwert
         
-        if(fehlerBeimErzeugenEinesSektors) { //Ausgabe einer GUI-Fehlermeldung, falls es einen falschen Wert gab.
-            gui.popUpAusgeben("Einige Angaben aus der ausgewählten Datei sind fehlerhaft oder wurden nicht erkannt. "
-                                + "Die betroffenen Sektoren wurden mit dem Standardwert " 
-                                + Sektor.standardStartwert + " erzeugt.");
+        if(fehlerBeimErzeugenEinesSektors > 0) { //Ausgabe einer GUI-Fehlermeldung, falls es mindestens einen falschen Wert gab.
+            gui.popUpAusgeben(fehlerBeimErzeugenEinesSektors + (fehlerBeimErzeugenEinesSektors > 1 ? 
+                                    " Angaben aus der ausgewählten Datei sind fehlerhaft oder wurden nicht erkannt. Die betroffenen Sektoren wurden"
+                                    : " Angabe aus der ausgewählten Datei ist fehlerhaft oder wurde nicht erkannt. Der betroffene Sektor wurde")
+                                    + " mit dem Standardwert " + Sektor.standardStartwert + " erzeugt.");
         }
 
         //#LOOP ÜBER DIE RUNDENANZAHL
@@ -266,21 +267,23 @@ public class Main
      * 
      */
     private static void alleSektorenErzeugen(){
-        /* To Do für jeden Sektor: (9x bzw. 11x)
-         * -> Name              String
-         * -> min               int
-         * -> max               int
-         * -> startwert         int
-         */
         int startwert;
+        
         //Bevölkerungsgröße
         if(startwerteMap.get("bevölkerungsgröße") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
             startwert = startwerteMap.get("bevölkerungsgröße");
-            bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert); //min max aus Angabe Tabelle (HA-Dokument)
+            try {
+                bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50, startwert); //min max aus Angabe Tabelle (HA-Dokument)
+            }
+            catch (IllegalArgumentException e){ // Falls Startwert außerhalb des Werteberichs liegt
+                fehlerBeimErzeugenEinesSektors++; //Fehler um 1 erhöhen
+                bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50); //Sektor mit Standard Startwert erzeugen
+                System.out.println(e.getMessage()); 
+            }
         }
         else{
             bevölkerungsgröße = new Sektor("Bevölkerungsgröße", 1, 50); //min max aus Angabe Tabelle (HA-Dokument)
-            fehlerBeimErzeugenEinesSektors = true;
+            fehlerBeimErzeugenEinesSektors++; //Fehler um 1 erhöhen
             System.out.println("Kein Startwert für Bevölkerungsgröße gefunden."); 
         }
         
@@ -288,11 +291,18 @@ public class Main
         //Bevölkerungswachstum
         if(startwerteMap.get("bevölkerungswachstum") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
             startwert = startwerteMap.get("bevölkerungswachstum");
+            try {
             bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)
+            }
+            catch (IllegalArgumentException e){ // Falls Startwert außerhalb des Werteberichs liegt
+                bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)
+                fehlerBeimErzeugenEinesSektors++;
+                System.out.println(e.getMessage()); 
+            }
         }
         else{
             bevölkerungswachstum = new Sektor("Bevölkerungswachstum", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)
-            fehlerBeimErzeugenEinesSektors = true;
+            fehlerBeimErzeugenEinesSektors++;
             System.out.println("Kein Startwert für Bevölkerungswachstum gefunden."); 
             
         }
@@ -301,11 +311,18 @@ public class Main
         //Wirtschaftsleistung
         if(startwerteMap.get("wirtschaftsleistung") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
             startwert = startwerteMap.get("wirtschaftsleistung");
+            try {
             wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)
+            }
+            catch (IllegalArgumentException e){ // Falls Startwert außerhalb des Werteberichs liegt
+                wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)
+                fehlerBeimErzeugenEinesSektors++;
+                System.out.println(e.getMessage()); 
+            }
         }
         else{
             wirtschaftsleistung = new Sektor("Wirtschaftsleistung", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)
-            fehlerBeimErzeugenEinesSektors = true;
+            fehlerBeimErzeugenEinesSektors++;
             System.out.println("Kein Startwert für Wirtschaftsleistung gefunden."); 
         }
                 
@@ -313,11 +330,18 @@ public class Main
         //Modernisierungsgrad
         if(startwerteMap.get("modernisierungsgrad") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
             startwert = startwerteMap.get("modernisierungsgrad");
+            try {
             modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)  
+            }
+            catch (IllegalArgumentException e){ // Falls Startwert außerhalb des Werteberichs liegt
+                modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)  
+                fehlerBeimErzeugenEinesSektors++;
+                System.out.println(e.getMessage()); 
+            }
         }
         else{
             modernisierungsgrad = new Sektor("Modernisierungsgrad", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)  
-            fehlerBeimErzeugenEinesSektors = true;
+            fehlerBeimErzeugenEinesSektors++;
             System.out.println("Kein Startwert für Modernisierungsgrad gefunden."); 
         }
              
@@ -326,11 +350,18 @@ public class Main
         //Politische Stabilität
         if(startwerteMap.get("politischestabilität") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
             startwert = startwerteMap.get("politischestabilität");
+            try {
             politische_stabilität = new Sektor("Politische Stabilität", -10, 40, startwert); //min max aus Angabe Tabelle (HA-Dokument) 
+            }
+            catch (IllegalArgumentException e){ // Falls Startwert außerhalb des Werteberichs liegt
+                politische_stabilität = new Sektor("Politische Stabilität", -10, 40); //min max aus Angabe Tabelle (HA-Dokument) 
+                fehlerBeimErzeugenEinesSektors++;
+                System.out.println(e.getMessage()); 
+            }
         }
         else{
             politische_stabilität = new Sektor("Politische Stabilität", -10, 40); //min max aus Angabe Tabelle (HA-Dokument) 
-            fehlerBeimErzeugenEinesSektors = true;
+            fehlerBeimErzeugenEinesSektors++;
             System.out.println("Kein Startwert für Politische Stabilität gefunden."); 
         }
         
@@ -338,11 +369,18 @@ public class Main
         //Umweltverschmutzung
         if(startwerteMap.get("umweltverschmutzung") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
             startwert = startwerteMap.get("umweltverschmutzung");
+            try {
             umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)
+            }
+            catch (IllegalArgumentException e){ // Falls Startwert außerhalb des Werteberichs liegt
+                umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)
+                fehlerBeimErzeugenEinesSektors++;
+                System.out.println(e.getMessage());
+            }
         }
         else{
             umweltverschmutzung = new Sektor("Umweltverschmutzung", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)
-            fehlerBeimErzeugenEinesSektors = true;
+            fehlerBeimErzeugenEinesSektors++;
             System.out.println("Kein Startwert für Umweltverschmutzung gefunden."); 
         }
                 
@@ -350,11 +388,18 @@ public class Main
         //Lebensqualität
         if(startwerteMap.get("lebensqualität") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
             startwert = startwerteMap.get("lebensqualität");
+            try {
             lebensqualität = new Sektor("Lebensqualität", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)
+            }
+            catch (IllegalArgumentException e){ // Falls Startwert außerhalb des Werteberichs liegt
+                lebensqualität = new Sektor("Lebensqualität", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)
+                fehlerBeimErzeugenEinesSektors++;
+                System.out.println(e.getMessage()); 
+            }
         }
         else{
             lebensqualität = new Sektor("Lebensqualität", 1, 30); //min max aus Angabe Tabelle (HA-Dokument)
-            fehlerBeimErzeugenEinesSektors = true;
+            fehlerBeimErzeugenEinesSektors++;
             System.out.println("Kein Startwert für Lebensqualität gefunden."); 
         }
                 
@@ -362,11 +407,18 @@ public class Main
         //Bildung
         if(startwerteMap.get("bildung") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
             startwert = startwerteMap.get("bildung");
-            bildung = new Sektor("Bildung", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)
+            try {
+                bildung = new Sektor("Bildung", 1, 30, startwert); //min max aus Angabe Tabelle (HA-Dokument)
+            }
+            catch (IllegalArgumentException e){ // Falls Startwert außerhalb des Werteberichs liegt
+                bildung = new Sektor("Bildung", 1, 30); //min max aus Angabe Tabelle (HA-Dokument=
+                fehlerBeimErzeugenEinesSektors++;
+                System.out.println(e.getMessage());
+            }
         }
         else{
             bildung = new Sektor("Bildung", 1, 30); //min max aus Angabe Tabelle (HA-Dokument=
-            fehlerBeimErzeugenEinesSektors = true;
+            fehlerBeimErzeugenEinesSektors++;
             System.out.println("Kein Startwert für Bildung gefunden."); 
         }
               
@@ -375,11 +427,18 @@ public class Main
         //Staatsvermögen
         if(startwerteMap.get("staatsvermögen") != null) { //Prüft, ob ein Startwert in der StartwerteMap vorhanden ist
             startwert = startwerteMap.get("staatsvermögen");
+            try {
             staatsvermögen = new Sektor("Staatsvermögen", 1, 32000, startwert); //min max aus Angabe Tabelle (HA-Dokument) 
+            }
+            catch (IllegalArgumentException e){ // Falls Startwert außerhalb des Werteberichs liegt
+                staatsvermögen = new Sektor("Staatsvermögen", 1, 32000); //min max aus Angabe Tabelle (HA-Dokument) 
+                fehlerBeimErzeugenEinesSektors++;
+                System.out.println(e.getMessage());
+            }
         }
         else{
             staatsvermögen = new Sektor("Staatsvermögen", 1, 32000); //min max aus Angabe Tabelle (HA-Dokument) 
-            fehlerBeimErzeugenEinesSektors = true;
+            fehlerBeimErzeugenEinesSektors++;
             System.out.println("Kein Startwert für Staatsvermögen gefunden."); 
         }
           
