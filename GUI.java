@@ -50,6 +50,7 @@ public class GUI extends JFrame implements ActionListener {
     private JButton btVerlauf;
     private JTextField txtName;
     private Boolean boAbschluss;
+    private Grafik grafik;
     
     
     /**
@@ -710,9 +711,11 @@ public class GUI extends JFrame implements ActionListener {
         fenster.add(graph);
         // dem Panel graph werden die Label, Button und das Panel tabellenPanel zugewiesen
         graph.add(lblVerlauf);
-        graph.add(tabellenPanel);
+        // graph.add(tabellenPanel);
         graph.add(cbAuswahl);
         graph.add(btVerlauf);
+        grafik = new Grafik(Main.bildung);
+        graph.add(grafik);                
         
         // die größe des Fenster wird auf 800 x 800 Pixel gesetzt
         fenster.setSize(800,800);
@@ -727,6 +730,7 @@ public class GUI extends JFrame implements ActionListener {
         System.out.println("Verlauf wird angezeigt");
 
     }
+    
 
     /**
      * Gibt ein Pop-Up Fenster aus mit einer beliebigen (Fehler-)Meldung
@@ -755,7 +759,24 @@ public class GUI extends JFrame implements ActionListener {
         //}
         //);
     }
-
+    // /**
+     // * 
+     // */
+    // public void erzeugeGrafik() {
+        // //SwingUtilities.invokeLater(() -> 
+        // //{
+            
+            // //Tabelle aus HashMap erzeugen
+            // JTable table = createJTableFromHashMap(hashMap);
+            
+            // //Tabelle dem Panel hinzufügen
+            // tabellenPanel.add(new JScrollPane(table));
+            // graph.add(tabellenPanel);
+            // tabellenPanel.setVisible(true);
+        // //}
+        // //);
+    // }
+    
     /**
      * 
      */
