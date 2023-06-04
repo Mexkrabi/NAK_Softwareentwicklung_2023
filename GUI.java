@@ -713,9 +713,7 @@ public class GUI extends JFrame implements ActionListener {
         graph.add(lblVerlauf);
         // graph.add(tabellenPanel);
         graph.add(cbAuswahl);
-        graph.add(btVerlauf);
-        grafik = new Grafik(Main.bildung);
-        graph.add(grafik);                
+        graph.add(btVerlauf);              
         
         // die größe des Fenster wird auf 800 x 800 Pixel gesetzt
         fenster.setSize(800,800);
@@ -759,23 +757,14 @@ public class GUI extends JFrame implements ActionListener {
         //}
         //);
     }
-    // /**
-     // * 
-     // */
-    // public void erzeugeGrafik() {
-        // //SwingUtilities.invokeLater(() -> 
-        // //{
-            
-            // //Tabelle aus HashMap erzeugen
-            // JTable table = createJTableFromHashMap(hashMap);
-            
-            // //Tabelle dem Panel hinzufügen
-            // tabellenPanel.add(new JScrollPane(table));
-            // graph.add(tabellenPanel);
-            // tabellenPanel.setVisible(true);
-        // //}
-        // //);
-    // }
+    /**
+     * 
+     */
+    public void erzeugeGrafik(Sektor sektor) {
+        grafik = new Grafik(sektor);
+        graph.add(grafik);
+        
+    }
     
     /**
      * 
@@ -1049,46 +1038,57 @@ public class GUI extends JFrame implements ActionListener {
             } catch (NullPointerException ex) {}
             switch (str) {
                 case "Bildung":
+                    erzeugeGrafik(Main.bildung);
                     erzeugeTabelle(Main.bildung.werte);
                     break;
                 
                 case "Lebensqualität":
+                    erzeugeGrafik(Main.lebensqualität);
                     erzeugeTabelle(Main.lebensqualität.werte);
                     break;
                 
                 case "Bevölkerungsgröße":
+                    erzeugeGrafik(Main.bevölkerungsgröße);
                     erzeugeTabelle(Main.bevölkerungsgröße.werte);
                     break;
                     
                 case "Bevölkerungswachstum":
+                    erzeugeGrafik(Main.bevölkerungswachstum);
                     erzeugeTabelle(Main.bevölkerungswachstum.werte);
                     break;
                 
                 case "Bevölkerungswachstumsfaktor":
+                    erzeugeGrafik(Main.bevölkerungswachstumsfaktor);
                     erzeugeTabelle(Main.bevölkerungswachstumsfaktor.werte);
                     break;
                 
                 case "Wirtschaftsleistung":
+                    erzeugeGrafik(Main.wirtschaftsleistung);
                     erzeugeTabelle(Main.wirtschaftsleistung.werte);
                     break;
                 
                 case "Modernisierungsgrad":
+                    erzeugeGrafik(Main.modernisierungsgrad);
                     erzeugeTabelle(Main.modernisierungsgrad.werte);
                     break;
                 
                 case "Versorgungslage":
+                    erzeugeGrafik(Main.versorgungslage);
                     erzeugeTabelle(Main.versorgungslage.werte);
                     break;
                 
                 case "Staatsvermögen":
+                    erzeugeGrafik(Main.staatsvermögen);
                     erzeugeTabelle(Main.staatsvermögen.werte);
                     break;
                 
                 case "Politische Stabilität":
+                    erzeugeGrafik(Main.politische_stabilität);
                     erzeugeTabelle(Main.politische_stabilität.werte);
                     break;
                 
                 case "Umweltverschmutzung":
+                    erzeugeGrafik(Main.umweltverschmutzung);
                     erzeugeTabelle(Main.umweltverschmutzung.werte);
                     break;
                 
