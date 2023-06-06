@@ -58,7 +58,7 @@ public class Grafik extends JPanel{
     // Die Methode paintComponents der Klasse JPanel wird überschrieben
     @Override
     protected void paintComponent(Graphics g) {
-        // AUfruf der alten JPanel-Methode paintComponents
+        // Aufruf der alten JPanel-Methode paintComponents
         super.paintComponent(g);
         // Brauchen wir um Stiftbreite zu ändern
         Graphics2D g2D = (Graphics2D) g;
@@ -67,7 +67,7 @@ public class Grafik extends JPanel{
         int hoehe = getHeight()/2;
         int breite = getWidth();
 
-        // Stiftfarbe zum Zeichnen auf Schwarz
+        // Stiftfarbe zum Zeichnen wird auf Schwarz gestellt
         g.setColor(Color.black);
         
         // Ausgabe eines Kontrolltextes

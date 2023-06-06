@@ -18,7 +18,6 @@ public class Main
     // static Variablen --> erlauben Zugriff von allen Klassen ohne ein Objekt zu erzeugen
     //public static String spielstand; //wird stattdessen in der GUI gespeichert
     public static String pfadStartwerte; //Speichert Dateipfad der .sim
-    public static boolean boolNeustarten; //wenn wahr, wird das Spiel neugestartet
     public static byte fehlerBeimErzeugenEinesSektors; //Zählt die Fehler beim erzeugen der Sektoren
     
     public static DateiLeser dateiLeser; //Zentraler DateiLeser --> Zugriff von allen Klassen möglich
@@ -100,12 +99,10 @@ public class Main
         warteSolangeNoch("START"); //warten, bis Spielstand geändert wird
         
         //# Ab hier alles in der Methode spielAblauf() ausgelagert [Schritt 1 - 4]        
-        //do{
-            //Main.boolNeustarten = false;
+                 
+        spielAblauf();
             
-            spielAblauf();
-            
-        //} while(warteBis(boolNeustarten));
+        
         
     }
     
@@ -192,7 +189,7 @@ public class Main
             
             warteBis("BERECHNUNG");
             logik.rundeBerechnen(); //Berechnung über die Logik
-            logik.speichernRundenwerte(logik.aktuelleRunde); //Speichern aller Rundenwerte
+            logik.speichernRundenwerte(); //Speichern aller Rundenwerte für die aktuelle Runde
             
             if(gui.getSpielstand() != "GAMEOVER") {
                 System.out.println("Rundenzahl erhöht");

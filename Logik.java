@@ -12,7 +12,6 @@ public class Logik
 {
     //public ArrayList<Sektor> alleSektoren; //hier werden alle Sektoren gespeichert (nicht in Verwendung)
     
-    
     public int rundenzahl; //Rundenzahl wird hier gespeichert und als Referenz verwendet
     public int aktuelleRunde; //aktuelle Runde hier gespeichert
     public String spielername; //Spielername wird hier gespeichert
@@ -200,10 +199,10 @@ public class Logik
      * 
      * @param runde Runde, für welche die Werte gespeichert werden sollen. [im Normalfall: aktuelleRunde]
      */
-    public void speichernRundenwerte(int runde) 
+    public void speichernRundenwerte() 
     {
         //Speichern vom Simulationserfolg
-        simulationsErfolg.put(runde, berechneSimulationserfolg());
+        simulationsErfolg.put(aktuelleRunde, berechneSimulationserfolg());
         System.out.println("Simulationserfolg gespeichert");
         
         //Speichern von allen einzelnen Werten
@@ -229,8 +228,6 @@ public class Logik
         //Rundenzahl zurücksetzen
         aktuelleRunde = 1;
         //boolean ändern
-        Main.boolNeustarten = true;
-         
     }
     
     /**

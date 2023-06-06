@@ -517,8 +517,8 @@ public class GUI extends JFrame implements ActionListener {
         for(int i =0; i<=100;i++){
 
             try {
-                // das Programm wird bei jeder Zahl zwichen 0-100 für 15 ms pausiert
-                Thread.sleep(8);
+                // das Programm wird bei jeder Zahl zwichen 0-100 für () ms pausiert
+                Thread.sleep(7);
                 // der Aktuelle werde von i wird in der ProgressBar angezeigt
                 pbwarten.setValue(i);
             } catch (InterruptedException e) {
@@ -559,7 +559,7 @@ public class GUI extends JFrame implements ActionListener {
         lastActivePanel = gameover;
         
         // es werden Label und Button erstellt 
-        JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider inerhalb Ihrer Amtszeit in eine Krise geführt ");
+        JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider innerhalb Ihrer Amtszeit in eine Krise geführt ");
         btHauptmenü = new JButton("Zurück zum Hauptmenü"); 
         btVerlauf = new JButton("Verlauf der Werte Anzeigen");
         btEnde = new JButton("Spiel Beenden");
@@ -591,7 +591,6 @@ public class GUI extends JFrame implements ActionListener {
         gameover.setVisible(true);
         // in der Konsol wird Game over ausgegeben
         System.out.println("Game over");
-
     }
 
     /**
@@ -757,13 +756,12 @@ public class GUI extends JFrame implements ActionListener {
         //}
         //);
     }
-    /**
-     * 
+    /** initiiert ein Objekt der Klasse Dateileser und fügt die Grafik dem Panel graph hinzu
+     * [Livia Kadenbach]
      */
-    public void erzeugeGrafik(Sektor sektor) {
+    private void erzeugeGrafik(Sektor sektor) {
         grafik = new Grafik(sektor);
         graph.add(grafik);
-        
     }
     
     /**
@@ -817,7 +815,6 @@ public class GUI extends JFrame implements ActionListener {
         } else if (e.getSource() == btEnde) {
             // Der Button Ende bricht das Programm ab
             System.out.println("Ende wurde geklickt.");
-            Main.boolNeustarten = false;
             System.exit(0);
         } else if (e.getSource() == btModernHoch) {
             
@@ -826,7 +823,7 @@ public class GUI extends JFrame implements ActionListener {
                 //noch im Wertebereich liegt und Staatskapital - 1 >=  0 ist. 
                 intModernisierungsgrad = intModernisierungsgrad + 1;
                 intStaatsvermögen = intStaatsvermögen - 1;
-                System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
+                System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intModernisierungsgrad));
  
                 // Der aktualisierte Wert zum Staatsvermögen wird im Label angezeigt.
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
