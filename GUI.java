@@ -5,18 +5,14 @@ import java.awt.event.*;
 import java.awt.Graphics;
 import java.util.Map;
 import java.util.*;
-
-
 /**
- * Beschreiben Sie hier die Klasse GUI.
- * 
+ * Beschreiben Sie hier die Klasse GUI. 
  * @author Malte Fischer
  * @version 3.0
  */
 public class GUI extends JFrame implements ActionListener {
     public GUI() {
         fenster = new JFrame(); // erstellen eines Fenster
-        //# Prüfen ob ok
         // Quellen:
         //https://stackoverflow.com/questions/13207519/adding-a-new-windowlistener-to-a-jframe
         //https://docs.oracle.com/javase/8/docs/api/java/awt/event/WindowListener.html
@@ -49,9 +45,7 @@ public class GUI extends JFrame implements ActionListener {
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
     private JButton btVerlauf;
     private JTextField txtName;
-    private Boolean boAbschluss;
-    private Grafik grafik;
-    
+    private Boolean boAbschluss; 
     
     /**
      * Die Methode spielstandänderunglegt organisiert anhand einer Variablen den aktuellen Spielstand
@@ -93,23 +87,18 @@ public class GUI extends JFrame implements ActionListener {
                 victory();
                 break;
             case "NEUSTART" :
-                Main.logik.neustarten(); // es wird in der Klasse Logik eine Methode für den Neustart aufgerufen
                 break;
             default : //falls Spielstand falsch angegeben wird, oder nicht erkannt wird
                 System.out.println("! '" + strSpielstand + "' ist kein gültiger Spielstand !");
         }
     }
     
-    
-
     /**
      * Die Methode erstellt den Startbildschirm und gibt die Wahl zwischen Starten und Beenden 
      * des Programmes
      * Quelle für html und br in Swing Components
      * https://docs.oracle.com/javase/tutorial/uiswing/components/html.html
-     * 
-     * 
-     */
+    */
     private void startBildschirm()
     {
         // Erstellt ein neues Fenster mit dem Titel "Start-End Frame" 
@@ -119,9 +108,7 @@ public class GUI extends JFrame implements ActionListener {
         JPanel buttons = new JPanel ();
         //Erzeuge eine 2x1 Matrix mit einem Abstand von 30 Pixeln
         buttons.setLayout(new GridLayout(2, 1, 30, 30));
-
-        
-        
+    
         startBildschirm = new JPanel();
         //Erzeuge eine 2x1 Matrix mit einem Abstand von 30 Pixeln
         startBildschirm.setLayout(new GridLayout(2, 1, 30, 30));
@@ -145,14 +132,11 @@ public class GUI extends JFrame implements ActionListener {
         buttons.add(btStart);
         buttons.add(btEnde);
 
-        //Fügt das JPanel zum JFrame hinzu
-        fenster.add(startBildschirm);
+        fenster.add(startBildschirm); //Fügt das JPanel zum JFrame hinzu
+        
+        fenster.setSize(700,700); //legt die Größe des Frames fest
 
-        //legt die Größe des Frames fest
-        fenster.setSize(700,700);
-
-        // Zentriert das JFrame auf dem Bildschirm
-        fenster.setLocationRelativeTo(null);
+        fenster.setLocationRelativeTo(null); // Zentriert das JFrame auf dem Bildschirm
 
         //setzt die Sichtbarkeit auf true
         fenster.setVisible(true);
@@ -169,12 +153,9 @@ public class GUI extends JFrame implements ActionListener {
      */
     private void spielername()
     {
-        // Erstellt ein neues Fenster mit dem Titel "Spielernamen eintragen" 
-        // und ein neues JPanel "namenEintragen"
-        fenster.setTitle("Spielernamen eintragen");
-        namenEintragen = new JPanel();
-        //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
-        namenEintragen.setLayout(new GridLayout(3, 1, 30, 30));
+        fenster.setTitle("Spielernamen eintragen"); // Ändert den Titel des Fensters aus dem konstruktor
+        namenEintragen = new JPanel(); //erstellt ein neues JPanel "namenEintragen"
+        namenEintragen.setLayout(new GridLayout(3, 1, 30, 30));//Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
 
         // Label & Button erstellen 
         JLabel lblNamenEintragen = new JLabel("Bitte tragen Sie den Namen ein unter dem Sie regieren wollen");
@@ -189,14 +170,11 @@ public class GUI extends JFrame implements ActionListener {
         namenEintragen.add(txtName);
         namenEintragen.add(btNamenbestätigen);
 
-        //Fügt das JPanel zum JFrame hinzu
-        fenster.add(namenEintragen);
+        fenster.add(namenEintragen); //Fügt das JPanel zum JFrame hinzu
 
-        //legt die Größe des Frames fest
-        fenster.setSize(700,700);
-
-        // Zentriert das JFrame auf dem Bildschirm
-        fenster.setLocationRelativeTo(null);
+        fenster.setSize(700,700); //legt die Größe des Frames fest
+        
+        fenster.setLocationRelativeTo(null); // Zentriert das JFrame auf dem Bildschirm
 
         //setzt die Sichtbarkeit auf true
         fenster.setVisible(true);
@@ -211,11 +189,8 @@ public class GUI extends JFrame implements ActionListener {
      */
     private void dateiAuswal()
     {
-        // tragen Sie hier den Code ein
         fenster.setTitle("zu Simulierendes Land auswählen");
         auswahlDatei = new JPanel();
-
-        //Erzeuge eine 3x1 Matrix mit einem Abstand von 30 Pixeln
         auswahlDatei.setLayout(new GridLayout(3, 2, 40, 40));
 
         JLabel lblAuswahl = new JLabel("Wählen Sie das zu Spielende Land aus");
@@ -226,7 +201,6 @@ public class GUI extends JFrame implements ActionListener {
         for (String datei : Main.dateiLeser.dateienFinden()){
             cbDateien.addItem(datei);
         }
-        //cbDateien.addItem("Auswahl");
         
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btAuswahlBestätigen.addActionListener(this);
@@ -236,13 +210,11 @@ public class GUI extends JFrame implements ActionListener {
         auswahlDatei.add(cbDateien); 
         auswahlDatei.add(btAuswahlBestätigen);
 
-        //Fügt das JPanel zum JFrame hinzu
-        fenster.add(auswahlDatei);
+        fenster.add(auswahlDatei); //Fügt das JPanel zum JFrame hinzu
 
-        //legt die Größe des Frames fest
-        fenster.setSize(400,400);
-        // Zentriert das JFrame auf dem Bildschirm
-        fenster.setLocationRelativeTo(null);
+        fenster.setSize(400,400);//legt die Größe des Frames fest
+        
+        fenster.setLocationRelativeTo(null); // Zentriert das JFrame auf dem Bildschirm
 
         //setzt die Sichtbarkeit auf true
         fenster.setVisible(true);
@@ -373,21 +345,17 @@ public class GUI extends JFrame implements ActionListener {
      */
     private void wertezuweisung()
     {
-        // setzt den Titel des Fensters neu
-        fenster.setTitle("Werte zuweisen");
+        fenster.setTitle("Werte zuweisen"); // setzt den Titel des Fensters neu
         
-        // erstelle ein neues Panel
-        wertezuweisen = new JPanel();
-        //Erzeuge eine 5x4 Matrix mit einem Abstand von 10 Pixeln 
-        wertezuweisen.setLayout(new GridLayout(5, 4, 10, 10));
+        wertezuweisen = new JPanel(); // erstelle ein neues Panel
+        wertezuweisen.setLayout(new GridLayout(5, 4, 10, 10)); //Erzeuge eine 5x4 Matrix mit einem Abstand von 10 Pixeln 
         
         // es werden die Visualisierungen zum investeiren in Wirtschaftsleistung erstellt
         lblWirtschaftsleistung = new JLabel("Wirtschaftsleistung: ");
         intWirtschaftsleistung = Main.wirtschaftsleistung.getWert();
         pbWirtschaftsleistung = new JProgressBar(Main.wirtschaftsleistung.getMin(),Main.wirtschaftsleistung.getMax());
         pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
-        //pbWirtschaftsleistung.setString(Main.wirtschaftsleistung.getMin() +" < " + intWirtschaftsleistung +" > " + Main.wirtschaftsleistung.getMax());
-        //pbWirtschaftsleistung.setStringPainted(true);
+
         btWirtschaftHoch = new JButton("+");
         btWirtschaftRunter = new JButton("-");
         
@@ -445,7 +413,7 @@ public class GUI extends JFrame implements ActionListener {
         wertezuweisen.add(pbWirtschaftsleistung);
         wertezuweisen.add(btWirtschaftHoch);
         wertezuweisen.add(btWirtschaftRunter);
-
+        
         wertezuweisen.add(lblModernisierungsgrad);
         wertezuweisen.add(pbModernisierungsgrad);
         wertezuweisen.add(btModernHoch);
@@ -472,11 +440,8 @@ public class GUI extends JFrame implements ActionListener {
         btLebenRunter.setVisible(false);
         btModernRunter.setVisible(false);
         
-        // das Fenster wird auf die notwendige Größe angepasst
-        fenster.pack();
-        
-        // das Fenster wird in die mitte des Bildschirm
-        fenster.setLocationRelativeTo(null);
+        fenster.pack(); //das Fenster wird auf die notwendige Größe angepasst
+        fenster.setLocationRelativeTo(null);// das Fenster wird in die mitte des Bildschirm
     }
 
     /**
@@ -488,47 +453,34 @@ public class GUI extends JFrame implements ActionListener {
      */
     private void ladescreen()
     {
-        // setzt den Titel des Fensters neu
-        fenster.setTitle("***** Jahr wird simuliert *****");
+        fenster.setTitle("***** Jahr wird simuliert *****"); // setzt den Titel des Fensters neu
         
-        // erstellt ein neues Panel 
-        ladescreen = new JPanel();
+        ladescreen = new JPanel();// erstellt ein neues Panel 
+        ladescreen.setLayout(new GridLayout(2, 1, 20, 20)); //Erzeuge eine 2x1 Matrix mit einem Abstand von 20 Pixeln 
         
-        //Erzeuge eine 2x1 Matrix mit einem Abstand von 20 Pixeln 
-        ladescreen.setLayout(new GridLayout(2, 1, 20, 20));
+        JLabel lblLadescreen= new JLabel("  Ihr " +  (Main.logik.aktuelleRunde ) + ". Amtsjahr wird Simuliert" );// erstellt ein Label 
         
-        // erstellt ein Label 
-        JLabel lblLadescreen= new JLabel("  Ihr " +  (Main.logik.aktuelleRunde ) + ". Amtsjahr wird Simuliert" );
+        lblLadescreen.setFont(lblLadescreen.getFont().deriveFont(Font.BOLD, 24)); //Die schriftgröße des Labels wird angepasst
         
-        //Die schriftgröße des Labels wird angepasst
-        lblLadescreen.setFont(lblLadescreen.getFont().deriveFont(Font.BOLD, 24)); 
-        
-        //erstellt eine ProgressBar mit einem Werteberich von 0-100
-        JProgressBar pbwarten = new JProgressBar(0,100);
+        JProgressBar pbwarten = new JProgressBar(0,100); //erstellt eine ProgressBar mit einem Werteberich von 0-100
         
         // dem Fenster werden das Panel, das Label und die ProgressBar hinzugefügt
         fenster.add(ladescreen);
         ladescreen.add(lblLadescreen);
         ladescreen.add(pbwarten);
-        // das verster wird wieder Sichtbar
-        fenster.setVisible(true);
+        
+        fenster.setVisible(true); //das Fenster wird wieder Sichtbar
         
         //Die Schleife simuliert das Durchlaufen des Programmes und verzögert
         for(int i =0; i<=100;i++){
-
             try {
-                // das Programm wird bei jeder Zahl zwichen 0-100 für () ms pausiert
-                Thread.sleep(7);
-                // der Aktuelle werde von i wird in der ProgressBar angezeigt
-                pbwarten.setValue(i);
+                Thread.sleep(7); // das Programm wird bei jeder Zahl zwichen 0-100 für () ms pausiert
+                pbwarten.setValue(i);// der Aktuelle werde von i wird in der ProgressBar angezeigt
             } catch (InterruptedException e) {
-                //# PRüfen ob ok verfolgt den Fehler und gibt Klasse und Zeile zurück
                 e.printStackTrace();
             }
-
         }
-        // es gibt ein Update über die Konsole
-        System.out.println("Jahr beendet");
+        System.out.println("Jahr beendet");// es gibt ein Update über die Konsole
         // sets die Sichtbarkeit auf false
         fenster.setVisible(false);
         ladescreen.setVisible(false);
@@ -547,16 +499,11 @@ public class GUI extends JFrame implements ActionListener {
      */
     private void gameover()
     {
-        // setzt den Titel des Fensters neu 
-        fenster.setTitle("***** Game over *****");
-        // es wird ein neues Panel erstellt
-        gameover = new JPanel();
+        fenster.setTitle("***** Game over *****"); // setzt den Titel des Fensters neu 
+        gameover = new JPanel();// es wird ein neues Panel erstellt        
+        gameover.setLayout(new GridLayout(4, 1, 50, 50));//Erzeuge eine 4x1 Matrix mit einem Abstand von 50 Pixeln 
         
-        //Erzeuge eine 4x1 Matrix mit einem Abstand von 50 Pixeln 
-        gameover.setLayout(new GridLayout(4, 1, 50, 50));
-        
-        //weist einer variablen das Panel gameover zu
-        lastActivePanel = gameover;
+        lastActivePanel = gameover; //weist einer variablen das Panel gameover zu
         
         // es werden Label und Button erstellt 
         JLabel lblGameover= new JLabel(" Sie haben Ihr Land leider innerhalb Ihrer Amtszeit in eine Krise geführt ");
@@ -564,16 +511,14 @@ public class GUI extends JFrame implements ActionListener {
         btVerlauf = new JButton("Verlauf der Werte Anzeigen");
         btEnde = new JButton("Spiel Beenden");
         
-        // die Schriftgröße des Labels wird angepasst
-        lblGameover.setFont(lblGameover.getFont().deriveFont(Font.BOLD, 20));
+        lblGameover.setFont(lblGameover.getFont().deriveFont(Font.BOLD, 20)); // die Schriftgröße des Labels wird angepasst
         
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btHauptmenü.addActionListener(this);
         btEnde.addActionListener(this);
         btVerlauf.addActionListener(this);
 
-        // Dem Fenster wird das Panel hinzugefügt
-        fenster.add(gameover);
+        fenster.add(gameover); // Dem Fenster wird das Panel hinzugefügt
 
         // dem Panel werden die zuvor erstellten Label und Button hinzugefügt
         gameover.add(lblGameover);
@@ -581,10 +526,8 @@ public class GUI extends JFrame implements ActionListener {
         gameover.add(btHauptmenü);
         gameover.add(btEnde);
 
-        // die größe des Fenster wird auf 800 x 800 Pixel gesetzt
-        fenster.setSize(800,800);
-        // das Fenster wird in die Mitte des Bildschirm gesetzt
-        fenster.setLocationRelativeTo(null);
+        fenster.setSize(800,800); // die größe des Fenster wird auf 800 x 800 Pixel gesetzt
+        fenster.setLocationRelativeTo(null);// das Fenster wird in die Mitte des Bildschirm gesetzt
         
         //das Fenster und das Panel werden Sichtbar
         fenster.setVisible(true);
@@ -602,18 +545,11 @@ public class GUI extends JFrame implements ActionListener {
      */
     private void victory()
     {
-        // setzt den Titel des Fensters neu
-        fenster.setTitle("***** Victory *****");
+        fenster.setTitle("***** Victory *****"); // setzt den Titel des Fensters neu
         
-        // es wird ein neues Panel erstellt
-        victory = new JPanel();
-        
-        //Erzeuge eine 5x1 Matrix mit einem Abstand von 50 Pixeln 
-        victory.setLayout(new GridLayout(5, 1, 50, 50));
-        
-        //weist einer variablen das Panel gameover zu
-        lastActivePanel = victory;
-        
+        victory = new JPanel(); // es wird ein neues Panel erstellt
+        victory.setLayout(new GridLayout(5, 1, 50, 50)); //Erzeuge eine 5x1 Matrix mit einem Abstand von 50 Pixeln 
+        lastActivePanel = victory; //weist einer variablen das Panel gameover zu
         
         JLabel lblVictory= new JLabel(" Sie haben Ihr Land Erfolgreich regiert und es weit voran getrieben ");
         JLabel lblErgebnis= new JLabel("Simulationserfolg: " + Main.logik.simulationsErfolg.get(Main.logik.aktuelleRunde -1 ));
@@ -625,7 +561,6 @@ public class GUI extends JFrame implements ActionListener {
         lblErgebnis.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 15));
         lblVictory.setFont(lblVictory.getFont().deriveFont(Font.BOLD, 20));
         
-
         //fügt einen ActionListener hinzu um auf einen klick zu reagieren
         btEnde.addActionListener(this);
         btVerlauf.addActionListener(this);
@@ -639,53 +574,37 @@ public class GUI extends JFrame implements ActionListener {
         victory.add(btHauptmenü);
         victory.add(btEnde);
 
-        // die größe des Fenster wird auf 800 x 800 Pixel gesetzt
-        fenster.setSize(800,800);
-        // das Fenster wird in die Mitte des Bildschirm gesetzt
-        fenster.setLocationRelativeTo(null);
+        fenster.setSize(800,800);// die größe des Fenster wird auf 800 x 800 Pixel gesetzt
+        fenster.setLocationRelativeTo(null);// das Fenster wird in die Mitte des Bildschirm gesetzt
 
         //das Fenster und das Panel werden Sichtbar
         fenster.setVisible(true);
-        victory.setVisible(true);
+        victory.setVisible(true);      
         
-        // in der Konsol wird Victory ausgegeben
-        System.out.println("Victory");
-
+        System.out.println("Victory");// in der Konsol wird Victory ausgegeben
     }
 
     /**
      * Ein Beispiel einer Methode - ersetzen Sie diesen Kommentar mit Ihrem eigenen
      * 
-     * 
-     * 
      */
-    private void graphausgabe()
+    private void grafikausgabe()
     {
-        // setzt den Titel des Fensters neu
-        fenster.setTitle("***** Verlauf *****");
-
-        // es wird ein neues Panel erstellt
-        graph = new JPanel();
+        fenster.setTitle("***** Verlauf *****"); // setzt den Titel des Fensters neu
+        graph = new JPanel(); // es wird ein neues Panel erstellt
         tabellenPanel = new JPanel();
-
-        //Erzeuge eine 4x1 Matrix mit einem Abstand von 50 Pixeln
-        graph.setLayout(new GridLayout(4, 1, 50, 50));
         
-        // sets die Sichtbarkeit des zugewiesene Panel auf false
-        lastActivePanel.setVisible(false);
-        //weist einer variablen das Panel graph zu
-        lastActivePanel = graph;
-        // weist dem Button einen neuen Text zu
-        btVerlauf.setText("Zurück zu Übersicht");
-        // erstellt ein neues Label 
-        lblVerlauf= new JLabel("Anzeigen von Simulationserfolg");
+        graph.setLayout(new GridLayout(4, 1, 50, 50)); //Erzeuge eine 4x1 Matrix mit einem Abstand von 50 Pixeln
         
-        // weist der String Variable den Wert Simulationserfolg zu 
-        str = "Simulationserfolg";
+        lastActivePanel.setVisible(false); // sets die Sichtbarkeit des zugewiesene Panel auf false
+        lastActivePanel = graph; //weist einer variablen das Panel graph zu
         
-        // es wird eine ComboBox erstellt
-        cbAuswahl = new JComboBox<String>();
+        btVerlauf.setText("Zurück zu Übersicht"); // weist dem Button einen neuen Text zu
+        lblVerlauf= new JLabel("Anzeigen von Simulationserfolg"); // erstellt ein neues Label 
         
+        str = "Simulationserfolg"; // weist der String Variable den Wert Simulationserfolg zu 
+                
+        cbAuswahl = new JComboBox<String>(); // es wird eine ComboBox erstellt
         //Fügt Werte in die ComboBox
         cbAuswahl.addItem("Simulationserfolg");
         cbAuswahl.addItem("Bildung");
@@ -700,24 +619,18 @@ public class GUI extends JFrame implements ActionListener {
         cbAuswahl.addItem("Politische Stabilität");
         cbAuswahl.addItem("Versorgungslage");
         
+        cbAuswahl.addActionListener(this);// fügt der ComboBox einen ActionListener hinzu
         
-        // fügt der ComboBox einen ActionListener hinzu
-        cbAuswahl.addActionListener(this);
-        // es wird die Methode zum erstellen der Tabelle aufgerfen und die Hash für den Simulationserfolg mitgegeben
-        erzeugeTabelle(Main.logik.simulationsErfolg);
+        erzeugeTabelle(Main.logik.simulationsErfolg);// es wird die Methode zum erstellen der Tabelle aufgerfen und die Hash für den Simulationserfolg mitgegeben
 
-        // dem Fenster wird das Panel graph zugewiesen
-        fenster.add(graph);
-        // dem Panel graph werden die Label, Button und das Panel tabellenPanel zugewiesen
-        graph.add(lblVerlauf);
+        fenster.add(graph); // dem Fenster wird das Panel graph zugewiesen
+        graph.add(lblVerlauf);// dem Panel graph werden die Label, Button und das Panel tabellenPanel zugewiesen
         // graph.add(tabellenPanel);
         graph.add(cbAuswahl);
         graph.add(btVerlauf);              
         
-        // die größe des Fenster wird auf 800 x 800 Pixel gesetzt
-        fenster.setSize(800,800);
-        // das Fenster wird in die Mitte des Bildschirm gesetzt
-        fenster.setLocationRelativeTo(null);
+        fenster.setSize(800,800); // die größe des Fenster wird auf 800 x 800 Pixel gesetzt
+        fenster.setLocationRelativeTo(null); // das Fenster wird in die Mitte des Bildschirm gesetzt
 
         //das Fenster und das Panel werden Sichtbar
         fenster.setVisible(true);
@@ -727,11 +640,9 @@ public class GUI extends JFrame implements ActionListener {
         System.out.println("Verlauf wird angezeigt");
 
     }
-    
 
     /**
      * Gibt ein Pop-Up Fenster aus mit einer beliebigen (Fehler-)Meldung
-     * 
      * @param text Text, der angezeigt werden soll.
      */
     public void popUpAusgeben(String text)
@@ -740,28 +651,14 @@ public class GUI extends JFrame implements ActionListener {
     }
 
     /**
-     * 
+     * @param Hashmap der Werte die man in der Tabelle haben möchte
      */
-    public void erzeugeTabelle(HashMap<Integer, Integer> hashMap) {
-        //SwingUtilities.invokeLater(() -> 
-        //{
-            
-            //Tabelle aus HashMap erzeugen
-            JTable table = createJTableFromHashMap(hashMap);
-            
+    public void erzeugeTabelle(HashMap<Integer, Integer> hashMap) {         
+            JTable table = createJTableFromHashMap(hashMap); //Tabelle aus HashMap erzeugen
             //Tabelle dem Panel hinzufügen
             tabellenPanel.add(new JScrollPane(table));
             graph.add(tabellenPanel);
             tabellenPanel.setVisible(true);
-        //}
-        //);
-    }
-    /** initiiert ein Objekt der Klasse Dateileser und fügt die Grafik dem Panel graph hinzu
-     * [Livia Kadenbach]
-     */
-    private void erzeugeGrafik(Sektor sektor) {
-        grafik = new Grafik(sektor);
-        graph.add(grafik);
     }
     
     /**
@@ -771,16 +668,13 @@ public class GUI extends JFrame implements ActionListener {
         DefaultTableModel tableModel = new DefaultTableModel();
         tableModel.addColumn("Runde");
         tableModel.addColumn("Werte");
-
         for (Map.Entry<Integer, Integer> entry : hashMap.entrySet()) {
             Integer key = entry.getKey();
             Integer value = entry.getValue();
             tableModel.addRow(new Object[]{key, value});
         }
-
         return new JTable(tableModel);
     }
-    
     
     //Getter & Setter
     public String getSpielstand() 
@@ -792,17 +686,11 @@ public class GUI extends JFrame implements ActionListener {
     {
         System.out.println("\n--- Spielstand wird von " + this.strSpielstand + " auf " + neuerSpielstand + " geändert ---\n");
         this.strSpielstand = neuerSpielstand;
-        //Prüfung hinzufügen
-    }
-
-    
-    
+    }   
     
     @Override
     /** Diese Methode legt für jeden ActionListener fest was nach dem Drücken des Buttons ausgelöst werden soll. 
-     * Jeder Button ist in einem einzelnen if fall Programmiert
-     * 
-     * 
+     * Jeder Button ist in einem einzelnen if fall Programmiert 
      */
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == btStart) {
@@ -944,7 +832,6 @@ public class GUI extends JFrame implements ActionListener {
                 intStaatsvermögen = intStaatsvermögen - 1;
                 System.out.println(Main.bildung.prüfeObImWertebereich(intBildung));
                
-
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbBildung.setValue(intBildung);
                 System.out.println("Bildung um 1 Punkt hoch");
@@ -979,7 +866,7 @@ public class GUI extends JFrame implements ActionListener {
             Main.wirtschaftsleistung.setWert(intWirtschaftsleistung);
             Main.modernisierungsgrad.setWert(intModernisierungsgrad);
             Main.lebensqualität.setWert(intLeben);
-            Main.staatsvermögen.setWert(intStaatsvermögen); // <-- Das hat gefehlt
+            Main.staatsvermögen.setWert(intStaatsvermögen);
 
             setSpielstand("BERECHNUNG");
             spielstandänderung();
@@ -999,23 +886,21 @@ public class GUI extends JFrame implements ActionListener {
                 System.out.println("Ungültige Zeichen in der Eingabe.");
                 JOptionPane.showMessageDialog(null, "Bitte geben Sie einen Namen ohne Sonderzeichen ein");
                 txtName.setText("");
-                // Hier kannst du eine Fehlermeldung anzeigen oder weitere Aktionen ausführen
             } else {
                 // Wenn die Eingabe gültig ist:
                 System.out.println("Eingabe gültig: " + eingabe);
-                // ausblenden des Aktiven panel
-                Main.logik.spielername = eingabe;
-                namenEintragen.setVisible(false);
                 
-                //Spielstand wird auf Auswahl gestzt
-                setSpielstand("AUSWAHL");
+                Main.logik.spielername = eingabe;
+                namenEintragen.setVisible(false); // ausblenden des Aktiven panel
+                
+                setSpielstand("AUSWAHL"); //Spielstand wird auf Auswahl gestzt
                 spielstandänderung();
             }
 
         } else if (e.getSource() == btVerlauf) {
             if (lastActivePanel == victory || lastActivePanel == gameover) {
                 lastActivePanel.setVisible(false);
-                graphausgabe();
+                grafikausgabe();
             }else if (lastActivePanel == graph){
                 if (strSpielstand == "GAMEOVER") {
                     lastActivePanel.setVisible(false);
@@ -1035,60 +920,38 @@ public class GUI extends JFrame implements ActionListener {
             } catch (NullPointerException ex) {}
             switch (str) {
                 case "Bildung":
-                    erzeugeGrafik(Main.bildung);
                     erzeugeTabelle(Main.bildung.werte);
                     break;
-                
                 case "Lebensqualität":
-                    erzeugeGrafik(Main.lebensqualität);
                     erzeugeTabelle(Main.lebensqualität.werte);
                     break;
-                
                 case "Bevölkerungsgröße":
-                    erzeugeGrafik(Main.bevölkerungsgröße);
                     erzeugeTabelle(Main.bevölkerungsgröße.werte);
                     break;
-                    
                 case "Bevölkerungswachstum":
-                    erzeugeGrafik(Main.bevölkerungswachstum);
                     erzeugeTabelle(Main.bevölkerungswachstum.werte);
                     break;
-                
                 case "Bevölkerungswachstumsfaktor":
-                    erzeugeGrafik(Main.bevölkerungswachstumsfaktor);
                     erzeugeTabelle(Main.bevölkerungswachstumsfaktor.werte);
                     break;
-                
                 case "Wirtschaftsleistung":
-                    erzeugeGrafik(Main.wirtschaftsleistung);
                     erzeugeTabelle(Main.wirtschaftsleistung.werte);
                     break;
-                
                 case "Modernisierungsgrad":
-                    erzeugeGrafik(Main.modernisierungsgrad);
                     erzeugeTabelle(Main.modernisierungsgrad.werte);
                     break;
-                
                 case "Versorgungslage":
-                    erzeugeGrafik(Main.versorgungslage);
                     erzeugeTabelle(Main.versorgungslage.werte);
                     break;
-                
                 case "Staatsvermögen":
-                    erzeugeGrafik(Main.staatsvermögen);
                     erzeugeTabelle(Main.staatsvermögen.werte);
                     break;
-                
                 case "Politische Stabilität":
-                    erzeugeGrafik(Main.politische_stabilität);
                     erzeugeTabelle(Main.politische_stabilität.werte);
                     break;
-                
                 case "Umweltverschmutzung":
-                    erzeugeGrafik(Main.umweltverschmutzung);
                     erzeugeTabelle(Main.umweltverschmutzung.werte);
                     break;
-                
                 case "Simulationserfolg":
                     erzeugeTabelle(Main.logik.simulationsErfolg);
                     break;

@@ -252,6 +252,7 @@ public class Main
         
         warteBis("NEUSTART"); //wichtig, warten
         
+        Main.logik.aktuelleRunde = 1; 
         main(new String[]{}); //Wiederaufrufen der main() Funktion --> Code startet neu
         
         //# Ende der main()

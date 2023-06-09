@@ -220,17 +220,7 @@ public class Logik
         System.out.println("Sektorenwerte gespeichert");
     }
     
-    /**
-     * Methode setzt gewisse Werte zurück und bereitet den Code auf ein Spielneustart vor.
-     */
-    public void neustarten() {
-        //Werte zurücksetzen
-        //Rundenzahl zurücksetzen
-        aktuelleRunde = 1;
-        //boolean ändern
-    }
-    
-    /**
+        /**
      * Das Aufrufen dieser Funktion beendet das Spiel. 
      * Es soll übergeben werden, ob das Spiel gewonnen wurde oder nicht.
      * 
