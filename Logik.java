@@ -46,19 +46,10 @@ public class Logik
     public Logik()
     {
         this.aktuelleRunde = 1;
-        hashErzeuger();
+        simulationsErfolg = new HashMap<>();
         einflussWerteErzeugen();
     }
     
-    /**
-     * Erzeuge alle HashMaps zu beginn.
-     */
-    public void hashErzeuger()
-    {
-        simulationsErfolg = new HashMap<>();
-        //masterHash = new HashMap<>();
-    }
-
     /**
      * Diese Methode berechnet einen einzelnen Einflussschritt. Der neue Wert wird direkt im Ziel-Sektor eingesetzt.
      * Automatische Prüfung der Werte integriert. Gibt zurück, ob das Spiel weitergehen kann oder nicht.
@@ -265,7 +256,7 @@ public class Logik
      * Methode erzeugt alle vordefinierten Einflusswerte aus der Excel-Tabelle (Kein Dateizugriff, nur im Code veränderbar).
      * Daraufhin werden die Beziehungs-HashMaps erzeugt und befüllt.
      */
-    public void einflussWerteErzeugen() 
+    private void einflussWerteErzeugen() 
     {
         //Werte aus Excel-Tabelle als int[] Arrays gespeichert
         int[] spalteB = {0, 0, -1, -1, -1, -1, -1, -2, -2, -2, -2, -2, -3, -3, -3, -3, -3, -4, -4, -4, -5, -5, -6, -6, -7, -7, -8, -8, -9, -10};
