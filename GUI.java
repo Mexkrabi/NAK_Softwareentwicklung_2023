@@ -624,8 +624,7 @@ public class GUI extends JFrame implements ActionListener {
         erzeugeTabelle(Main.logik.simulationsErfolg);// es wird die Methode zum erstellen der Tabelle aufgerfen und die Hash für den Simulationserfolg mitgegeben
 
         fenster.add(graph); // dem Fenster wird das Panel graph zugewiesen
-        graph.add(lblVerlauf);// dem Panel graph werden die Label, Button und das Panel tabellenPanel zugewiesen
-        // graph.add(tabellenPanel);
+        graph.add(lblVerlauf);// dem Panel graph werden die Label und Button zugewiesen
         graph.add(cbAuswahl);
         graph.add(btVerlauf);              
         
@@ -634,11 +633,8 @@ public class GUI extends JFrame implements ActionListener {
 
         //das Fenster und das Panel werden Sichtbar
         fenster.setVisible(true);
-        tabellenPanel.setVisible(true);
         graph.setVisible(true);
-        // Die Konsolo gibt aus, dass der Verlauf aufgrufen wurde
-        System.out.println("Verlauf wird angezeigt");
-
+        System.out.println("Verlauf wird angezeigt"); // Die Konsolo gibt aus, dass der Verlauf aufgrufen wurde
     }
 
     /**
@@ -654,15 +650,14 @@ public class GUI extends JFrame implements ActionListener {
      * @param Hashmap der Werte die man in der Tabelle haben möchte
      */
     public void erzeugeTabelle(HashMap<Integer, Integer> hashMap) {         
-            JTable table = createJTableFromHashMap(hashMap); //Tabelle aus HashMap erzeugen
-            //Tabelle dem Panel hinzufügen
-            tabellenPanel.add(new JScrollPane(table));
-            graph.add(tabellenPanel);
-            tabellenPanel.setVisible(true);
+        JTable table = createJTableFromHashMap(hashMap); //Tabelle aus HashMap erzeugen
+        tabellenPanel.add(new JScrollPane(table)); //Tabelle dem Panel hinzufügen
+        graph.add(tabellenPanel);
+        tabellenPanel.setVisible(true);
     }
     
-    /**
-     * 
+    /** @param Hashmap der Werte die man in der Tabelle haben möchte
+     *  @return JTable aus eingangsparameter
      */
     public JTable createJTableFromHashMap(HashMap<Integer, Integer> hashMap) {
         DefaultTableModel tableModel = new DefaultTableModel();
@@ -956,9 +951,8 @@ public class GUI extends JFrame implements ActionListener {
                     erzeugeTabelle(Main.logik.simulationsErfolg);
                     break;
             }
-            tabellenPanel.repaint();
-            graph.remove(tabellenPanel);
-            graph.add(tabellenPanel, 1);
+            graph.remove(tabellenPanel); // entfernt tabellenPanel aus dem graph Component
+            graph.add(tabellenPanel, 1); // fügt das objekt tabellenPanel an 2. Stelle des graphen
             tabellenPanel.repaint();
             tabellenPanel.setVisible(true);
         }
