@@ -1,0 +1,13 @@
++++ Ausgangslage +++
+Bevölkerungsgröße = 20
+Bevölkerungswachstum = 10 
+Wirtschaftsleistung = 15
+Modernisierungsgrad = 10
+Politische Stabilität = 2
+Umweltverschmutzung = 6
+Lebensqualität = 20
+Bildung = 2
+Staatsvermögen = 8
+
++++ Simulationsablauf +++
+Rundenzahl = 15
