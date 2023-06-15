@@ -247,8 +247,6 @@ public class Logik
             hashmap.put(key, werteArray[i]);
             key++;
         }
-        
-        System.out.println("HashMap erzeugt: " + hashmap);
         return hashmap;
     }
     

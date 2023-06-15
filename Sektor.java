@@ -76,9 +76,7 @@ public class Sektor
      */
     public boolean prüfeObImWertebereich(int eingabe)
     {
-        System.out.printf("Prüfe ob " + eingabe + " im Wertebereich ... ");
         if(eingabe <= max && eingabe >= min) {
-            System.out.println(eingabe + " ist im Wertebereich");
             return true;
         } else {
             System.out.println(eingabe + " ist NICHT im Wertebereich");

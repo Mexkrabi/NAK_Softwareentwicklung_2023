@@ -625,6 +625,7 @@ public class GUI extends JFrame implements ActionListener {
 
         fenster.add(graph); // dem Fenster wird das Panel graph zugewiesen
         graph.add(lblVerlauf);// dem Panel graph werden die Label und Button zugewiesen
+        graph.add(tabellenPanel);
         graph.add(cbAuswahl);
         graph.add(btVerlauf);              
         
@@ -706,12 +707,10 @@ public class GUI extends JFrame implements ActionListener {
                 //noch im Wertebereich liegt und Staatskapital - 1 >=  0 ist. 
                 intModernisierungsgrad = intModernisierungsgrad + 1;
                 intStaatsvermögen = intStaatsvermögen - 1;
-                System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intModernisierungsgrad));
  
                 // Der aktualisierte Wert zum Staatsvermögen wird im Label angezeigt.
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbModernisierungsgrad.setValue(intModernisierungsgrad);
-                System.out.println("Modernisierungsgrad um 1 Punkt hoch");
                 btModernRunter.setVisible(true);
             } else {
                 System.out.println("Wert nicht im Wertebereich");
@@ -727,31 +726,23 @@ public class GUI extends JFrame implements ActionListener {
             //Die ProgresBar und das Label wird aktueallisiert
             lblVerbleibendesStaatskapital.setText("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
             pbModernisierungsgrad.setValue(intModernisierungsgrad);
-
-            System.out.println("Modernisierung um 1 Punkt runter");
         } else if (e.getSource() == btWirtschaftHoch) {
             // Es wird geprüft, ob wirtschaftsleistung größer ist als der Startwert.
             if(intWirtschaftsleistung < Main.wirtschaftsleistung.getWert()){
                 // Wenn Wirtschaftsleistung bereits einmal veringert wurde wird der Investierte Punkt wieder gut geschrieben
                 intWirtschaftsleistung = intWirtschaftsleistung + 1;
                 intStaatsvermögen = intStaatsvermögen + 1;
-                System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
  
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
-                
-                
-                System.out.println("Wirtschaftleistung um 1 Punkt hoch");
             } else if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung + 1) == true && intStaatsvermögen - 1 >= 0) {
                 //Wenn wirtschaftsleistung höher oder gleich des Rundenstartwertes ist. Wird ein Punkt des Staatsvermögens abgezogen und der Wert von Wirtschaftsleistung erhöht.
                 intWirtschaftsleistung = intWirtschaftsleistung + 1;
                 intStaatsvermögen = intStaatsvermögen - 1;
-                System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
 
                 // Es wird der Angezeigte Wert in dem Label und der ProgressBar angepasst
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
-                System.out.println("Wirtschaftleistung um 1 Punkt hoch");
             } else {
                 System.out.println("Wert nicht im Wertebereich");
             }
@@ -762,27 +753,19 @@ public class GUI extends JFrame implements ActionListener {
                 intWirtschaftsleistung = intWirtschaftsleistung - 1;
                 intStaatsvermögen = intStaatsvermögen + 1;
 
-                System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
-
                 Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);//Prüfen ob Wert im Wertebereich 
-                
                 //Es wird der Angezeigte Wert in dem Label und der ProgressBar angepasst
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
-                System.out.println("Wirtschaftleistung um 1 Punkt runter");
             } else if (Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung -1) == true && intStaatsvermögen - 1 >= 0){
                 //Wenn wirtschaftslesitung noch nicht erhöht wurde, werden ein Punkt vom Staatsvermögen und ein Punkt abgezogen
                 intWirtschaftsleistung = intWirtschaftsleistung - 1;
                 intStaatsvermögen = intStaatsvermögen - 1;
-
-                System.out.println(Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung));
-
                 Main.wirtschaftsleistung.prüfeObImWertebereich(intWirtschaftsleistung);//Prüfen ob Wert im Wertebereich 
                 
                 //Es wird der Angezeigte Wert in dem Label und der ProgressBar angepasst
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbWirtschaftsleistung.setValue(intWirtschaftsleistung);
-                System.out.println("Wirtschaftleistung um 1 Punkt runter");
             } else {
                 System.out.println("Wert nicht im Wertebereich");
             }
@@ -792,12 +775,10 @@ public class GUI extends JFrame implements ActionListener {
                 //Wenn der Wert plus eins noch im Wertebereich ist wird der Wetrt um einen Erhöht und das Staatskapitalum eien veringert
                 intLeben = intLeben + 1;
                 intStaatsvermögen = intStaatsvermögen - 1;
-                System.out.println(Main.lebensqualität.prüfeObImWertebereich(intLeben));
          
                 //Es wird der Angezeigte Wert in dem Label und der ProgressBar angepasst
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbLeben.setValue(intLeben);
-                System.out.println("Lebensqualität um 1 Punkt hoch");
                 btLebenRunter.setVisible(true);
             } else {
                 //Ausgabe der Werte wenn der Maxwert bereits erreicht ist
@@ -816,7 +797,6 @@ public class GUI extends JFrame implements ActionListener {
             //Die Label und die ProgressBar wird angepasst, sowie der
             lblVerbleibendesStaatskapital.setText("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
             pbLeben.setValue(intLeben);
-            System.out.println("Lebensqualität um 1 Punkt runter");
             System.out.println(intLeben);
             System.out.println(intStaatsvermögen);
             
@@ -825,11 +805,9 @@ public class GUI extends JFrame implements ActionListener {
             if (Main.bildung.prüfeObImWertebereich(intBildung + 1) == true && intStaatsvermögen - 1 >= 0) {
                 intBildung = intBildung + 1;
                 intStaatsvermögen = intStaatsvermögen - 1;
-                System.out.println(Main.bildung.prüfeObImWertebereich(intBildung));
                
                 lblVerbleibendesStaatskapital.setText( "Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
                 pbBildung.setValue(intBildung);
-                System.out.println("Bildung um 1 Punkt hoch");
                 btBildungRunter.setVisible(true);
             }else {
                 System.out.println(intBildung);
@@ -843,8 +821,6 @@ public class GUI extends JFrame implements ActionListener {
             }
             lblVerbleibendesStaatskapital.setText("Verbleibendes mögliche Investitionen: " + intStaatsvermögen.toString());
             pbBildung.setValue(intBildung);
-
-            System.out.println("Bildung um 1 Punkt runter");
         } else if (e.getSource() == btAuswahlBestätigen) {
             strAuswahl = (String) cbDateien.getSelectedItem(); //Dateiname der ausgewählten Datei abspeichern
             System.out.println(strAuswahl);
@@ -865,7 +841,7 @@ public class GUI extends JFrame implements ActionListener {
 
             setSpielstand("BERECHNUNG");
             spielstandänderung();
-            System.out.println("Weiter geklickt");
+            System.out.println("Punktezuweisung erfolgreich bestätigt");
             wertezuweisen.setVisible(false);
         } else if (e.getSource() == btHauptmenü) {
             lastActivePanel.setVisible(false);
