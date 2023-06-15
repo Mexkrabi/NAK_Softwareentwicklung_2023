@@ -599,7 +599,7 @@ public class GUI extends JFrame implements ActionListener {
         lastActivePanel.setVisible(false); // sets die Sichtbarkeit des zugewiesene Panel auf false
         lastActivePanel = graph; //weist einer variablen das Panel graph zu
         
-        btVerlauf.setText("Zurück zu Übersicht"); // weist dem Button einen neuen Text zu
+        btVerlauf.setText("Zurück zur Übersicht"); // weist dem Button einen neuen Text zu
         lblVerlauf= new JLabel("Anzeigen von Simulationserfolg"); // erstellt ein neues Label 
         
         str = "Simulationserfolg"; // weist der String Variable den Wert Simulationserfolg zu 
