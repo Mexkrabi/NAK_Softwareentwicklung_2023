@@ -11,14 +11,14 @@ import java.nio.file.*;
  */
 public class DateiLeser 
 {   
-    private String dieserOrdner; //Ordnerpfad mit .sim Dateien
+    private String simOrdner; //Ordnerpfad mit .sim Dateien
 
     /**
      * Konstruktor für DateiLeser-Klasse. Speichert sofort den Dateipfad des sim-Dateien Ordners.
      */
     public DateiLeser()
     {
-        dieserOrdner = System.getProperty("user.dir") + "/sim-Dateien"; //aktueller Dateipfad + Ordner mit sim-Dateien
+        simOrdner = System.getProperty("user.dir") + "/sim-Dateien"; //aktueller Dateipfad + Ordner mit sim-Dateien
     }
 
     /**
@@ -30,8 +30,8 @@ public class DateiLeser
      */
     public String simDateiAuswahl(String dateiname)
     {
-        System.out.println("Pfad des aktuellen Projektordners: " + dieserOrdner + "/" + dateiname + ".sim"); //zusammenfügen
-        String simFilePath = dieserOrdner +  "/" + dateiname  + ".sim";
+        System.out.println("Pfad des aktuellen Projektordners: " + simOrdner + "/" + dateiname + ".sim"); //zusammenfügen
+        String simFilePath = simOrdner +  "/" + dateiname  + ".sim";
 
         return simFilePath; //gibt den ausgewählten Dateipfad zurück (gespeichert in Logik() )
     }
@@ -132,7 +132,7 @@ public class DateiLeser
     public Set<String> dateienFinden(){
         Set<String> dateien = new HashSet<String>();
 
-        for (File file : new File(dieserOrdner).listFiles()){
+        for (File file : new File(simOrdner).listFiles()){
             if (!file.isDirectory() && file.getName().endsWith(".sim")){ //prüft dass es kein ordner ist und der dateityp eine .sim Datei ist
                 dateien.add(file.getName().substring(0,file.getName().length()-4));//packt den Dateinamen ohne die Endung .sim in die Menge
             }
@@ -143,7 +143,7 @@ public class DateiLeser
     //Getter & Setter
     public String getOrdner() 
     {
-        return this.dieserOrdner;
+        return this.simOrdner;
     }
     
 }
