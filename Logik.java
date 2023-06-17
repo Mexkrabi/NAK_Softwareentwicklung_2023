@@ -10,13 +10,11 @@ import java.util.*;
  */
 public class Logik
 {
-    //public ArrayList<Sektor> alleSektoren; //hier werden alle Sektoren gespeichert (nicht in Verwendung)
     
     public int rundenzahl; //Rundenzahl wird hier gespeichert und als Referenz verwendet
     public int aktuelleRunde; //aktuelle Runde hier gespeichert
     public String spielername; //Spielername wird hier gespeichert
     public HashMap<Integer, Integer> simulationsErfolg; //speichert den Simulationserfolg Runde für Runde
-    //public HashMap<Integer, HashMap<String, Integer>> masterHash; //Speicher alle Werte in jeweilige Runden-HashMaps: <Runde, <Sektorname, Sektorwert>>
     
     //Hashmaps mit Wertebeeinflussung und Berechnungsschritt im Kommentar
     private HashMap<Integer, Integer> mg_auf_uwv; // 5
@@ -32,13 +30,13 @@ public class Logik
     private HashMap<Integer, Integer> ps_auf_sv; // 14
     private HashMap<Integer, Integer> wl_auf_sv; // 14
     private HashMap<Integer, Integer> lq_auf_sv; // 14
-    public HashMap<Integer, Integer> bg_auf_bwf; // 10, 12
-    public HashMap<Integer, Integer> wl_auf_vl; // 2
     private HashMap<Integer, Integer> lq_auf_lq; // 8
     private HashMap<Integer, Integer> lq_auf_bw; // 9
     private HashMap<Integer, Integer> bg_auf_lq; // 7
     private HashMap<Integer, Integer> lq_auf_ps; // 13
     private HashMap<Integer, Integer> bw_auf_bg; // 11, 12
+    public HashMap<Integer, Integer> bg_auf_bwf; // 10, 12
+    public HashMap<Integer, Integer> wl_auf_vl; // 2
     
     /**
      * Konstruktor der Klasse Logik
@@ -63,8 +61,10 @@ public class Logik
     {
         System.out.println("Berechne Einfluss von " + sektorVON.getName() + " (" + sektorVON.getWert() + ") auf " 
                                 + sektorNACH.getName() + " (" + sektorNACH.getWert() + ") ...");
+        
         int delta = -999; //Zahl deutet auf Fehler hin, falls nicht verändert
-        //Sonderfälle mit Multiplikation
+        
+        //Sonderfälle
         if (einflussHash == bw_auf_bg) {
             //Sonderfall 1 - Multiplizieren mit BWF
             System.out.println("Sonderfall erkannt: Verrechne mit BWF");
@@ -78,14 +78,15 @@ public class Logik
             System.out.println("Sonderfall erkannt: BWF direkt ersetzen");
             sektorNACH.setWert(einflussHash.get(sektorVON.getWert()));
             System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
-            return true; //Keine Prüfung auf Game Over Notwendig, da garantiert im Wertebereich
+            return true; //Keine Prüfung auf Game Over notwendig, da garantiert im Wertebereich
         } else if (einflussHash == wl_auf_vl) {
             //Sonderfall - Gleichsetzen VL
             System.out.println("Sonderfall erkannt: VL direkt ersetzen");
             sektorNACH.setWert(einflussHash.get(sektorVON.getWert()));
             System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
-            return true; //Keine Prüfung auf Game Over Notwendig, da garantiert im Wertebereich
+            return true; //Keine Prüfung auf Game Over notwendig, da garantiert im Wertebereich
         } else {
+            
             //Normalfall
             delta = einflussHash.get(sektorVON.getWert());//sucht passenden Wert in der Hashmap 
         }
@@ -95,11 +96,11 @@ public class Logik
         if (sektorNACH.prüfeObImWertebereich(neuerWert)){
             sektorNACH.setWert(neuerWert); //fügt neuen Wert ein
             System.out.println("Erfolgreich!\nNeuer Wert von " + sektorNACH.getName() + ": " + sektorNACH.getWert());
-            return true; //alles ok
+            return true; //Prüfung erfolgreich - keine falschen Werte erkannt
         } else {
             sektorNACH.setWert(neuerWert); //fügt neuen Wert ein, für bessere Nachvollziehbarkeit in der .res Datei
             gameOver(false);
-            return false; //verloren
+            return false; //Falsche Werte erkannt --> Abbruchsbedingung einleiten
         }
     }
     
@@ -111,8 +112,12 @@ public class Logik
     public void rundeBerechnen (){
         System.out.println("Starte die Rundenberechnung ...");
         
+        //Prüfe in jedem Schritt, ob Abbruchsbedingung eingeleitet wurde. (Werte außerhalb vom Wertebereich)
+        //Falls Abbruchsbedingung zutreffend, wird die weitere Berechnung abgebrochen.
+        //Im Normalfall wird die Berechnungskette fortgesetzt und das Spiel geht weiter.
+        
         // 1.Wirtschaftsleistung (Rückkopplung)
-        if(!einflussRechner(wl_auf_wl, Main.wirtschaftsleistung, Main.wirtschaftsleistung)) {return;}
+        if(!einflussRechner(wl_auf_wl, Main.wirtschaftsleistung, Main.wirtschaftsleistung)) {return;} //Prüfe auf Abrruchsbedingung
         
         // 2. Versorgungslage
         if(!einflussRechner(wl_auf_vl, Main.wirtschaftsleistung, Main.versorgungslage)){return;}
@@ -177,7 +182,7 @@ public class Logik
         
         System.out.println("\nBerechne Simulationserfolg für Runde " + aktuelleRunde + " ...");
         
-        int simulationserfolg = 3 * lq + ps + sv;
+        int simulationserfolg = 3 * lq + ps + sv; //Formel für den Simulaitonserfolg
         
         System.out.println("Simulationserfolg: " + simulationserfolg + "\n");
         
@@ -211,7 +216,7 @@ public class Logik
         System.out.println("Sektorenwerte gespeichert");
     }
     
-        /**
+    /**
      * Das Aufrufen dieser Funktion beendet das Spiel. 
      * Es soll übergeben werden, ob das Spiel gewonnen wurde oder nicht.
      * 
@@ -279,7 +284,7 @@ public class Logik
         int[] spalteV = {-4, -4, -4, -3, -3, -3, -2, -2, -2, -1, -1, -1, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1};
 
         //Erzeuge alle Einfluss-HashMaps
-        mg_auf_uwv = erzeugeHashMapAusInputArray(1, spalteB);
+        mg_auf_uwv = erzeugeHashMapAusInputArray(1, spalteB); //erster Wert bei 1
         mg_auf_mg = erzeugeHashMapAusInputArray(1, spalteC);
         wl_auf_wl = erzeugeHashMapAusInputArray(1, spalteD);
         wl_auf_uwv = erzeugeHashMapAusInputArray(1, spalteE);
@@ -294,7 +299,7 @@ public class Logik
         bw_auf_bg = erzeugeHashMapAusInputArray(1, spalteN);
         bg_auf_lq = erzeugeHashMapAusInputArray(1, spalteO);
         bg_auf_sv = erzeugeHashMapAusInputArray(1, spalteP);
-        ps_auf_sv = erzeugeHashMapAusInputArray(-10, spalteQ);
+        ps_auf_sv = erzeugeHashMapAusInputArray(-10, spalteQ); //erster Wert bei -10
         wl_auf_sv = erzeugeHashMapAusInputArray(1, spalteR);
         lq_auf_sv = erzeugeHashMapAusInputArray(1, spalteS);
         bg_auf_bwf = erzeugeHashMapAusInputArray(1, spalteU);

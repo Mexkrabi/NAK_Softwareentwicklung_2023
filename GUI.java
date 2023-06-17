@@ -6,7 +6,8 @@ import java.awt.Graphics;
 import java.util.Map;
 import java.util.*;
 /**
- * Beschreiben Sie hier die Klasse GUI. 
+ * Die KLasse GUI dient als zentrale Schnittstelle zwischen dem Programm und dem Spieler. 
+ * 
  * @author Malte Fischer
  * @version 3.0
  */
@@ -45,7 +46,6 @@ public class GUI extends JFrame implements ActionListener {
     private JButton btWirtschaftHoch, btWirtschaftRunter, btModernHoch, btModernRunter, btLebenHoch, btLebenRunter, btBildungHoch, btBildungRunter;
     private JButton btVerlauf;
     private JTextField txtName;
-    private Boolean boAbschluss; 
     
     /**
      * Die Methode spielstandänderunglegt organisiert anhand einer Variablen den aktuellen Spielstand

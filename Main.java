@@ -15,7 +15,7 @@ import java.time.format.DateTimeFormatter;
  */
 public class Main
 {
-    // static Variablen --> erlauben Zugriff von allen Klassen ohne ein Objekt zu erzeugen
+    //static Variablen --> erlauben Zugriff von allen Klassen ohne ein Objekt zu erzeugen
     //public static String spielstand; //wird stattdessen in der GUI gespeichert
     public static String pfadStartwerte; //Speichert Dateipfad der .sim
     public static byte fehlerBeimErzeugenEinesSektors; //Zählt die Fehler beim erzeugen der Sektoren
@@ -42,7 +42,7 @@ public class Main
     /**
      * Main Funktion. Hier wird das Zusammenspiel der einzelnen Klassen und Objekte koordiniert und zentral geregelt.
      * Der Ablauf der einzelnen Aktionen wird hier definiert und ausgeführt.
-     * Unterteilung in merhreren Schritten (vgl. Kommentare in dieser Funktion)
+     * Unterteilung in merhreren Schritten zur besseren Übersicht (vgl. Kommentare in dieser Funktion)
      * 
      * [Sven Vazquez de Lara Kallas]
      * 
@@ -173,13 +173,11 @@ public class Main
             gui.spielstandänderung();
             
             //warten, bis Spielstand geändert wird
-            //warteSolangeNoch("STARTWERTE");
-            //spielstart();
+            //GUI zeigt währenddessen die aktuellen Werte an
             
             //# INVESTIERE STAATSVERMÖGEN
-            //Investieren passiert alles über die GUI
             warteBis("WERTZUWEISEN");
-            warteSolangeNoch("WERTZUWEISEN");
+            warteSolangeNoch("WERTZUWEISEN"); //Investitionen werden über die GUI getätigt
             
             
             //# SCHRITT 3 ------------------------------
@@ -187,22 +185,23 @@ public class Main
             gui.setSpielstand("LADEN"); //Ladescreen
             gui.spielstandänderung();
             
-            warteBis("BERECHNUNG");
+            warteBis("BERECHNUNG"); //Warte bis die GUI geladen ist
             logik.rundeBerechnen(); //Berechnung über die Logik
             logik.speichernRundenwerte(); //Speichern aller Rundenwerte für die aktuelle Runde
             
+            //Prüfung auf Game Over
             if(gui.getSpielstand() != "GAMEOVER") {
                 System.out.println("Rundenzahl erhöht");
                 logik.aktuelleRunde++;
             } else {
                 System.out.println("Spielstand wurde auf 'GAMEOVER' gesetzt, keine weitere Rundenberechnung");
-                break;
+                break; //Bricht die while-Schleife ab. Somit keine weiteren Berechnungen. Weiter mit Schritt 4 
             }
         }
         
         //# SCHRITT 4 ------------------------------
         
-        //Victory or Game Over
+        //Prüft ob Spiel nicht in der letzten Runde verloren wurde; ruft dann den Victory-Screen auf
         if(gui.getSpielstand() != "GAMEOVER") {
             gui.setSpielstand("VICTORY");
             gui.spielstandänderung();
@@ -250,7 +249,8 @@ public class Main
         }
         //////Ausgabe beendet ^^^^^^
         
-        warteBis("NEUSTART"); //wichtig, warten
+        //# NEUSTART / Neues Spiel
+        warteBis("NEUSTART"); //wichtig für den Codeablauf; WARTEN
         
         Main.logik.aktuelleRunde = 1; 
         main(new String[]{}); //Wiederaufrufen der main() Funktion --> Code startet neu
@@ -259,10 +259,10 @@ public class Main
     }
        
     /**
-     * Methode erzeugt Sektoren inkl. zugehörigen Startwert aus der startwerteHash, welche zuvor aus den Inhalten der .sim Datei erzeugt wurde.
+     * Methode erzeugt alle Sektoren inkl. zugehörigen Startwert aus der startwerteHash.
+     * Inhalte stammen aus der zuvor eingelesenen .sim Datei
      * 
      * [Livia Kadenbach]
-     * 
      */
     private static void alleSektorenErzeugen(){
         int startwert;
@@ -451,14 +451,13 @@ public class Main
         logik.einflussRechner(logik.wl_auf_vl, wirtschaftsleistung, versorgungslage); //richtiger Startwert hier berechnet
     }
     
-        /**
+    /**
      * Schreibt innerhalb eines BufferedWriter Kontextes den Verlauf eines Sektors in die Datei
      * 
      * [Livia Kadenbach]
      * 
      * @param sektor Sektor für den der Verlauf in die Datei geschrieben werden soll
      * @param writer Kontext in dem geschrieben wird
-     *
      */
     private static void schreibeSektorInDatei(Sektor sektor, BufferedWriter writer) 
     {
@@ -524,7 +523,7 @@ public class Main
     }
     
     /**
-     * Ersetzt Umlaute und vordefinierte Sonderzeivhen in "�" für das Einlesen von Dateien, die keine Sonderzeichen unterstützen.
+     * Ersetzt Umlaute und vordefinierte Sonderzeichen in "�" für das Einlesen von Dateien, die keine Sonderzeichen unterstützen.
      * 
      * [Sven Vazquez de Lara Kallas]
      * 
