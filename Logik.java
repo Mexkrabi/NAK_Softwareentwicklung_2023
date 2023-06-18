@@ -123,7 +123,7 @@ public class Logik
         if(!einflussRechner(wl_auf_vl, Main.wirtschaftsleistung, Main.versorgungslage)){return;}
             
         // 3. Modernisierungsgrad (Rückkopplung)
-        if(!einflussRechner(mg_auf_mg, Main.modernisierungsgrad, Main.modernisierungsgrad)){return;}
+        if(!einflussRechner(mg_auf_mg,  Main.modernisierungsgrad, Main.modernisierungsgrad)){return;}
                 
         // 4. Bildung (Rückkopplung)
         if(!einflussRechner(bl_auf_bl, Main.bildung, Main.bildung)){return;}
